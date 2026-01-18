@@ -256,23 +256,31 @@ function controlarMusica() {
     
     if (!musica || !btn) return;
     
-    try {
-        if (musicaActiva) {
-            musica.pause();
-            btn.innerHTML = '<i class="fas fa-music"></i>';
-            btn.title = "Reproducir música";
-        } else {
-            musica.play();
-            btn.innerHTML = '<i class="fas fa-pause"></i>';
-            btn.title = "Pausar música";
-        }
-        musicaActiva = !musicaActiva;
-    } catch (error) {
-        console.log("🎵 Error con el audio:", error);
+    // Forzar que el audio se cargue
+    musica.load();
+    
+    // Intentar reproducir cuando el usuario haga clic
+    musica.play().then(() => {
+        // Si funciona
+        musicaActiva = true;
+        btn.innerHTML = '<i class="fas fa-pause"></i>';
+        btn.title = "Pausar música";
+    }).catch(error => {
+        // Si falla, mostrar ayuda
+        console.log("🎵 El usuario necesita interactuar primero:", error);
         btn.innerHTML = '<i class="fas fa-volume-mute"></i>';
-        btn.title = "Audio no disponible";
-    }
+        btn.title = "Haz clic aquí para activar audio";
+        
+        // Mostrar mensaje de ayuda
+        alert("🎵 Para activar la música, primero haz clic en cualquier parte de la página y luego en el botón de música.");
+    });
 }
+
+    // Asegurar que el buscador está configurado
+    setTimeout(() => {
+        configurarBuscador();
+        console.log("🔍 Buscador configurado");
+    }, 500);
 
 // ==================== MODO NOCTURNO ====================
 function toggleModoNocturno() {
@@ -547,6 +555,25 @@ function configurarReiniciar() {
     }
 }
 
+// ==================== FORZAR GENERACIÓN DEL CALENDARIO ====================
+function forzarCargaCalendario() {
+    console.log("🔄 Forzando carga del calendario...");
+    
+    // Ocultar mensaje de carga
+    const cargando = document.getElementById('cargando-calendario');
+    if (cargando) {
+        cargando.style.display = 'none';
+    }
+    
+    // Generar calendario inmediatamente
+    generarCalendario();
+    
+    // Inicializar galería
+    inicializarGaleria();
+    
+    console.log("✅ Calendario forzado a cargar");
+}
+
 // ==================== INICIALIZACIÓN PRINCIPAL ====================
 function inicializarAplicacion() {
     console.log("🚀 Inicializando Calendario de Amor...");
@@ -590,7 +617,7 @@ function inicializarAplicacion() {
     configurarCodigoSecreto();
     
     // Configurar eventos
-    document.getElementById('btnCerrarViewer')?.addEventListener('click', cerrarVisor);
+       document.getElementById('btnCerrarViewer')?.addEventListener('click', cerrarVisor);
     document.getElementById('btnMusica')?.addEventListener('click', controlarMusica);
     document.getElementById('btnModoNocturno')?.addEventListener('click', toggleModoNocturno);
     document.getElementById('btnRazonAleatoria')?.addEventListener('click', mostrarRazonAleatoria);
@@ -609,9 +636,14 @@ function inicializarAplicacion() {
 
 // ==================== INICIAR CUANDO EL DOM ESTÉ LISTO ====================
 if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', inicializarAplicacion);
+    document.addEventListener('DOMContentLoaded', function() {
+        inicializarAplicacion();
+        // Forzar carga después de 1 segundo
+        setTimeout(forzarCargaCalendario, 1000);
+    });
 } else {
     inicializarAplicacion();
+    setTimeout(forzarCargaCalendario, 1000);
 }
 
 // Hacer funciones disponibles globalmente
