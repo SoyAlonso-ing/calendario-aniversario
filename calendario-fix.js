@@ -223,11 +223,19 @@ function configurarBotonesBasicos() {
             const audio = document.getElementById('musicaFondo');
             if (audio) {
                 try {
-                    audio.play();
-                    alert("🎵 Música activada (puede que necesites interactuar con la página primero)");
-                    this.innerHTML = '<i class="fas fa-pause"></i>';
+                    if (audio.paused) {
+                        audio.play();
+                        this.innerHTML = '<i class="fas fa-pause"></i>';
+                        this.title = "Pausar música";
+                    } else {
+                        audio.pause();
+                        this.innerHTML = '<i class="fas fa-music"></i>';
+                        this.title = "Reproducir música";
+                    }
                 } catch (error) {
-                    alert("🎵 Para la música, primero haz clic en cualquier parte de la página, luego en el botón de música.");
+                    console.log("Error con el audio:", error);
+                    this.innerHTML = '<i class="fas fa-volume-mute"></i>';
+                    this.title = "Audio no disponible";
                 }
             }
         };
@@ -243,7 +251,6 @@ function configurarBotonesBasicos() {
                 '<i class="fas fa-sun"></i>' : 
                 '<i class="fas fa-moon"></i>';
             this.title = esNocturno ? "Modo diurno" : "Modo nocturno";
-            alert(esNocturno ? "🌙 Modo nocturno activado" : "☀️ Modo diurno activado");
         };
     }
     
@@ -251,15 +258,61 @@ function configurarBotonesBasicos() {
     const btnRazon = document.getElementById('btnRazonAleatoria');
     if (btnRazon) {
         btnRazon.onclick = function() {
-            const razones = [
+            const razones = window.datosConfig?.razonesTeAmo || [
                 "Por tu sonrisa que ilumina mi día",
                 "Por cómo me haces reír sin esfuerzo",
-                "Por tu paciencia cuando soy terco/a",
-                "Por apoyarme en todos mis sueños",
-                "Por esos pequeños gestos que solo tú haces"
+                "Por tu paciencia cuando soy terco/a"
             ];
+            
             const razon = razones[Math.floor(Math.random() * razones.length)];
-            alert(`💖 Razón para amarte:\n\n"${razon}"`);
+            const numero = Math.floor(Math.random() * razones.length) + 1;
+            
+            // Crear notificación bonita
+            const notificacion = document.createElement('div');
+            notificacion.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: linear-gradient(45deg, #e91e63, #ff4081);
+                color: white;
+                padding: 15px 20px;
+                border-radius: 10px;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+                z-index: 9999;
+                max-width: 300px;
+                animation: slideIn 0.3s ease, fadeOut 0.3s ease 4s forwards;
+            `;
+            
+            notificacion.innerHTML = `
+                <div style="display: flex; align-items: center; margin-bottom: 5px;">
+                    <i class="fas fa-heart" style="margin-right: 10px;"></i>
+                    <strong>Razón #${numero} por la que te amo:</strong>
+                </div>
+                <div style="font-style: italic;">"${razon}"</div>
+            `;
+            
+            // Agregar animaciones CSS
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideIn {
+                    from { transform: translateX(100%); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
+                }
+                @keyframes fadeOut {
+                    from { opacity: 1; }
+                    to { opacity: 0; transform: translateY(-20px); }
+                }
+            `;
+            document.head.appendChild(style);
+            
+            document.body.appendChild(notificacion);
+            
+            // Auto-eliminar después de 4 segundos
+            setTimeout(() => {
+                if (notificacion.parentNode) {
+                    notificacion.parentNode.removeChild(notificacion);
+                }
+            }, 4000);
         };
     }
     
@@ -269,7 +322,13 @@ function configurarBotonesBasicos() {
     if (inputFecha && btnBuscar) {
         btnBuscar.onclick = function() {
             if (!inputFecha.value) {
-                alert("⚠️ Selecciona una fecha primero");
+                // Indicación visual sutil
+                inputFecha.style.borderColor = '#e91e63';
+                inputFecha.style.boxShadow = '0 0 0 3px rgba(233, 30, 99, 0.2)';
+                setTimeout(() => {
+                    inputFecha.style.borderColor = '';
+                    inputFecha.style.boxShadow = '';
+                }, 1000);
                 return;
             }
             
@@ -277,9 +336,24 @@ function configurarBotonesBasicos() {
             const mes = fecha.getMonth();
             const dia = fecha.getDate();
             
-            alert(`📅 Buscando fecha: ${dia}/${mes + 1}\n\n(Próximamente: mostrar contenido de esta fecha)`);
+            // Calcular número de día en el año
+            const mesesDias = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+            let numeroDia = dia;
+            for (let i = 0; i < mes; i++) {
+                numeroDia += mesesDias[i];
+            }
+            
+            // Mostrar contenido de esa fecha
+            mostrarContenidoSimple(numeroDia, mes, dia);
             inputFecha.value = '';
         };
+        
+        // También buscar al presionar Enter
+        inputFecha.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                btnBuscar.click();
+            }
+        });
     }
 }
 
