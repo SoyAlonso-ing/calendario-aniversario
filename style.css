@@ -100,11 +100,84 @@ body {
     box-shadow: var(--sombra-media);
 }
 
+/* Controles superiores reorganizados */
 .controles-superiores {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: var(--espacio-lg);
+    position: relative;
+}
+
+.controles-izquierda {
+    flex: 1;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.contador-dias-centrado {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.controles-derecha {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* Estilo mejorado para el contador */
+.contador-dias-centrado {
+    background: linear-gradient(135deg, #ffffff, #f3e5f5);
+    color: #9C27B0;
+    padding: 10px 22px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border: 2px solid #9C27B0;
+    box-shadow: 0 4px 15px rgba(156, 39, 176, 0.15);
+    transition: all 0.3s ease;
+    text-align: center;
+    min-width: 150px;
+}
+
+.contador-dias-centrado:hover {
+    background: linear-gradient(135deg, #f3e5f5, #e1bee7);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(156, 39, 176, 0.25);
+}
+
+.contador-dias-centrado #dias-juntos {
+    font-size: 1.7rem;
+    font-weight: 800;
+    color: #7B1FA2;
+    margin-right: 5px;
+}
+
+/* Para móviles */
+@media (max-width: 768px) {
+    .controles-superiores {
+        flex-wrap: nowrap;
+        gap: 10px;
+    }
+    
+    .contador-dias-centrado {
+        font-size: 0.85rem;
+        padding: 8px 16px;
+        min-width: 130px;
+    }
+    
+    .contador-dias-centrado #dias-juntos {
+        font-size: 1.5rem;
+    }
+    
+    .btn-control {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
 }
 
 .btn-control {
@@ -1111,6 +1184,12 @@ body {
 .hint-busqueda-mejorado i {
     color: #9C27B0;
     font-size: 0.9rem;
+     display: none;
+}
+/* Asegurar que el corazón se muestre en el hint */
+.hint-busqueda-mejorado i.fa-heart {
+    display: inline-block !important;
+    margin-right: 8px;
 }
 
 /* Modo nocturno para el buscador */
@@ -1289,4 +1368,94 @@ body.modo-nocturno .input-fecha-elegante::-webkit-datetime-edit-text {
 
 .btn-buscar-elegante {
     animation: pulse 2s infinite;
+}
+
+/* Estilos responsivos para el reproductor */
+@media (max-width: 768px) {
+    #reproductorMusica {
+        width: 280px !important;
+        max-width: 85vw;
+        right: auto !important;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 20px;
+    }
+    
+    #reproductorMusica > div {
+        width: 100% !important;
+    }
+    
+    /* Efecto de elevación al arrastrar */
+    #reproductorMusica.dragging {
+        opacity: 0.9;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3) !important;
+    }
+}
+
+/* Para tablets */
+@media (min-width: 769px) and (max-width: 1024px) {
+    #reproductorMusica {
+        width: 250px !important;
+    }
+}
+
+/* Optimizaciones específicas para móviles */
+@media (max-width: 480px) {
+    .container {
+        padding: 8px;
+    }
+    
+    .cabecera-principal {
+        padding: 15px;
+    }
+    
+    .titulo-principal h1 {
+        font-size: 1.8rem;
+    }
+    
+    .subtitulo {
+        font-size: 0.9rem;
+    }
+    
+    .buscador-fechas {
+        margin: 15px auto;
+    }
+    
+    .contenedor-buscador-elegante {
+        height: 48px;
+    }
+    
+    .estadisticas {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .estadistica-item {
+        padding: 15px;
+    }
+    
+    .calendar {
+        gap: 4px;
+    }
+    
+    .dia {
+        font-size: 0.8rem;
+        min-height: 40px;
+    }
+    
+    .mes-titulo {
+        font-size: 1rem;
+        padding: 8px;
+    }
+    
+    /* Asegurar que el reproductor no tape contenido */
+    #reproductorMusica {
+        z-index: 9999;
+    }
+    
+    /* Mejorar área táctil para botones */
+    .btn-control, .btn-carrusel, .btn-buscar-elegante {
+        min-height: 44px; /* Tamaño mínimo recomendado para toques */
+        min-width: 44px;
+    }
 }

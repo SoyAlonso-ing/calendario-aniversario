@@ -53,22 +53,30 @@
 <body>
     <!-- CONTENEDOR PRINCIPAL -->
     <div class="container">
-        <header class="cabecera-principal">
-            <div class="controles-superiores">
-                <button id="btnMusica" class="btn-control" title="Reproducir música">
-                    <i class="fas fa-music"></i>
-                </button>
-                <div class="contador-dias">
-                    <span id="dias-juntos">365</span> días juntos
-                </div>
-            </div>
+       <header class="cabecera-principal">
+    <div class="controles-superiores">
+        <div class="controles-izquierda">
+            <button id="btnMusica" class="btn-control" title="Reproducir música">
+                <i class="fas fa-music"></i>
+            </button>
+        </div>
+        
+        <div class="contador-dias-centrado">
+            <span id="dias-juntos">365</span> días juntos
+        </div>
+        
+        <div class="controles-derecha">
+        </div>
+    </div>
+    
+    <div class="titulo-principal">
+        <h1>💘 Nuestro Primer Año Juntos</h1>
+        <p class="subtitulo">365 días de recuerdos, risas y amor infinito</p>
+    </div>
+    <!-- ... resto del código ... -->
+</header>
             
-            <div class="titulo-principal">
-                <h1>💘 Nuestro Primer Año Juntos</h1>
-                <p class="subtitulo"> 365 días de recuerdos, risas y amor infinito</p>
-            </div>
-            
-     <!-- BUSCADOR DE FECHAS -->
+    <!-- BUSCADOR DE FECHAS -->
 <div class="buscador-fechas">
     <div class="contenedor-buscador-elegante">
         <div class="input-wrapper">
@@ -87,7 +95,7 @@
     
     <p class="hint-busqueda-mejorado">
         <i class="fas fa-heart"></i>
-        Nuestro primer año: 5 Abril 2025 - 5 Abril 2026
+        5 Abril 2025 - 5 Abril 2026
     </p>
 </div>
         <!-- CALENDARIO PRINCIPAL (ahora primero) -->
@@ -160,49 +168,55 @@
             </div>
         </div>
 
-      <!-- REPRODUCTOR DE MÚSICA COMPACTO -->
-<div id="reproductorMusica" style="display: none; position: fixed; bottom: 20px; right: 20px; z-index: 9998;">
-    <div style="background: rgba(255, 255, 255, 0.98); border-radius: 12px; padding: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.15); width: 220px; border: 1px solid rgba(233, 30, 99, 0.2);">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-            <strong style="color: #9C27B0; font-size: 0.9rem;">
-                <i class="fas fa-music" style="margin-right: 5px;"></i> te amo pochi 💘 
+    <!-- REPRODUCTOR DE MÚSICA MEJORADO Y ARRASTRABLE -->
+<div id="reproductorMusica" style="display: none; position: fixed; bottom: 20px; right: 20px; z-index: 9998; cursor: move; touch-action: none; user-select: none;">
+    <div style="background: rgba(255, 255, 255, 0.98); border-radius: 12px; padding: 12px; box-shadow: 0 4px 20px rgba(156, 39, 176, 0.25); width: 280px; border: 2px solid #9C27B0; position: relative;">
+        <!-- Botón para minimizar/cerrar -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <strong style="color: #9C27B0; font-size: 0.95rem; flex: 1;">
+                <i class="fas fa-music" style="margin-right: 5px;"></i> 
+                <span id="nombre-cancion">te amo pochi 💘</span>
             </strong>
-            <button id="btnCerrarReproductor" style="background: none; border: none; color: #999; cursor: pointer; font-size: 0.9rem; padding: 2px 6px;">
+            <button id="btnCerrarReproductor" style="background: none; border: none; color: #999; cursor: pointer; font-size: 0.9rem; padding: 2px 6px; margin-left: 10px;">
                 <i class="fas fa-times"></i>
             </button>
         </div>
         
-        <!-- Barra de progreso MÁS DELGADA -->
-        <div style="margin-bottom: 10px;">
-            <div id="barraProgreso" style="height: 3px; background: #e0e0e0; border-radius: 2px; overflow: hidden; cursor: pointer;">
+        <!-- Barra de progreso MEJORADA -->
+        <div style="margin-bottom: 12px;">
+            <div id="barraProgreso" style="height: 4px; background: #e0e0e0; border-radius: 2px; overflow: hidden; cursor: pointer;">
                 <div id="progresoActual" style="height: 100%; background: linear-gradient(135deg, #9C27B0, #7B1FA2); width: 0%; transition: width 0.1s;"></div>
             </div>
-            <div style="display: flex; justify-content: space-between; font-size: 11px; color: #888; margin-top: 4px;">
+            <div style="display: flex; justify-content: space-between; font-size: 11px; color: #666; margin-top: 6px;">
                 <span id="tiempoActual">0:00</span>
                 <span id="duracionTotal">0:00</span>
             </div>
         </div>
         
-        <!-- Controles COMPACTOS - CORREGIDOS -->
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-            <button id="btnMusicaAnterior" style="background: #f8f9fa; border: 1px solid #e0e0e0; color: #9C27B0; cursor: pointer; font-size: 0.9rem; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.2s;">
+        <!-- Controles MEJORADOS -->
+        <div style="display: flex; justify-content: space-between; align-items: center; gap: 15px;">
+            <button id="btnMusicaAnterior" style="background: #f8f9fa; border: 1px solid #e0e0e0; color: #9C27B0; cursor: pointer; font-size: 1rem; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.2s; flex-shrink: 0;">
                 <i class="fas fa-step-backward"></i>
             </button>
             
-            <button id="btnPlayPause" style="background: linear-gradient(135deg, #9C27B0, #7B1FA2); color: white; border: none; width: 38px; height: 38px; border-radius: 50%; cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center; box-shadow: 0 3px 8px rgba(233, 30, 99, 0.3); transition: all 0.2s;">
+            <button id="btnPlayPause" style="background: linear-gradient(135deg, #9C27B0, #7B1FA2); color: white; border: none; width: 45px; height: 45px; border-radius: 50%; cursor: pointer; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; box-shadow: 0 3px 10px rgba(156, 39, 176, 0.3); transition: all 0.2s; flex-shrink: 0;">
                 <i class="fas fa-play"></i>
             </button>
             
-            <button id="btnMusicaSiguiente" style="background: #f8f9fa; border: 1px solid #e0e0e0; color: #9C27B0; cursor: pointer; font-size: 0.9rem; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.2s;">
+            <button id="btnMusicaSiguiente" style="background: #f8f9fa; border: 1px solid #e0e0e0; color: #9C27B0; cursor: pointer; font-size: 1rem; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.2s; flex-shrink: 0;">
                 <i class="fas fa-step-forward"></i>
             </button>
         </div>
+        
+        <!-- Indicador de arrastre (solo móvil) -->
+        <div style="position: absolute; bottom: -15px; left: 50%; transform: translateX(-50%); color: #9C27B0; font-size: 0.8rem; display: none;" id="indicadorArrastre">
+            <i class="fas fa-arrows-alt"></i> Arrastra
+        </div>
     </div>
 </div>
-<audio id="musicaFondo">
-    <source src="audio/teAmo.mp3" type="audio/mpeg">
-    Tu navegador no soporta audio HTML5.
-</audio>
+
+<!-- ELEMENTO DE AUDIO (ESTO ES CRÍTICO Y FALTABA) -->
+<audio id="musicaFondo" preload="auto"></audio>
 
         <!-- PIE DE PÁGINA -->
         <footer class="pie-pagina">
