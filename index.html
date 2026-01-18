@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuestro Primer Año ❤️</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>❤️</text></svg>">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Nuestro Primer Año Juntos</h1>
+            <p class="subtitulo">Cada día es un nuevo recuerdo contigo 💕</p>
+            <div class="contador">
+                <span id="dias-juntos">365</span> días de felicidad
+            </div>
+        </header>
+
+        <div class="instrucciones">
+            <p>👆 Toca cualquier día para descubrir su sorpresa</p>
+        </div>
+
+        <div class="calendar" id="calendar">
+            <!-- El calendario se genera automáticamente -->
+        </div>
+
+        <div class="viewer" id="viewer">
+            <button class="btn-cerrar" onclick="cerrarVisor()">✕</button>
+            <div class="visor-contenido" id="visorContenido">
+                <!-- Contenido dinámico -->
+            </div>
+        </div>
+
+        <footer>
+            <p>Con todo mi amor, para ti ❤️</p>
+            <p class="fecha">Creado para nuestro aniversario</p>
+        </footer>
+    </div>
+
+    <script src="datos.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
