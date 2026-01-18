@@ -184,3 +184,74 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log("💕 Bienvenida al calendario de nuestro amor 💕");
     }, 1000);
 });
+
+function detectarModoNocturno() {
+    const ahora = new Date();
+    const hora = ahora.getHours();
+    
+    if (hora >= 20 || hora < 6) {
+        document.body.classList.add('modo-nocturno');
+    }
+}
+
+function compartirDia(dia) {
+    if (navigator.share) {
+        navigator.share({
+            title: `Día ${dia} de nuestro año`,
+            text: `Mira lo especial que fue el día ${dia} para nosotros 💕`,
+            url: window.location.href
+        });
+    }
+}
+
+// Código secreto de teclas
+let codigoSecreto = [];
+const codigoCorrecto = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65]; // ↑↑↓↓←→←→BA
+
+document.addEventListener('keydown', (e) => {
+    codigoSecreto.push(e.keyCode);
+    if (codigoSecreto.length > 10) codigoSecreto.shift();
+    
+    if (JSON.stringify(codigoSecreto) === JSON.stringify(codigoCorrecto)) {
+        mostrarSorpresaSecreta();
+    }
+});
+
+function mostrarSorpresaSecreta() {
+    // Muestra algo especial como una foto oculta o mensaje
+    alert("💝 ¡Encontraste nuestro secreto! Te amo más de lo que las palabras pueden decir.");
+}
+
+const diasFuturos = {
+    "2024-01-15": {
+        titulo: "Nuestro segundo aniversario",
+        promesa: "Este año visitaremos [lugar soñado]",
+        emoji: "🌟"
+    },
+    "2024-06-01": {
+        titulo: "Nuestra primera aventura del segundo año",
+        promesa: "Iremos a [actividad pendiente]",
+        emoji: "🧳"
+    }
+};
+
+function lanzarConfeti() {
+    // Usar una librería simple o crear partículas
+    for(let i = 0; i < 150; i++) {
+        crearParticula();
+    }
+}
+
+function crearParticula() {
+    const particula = document.createElement('div');
+    particula.style.cssText = `
+        position: fixed;
+        width: 10px;
+        height: 10px;
+        background: ${['#ff0080', '#00ff88', '#0088ff'][Math.floor(Math.random()*3)]};
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 9999;
+    `;
+    // Animación con JavaScript
+}

@@ -1,53 +1,210 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <!-- METADATOS Y CONFIGURACIÓN -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nuestro Primer Año ❤️</title>
-    <link rel="stylesheet" href="style.css">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    
+    <title>Nuestro Primer Año Juntos ❤️</title>
+    
+    <!-- ICONO -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>❤️</text></svg>">
+    
+    <!-- FUENTES DE GOOGLE -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>❤️</text></svg>">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- ICONOS FONT AWESOME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- HOJA DE ESTILOS PRINCIPAL -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- ESTILOS INLINE PARA CARGAR INMEDIATO -->
+    <style>
+        /* Estilos críticos para carga inicial */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #ffafbd 0%, #ffc3a0 100%);
+            min-height: 100vh;
+            color: #333;
+            overflow-x: hidden;
+        }
+        
+        .cargando {
+            text-align: center;
+            padding: 50px 20px;
+            font-size: 1.2rem;
+            color: #e91e63;
+        }
+    </style>
 </head>
 
-<!-- ESTO EVITA EL CACHE - Agrégalo -->
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
-
 <body>
+    <!-- CONTENEDOR PRINCIPAL -->
     <div class="container">
-        <header>
-            <h1>Nuestro Primer Año Juntos</h1>
-            <p class="subtitulo">Cada día es un nuevo recuerdo contigo 💕</p>
-            <div class="contador">
-                <span id="dias-juntos">365</span> días de felicidad
+        <!-- CABECERA CON CONTROLES -->
+        <header class="cabecera-principal">
+            <div class="controles-superiores">
+                <button id="btnMusica" class="btn-control" title="Reproducir música">
+                    <i class="fas fa-music"></i>
+                </button>
+                <button id="btnModoNocturno" class="btn-control" title="Modo nocturno">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <div class="contador-dias">
+                    <span id="dias-juntos">365</span> días juntos
+                </div>
+            </div>
+            
+            <div class="titulo-principal">
+                <h1><i class="fas fa-heart"></i> Nuestro Primer Año Juntos</h1>
+                <p class="subtitulo">365 días de recuerdos, risas y amor infinito</p>
+            </div>
+            
+            <!-- BUSCADOR DE FECHAS -->
+            <div class="buscador-fechas">
+                <div class="input-busqueda">
+                    <i class="fas fa-search"></i>
+                    <input type="date" id="buscarFecha" placeholder="Buscar fecha especial...">
+                    <button id="btnBuscar" class="btn-buscar">
+                        <i class="fas fa-calendar-day"></i>
+                    </button>
+                </div>
+                <p class="hint-busqueda">Encuentra un día especial por fecha</p>
             </div>
         </header>
 
+        <!-- SECCIÓN DE ESTADÍSTICAS -->
+        <section class="estadisticas">
+            <div class="estadistica-item">
+                <i class="fas fa-calendar-check"></i>
+                <span id="contador-momentos">0/365</span>
+                <p>Momentos descubiertos</p>
+            </div>
+            <div class="estadistica-item">
+                <i class="fas fa-heart-circle-check"></i>
+                <span id="contador-razones">100+</span>
+                <p>Razones para amarte</p>
+            </div>
+            <div class="estadistica-item">
+                <i class="fas fa-images"></i>
+                <span id="contador-fotos">0</span>
+                <p>Fotos especiales</p>
+            </div>
+        </section>
+
+        <!-- INSTRUCCIONES -->
         <div class="instrucciones">
-            <p>👆 Toca cualquier día para descubrir su sorpresa</p>
+            <p><i class="fas fa-hand-point-up"></i> Toca cualquier día para descubrir su sorpresa</p>
+            <p class="instruccion-secundaria">Doble click en el título para una razón especial de amor</p>
         </div>
 
-        <div class="calendar" id="calendar">
-            <!-- El calendario se genera automáticamente -->
-        </div>
+        <!-- CALENDARIO PRINCIPAL -->
+        <main class="calendario-contenedor">
+            <div class="calendar" id="calendar">
+                <!-- El calendario se genera automáticamente con JavaScript -->
+                <div class="cargando" id="cargando-calendario">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <p>Cargando nuestros 365 días de amor...</p>
+                </div>
+            </div>
+        </main>
 
+        <!-- GALERÍA DE MOMENTOS DESTACADOS -->
+        <section class="galeria-destacados" id="galeriaDestacados">
+            <h2><i class="fas fa-star"></i> Nuestros Mejores Momentos</h2>
+            <div class="carrusel-momentos" id="carruselMomentos">
+                <!-- Se llena dinámicamente -->
+            </div>
+            <div class="controles-carrusel">
+                <button id="btnAnterior" class="btn-carrusel">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button id="btnSiguiente" class="btn-carrusel">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- VISOR DE CONTENIDO (MODAL) -->
         <div class="viewer" id="viewer">
-            <button class="btn-cerrar" onclick="cerrarVisor()">✕</button>
-            <div class="visor-contenido" id="visorContenido">
-                <!-- Contenido dinámico -->
+            <div class="viewer-contenido">
+                <button class="btn-cerrar" id="btnCerrarViewer">
+                    <i class="fas fa-times"></i>
+                </button>
+                <button class="btn-compartir" id="btnCompartir">
+                    <i class="fas fa-share-alt"></i>
+                </button>
+                
+                <div class="visor-contenido" id="visorContenido">
+                    <!-- Contenido dinámico se carga aquí -->
+                </div>
+                
+                <div class="visor-navegacion">
+                    <button class="btn-navegacion" id="btnDiaAnterior">
+                        <i class="fas fa-chevron-left"></i> Día anterior
+                    </button>
+                    <button class="btn-navegacion" id="btnDiaSiguiente">
+                        Día siguiente <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
             </div>
         </div>
 
-        <footer>
-            <p>Con todo mi amor, para ti ❤️</p>
-            <p class="fecha">Creado para nuestro aniversario</p>
+        <!-- REPRODUCTOR DE MÚSICA OCULTO -->
+        <audio id="musicaFondo" loop>
+            <source src="audio/nuestra-cancion.mp3" type="audio/mpeg">
+            Tu navegador no soporta audio HTML5.
+        </audio>
+
+        <!-- PIE DE PÁGINA -->
+        <footer class="pie-pagina">
+            <div class="mensaje-especial">
+                <p><i class="fas fa-heart"></i> Hecho con todo mi amor para ti</p>
+                <p class="fecha-creacion">Creado para celebrar nuestro primer año juntos</p>
+            </div>
+            
+            <div class="creditos">
+                <p>Eres mi razón, mi inspiración y mi felicidad completa</p>
+                <p class="secreto">💝 Pista: Intenta el código Konami (↑↑↓↓←→←→BA)</p>
+            </div>
+            
+            <div class="controles-finales">
+                <button id="btnRazonAleatoria" class="btn-razon">
+                    <i class="fas fa-random"></i> Razón de amor aleatoria
+                </button>
+                <button id="btnReiniciar" class="btn-reiniciar">
+                    <i class="fas fa-redo"></i> Reiniciar visitas
+                </button>
+            </div>
         </footer>
     </div>
 
+    <!-- SCRIPTS -->
     <script src="datos.js"></script>
     <script src="script.js"></script>
+    
+    <!-- SCRIPT DE INICIALIZACIÓN -->
+    <script>
+        // Evitar cache agresivo
+        if (window.location.search.indexOf('v=') === -1) {
+            window.location.search = '?v=' + Date.now();
+        }
+        
+        // Mensaje de bienvenida en consola
+        console.log('%c💖 CALENDARIO DE AMOR 💖', 'color: #e91e63; font-size: 16px; font-weight: bold;');
+        console.log('%cCreado con amor para celebrar nuestro primer año juntos', 'color: #666;');
+    </script>
 </body>
 </html>
