@@ -216,7 +216,7 @@ function cerrarPopup() {
 function configurarBotonesBasicos() {
     console.log("🔄 Configurando botones básicos...");
     
-    // Botón de música
+   /* // Botón de música
     const btnMusica = document.getElementById('btnMusica');
     if (btnMusica) {
         btnMusica.onclick = function() {
@@ -239,7 +239,7 @@ function configurarBotonesBasicos() {
                 }
             }
         };
-    }
+    }*/
     
     // Botón modo nocturno
     const btnModo = document.getElementById('btnModoNocturno');

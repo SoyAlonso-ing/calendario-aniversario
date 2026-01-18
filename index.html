@@ -162,11 +162,56 @@
             </div>
         </div>
 
-        <!-- REPRODUCTOR DE MÚSICA OCULTO -->
-        <audio id="musicaFondo" loop>
-            <source src="audio/teAmo.mp3" type="audio/mpeg">
-            Tu navegador no soporta audio HTML5.
-        </audio>
+        <!-- REPRODUCTOR DE MÚSICA SIMPLIFICADO -->
+<div id="reproductorMusica" style="display: none; position: fixed; bottom: 20px; right: 20px; z-index: 9998;">
+    <div style="background: rgba(255, 255, 255, 0.95); border-radius: 15px; padding: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.2); width: 280px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <strong style="color: #e91e63;">
+                <i class="fas fa-music"></i> Nuestra música
+            </strong>
+            <button id="btnCerrarReproductor" style="background: none; border: none; color: #666; cursor: pointer;">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <!-- Barra de progreso -->
+        <div style="margin-bottom: 10px;">
+            <div id="barraProgreso" style="height: 5px; background: #e0e0e0; border-radius: 3px; overflow: hidden;">
+                <div id="progresoActual" style="height: 100%; background: #e91e63; width: 0%; transition: width 0.1s;"></div>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 12px; color: #666; margin-top: 5px;">
+                <span id="tiempoActual">0:00</span>
+                <span id="duracionTotal">0:00</span>
+            </div>
+        </div>
+        
+        <!-- Controles -->
+        <div style="display: flex; justify-content: center; align-items: center; gap: 20px;">
+            <button id="btnAnterior" style="background: none; border: none; color: #e91e63; cursor: pointer; font-size: 1.2rem;">
+                <i class="fas fa-step-backward"></i>
+            </button>
+            
+            <button id="btnPlayPause" style="background: #e91e63; color: white; border: none; width: 45px; height: 45px; border-radius: 50%; cursor: pointer; font-size: 1.3rem;">
+                <i class="fas fa-play"></i>
+            </button>
+            
+            <button id="btnSiguiente" style="background: none; border: none; color: #e91e63; cursor: pointer; font-size: 1.2rem;">
+                <i class="fas fa-step-forward"></i>
+            </button>
+        </div>
+        
+        <!-- Volumen (opcional, puedes quitarlo si quieres) -->
+        <div style="display: flex; align-items: center; gap: 10px; margin-top: 15px;">
+            <i class="fas fa-volume-up" style="color: #666;"></i>
+            <input type="range" id="controlVolumen" min="0" max="100" value="70" style="width: 100%;">
+        </div>
+    </div>
+</div>
+
+<audio id="musicaFondo">
+    <source src="audio/teAmo.mp3" type="audio/mpeg">
+    Tu navegador no soporta audio HTML5.
+</audio>
 
         <!-- PIE DE PÁGINA -->
         <footer class="pie-pagina">
@@ -194,6 +239,7 @@
        <!-- SCRIPTS -->
     <script src="datos.js"></script>
     <script src="calendario-fix.js"></script>
+    <script src="reproductor.js"></script>
     <!-- <script src="script.js"></script> --> <!-- COMENTA ESTA LÍNEA -->
     
     <!-- SCRIPT DE INICIALIZACIÓN -->
