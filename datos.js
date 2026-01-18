@@ -9,11 +9,11 @@ const diasEspeciales = {
     "2025-04-05": { 
         tipo: "foto", 
         contenido: "fotos/inicio.jpg", 
-        texto: "¡Comenzamos nuestra aventura juntos el 5 de abril de 2025! ❤️" 
+        texto: "¡Comenzamos nuestra aventura juntos el 5 de abril de 2025! 💘" 
     },
     
     // Otros días especiales (puedes usar formato MM-DD si son anuales)
-    "01-15": { tipo: "foto", contenido: "fotos/01-15.jpg", texto: "Nuestro primer encuentro ❤️" },
+    "01-15": { tipo: "foto", contenido: "fotos/01-15.jpg", texto: "Nuestro primer encuentro 💘" },
     "01-20": { tipo: "frase", contenido: "El día que supe que quería pasar todos mis días contigo" },
     "02-14": { tipo: "foto", contenido: "fotos/02-14.jpg", texto: "Nuestro primer San Valentín juntos 💘" },
     
@@ -23,7 +23,7 @@ const diasEspeciales = {
     "2026-04-05": { 
         tipo: "foto", 
         contenido: "fotos/aniversario.jpg", 
-        texto: "¡FELIZ PRIMER ANIVERSARIO! 365 días de amor incondicional. Te amo más cada día. 💕" 
+        texto: "¡FELIZ PRIMER ANIVERSARIO! 365 días de amor incondicional. Te amo más cada día. 💘" 
     }
 };
 
@@ -33,7 +33,7 @@ const frasesGenericas = [
     "Cada momento contigo es especial", "Te amo más que ayer, menos que mañana",
     "Eres mi persona favorita en el mundo", "Mi corazón late más fuerte cuando estás cerca",
     "Eres la razón de mi sonrisa", "Contigo hasta el fin del mundo",
-    "Tu amor es mi lugar favorito", "Juntos somos invencibles 💕",
+    "Tu amor es mi lugar favorito", "Juntos somos invencibles 💘",
     "Tu abrazo es mi hogar", "Me haces mejor persona cada día",
     "Amarse es mirar en la misma dirección", "Contigo hasta las estrellas",
     "Eres mi sueño hecho realidad", "Nuestro amor es mi historia favorita",

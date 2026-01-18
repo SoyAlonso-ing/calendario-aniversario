@@ -166,70 +166,6 @@ body {
     font-weight: 300;
 }
 
-/* BUSCADOR DE FECHAS */
-.buscador-fechas {
-    max-width: 500px;
-    margin: 0 auto;
-}
-
-.input-busqueda {
-    position: relative;
-    display: flex;
-    align-items: center;
-    margin-bottom: var(--espacio-xs);
-}
-
-.input-busqueda i {
-    position: absolute;
-    left: 15px;
-    color: var(--color-primario);
-    font-size: 1.1rem;
-}
-
-.input-busqueda input {
-    width: 100%;
-    padding: 12px 45px 12px 45px;
-    border: 2px solid #e0e0e0;
-    border-radius: var(--radio-borde-redondo);
-    font-family: 'Poppins', sans-serif;
-    font-size: 1rem;
-    transition: all var(--transicion-rapida);
-}
-
-.input-busqueda input:focus {
-    outline: none;
-    border-color: var(--color-primario);
-    box-shadow: 0 0 0 3px rgba(233, 30, 99, 0.1);
-}
-
-.btn-buscar {
-    position: absolute;
-    right: 5px;
-    background: var(--color-primario);
-    color: white;
-    border: none;
-    width: 35px;
-    height: 35px;
-    border-radius: var(--radio-borde-redondo);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all var(--transicion-rapida);
-}
-
-.btn-buscar:hover {
-    background: var(--color-primario-oscuro);
-    transform: scale(1.05);
-}
-
-.hint-busqueda {
-    text-align: center;
-    font-size: 0.85rem;
-    color: var(--texto-secundario);
-    font-style: italic;
-}
-
 /* ==================== ESTADÍSTICAS ==================== */
 .estadisticas {
     display: grid;
@@ -271,34 +207,13 @@ body {
     font-size: 0.9rem;
 }
 
-/* ==================== INSTRUCCIONES ==================== */
-.instrucciones {
-    background: var(--fondo-tarjeta);
-    border-radius: var(--radio-borde);
-    padding: var(--espacio-md);
-    text-align: center;
-    margin-bottom: var(--espacio-lg);
-    box-shadow: var(--sombra-suave);
-}
-
-.instrucciones p {
-    font-size: 1rem;
-    color: var(--color-primario);
-    margin-bottom: var(--espacio-xs);
-}
-
-.instrucciones .instruccion-secundaria {
-    font-size: 0.9rem;
-    color: var(--texto-secundario);
-    font-style: italic;
-}
-
 /* ==================== CALENDARIO PRINCIPAL ==================== */
 .calendario-contenedor {
     background: var(--fondo-tarjeta);
     border-radius: var(--radio-borde);
     padding: var(--espacio-lg);
-    margin-bottom: var(--espacio-lg);
+    margin-top: 10px; 
+    margin-bottom: var(--espacio-md);
     box-shadow: var(--sombra-media);
     overflow: hidden;
 }
@@ -381,7 +296,7 @@ body {
 }
 
 .dia.tiene-contenido::after {
-    content: '❤️';
+    content: '💖 ';
     position: absolute;
     bottom: 5px;
     right: 5px;
@@ -787,10 +702,11 @@ body {
     }
     
     .estadisticas {
-        grid-template-columns: 1fr;
-        gap: var(--espacio-sm);
-    }
-    
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--espacio-md);
+    margin-bottom: var(--espacio-lg); /* Mantener margen inferior */
+}
     .viewer-contenido {
         margin: 20px;
         padding: var(--espacio-lg);
@@ -982,33 +898,6 @@ body {
     }
 }
 
-/* Estilos para el input de fecha limitado */
-input[type="date"] {
-    font-family: 'Poppins', sans-serif;
-}
-
-input[type="date"]::-webkit-calendar-picker-indicator {
-    background: transparent;
-    color: transparent;
-    cursor: pointer;
-    height: auto;
-    left: 0;
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: auto;
-}
-
-.input-busqueda input[type="date"]:before {
-    content: "Selecciona una fecha";
-    color: #999;
-}
-
-.input-busqueda input[type="date"]:focus:before,
-.input-busqueda input[type="date"]:valid:before {
-    content: "";
-}
-
 /* Estilos para el aniversario */
 .dia[data-tooltip] {
     position: relative;
@@ -1050,4 +939,327 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 .dia.dia-especial[style*="9C27B0"] {
     animation: latido-aniversario 2s infinite;
+}
+
+/* ==================== BUSCADOR ELEGANTE FIXED ==================== */
+.buscador-fechas {
+    max-width: 500px;
+    margin: 30px auto;
+}
+
+.contenedor-buscador-elegante {
+    position: relative;
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    background: white;
+    border-radius: 50px;
+    box-shadow: 0 8px 25px rgba(233, 30, 99, 0.15);
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    padding: 5px;
+    height: 56px;
+}
+
+.contenedor-buscador-elegante:focus-within {
+    border-color: #e91e63;
+    box-shadow: 0 8px 30px rgba(233, 30, 99, 0.25);
+    transform: translateY(-2px);
+}
+
+.input-wrapper {
+    flex: 1;
+    position: relative;
+    height: 100%;
+}
+
+.input-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #e91e63;
+    font-size: 1.2rem;
+    z-index: 2;
+}
+
+.input-label {
+    position: absolute;
+    left: 50px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #999;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    z-index: 2;
+}
+
+.input-fecha-elegante {
+    width: 100%;
+    height: 100%;
+    padding: 0 50px;
+    border: none;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    color: #333;
+    background: transparent;
+    outline: none;
+    border-radius: 50px;
+    position: relative;
+    z-index: 3;
+    cursor: pointer;
+}
+
+/* Ocultar placeholder nativo */
+.input-fecha-elegante::placeholder {
+    color: transparent;
+}
+
+/* Mostrar el calendario nativo siempre */
+.input-fecha-elegante::-webkit-calendar-picker-indicator {
+    position: absolute;
+    right: 15px;
+    width: 30px;
+    height: 30px;
+    background: transparent;
+    cursor: pointer;
+    opacity: 0.5;
+    z-index: 4;
+}
+
+.input-fecha-elegante::-webkit-calendar-picker-indicator:hover {
+    opacity: 1;
+}
+
+/* Cuando hay fecha seleccionada, ocultar label */
+.input-fecha-elegante:valid + .input-label,
+.input-fecha-elegante:focus + .input-label {
+    opacity: 0;
+    transform: translateY(-50%) translateX(-10px);
+}
+
+.btn-buscar-elegante {
+    width: 46px;
+    height: 46px;
+    background: linear-gradient(135deg, #e91e63, #ff4081);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(233, 30, 99, 0.3);
+    flex-shrink: 0;
+    z-index: 5;
+}
+
+.btn-buscar-elegante:hover {
+    background: linear-gradient(135deg, #c2185b, #e91e63);
+    transform: scale(1.05) rotate(5deg);
+    box-shadow: 0 6px 18px rgba(233, 30, 99, 0.4);
+}
+
+.btn-buscar-elegante:active {
+    transform: scale(0.95);
+}
+
+.hint-busqueda-mejorado {
+    text-align: center;
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-style: italic;
+}
+
+.hint-busqueda-mejorado i {
+    color: #e91e63;
+    font-size: 0.9rem;
+}
+
+/* Modo nocturno para el buscador */
+body.modo-nocturno .contenedor-buscador-elegante {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+body.modo-nocturno .input-fecha-elegante {
+    color: var(--texto-nocturno);
+}
+
+body.modo-nocturno .input-label {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+body.modo-nocturno .input-icon {
+    color: #ff4081;
+}
+
+/* Para Firefox y otros navegadores */
+.input-fecha-elegante::-moz-focus-inner {
+    border: 0;
+}
+
+.input-fecha-elegante[type="date"] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: textfield;
+}
+
+/* Estilos para el texto de fecha en diferentes navegadores */
+.input-fecha-elegante::-webkit-datetime-edit {
+    color: #333;
+    padding: 0;
+}
+
+body.modo-nocturno .input-fecha-elegante::-webkit-datetime-edit {
+    color: var(--texto-nocturno);
+}
+
+.input-fecha-elegante::-webkit-datetime-edit-fields-wrapper {
+    padding: 0;
+}
+
+.input-fecha-elegante::-webkit-datetime-edit-text {
+    color: #666;
+    padding: 0 2px;
+}
+
+body.modo-nocturno .input-fecha-elegante::-webkit-datetime-edit-text {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .buscador-fechas {
+        max-width: 400px;
+        margin: 20px auto;
+    }
+    
+    .contenedor-buscador-elegante {
+        height: 52px;
+    }
+    
+    .input-fecha-elegante {
+        font-size: 0.95rem;
+        padding: 0 45px;
+    }
+    
+    .input-icon {
+        left: 12px;
+        font-size: 1.1rem;
+    }
+    
+    .input-label {
+        left: 45px;
+        font-size: 0.95rem;
+    }
+    
+    .btn-buscar-elegante {
+        width: 42px;
+        height: 42px;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .buscador-fechas {
+        max-width: 320px;
+        margin: 15px auto;
+    }
+    
+    .contenedor-buscador-elegante {
+        height: 48px;
+        padding: 4px;
+    }
+    
+    .input-fecha-elegante {
+        font-size: 0.9rem;
+        padding: 0 40px;
+    }
+    
+    .input-icon {
+        left: 10px;
+        font-size: 1rem;
+    }
+    
+    .input-label {
+        left: 40px;
+        font-size: 0.9rem;
+    }
+    
+    .btn-buscar-elegante {
+        width: 40px;
+        height: 40px;
+        font-size: 0.9rem;
+    }
+    
+    .hint-busqueda-mejorado {
+        font-size: 0.85rem;
+        padding: 0 10px;
+    }
+}
+
+/* Animaciones para el buscador */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+    20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+@keyframes slideIn {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideOut {
+    from { transform: translateX(0); opacity: 1; }
+    to { transform: translateX(100%); opacity: 0; }
+}
+
+/* Efecto de pulso para el botón de búsqueda */
+@keyframes pulse {
+    0% { box-shadow: 0 4px 12px rgba(233, 30, 99, 0.3); }
+    50% { box-shadow: 0 4px 20px rgba(233, 30, 99, 0.5); }
+    100% { box-shadow: 0 4px 12px rgba(233, 30, 99, 0.3); }
+}
+
+.btn-buscar-elegante {
+    animation: pulse 2s infinite;
+}
+/* Animaciones para el buscador */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+    20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+@keyframes slideIn {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideOut {
+    from { transform: translateX(0); opacity: 1; }
+    to { transform: translateX(100%); opacity: 0; }
+}
+
+/* Efecto de pulso para el botón de búsqueda */
+@keyframes pulse {
+    0% { box-shadow: 0 4px 12px rgba(233, 30, 99, 0.3); }
+    50% { box-shadow: 0 4px 20px rgba(233, 30, 99, 0.5); }
+    100% { box-shadow: 0 4px 12px rgba(233, 30, 99, 0.3); }
+}
+
+.btn-buscar-elegante {
+    animation: pulse 2s infinite;
 }

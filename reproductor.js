@@ -8,8 +8,9 @@ console.log("🎵 Inicializando reproductor simple...");
 // Lista de canciones (solo archivos, sin nombres visibles)
 const canciones = [
     "audio/teAmo.mp3",
-    "audio/cancion2.mp3", 
-    "audio/cancion3.mp3"
+    "audio/labiosCompartidos.mp3", 
+    "audio/barbacoa.mp3",
+    "audio/jardin.mp3"
 ];
 
 let cancionActual = 0;

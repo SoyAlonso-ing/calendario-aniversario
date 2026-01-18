@@ -8,10 +8,10 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     
-    <title>Nuestro Primer Año Juntos ❤️</title>
+    <title> Nuestro Primer Año Juntos 💘</title>
     
     <!-- ICONO -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>❤️</text></svg>">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💘</text></svg>">
     
     <!-- FUENTES DE GOOGLE -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -68,58 +68,60 @@
             </div>
             
             <div class="titulo-principal">
-                <h1><i class="fas fa-heart"></i> Nuestro Primer Año Juntos</h1>
-                <p class="subtitulo">365 días de recuerdos, risas y amor infinito</p>
+                <h1>💘 Nuestro Primer Año Juntos</h1>
+                <p class="subtitulo"> 365 días de recuerdos, risas y amor infinito</p>
             </div>
             
-            <!-- BUSCADOR DE FECHAS -->
-            <div class="buscador-fechas">
-                <div class="input-busqueda">
-                    <i class="fas fa-search"></i>
-                    <input type="date" id="buscarFecha" placeholder="Buscar fecha especial...">
-                    <button id="btnBuscar" class="btn-buscar">
-                        <i class="fas fa-calendar-day"></i>
-                    </button>
-                </div>
-                <p class="hint-busqueda">Encuentra un día especial por fecha</p>
-            </div>
-        </header>
-
-        <!-- SECCIÓN DE ESTADÍSTICAS -->
-        <section class="estadisticas">
-            <div class="estadistica-item">
-                <i class="fas fa-calendar-check"></i>
-                <span id="contador-momentos">0/365</span>
-                <p>Momentos descubiertos</p>
-            </div>
-            <div class="estadistica-item">
-                <i class="fas fa-heart-circle-check"></i>
-                <span id="contador-razones">100+</span>
-                <p>Razones para amarte</p>
-            </div>
-            <div class="estadistica-item">
-                <i class="fas fa-images"></i>
-                <span id="contador-fotos">0</span>
-                <p>Fotos especiales</p>
-            </div>
-        </section>
-
-        <!-- INSTRUCCIONES -->
-        <div class="instrucciones">
-            <p><i class="fas fa-hand-point-up"></i> Toca cualquier día para descubrir su sorpresa</p>
-            <p class="instruccion-secundaria">Doble click en el título para una razón especial de amor</p>
+     <!-- BUSCADOR DE FECHAS -->
+<div class="buscador-fechas">
+    <div class="contenedor-buscador-elegante">
+        <div class="input-wrapper">
+            <i class="fas fa-calendar-alt input-icon"></i>
+            <input type="date" id="buscarFecha" class="input-fecha-elegante" 
+                   min="2025-04-05" max="2026-04-05"
+                   title="Selecciona una fecha entre 5/4/2025 y 5/4/2026"
+                   placeholder="Selecciona una fecha">
+            <label for="buscarFecha" class="input-label">Selecciona una fecha</label>
         </div>
+        
+        <button id="btnBuscar" class="btn-buscar-elegante" title="Buscar fecha">
+            <i class="fas fa-search"></i>
+        </button>
+    </div>
+    
+    <p class="hint-busqueda-mejorado">
+        <i class="fas fa-heart"></i>
+        Nuestro primer año: 5 Abril 2025 - 5 Abril 2026
+    </p>
+</div>
+        <!-- CALENDARIO PRINCIPAL (ahora primero) -->
+<main class="calendario-contenedor">
+    <div class="calendar" id="calendar">
+        <div class="cargando" id="cargando-calendario">
+            <i class="fas fa-spinner fa-spin"></i>
+            <p>Cargando nuestros 365 días de amor...</p>
+        </div>
+    </div>
+</main>
 
-        <!-- CALENDARIO PRINCIPAL -->
-        <main class="calendario-contenedor">
-            <div class="calendar" id="calendar">
-                <!-- El calendario se genera automáticamente con JavaScript -->
-                <div class="cargando" id="cargando-calendario">
-                    <i class="fas fa-spinner fa-spin"></i>
-                    <p>Cargando nuestros 365 días de amor...</p>
-                </div>
-            </div>
-        </main>
+<!-- ESTADÍSTICAS (ahora después del calendario) -->
+<section class="estadisticas">
+    <div class="estadistica-item">
+        <i class="fas fa-calendar-check"></i>
+        <span id="contador-momentos">0/365</span>
+        <p>Momentos descubiertos</p>
+    </div>
+    <div class="estadistica-item">
+        <i class="fas fa-heart-circle-check"></i>
+        <span id="contador-razones">100+</span>
+        <p>Razones para amarte</p>
+    </div>
+    <div class="estadistica-item">
+        <i class="fas fa-images"></i>
+        <span id="contador-fotos">0</span>
+        <p>Fotos especiales</p>
+    </div>
+</section>
 
         <!-- GALERÍA DE MOMENTOS DESTACADOS -->
         <section class="galeria-destacados" id="galeriaDestacados">

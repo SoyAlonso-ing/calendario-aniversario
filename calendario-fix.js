@@ -9,6 +9,21 @@ console.log("📅 Cargando calendario ajustado (5/4/2025 - 5/4/2026)...");
 const FECHA_INICIO = new Date('2025-04-05');
 const FECHA_FIN = new Date('2026-04-06');
 
+// Función para calcular el día exacto desde el inicio (CORREGIDA PARA ZONA HORARIA)
+function calcularDiaExacto(fecha) {
+    // Crear fechas en hora local (sin problemas de zona horaria)
+    const inicioLocal = new Date(2025, 3, 5); // 5 abril 2025 (mes 3 porque enero es 0)
+    const fechaLocal = new Date(fecha.getFullYear(), fecha.getMonth(), fecha.getDate());
+    
+    // Calcular diferencia en milisegundos
+    const diffMs = fechaLocal - inicioLocal;
+    
+    // Convertir a días (redondeando hacia abajo)
+    const diffDias = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+    
+    // Sumar 1 porque el día 1 es 5/4/2025
+    return diffDias + 1;
+}
 // Meses en español
 const MESES = ["ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", 
                "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE"];
@@ -59,24 +74,6 @@ function generarCalendarioAjustado() {
     const totalDias = Math.floor((FECHA_FIN - FECHA_INICIO) / (1000 * 60 * 60 * 24));
     console.log(`📆 Total de días: ${totalDias} días (5/4/2025 - 5/4/2026)`);
     
-    // Crear título especial
-    const tituloEspecial = document.createElement('div');
-    tituloEspecial.className = 'mes-titulo';
-    tituloEspecial.style.background = 'linear-gradient(45deg, #e91e63, #9c27b0)';
-    tituloEspecial.style.color = 'white';
-    tituloEspecial.style.marginBottom = '20px';
-    tituloEspecial.innerHTML = `
-        <div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
-            <i class="fas fa-heart"></i>
-            <span>NUESTRO PRIMER AÑO JUNTOS (5 Abril 2025 - 5 Abril 2026)</span>
-            <i class="fas fa-heart"></i>
-        </div>
-        <div style="font-size: 0.9rem; margin-top: 5px; opacity: 0.9;">
-            ${totalDias} días de amor
-        </div>
-    `;
-    calendar.appendChild(tituloEspecial);
-    
     // Generar calendario mes por mes
     let fechaActual = new Date(FECHA_INICIO);
     let contadorDiasTotales = 0;
@@ -107,37 +104,46 @@ function generarCalendarioAjustado() {
             elementoDia.className = 'dia';
             elementoDia.innerHTML = `<span class="numero-dia">${dia}</span>`;
             
-         // Formato para buscar en datos especiales
-const mesStr = (mes + 1).toString().padStart(2, '0');
-const diaStr = dia.toString().padStart(2, '0');
-const fechaKey = `${mesStr}-${diaStr}`;
-
-// También crear clave con año para fechas específicas
-const fechaKeyConAnio = `${año}-${mesStr}-${diaStr}`;
-
-// Verificar si es día especial
-if (window.datosConfig && window.datosConfig.diasEspeciales) {
-    // Primero buscar con año completo (fecha específica)
-    if (window.datosConfig.diasEspeciales[fechaKeyConAnio]) {
-        elementoDia.classList.add('tiene-contenido');
-        elementoDia.title = window.datosConfig.diasEspeciales[fechaKeyConAnio].texto || 'Día especial';
-        momentosDesbloqueados++;
-    } 
-    // Luego buscar sin año (fecha anual)
-    else if (window.datosConfig.diasEspeciales[fechaKey]) {
-        elementoDia.classList.add('tiene-contenido');
-        elementoDia.title = window.datosConfig.diasEspeciales[fechaKey].texto || 'Día especial';
-        momentosDesbloqueados++;
-    }
-}
+            // Formato para buscar en datos especiales
+            const mesStr = (mes + 1).toString().padStart(2, '0');
+            const diaStr = dia.toString().padStart(2, '0');
+            const fechaKey = `${mesStr}-${diaStr}`;
+            
+            // También crear clave con año para fechas específicas
+            const fechaKeyConAnio = `${año}-${mesStr}-${diaStr}`;
+            
+            // Verificar si es día especial
+            if (window.datosConfig && window.datosConfig.diasEspeciales) {
+                // Primero buscar con año completo (fecha específica)
+                if (window.datosConfig.diasEspeciales[fechaKeyConAnio]) {
+                    elementoDia.classList.add('tiene-contenido');
+                    elementoDia.title = window.datosConfig.diasEspeciales[fechaKeyConAnio].texto || 'Día especial';
+                    momentosDesbloqueados++;
+                } 
+                // Luego buscar sin año (fecha anual)
+                else if (window.datosConfig.diasEspeciales[fechaKey]) {
+                    elementoDia.classList.add('tiene-contenido');
+                    elementoDia.title = window.datosConfig.diasEspeciales[fechaKey].texto || 'Día especial';
+                    momentosDesbloqueados++;
+                }
+            }
             
             // Marcar días importantes
+            
             // Día de inicio (5 abril 2025)
             if (dia === 5 && mes === 3 && año === 2025) {
                 elementoDia.classList.add('dia-especial');
                 elementoDia.style.background = 'linear-gradient(45deg, #FF9800, #FF5722)';
                 elementoDia.innerHTML = `<span class="numero-dia">${dia}</span><span class="estrella">🎉</span>`;
                 elementoDia.title = "¡Comenzamos nuestra aventura!";
+                
+                // Sobrescribir evento click para asegurar día 1
+                elementoDia.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const fechaCompleta = new Date(2025, 3, 5); // 5 abril 2025
+                    console.log("🎉 Día de inicio - Día 1");
+                    mostrarContenidoAjustado(1, fechaCompleta);
+                }, true);
             }
             
             // Día de aniversario (5 abril 2026) - ¡ESTO ES LO QUE FALTABA!
@@ -151,6 +157,23 @@ if (window.datosConfig && window.datosConfig.diasEspeciales) {
                 
                 // Añadir tooltip especial
                 elementoDia.setAttribute('data-tooltip', '🎉 ¡PRIMER AÑO JUNTOS! 🎉');
+                
+                // Sobrescribir evento click para aniversario (debería ser día 366)
+                elementoDia.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const fechaCompleta = new Date(2026, 3, 5); // 5 abril 2026
+                    
+                    // Calcular correctamente: 5/4/2026 - 5/4/2025 = 365 días
+                    // Pero como es 1 año completo (año bisiesto?), debería ser 366 días
+                    const inicioPuro = new Date(2025, 3, 5);
+                    const aniversarioPuro = new Date(2026, 3, 5);
+                    const diffMs = aniversarioPuro - inicioPuro;
+                    const diffDias = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+                    const numeroDia = diffDias + 1; // +1 porque el primer día es 1
+                    
+                    console.log(`🎊 Aniversario - Día ${numeroDia}`);
+                    mostrarContenidoAjustado(numeroDia, fechaCompleta);
+                }, true);
             }
             
             // Marcar día actual si está dentro del rango
@@ -166,7 +189,9 @@ if (window.datosConfig && window.datosConfig.diasEspeciales) {
             // Evento click para mostrar contenido
             elementoDia.addEventListener('click', function() {
                 const fechaCompleta = new Date(año, mes, dia);
-                mostrarContenidoAjustado(contadorDiasTotales, fechaCompleta);
+                const numeroDia = calcularDiaExacto(fechaCompleta);
+                console.log(`📅 Click: ${dia}/${mes+1}/${año} = Día ${numeroDia}`);
+                mostrarContenidoAjustado(numeroDia, fechaCompleta);
             });
             
             calendar.appendChild(elementoDia);
@@ -227,11 +252,18 @@ function agregarDiaAniversarioManualmente() {
 }
 
 function mostrarContenidoAjustado(numeroDia, fecha) {
+    // Verificar que el número de día sea válido
+    if (numeroDia < 1 || numeroDia > 366) {
+        // Recalcular por si acaso
+        const diffTiempo = fecha - FECHA_INICIO;
+        numeroDia = Math.floor(diffTiempo / (1000 * 60 * 60 * 24)) + 1;
+    }
+    
+    console.log(`📱 Mostrando: Día ${numeroDia} - ${fecha.toLocaleDateString()}`);
+    
     const mes = fecha.getMonth();
     const dia = fecha.getDate();
     const año = fecha.getFullYear();
-    
-    console.log(`📱 Mostrando día ${numeroDia} (${dia}/${mes + 1}/${año})`);
     
     // Crear dos formatos de clave
     const fechaKey = `${(mes + 1).toString().padStart(2, '0')}-${dia.toString().padStart(2, '0')}`;
@@ -348,7 +380,7 @@ function mostrarContenidoAjustado(numeroDia, fecha) {
                     
                     <div style="font-size: 1.3rem; padding: 20px; background: linear-gradient(135deg, #ffebee, #fce4ec); border-radius: 15px; margin: 20px 0; text-align: center; line-height: 1.6;">
                         <i class="fas fa-heart" style="color: #e91e63; margin-right: 10px;"></i>
-                        ${dato.texto || 'Un día especial contigo ❤️'}
+                        ${dato.texto || 'Un día especial contigo 💘'}
                     </div>
                 `;
             } else {
@@ -481,56 +513,104 @@ function configurarBuscadorAjustado() {
         return;
     }
     
-    // Establecer fecha mínima y máxima (5 abril 2025 - 5 abril 2026)
-    const fechaMin = '2025-04-05';
-    const fechaMax = '2026-04-05';
-    
-    inputFecha.min = fechaMin;
-    inputFecha.max = fechaMax;
-    inputFecha.value = ''; // Limpiar valor inicial
+    // Forzar que el navegador muestre el calendario nativo
+    inputFecha.addEventListener('click', function(e) {
+        // Esto ayuda en algunos navegadores móviles
+        this.showPicker ? this.showPicker() : this.focus();
+    });
     
     // Configurar evento de búsqueda
     btnBuscar.onclick = function() {
-        if (!inputFecha.value) {
-            // Indicación visual
-            inputFecha.style.borderColor = '#e91e63';
-            inputFecha.style.boxShadow = '0 0 0 3px rgba(233, 30, 99, 0.2)';
-            setTimeout(() => {
-                inputFecha.style.borderColor = '';
-                inputFecha.style.boxShadow = '';
-            }, 1000);
-            return;
-        }
-        
-        const fechaSeleccionada = new Date(inputFecha.value);
-        
-        // Verificar que esté dentro del rango
-        if (fechaSeleccionada < FECHA_INICIO || fechaSeleccionada > FECHA_FIN) {
-            mostrarNotificacion('⚠️ Fecha fuera de nuestro primer año (5/4/2025 - 5/4/2026)', 'error');
-            inputFecha.value = '';
-            return;
-        }
-        
-        // Calcular número de día
-        const diffTiempo = fechaSeleccionada - FECHA_INICIO;
-        const diffDias = Math.floor(diffTiempo / (1000 * 60 * 60 * 24)) + 1;
-        
-        // Mostrar contenido
-        mostrarContenidoAjustado(diffDias, fechaSeleccionada);
-        inputFecha.value = '';
+        buscarFechaEspecial();
     };
     
-    // También buscar al presionar Enter
+    // También buscar al presentar Enter
     inputFecha.addEventListener('keypress', function(e) {
         if (e.key === 'Enter') {
-            btnBuscar.click();
+            buscarFechaEspecial();
         }
     });
     
-    // Cambiar placeholder para mostrar el rango
-    inputFecha.placeholder = "5/4/2025 a 5/4/2026";
+    // Actualizar visualmente cuando se selecciona una fecha
+    inputFecha.addEventListener('change', function() {
+        const label = document.querySelector('.input-label');
+        if (this.value) {
+            // Fecha seleccionada - mostrar en el input
+            this.style.color = '#e91e63';
+            if (label) label.style.opacity = '0';
+            
+            // Efecto en el botón
+            btnBuscar.style.background = 'linear-gradient(135deg, #4CAF50, #8BC34A)';
+            setTimeout(() => {
+                btnBuscar.style.background = 'linear-gradient(135deg, #e91e63, #ff4081)';
+            }, 300);
+            
+            console.log('Fecha seleccionada:', this.value);
+        } else {
+            // Sin fecha seleccionada
+            this.style.color = '';
+            if (label) label.style.opacity = '1';
+        }
+    });
     
-    console.log("✅ Buscador ajustado configurado");
+    // Efecto hover para el botón de búsqueda
+    btnBuscar.addEventListener('mouseenter', function() {
+        this.style.transform = 'scale(1.05) rotate(5deg)';
+    });
+    
+    btnBuscar.addEventListener('mouseleave', function() {
+        this.style.transform = 'scale(1) rotate(0deg)';
+    });
+    
+    console.log("✅ Buscador elegante configurado correctamente");
+}
+
+// Función para buscar fecha
+function buscarFechaEspecial() {
+    const inputFecha = document.getElementById('buscarFecha');
+    const contenedor = inputFecha.closest('.contenedor-buscador-elegante');
+    
+    if (!inputFecha || !inputFecha.value) {
+        // Efecto visual de error
+        if (contenedor) {
+            contenedor.style.border = '2px solid #ff9800';
+            contenedor.style.animation = 'shake 0.5s ease';
+        }
+        
+        // Notificación
+        mostrarNotificacion('Selecciona una fecha primero', 'error');
+        
+        setTimeout(() => {
+            if (contenedor) {
+                contenedor.style.border = '';
+                contenedor.style.animation = '';
+            }
+        }, 2000);
+        
+        return;
+    }
+    
+  // Convertir la fecha del input a fecha local (sin problemas de zona horaria)
+const fechaInput = inputFecha.value; // Formato: "YYYY-MM-DD"
+const partes = fechaInput.split('-');
+const año = parseInt(partes[0]);
+const mes = parseInt(partes[1]) - 1; // Restar 1 porque enero es 0
+const dia = parseInt(partes[2]);
+const fechaSeleccionada = new Date(año, mes, dia); // Fecha local
+    
+    // Verificar que esté dentro del rango (5/4/2025 - 5/4/2026)
+    if (fechaSeleccionada < FECHA_INICIO || fechaSeleccionada > new Date('2026-04-05')) {
+        mostrarNotificacion('Selecciona una fecha entre el 5/4/2025 y el 5/4/2026', 'error');
+        inputFecha.value = '';
+        return;
+    }
+    
+    // Calcular número de día usando la función corregida
+    const numeroDia = calcularDiaExacto(fechaSeleccionada);
+    console.log(`🔍 Búsqueda: ${fechaSeleccionada.toLocaleDateString()} = Día ${numeroDia}`);
+    
+    // Mostrar contenido
+    mostrarContenidoAjustado(numeroDia, fechaSeleccionada);
 }
 
 // ==================== FUNCIONES AUXILIARES ====================
