@@ -1,3 +1,19 @@
+// Agregar al principio de script.js
+function mostrarBienvenida() {
+    const bienvenida = document.createElement('div');
+    bienvenida.id = 'bienvenida';
+    bienvenida.innerHTML = `
+        <div class="bienvenida-contenido">
+            <h2>Para mi amor ❤️</h2>
+            <p>Este calendario guarda 365 días de felicidad contigo</p>
+            <p>Cada día es un recuerdo, una risa, un momento especial</p>
+            <button onclick="cerrarBienvenida()" class="btn-romantico">
+                Abrir nuestro año juntos
+            </button>
+        </div>
+    `;
+    document.body.appendChild(bienvenida);
+}
 // Variables globales
 let diaSeleccionado = 1;
 
