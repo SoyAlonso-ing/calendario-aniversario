@@ -5,21 +5,26 @@
 
 // DATOS PARA CADA DÍA ESPECIAL DEL AÑO
 const diasEspeciales = {
+    // Día de inicio (5 abril 2025)
+    "2025-04-05": { 
+        tipo: "foto", 
+        contenido: "fotos/inicio.jpg", 
+        texto: "¡Comenzamos nuestra aventura juntos el 5 de abril de 2025! ❤️" 
+    },
+    
+    // Otros días especiales (puedes usar formato MM-DD si son anuales)
     "01-15": { tipo: "foto", contenido: "fotos/01-15.jpg", texto: "Nuestro primer encuentro ❤️" },
     "01-20": { tipo: "frase", contenido: "El día que supe que quería pasar todos mis días contigo" },
-    "01-25": { tipo: "acertijo", contenido: "¿Qué es lo que más me gusta de ti? Todo, pero si tuviera que elegir... tu forma de mirarme" },
     "02-14": { tipo: "foto", contenido: "fotos/02-14.jpg", texto: "Nuestro primer San Valentín juntos 💘" },
-    "03-10": { tipo: "frase", contenido: "Recuerdo cuando... (escribe tu recuerdo especial)" },
-    "04-05": { tipo: "acertijo", contenido: "Te amo más que a... (completa con algo gracioso)" },
-    "05-20": { tipo: "frase", contenido: "El día que [describe algo especial de mayo]" },
-    "06-15": { tipo: "foto", contenido: "fotos/06-15.jpg", texto: "Nuestro primer verano juntos ☀️" },
-    "07-04": { tipo: "frase", contenido: "Mientras todos veían fuegos artificiales, yo solo veía brillar tus ojos" },
-    "08-12": { tipo: "acertijo", contenido: "¿Qué es lo que más extraño cuando no estás? Tu calor a mi lado" },
-    "09-22": { tipo: "frase", contenido: "El otoño llegó, pero mi amor por ti sigue en primavera eterna" },
-    "10-31": { tipo: "foto", contenido: "fotos/10-31.jpg", texto: "Disfrazados de la pareja más feliz 🎃" },
-    "11-10": { tipo: "frase", contenido: "Estoy agradecido/a por 365 días de ti" },
-    "12-25": { tipo: "foto", contenido: "fotos/aniversario.jpg", texto: "¡Feliz primer año juntos! Te amo con todo mi corazón 💕" },
-    "12-31": { tipo: "frase", contenido: "Cerramos un año, pero nuestro amor es para siempre ✨" }
+    
+    // ... tus otras fechas ...
+    
+    // Día del aniversario (5 abril 2026) - FORMATO COMPLETO CON AÑO
+    "2026-04-05": { 
+        tipo: "foto", 
+        contenido: "fotos/aniversario.jpg", 
+        texto: "¡FELIZ PRIMER ANIVERSARIO! 365 días de amor incondicional. Te amo más cada día. 💕" 
+    }
 };
 
 // FRASES PARA DÍAS SIN CONTENIDO ESPECÍFICO

@@ -112,7 +112,7 @@ function configurarControlesSimples() {
         siguienteCancion();
     };
     
-    // Control de volumen (opcional)
+   /* // Control de volumen (opcional)
     const controlVolumen = document.getElementById('controlVolumen');
     if (controlVolumen) {
         controlVolumen.value = volumen * 100;
@@ -131,7 +131,7 @@ function configurarControlesSimples() {
                 iconoVolumen.className = 'fas fa-volume-up';
             }
         };
-    }
+    }*/
     
     // Hacer la barra de progreso clickeable
     const barraProgreso = document.getElementById('barraProgreso');

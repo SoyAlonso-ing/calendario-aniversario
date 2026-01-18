@@ -946,3 +946,108 @@ body {
     border-top-color: #333;
     margin-bottom: 2px;
 }
+
+/* ESTILOS PARA CALENDARIO AJUSTADO */
+.dia-hoy {
+    background: linear-gradient(45deg, #4CAF50, #8BC34A) !important;
+    color: white !important;
+    box-shadow: 0 0 15px rgba(76, 175, 80, 0.4) !important;
+    animation: latido 2s infinite !important;
+}
+
+/* Título especial del calendario */
+.mes-titulo[style*="gradient"] {
+    padding: 15px !important;
+    font-size: 1.2rem !important;
+    letter-spacing: 1px;
+    margin-top: 10px !important;
+    border: 2px solid white;
+}
+
+/* Ajustes para calendario de 366 días */
+.calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+}
+
+@media (max-width: 768px) {
+    .calendar {
+        gap: 4px;
+    }
+    
+    .dia {
+        font-size: 0.75rem;
+        border-radius: 6px;
+    }
+}
+
+/* Estilos para el input de fecha limitado */
+input[type="date"] {
+    font-family: 'Poppins', sans-serif;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    background: transparent;
+    color: transparent;
+    cursor: pointer;
+    height: auto;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: auto;
+}
+
+.input-busqueda input[type="date"]:before {
+    content: "Selecciona una fecha";
+    color: #999;
+}
+
+.input-busqueda input[type="date"]:focus:before,
+.input-busqueda input[type="date"]:valid:before {
+    content: "";
+}
+
+/* Estilos para el aniversario */
+.dia[data-tooltip] {
+    position: relative;
+}
+
+.dia[data-tooltip]:hover::before {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #9C27B0;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    z-index: 100;
+    margin-bottom: 8px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+}
+
+.dia[data-tooltip]:hover::after {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: #9C27B0;
+    margin-bottom: 2px;
+}
+
+/* Animación especial para aniversario */
+@keyframes latido-aniversario {
+    0%, 100% { transform: scale(1); box-shadow: 0 0 20px rgba(156, 39, 176, 0.6); }
+    50% { transform: scale(1.05); box-shadow: 0 0 30px rgba(156, 39, 176, 0.8); }
+}
+
+.dia.dia-especial[style*="9C27B0"] {
+    animation: latido-aniversario 2s infinite;
+}
