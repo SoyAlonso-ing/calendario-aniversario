@@ -25,42 +25,38 @@
     <link rel="stylesheet" href="style.css">
     
     <!-- ESTILOS INLINE PARA CARGAR INMEDIATO -->
-    <style>
-        /* Estilos críticos para carga inicial */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #ffafbd 0%, #ffc3a0 100%);
-            min-height: 100vh;
-            color: #333;
-            overflow-x: hidden;
-        }
-        
-        .cargando {
-            text-align: center;
-            padding: 50px 20px;
-            font-size: 1.2rem;
-            color: #e91e63;
-        }
-    </style>
+   <style>
+    /* Estilos críticos para carga inicial */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    body {
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(135deg, #ffffff 0%, #f3e5f5 100%); /* Blanco a morado claro */
+        min-height: 100vh;
+        color: #333333; /* Texto gris oscuro para contraste */
+        overflow-x: hidden;
+    }
+    
+    .cargando {
+        text-align: center;
+        padding: 50px 20px;
+        font-size: 1.2rem;
+        color: #9C27B0; /* Morado */
+    }
+</style>
 </head>
 
 <body>
     <!-- CONTENEDOR PRINCIPAL -->
     <div class="container">
-        <!-- CABECERA CON CONTROLES -->
         <header class="cabecera-principal">
             <div class="controles-superiores">
                 <button id="btnMusica" class="btn-control" title="Reproducir música">
                     <i class="fas fa-music"></i>
-                </button>
-                <button id="btnModoNocturno" class="btn-control" title="Modo nocturno">
-                    <i class="fas fa-moon"></i>
                 </button>
                 <div class="contador-dias">
                     <span id="dias-juntos">365</span> días juntos
@@ -164,12 +160,12 @@
             </div>
         </div>
 
-       <!-- REPRODUCTOR DE MÚSICA COMPACTO -->
+      <!-- REPRODUCTOR DE MÚSICA COMPACTO -->
 <div id="reproductorMusica" style="display: none; position: fixed; bottom: 20px; right: 20px; z-index: 9998;">
     <div style="background: rgba(255, 255, 255, 0.98); border-radius: 12px; padding: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.15); width: 220px; border: 1px solid rgba(233, 30, 99, 0.2);">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-            <strong style="color: #e91e63; font-size: 0.9rem;">
-                <i class="fas fa-music" style="margin-right: 5px;"></i> Música
+            <strong style="color: #9C27B0; font-size: 0.9rem;">
+                <i class="fas fa-music" style="margin-right: 5px;"></i> te amo pochi 💘 
             </strong>
             <button id="btnCerrarReproductor" style="background: none; border: none; color: #999; cursor: pointer; font-size: 0.9rem; padding: 2px 6px;">
                 <i class="fas fa-times"></i>
@@ -179,7 +175,7 @@
         <!-- Barra de progreso MÁS DELGADA -->
         <div style="margin-bottom: 10px;">
             <div id="barraProgreso" style="height: 3px; background: #e0e0e0; border-radius: 2px; overflow: hidden; cursor: pointer;">
-                <div id="progresoActual" style="height: 100%; background: linear-gradient(90deg, #e91e63, #ff4081); width: 0%; transition: width 0.1s;"></div>
+                <div id="progresoActual" style="height: 100%; background: linear-gradient(135deg, #9C27B0, #7B1FA2); width: 0%; transition: width 0.1s;"></div>
             </div>
             <div style="display: flex; justify-content: space-between; font-size: 11px; color: #888; margin-top: 4px;">
                 <span id="tiempoActual">0:00</span>
@@ -187,25 +183,22 @@
             </div>
         </div>
         
-        <!-- Controles COMPACTOS -->
+        <!-- Controles COMPACTOS - CORREGIDOS -->
         <div style="display: flex; justify-content: space-between; align-items: center;">
-            <button id="btnAnterior" style="background: #f8f9fa; border: 1px solid #e0e0e0; color: #e91e63; cursor: pointer; font-size: 0.9rem; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.2s;">
+            <button id="btnMusicaAnterior" style="background: #f8f9fa; border: 1px solid #e0e0e0; color: #9C27B0; cursor: pointer; font-size: 0.9rem; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.2s;">
                 <i class="fas fa-step-backward"></i>
             </button>
             
-            <button id="btnPlayPause" style="background: linear-gradient(135deg, #e91e63, #ff4081); color: white; border: none; width: 38px; height: 38px; border-radius: 50%; cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center; box-shadow: 0 3px 8px rgba(233, 30, 99, 0.3); transition: all 0.2s;">
+            <button id="btnPlayPause" style="background: linear-gradient(135deg, #9C27B0, #7B1FA2); color: white; border: none; width: 38px; height: 38px; border-radius: 50%; cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center; box-shadow: 0 3px 8px rgba(233, 30, 99, 0.3); transition: all 0.2s;">
                 <i class="fas fa-play"></i>
             </button>
             
-            <button id="btnSiguiente" style="background: #f8f9fa; border: 1px solid #e0e0e0; color: #e91e63; cursor: pointer; font-size: 0.9rem; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.2s;">
+            <button id="btnMusicaSiguiente" style="background: #f8f9fa; border: 1px solid #e0e0e0; color: #9C27B0; cursor: pointer; font-size: 0.9rem; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.2s;">
                 <i class="fas fa-step-forward"></i>
             </button>
         </div>
-        
-        <!-- VOLUMEN ELIMINADO -->
     </div>
 </div>
-
 <audio id="musicaFondo">
     <source src="audio/teAmo.mp3" type="audio/mpeg">
     Tu navegador no soporta audio HTML5.

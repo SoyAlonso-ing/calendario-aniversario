@@ -102,14 +102,14 @@ function configurarControlesSimples() {
         }
     };
     
-    // Botón anterior
-    document.getElementById('btnAnterior').onclick = function() {
+   // Botón anterior - CORREGIDO ID
+    document.getElementById('btnMusicaAnterior').onclick = function() {
         cancionActual = (cancionActual - 1 + canciones.length) % canciones.length;
         reproducirCancionActual();
     };
     
-    // Botón siguiente
-    document.getElementById('btnSiguiente').onclick = function() {
+    // Botón siguiente - CORREGIDO ID
+    document.getElementById('btnMusicaSiguiente').onclick = function() {
         siguienteCancion();
     };
     
@@ -151,27 +151,123 @@ function configurarControlesSimples() {
 function reproducirCancionActual() {
     const audio = document.getElementById('musicaFondo');
     
+    // Verificar que la canción existe
+    if (!canciones[cancionActual]) {
+        console.error(`Canción ${cancionActual} no encontrada: ${canciones[cancionActual]}`);
+        siguienteCancion(); // Intentar con la siguiente
+        return;
+    }
+    
+    console.log(`🎵 Intentando cargar: ${canciones[cancionActual]}`);
+    
     // Establecer la fuente de la canción actual
     audio.src = canciones[cancionActual];
     
-    // Cargar y reproducir
-    audio.load(); // Importante: cargar primero
-    audio.play().then(() => {
-        // Cambiar iconos a "pause"
-        document.getElementById('btnPlayPause').innerHTML = '<i class="fas fa-pause"></i>';
-        document.getElementById('btnMusica').innerHTML = '<i class="fas fa-pause"></i>';
-        
-        console.log(`🎶 Reproduciendo canción ${cancionActual + 1}`);
-    }).catch(error => {
-        console.error("Error al reproducir:", error);
-        // Si falla, pasar a la siguiente canción
-        setTimeout(siguienteCancion, 1000);
-    });
+    // Resetear el tiempo actual
+    audio.currentTime = 0;
     
-    // Forzar actualización de duración
+    // Cargar y reproducir
+    audio.load();
+    
+    // Intentar reproducir con manejo de promesas
+    const playPromise = audio.play();
+    
+    if (playPromise !== undefined) {
+        playPromise.then(() => {
+            // Éxito: cambiar iconos a "pause"
+            document.getElementById('btnPlayPause').innerHTML = '<i class="fas fa-pause"></i>';
+            document.getElementById('btnMusica').innerHTML = '<i class="fas fa-pause"></i>';
+            
+            console.log(`✅ Reproduciendo canción ${cancionActual + 1}: ${canciones[cancionActual]}`);
+            
+            // Actualizar título del reproductor
+            const tituloReproductor = document.querySelector('#reproductorMusica strong');
+            if (tituloReproductor) {
+                const nombresCanciones = [
+                    "Te Amo (Pochi) 💘",
+                    "Labios Mine Mine Mine 💋",
+                    "Barbacoa (las mejores) 🍖",
+                    "Jardín (Tu Artista) 🌸"
+                ];
+                tituloReproductor.innerHTML = `<i class="fas fa-music" style="margin-right: 5px;"></i> ${nombresCanciones[cancionActual] || `Canción ${cancionActual + 1}`}`;
+            }
+            
+        }).catch(error => {
+            console.error("❌ Error al reproducir:", error);
+            
+            // Si falla, intentar con la siguiente canción después de un breve retraso
+            setTimeout(() => {
+                console.log("⏭️ Intentando siguiente canción...");
+                siguienteCancion();
+            }, 1000);
+        });
+    }
+    
+    // Forzar actualización de duración cuando se cargue
     audio.onloadedmetadata = function() {
         actualizarDuracionTotal();
     };
+    
+    // Manejar errores de carga
+    audio.onerror = function() {
+        console.error(`❌ Error al cargar la canción: ${canciones[cancionActual]}`);
+        
+        // Mostrar notificación de error
+        mostrarNotificacionMusica(`No se pudo cargar: ${canciones[cancionActual].split('/').pop()}`);
+        
+        // Saltar a la siguiente canción
+        setTimeout(siguienteCancion, 1500);
+    };
+}
+
+// Función auxiliar para mostrar notificaciones de música
+function mostrarNotificacionMusica(mensaje) {
+    const notificacion = document.createElement('div');
+    notificacion.style.cssText = `
+        position: fixed;
+        bottom: 80px;
+        right: 20px;
+        background: #f44336;
+        color: white;
+        padding: 10px 15px;
+        border-radius: 8px;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        z-index: 9999;
+        max-width: 200px;
+        animation: slideInUp 0.3s ease, slideOutDown 0.3s ease 3s forwards;
+    `;
+    
+    notificacion.innerHTML = `
+        <div style="display: flex; align-items: center; gap: 8px;">
+            <i class="fas fa-exclamation-triangle"></i>
+            <span style="font-size: 0.8rem;">${mensaje}</span>
+        </div>
+    `;
+    
+    // Agregar animaciones CSS si no existen
+    if (!document.getElementById('animaciones-notificaciones')) {
+        const style = document.createElement('style');
+        style.id = 'animaciones-notificaciones';
+        style.textContent = `
+            @keyframes slideInUp {
+                from { transform: translateY(100%); opacity: 0; }
+                to { transform: translateY(0); opacity: 1; }
+            }
+            @keyframes slideOutDown {
+                from { transform: translateY(0); opacity: 1; }
+                to { transform: translateY(100%); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+    
+    document.body.appendChild(notificacion);
+    
+    setTimeout(() => {
+        if (notificacion.parentNode) {
+            notificacion.parentNode.removeChild(notificacion);
+        }
+    }, 3000);
 }
 
 function siguienteCancion() {

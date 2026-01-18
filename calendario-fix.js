@@ -281,15 +281,15 @@ function mostrarContenidoAjustado(numeroDia, fecha) {
         }
         
         contenidoHTML = `
-            <h2 style="color: #9C27B0; margin-bottom: 20px; font-family: 'Dancing Script', cursive; font-size: 2.5rem; text-align: center;">
-                ¡FELIZ PRIMER ANIVERSARIO! 🎉
-            </h2>
+             <h2 style="color: #9C27B0; margin-bottom: 20px; font-family: 'Poppins', sans-serif; font-size: 2rem; text-align: center; font-weight: 700;">
+        ¡FELIZ PRIMER ANIVERSARIO! 🎉
+    </h2>
             <div style="background: linear-gradient(135deg, #f3e5f5, #e1bee7); padding: 25px; border-radius: 20px; margin: 20px 0; text-align: center;">
                 <h3 style="color: #7B1FA2; margin-bottom: 15px; font-size: 1.8rem;">Día ${numeroDia} - 5 de Abril 2026</h3>
                 
                 <div style="background: white; padding: 20px; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
                     <p style="font-size: 1.4rem; color: #4A148C; margin-bottom: 15px; line-height: 1.6;">
-                        <i class="fas fa-heart" style="color: #E91E63; margin-right: 10px;"></i>
+                        <i class="fas fa-heart" style="color: #9C27B0; margin-right: 10px;"></i>
                         365 días juntos, 525,600 minutos de felicidad, un amor infinito.
                     </p>
                     <p style="font-size: 1.1rem; color: #666; font-style: italic;">
@@ -304,8 +304,8 @@ function mostrarContenidoAjustado(numeroDia, fecha) {
                          onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"500\" height=\"300\" viewBox=\"0 0 500 300\"><rect width=\"500\" height=\"300\" fill=\"%239C27B0\"/><text x=\"250\" y=\"150\" font-family=\"Arial\" font-size=\"40\" text-anchor=\"middle\" fill=\"white\" dy=\".3em\">🎉 1 AÑO JUNTOS 🎉</text></svg>';">
                 </div>
                 
-                <div style="font-size: 1.3rem; padding: 25px; background: white; border-radius: 15px; margin-top: 20px; border-left: 5px solid #E91E63; text-align: left; line-height: 1.6;">
-                    <i class="fas fa-heart" style="color: #E91E63; margin-right: 10px; font-size: 1.5rem; vertical-align: middle;"></i>
+                <div style="font-size: 1.3rem; padding: 25px; background: white; border-radius: 15px; margin-top: 20px; border-left: 5px solid #9C27B0; text-align: left; line-height: 1.6;">
+                    <i class="fas fa-heart" style="color: #9C27B0; margin-right: 10px; font-size: 1.5rem; vertical-align: middle;"></i>
                     ${datoAniversario?.texto || '"El día que cumplimos nuestro primer año juntos. Cada risa, cada abrazo, cada momento contigo ha sido el mejor regalo. Te amo más que ayer y menos que mañana."'}
                 </div>
                 
@@ -329,10 +329,10 @@ function mostrarContenidoAjustado(numeroDia, fecha) {
         
         const titulo = `Día ${numeroDia} - ${dia} de ${MESES[mes]} ${año}`;
         contenidoHTML = `
-            <h2 style="color: #FF9800; margin-bottom: 20px; font-family: 'Dancing Script', cursive; font-size: 2.5rem; text-align: center;">
-                ¡COMIENZA NUESTRA AVENTURA! 🚀
-            </h2>
-            <div style="background: linear-gradient(135deg, #FFF3E0, #FFECB3); padding: 25px; border-radius: 20px; margin: 20px 0; text-align: center;">
+    <h2 style="color: #FF9800; margin-bottom: 20px; font-family: 'Poppins', sans-serif; font-size: 2rem; text-align: center; font-weight: 700;">
+        ¡COMIENZA NUESTRA AVENTURA! 🚀
+    </h2>
+           <div style="background: linear-gradient(135deg, #ffffff, #f3e5f5); padding: 25px; border-radius: 20px; margin: 20px 0; text-align: center; border: 2px solid #FF9800;">
                 <h3 style="color: #F57C00; margin-bottom: 15px; font-size: 1.8rem;">${titulo}</h3>
                 
                 <div style="background: white; padding: 20px; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
@@ -350,7 +350,7 @@ function mostrarContenidoAjustado(numeroDia, fecha) {
                 </div>
                 
                 <div style="font-size: 1.3rem; padding: 25px; background: white; border-radius: 15px; margin-top: 20px; border-left: 5px solid #FF9800; text-align: left; line-height: 1.6;">
-                    <i class="fas fa-heart" style="color: #E91E63; margin-right: 10px; font-size: 1.5rem; vertical-align: middle;"></i>
+                    <i class="fas fa-heart" style="color: #9C27B0; margin-right: 10px; font-size: 1.5rem; vertical-align: middle;"></i>
                     ${datoInicio?.texto || '"El primer día de nuestra historia juntos. Todo comenzó aquí, con una sonrisa y la promesa de muchos días felices por venir."'}
                 </div>
             </div>
@@ -370,7 +370,7 @@ function mostrarContenidoAjustado(numeroDia, fecha) {
             
             if (dato.tipo === "foto") {
                 contenidoHTML = `
-                    <h2 style="color: #e91e63; margin-bottom: 20px; font-family: 'Dancing Script', cursive; font-size: 2rem; text-align: center;">${titulo}</h2>
+                    <h2 style="color: #9C27B0; margin-bottom: 20px; font-family: 'Dancing Script', cursive; font-size: 2rem; text-align: center;">${titulo}</h2>
                     
                     <div style="width: 100%; max-width: 500px; margin: 0 auto 25px;">
                         <img src="${dato.contenido}" alt="Foto especial" 
@@ -379,14 +379,13 @@ function mostrarContenidoAjustado(numeroDia, fecha) {
                     </div>
                     
                     <div style="font-size: 1.3rem; padding: 20px; background: linear-gradient(135deg, #ffebee, #fce4ec); border-radius: 15px; margin: 20px 0; text-align: center; line-height: 1.6;">
-                        <i class="fas fa-heart" style="color: #e91e63; margin-right: 10px;"></i>
+                        <i class="fas fa-heart" style="color: #9C27B0; margin-right: 10px;"></i>
                         ${dato.texto || 'Un día especial contigo 💘'}
                     </div>
                 `;
             } else {
                 contenidoHTML = `
-                    <h2 style="color: #e91e63; margin-bottom: 20px; font-family: 'Dancing Script', cursive; font-size: 2rem; text-align: center;">${titulo}</h2>
-                    <div style="font-size: 1.5rem; padding: 30px; background: linear-gradient(135deg, #f3e5f5, #e8eaf6); border-radius: 15px; margin: 20px 0; text-align: center; font-style: italic; line-height: 1.6;">
+                    <h2 style="color: #9C27B0; margin-bottom: 20px; font-family: 'Poppins', sans-serif; font-size: 1.8rem; text-align: center; font-weight: 600;">${titulo}</h2><div style="font-size: 1.5rem; padding: 30px; background: linear-gradient(135deg, #f3e5f5, #e8eaf6); border-radius: 15px; margin: 20px 0; text-align: center; font-style: italic; line-height: 1.6;">
                         "${dato.contenido}"
                         ${dato.texto ? `<p style="margin-top: 20px; font-size: 1.1rem; color: #666; font-style: normal;">${dato.texto}</p>` : ''}
                     </div>
@@ -409,11 +408,10 @@ function mostrarContenidoAjustado(numeroDia, fecha) {
         const fraseAleatoria = frases[Math.floor(Math.random() * frases.length)];
         
         contenidoHTML = `
-            <h2 style="color: #e91e63; margin-bottom: 20px; font-family: 'Dancing Script', cursive; font-size: 2rem; text-align: center;">${titulo}</h2>
-            <div style="font-size: 1.5rem; padding: 30px; background: linear-gradient(135deg, #e8f5e9, #f1f8e9); border-radius: 15px; margin: 20px 0; text-align: center; font-style: italic; line-height: 1.6;">
+    <h2 style="color: #9C27B0; margin-bottom: 20px; font-family: 'Poppins', sans-serif; font-size: 1.8rem; text-align: center; font-weight: 600;">${titulo}</h2> <div style="font-size: 1.5rem; padding: 30px; background: linear-gradient(135deg, #e8f5e9, #f1f8e9); border-radius: 15px; margin: 20px 0; text-align: center; font-style: italic; line-height: 1.6;">
                 "${fraseAleatoria}"
                 <p style="margin-top: 20px; font-size: 1rem; color: #666; font-style: normal;">
-                    <i class="fas fa-heart" style="color: #e91e63;"></i>
+                    <i class="fas fa-heart" style="color: #9C27B0;"></i>
                     Aunque no haya un recuerdo especial registrado, este día fue perfecto porque estuviste en él.
                 </p>
             </div>
@@ -436,7 +434,7 @@ function lanzarConfetiEspecial() {
                 position: fixed;
                 width: 15px;
                 height: 15px;
-                background: ${['#9C27B0', '#673AB7', '#E91E63', '#FF9800', '#4CAF50'][Math.floor(Math.random()*5)]};
+                background: ${['#9C27B0', '#673AB7', '#9C27B0', '#FF9800', '#4CAF50'][Math.floor(Math.random()*5)]};
                 border-radius: ${Math.random() > 0.5 ? '50%' : '0'};
                 pointer-events: none;
                 z-index: 9998;
@@ -483,7 +481,7 @@ function lanzarEfectosEspeciales() {
                 position: fixed;
                 width: 10px;
                 height: 10px;
-                background: ${['#e91e63', '#ff4081', '#00bcd4', '#ffeb3b'][Math.floor(Math.random()*4)]};
+                background: ${['#9C27B0', '#9C27B0', '#00bcd4', '#ffeb3b'][Math.floor(Math.random()*4)]};
                 border-radius: 50%;
                 pointer-events: none;
                 z-index: 9998;
@@ -536,13 +534,13 @@ function configurarBuscadorAjustado() {
         const label = document.querySelector('.input-label');
         if (this.value) {
             // Fecha seleccionada - mostrar en el input
-            this.style.color = '#e91e63';
+            this.style.color = '#9C27B0';
             if (label) label.style.opacity = '0';
             
             // Efecto en el botón
-            btnBuscar.style.background = 'linear-gradient(135deg, #4CAF50, #8BC34A)';
+            btnBuscar.style.background = 'linear-gradient(45deg, #9C27B0, #7B1FA2)';
             setTimeout(() => {
-                btnBuscar.style.background = 'linear-gradient(135deg, #e91e63, #ff4081)';
+                btnBuscar.style.background =  'linear-gradient(45deg, #9C27B0, #7B1FA2)';
             }, 300);
             
             console.log('Fecha seleccionada:', this.value);
@@ -654,7 +652,7 @@ function mostrarPopupContenido(contenidoHTML) {
                 position: absolute;
                 top: 15px;
                 right: 15px;
-                background: #e91e63;
+                background: #9C27B0;
                 color: white;
                 border: none;
                 width: 35px;
@@ -674,7 +672,7 @@ function mostrarPopupContenido(contenidoHTML) {
             
             <button onclick="cerrarPopup()" style="
                 margin-top: 25px;
-                background: linear-gradient(45deg, #e91e63, #ff4081);
+                background: linear-gradient(45deg, #9C27B0, #7B1FA2);
                 color: white;
                 border: none;
                 padding: 12px 30px;
@@ -722,7 +720,7 @@ function mostrarNotificacion(mensaje, tipo = 'info') {
         position: fixed;
         top: 20px;
         right: 20px;
-        background: ${tipo === 'error' ? '#f44336' : '#4CAF50'};
+        background: ${tipo === 'error' ? ' #9C27B0' : '#4CAF50'};
         color: white;
         padding: 12px 20px;
         border-radius: 8px;
@@ -797,7 +795,7 @@ function configurarBotonesBasicosAjustados() {
                 position: fixed;
                 top: 20px;
                 right: 20px;
-                background: linear-gradient(45deg, #e91e63, #ff4081);
+                background: linear-gradient(45deg, #9C27B0, #7B1FA2);
                 color: white;
                 padding: 15px 20px;
                 border-radius: 10px;
@@ -840,7 +838,7 @@ function actualizarEstadisticasAjustadas() {
         if (hoy >= FECHA_FIN) {
             diasTranscurridos = totalDias; // Ya pasó el aniversario
         } else {
-            diasTranscurridos = Math.floor((hoy - FECHA_INICIO) / (1000 * 60 * 60 * 24)) + 1;
+            diasTranscurridos = Math.floor((hoy - FECHA_INICIO) / (1000 * 60 * 60 * 24)) ;
         }
     }
     
