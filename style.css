@@ -142,7 +142,7 @@ body {
     box-shadow: var(--sombra-suave);
 }
 
-.contador-days #dias-juntos {
+.contador-dias #dias-juntos {
     font-size: 1.3rem;
     font-weight: 700;
 }
