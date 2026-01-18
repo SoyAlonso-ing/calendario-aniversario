@@ -1,11 +1,11 @@
 // ============================================
-// ARCHIVO: reproductor-simple.js - VERSIÓN CORREGIDA
-// REPRODUCTOR SIMPLE FUNCIONAL
+// ARCHIVO: reproductor-simple.js - VERSIÓN ESTÁTICA
+// REPRODUCTOR SIMPLE Y ESTÁTICO
 // ============================================
 
-console.log("🎵 Inicializando reproductor simple corregido...");
+console.log("🎵 Inicializando reproductor estático...");
 
-// Lista de canciones (solo archivos, sin nombres visibles)
+// Lista de canciones
 const canciones = [
     "audio/teAmo.mp3",
     "audio/labiosCompartidos.mp3", 
@@ -23,16 +23,15 @@ const nombresCanciones = [
 
 let cancionActual = 0;
 let volumen = 0.7;
-let isDragging = false;
 
 // Inicializar cuando el DOM cargue
 document.addEventListener('DOMContentLoaded', function() {
-    console.log("🎵 DOM cargado, inicializando reproductor...");
-    inicializarReproductorSimple();
+    console.log("🎵 DOM cargado, inicializando reproductor estático...");
+    inicializarReproductor();
 });
 
-function inicializarReproductorSimple() {
-    console.log("🎵 Inicializando reproductor...");
+function inicializarReproductor() {
+    console.log("🎵 Inicializando reproductor estático...");
     
     const audio = document.getElementById('musicaFondo');
     const reproductor = document.getElementById('reproductorMusica');
@@ -40,21 +39,17 @@ function inicializarReproductorSimple() {
     
     // Verificar que los elementos existen
     if (!audio) {
-        console.error("❌ Elemento de audio no encontrado (id='musicaFondo')");
-        // Crear elemento de audio si no existe
-        const audioElement = document.createElement('audio');
-        audioElement.id = 'musicaFondo';
-        audioElement.preload = 'auto';
-        document.body.appendChild(audioElement);
+        console.error("❌ Elemento de audio no encontrado");
+        return;
     }
     
     if (!reproductor) {
-        console.error("❌ Reproductor no encontrado (id='reproductorMusica')");
+        console.error("❌ Reproductor no encontrado");
         return;
     }
     
     if (!btnMusicaPrincipal) {
-        console.error("❌ Botón de música no encontrado (id='btnMusica')");
+        console.error("❌ Botón de música principal no encontrado");
         return;
     }
     
@@ -84,7 +79,7 @@ function inicializarReproductorSimple() {
     };
     
     // 2. Configurar controles del reproductor
-    configurarControlesSimples();
+    configurarControles();
     
     // 3. Actualizar barra de progreso cada segundo
     setInterval(actualizarBarraProgreso, 1000);
@@ -101,20 +96,17 @@ function inicializarReproductorSimple() {
         siguienteCancion();
     });
     
-    // 6. Hacer reproductor arrastrable en móviles
-    hacerReproductorArrastrable();
-    
-    console.log("✅ Reproductor simple inicializado correctamente");
+    console.log("✅ Reproductor estático inicializado correctamente");
 }
 
-function configurarControlesSimples() {
+function configurarControles() {
     console.log("🎵 Configurando controles...");
     
     const audio = document.getElementById('musicaFondo');
     const reproductor = document.getElementById('reproductorMusica');
     
     if (!audio || !reproductor) {
-        console.error("❌ Audio o reproductor no encontrados en controles");
+        console.error("❌ Audio o reproductor no encontrados");
         return;
     }
     
@@ -123,8 +115,11 @@ function configurarControlesSimples() {
     if (btnCerrar) {
         btnCerrar.onclick = function() {
             reproductor.style.display = 'none';
-            document.getElementById('btnMusica').innerHTML = '<i class="fas fa-music"></i>';
-            document.getElementById('btnMusica').title = "Mostrar reproductor";
+            const btnMusica = document.getElementById('btnMusica');
+            if (btnMusica) {
+                btnMusica.innerHTML = '<i class="fas fa-music"></i>';
+                btnMusica.title = "Mostrar reproductor";
+            }
         };
     }
     
@@ -143,14 +138,16 @@ function configurarControlesSimples() {
                     console.log("▶️ Reanudando...");
                     audio.play();
                     this.innerHTML = '<i class="fas fa-pause"></i>';
-                    document.getElementById('btnMusica').innerHTML = '<i class="fas fa-pause"></i>';
+                    const btnMusica = document.getElementById('btnMusica');
+                    if (btnMusica) btnMusica.innerHTML = '<i class="fas fa-pause"></i>';
                 }
             } else {
                 // Pausar
                 console.log("⏸️ Pausando...");
                 audio.pause();
                 this.innerHTML = '<i class="fas fa-play"></i>';
-                document.getElementById('btnMusica').innerHTML = '<i class="fas fa-music"></i>';
+                const btnMusica = document.getElementById('btnMusica');
+                if (btnMusica) btnMusica.innerHTML = '<i class="fas fa-music"></i>';
             }
         };
     }
@@ -238,7 +235,7 @@ function reproducirCancionActual() {
             console.error("❌ Error al reproducir:", error);
             
             // Mostrar notificación de error
-            mostrarNotificacionMusica("No se pudo reproducir la canción");
+            mostrarNotificacion("No se pudo reproducir la canción", "error");
             
             // Intentar con la siguiente canción
             setTimeout(() => {
@@ -291,45 +288,42 @@ function actualizarDuracionTotal() {
     }
 }
 
-function mostrarNotificacionMusica(mensaje) {
+function mostrarNotificacion(mensaje, tipo = 'error') {
     const notificacion = document.createElement('div');
     notificacion.style.cssText = `
         position: fixed;
-        bottom: 80px;
+        top: 20px;
         right: 20px;
-        background: #f44336;
+        background: ${tipo === 'error' ? '#f44336' : '#4CAF50'};
         color: white;
-        padding: 10px 15px;
+        padding: 12px 20px;
         border-radius: 8px;
-        box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         z-index: 9999;
-        max-width: 200px;
-        animation: slideInUp 0.3s ease, slideOutDown 0.3s ease 3s forwards;
+        max-width: 300px;
+        animation: slideIn 0.3s ease, slideOut 0.3s ease 3s forwards;
     `;
     
     notificacion.innerHTML = `
-        <div style="display: flex; align-items: center; gap: 8px;">
-            <i class="fas fa-exclamation-triangle"></i>
-            <span style="font-size: 0.8rem;">${mensaje}</span>
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <i class="fas fa-${tipo === 'error' ? 'exclamation-triangle' : 'info-circle'}"></i>
+            <span>${mensaje}</span>
         </div>
     `;
     
-    // Agregar animaciones CSS si no existen
-    if (!document.getElementById('animaciones-notificaciones')) {
-        const style = document.createElement('style');
-        style.id = 'animaciones-notificaciones';
-        style.textContent = `
-            @keyframes slideInUp {
-                from { transform: translateY(100%); opacity: 0; }
-                to { transform: translateY(0); opacity: 1; }
-            }
-            @keyframes slideOutDown {
-                from { transform: translateY(0); opacity: 1; }
-                to { transform: translateY(100%); opacity: 0; }
-            }
-        `;
-        document.head.appendChild(style);
-    }
+    // Agregar animaciones
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes slideOut {
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(100%); opacity: 0; }
+        }
+    `;
+    document.head.appendChild(style);
     
     document.body.appendChild(notificacion);
     
@@ -338,97 +332,6 @@ function mostrarNotificacionMusica(mensaje) {
             notificacion.parentNode.removeChild(notificacion);
         }
     }, 3000);
-}
-
-// ============================================
-// FUNCIONALIDAD DE ARRASTRE PARA EL REPRODUCTOR
-// ============================================
-
-function hacerReproductorArrastrable() {
-    const reproductor = document.getElementById('reproductorMusica');
-    const indicadorArrastre = document.getElementById('indicadorArrastre');
-    
-    if (!reproductor) return;
-    
-    // Solo habilitar arrastre en móviles
-    const esMovil = window.innerWidth <= 768;
-    
-    if (esMovil && indicadorArrastre) {
-        indicadorArrastre.style.display = 'block';
-    }
-    
-    reproductor.addEventListener('mousedown', iniciarArrastre);
-    reproductor.addEventListener('touchstart', iniciarArrastreTouch, { passive: false });
-    
-    function iniciarArrastre(e) {
-        if (!esMovil) return;
-        
-        isDragging = true;
-        reproductor.classList.add('dragging');
-        
-        document.addEventListener('mousemove', arrastrar);
-        document.addEventListener('mouseup', detenerArrastre);
-        
-        e.preventDefault();
-    }
-    
-    function iniciarArrastreTouch(e) {
-        if (!esMovil) return;
-        
-        isDragging = true;
-        reproductor.classList.add('dragging');
-        
-        document.addEventListener('touchmove', arrastrarTouch, { passive: false });
-        document.addEventListener('touchend', detenerArrastre);
-        
-        e.preventDefault();
-    }
-    
-    function arrastrar(e) {
-        if (!isDragging) return;
-        
-        const x = e.clientX - (reproductor.offsetWidth / 2);
-        const y = e.clientY - (reproductor.offsetHeight / 2);
-        
-        // Limitar a los bordes de la pantalla
-        const maxX = window.innerWidth - reproductor.offsetWidth;
-        const maxY = window.innerHeight - reproductor.offsetHeight;
-        
-        const posX = Math.max(0, Math.min(x, maxX));
-        const posY = Math.max(0, Math.min(y, maxY));
-        
-        reproductor.style.left = posX + 'px';
-        reproductor.style.top = posY + 'px';
-    }
-    
-    function arrastrarTouch(e) {
-        if (!isDragging) return;
-        
-        const touch = e.touches[0];
-        const x = touch.clientX - (reproductor.offsetWidth / 2);
-        const y = touch.clientY - (reproductor.offsetHeight / 2);
-        
-        // Limitar a los bordes de la pantalla
-        const maxX = window.innerWidth - reproductor.offsetWidth;
-        const maxY = window.innerHeight - reproductor.offsetHeight;
-        
-        const posX = Math.max(0, Math.min(x, maxX));
-        const posY = Math.max(0, Math.min(y, maxY));
-        
-        reproductor.style.left = posX + 'px';
-        reproductor.style.top = posY + 'px';
-        
-        e.preventDefault();
-    }
-    
-    function detenerArrastre() {
-        isDragging = false;
-        reproductor.classList.remove('dragging');
-        document.removeEventListener('mousemove', arrastrar);
-        document.removeEventListener('touchmove', arrastrarTouch);
-        document.removeEventListener('mouseup', detenerArrastre);
-        document.removeEventListener('touchend', detenerArrastre);
-    }
 }
 
 // Hacer funciones disponibles globalmente
