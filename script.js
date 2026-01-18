@@ -399,7 +399,7 @@ function actualizarEstadisticas() {
 }
 
 function calcularDiasJuntos() {
-    const fechaInicio = new Date('2024-01-01'); // CAMBIA ESTA FECHA
+    const fechaInicio = new Date('2025-04-05'); // CAMBIA ESTA FECHA
     const hoy = new Date();
     const diferencia = Math.floor((hoy - fechaInicio) / (1000 * 60 * 60 * 24));
     const diasJuntosElement = document.getElementById('dias-juntos');
