@@ -24,6 +24,7 @@ function calcularDiaExacto(fecha) {
     // Sumar 1 porque el día 1 es 5/4/2025
     return diffDias + 1;
 }
+
 // Meses en español
 const MESES = ["ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", 
                "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE"];
@@ -270,6 +271,9 @@ function mostrarContenidoAjustado(numeroDia, fecha) {
     const fechaKeyConAnio = `${año}-${(mes + 1).toString().padStart(2, '0')}-${dia.toString().padStart(2, '0')}`;
     
     let contenidoHTML = '';
+    let tieneFoto = false;
+    let urlFoto = '';
+    let textoFoto = '';
     
     // ==================== 1. PRIMERO VERIFICAR SI ES EL ANIVERSARIO (2026-04-05) ====================
     if (dia === 5 && mes === 3 && año === 2026) {
@@ -280,10 +284,14 @@ function mostrarContenidoAjustado(numeroDia, fecha) {
                              window.datosConfig.diasEspeciales[fechaKey];
         }
         
+        tieneFoto = true;
+        urlFoto = "fotos/aniversario.jpg";
+        textoFoto = datoAniversario?.texto || 'Foto de nuestro aniversario';
+        
         contenidoHTML = `
-             <h2 style="color: #9C27B0; margin-bottom: 20px; font-family: 'Poppins', sans-serif; font-size: 2rem; text-align: center; font-weight: 700;">
-        ¡FELIZ PRIMER ANIVERSARIO! 🎉
-    </h2>
+            <h2 style="color: #9C27B0; margin-bottom: 20px; font-family: 'Poppins', sans-serif; font-size: 2rem; text-align: center; font-weight: 700;">
+                ¡FELIZ PRIMER ANIVERSARIO! 🎉
+            </h2>
             <div style="background: linear-gradient(135deg, #f3e5f5, #e1bee7); padding: 25px; border-radius: 20px; margin: 20px 0; text-align: center;">
                 <h3 style="color: #7B1FA2; margin-bottom: 15px; font-size: 1.8rem;">Día ${numeroDia} - 5 de Abril 2026</h3>
                 
@@ -298,10 +306,16 @@ function mostrarContenidoAjustado(numeroDia, fecha) {
                 </div>
                 
                 <!-- IMAGEN CON PROPORCIONES CORRECTAS -->
-                <div style="width: 100%; max-width: 500px; margin: 0 auto 20px;">
-                    <img src="fotos/aniversario.jpg" alt="Nuestro aniversario" 
+                <div style="width: 100%; max-width: 500px; margin: 0 auto 20px; position: relative;">
+                    <img src="${urlFoto}" alt="Nuestro aniversario" id="imagen-descargable"
                          style="width: 100%; height: auto; border-radius: 15px; border: 5px solid white; box-shadow: 0 8px 25px rgba(0,0,0,0.2); object-fit: contain; background: #f8f9fa;"
                          onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"500\" height=\"300\" viewBox=\"0 0 500 300\"><rect width=\"500\" height=\"300\" fill=\"%239C27B0\"/><text x=\"250\" y=\"150\" font-family=\"Arial\" font-size=\"40\" text-anchor=\"middle\" fill=\"white\" dy=\".3em\">🎉 1 AÑO JUNTOS 🎉</text></svg>';">
+                    
+                    <!-- Botón flotante de descarga -->
+                    <button onclick="descargarFoto('${urlFoto}', 'aniversario-5-abril-2026.jpg')" 
+                            style="position: absolute; top: 15px; right: 15px; background: linear-gradient(135deg, #9C27B0, #7B1FA2); color: white; border: none; width: 45px; height: 45px; border-radius: 50%; cursor: pointer; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.3); transition: all 0.3s ease; z-index: 10;">
+                        <i class="fas fa-download"></i>
+                    </button>
                 </div>
                 
                 <div style="font-size: 1.3rem; padding: 25px; background: white; border-radius: 15px; margin-top: 20px; border-left: 5px solid #9C27B0; text-align: left; line-height: 1.6;">
@@ -327,12 +341,16 @@ function mostrarContenidoAjustado(numeroDia, fecha) {
                         window.datosConfig.diasEspeciales[fechaKey];
         }
         
+        tieneFoto = true;
+        urlFoto = "fotos/inicio.jpg";
+        textoFoto = datoInicio?.texto || 'Foto de nuestro comienzo';
+        
         const titulo = `Día ${numeroDia} - ${dia} de ${MESES[mes]} ${año}`;
         contenidoHTML = `
-    <h2 style="color: #FF9800; margin-bottom: 20px; font-family: 'Poppins', sans-serif; font-size: 2rem; text-align: center; font-weight: 700;">
-        ¡COMIENZA NUESTRA AVENTURA! 🚀
-    </h2>
-           <div style="background: linear-gradient(135deg, #ffffff, #f3e5f5); padding: 25px; border-radius: 20px; margin: 20px 0; text-align: center; border: 2px solid #FF9800;">
+            <h2 style="color: #FF9800; margin-bottom: 20px; font-family: 'Poppins', sans-serif; font-size: 2rem; text-align: center; font-weight: 700;">
+                ¡COMIENZA NUESTRA AVENTURA! 🚀
+            </h2>
+            <div style="background: linear-gradient(135deg, #ffffff, #f3e5f5); padding: 25px; border-radius: 20px; margin: 20px 0; text-align: center; border: 2px solid #FF9800;">
                 <h3 style="color: #F57C00; margin-bottom: 15px; font-size: 1.8rem;">${titulo}</h3>
                 
                 <div style="background: white; padding: 20px; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
@@ -343,10 +361,16 @@ function mostrarContenidoAjustado(numeroDia, fecha) {
                 </div>
                 
                 <!-- IMAGEN CON PROPORCIONES CORRECTAS -->
-                <div style="width: 100%; max-width: 500px; margin: 0 auto 20px;">
-                    <img src="fotos/inicio.jpg" alt="Nuestro comienzo" 
+                <div style="width: 100%; max-width: 500px; margin: 0 auto 20px; position: relative;">
+                    <img src="${urlFoto}" alt="Nuestro comienzo" id="imagen-descargable"
                          style="width: 100%; height: auto; border-radius: 15px; border: 5px solid white; box-shadow: 0 8px 25px rgba(0,0,0,0.2); object-fit: contain; background: #f8f9fa;"
                          onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"500\" height=\"300\" viewBox=\"0 0 500 300\"><rect width=\"500\" height=\"300\" fill=\"%23FF9800\"/><text x=\"250\" y=\"150\" font-family=\"Arial\" font-size=\"40\" text-anchor=\"middle\" fill=\"white\" dy=\".3em\">🌟 COMIENZO 🌟</text></svg>';">
+                    
+                    <!-- Botón flotante de descarga -->
+                    <button onclick="descargarFoto('${urlFoto}', 'inicio-5-abril-2025.jpg')" 
+                            style="position: absolute; top: 15px; right: 15px; background: linear-gradient(135deg, #FF9800, #F57C00); color: white; border: none; width: 45px; height: 45px; border-radius: 50%; cursor: pointer; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.3); transition: all 0.3s ease; z-index: 10;">
+                        <i class="fas fa-download"></i>
+                    </button>
                 </div>
                 
                 <div style="font-size: 1.3rem; padding: 25px; background: white; border-radius: 15px; margin-top: 20px; border-left: 5px solid #FF9800; text-align: left; line-height: 1.6;">
@@ -369,13 +393,30 @@ function mostrarContenidoAjustado(numeroDia, fecha) {
             const titulo = `Día ${numeroDia} - ${dia} de ${MESES[mes]} ${año}`;
             
             if (dato.tipo === "foto") {
+                tieneFoto = true;
+                urlFoto = dato.contenido;
+                textoFoto = dato.texto || 'Foto especial de nuestro día';
+                
+                // Generar nombre de archivo para descarga
+                const nombreArchivo = generarNombreDescarga(fecha, dato.texto);
+                
                 contenidoHTML = `
-                    <h2 style="color: #9C27B0; margin-bottom: 20px; font-family: 'Dancing Script', cursive; font-size: 2rem; text-align: center;">${titulo}</h2>
+                    <h2 style="color: #9C27B0; margin-bottom: 20px; font-family: 'Dancing Script', cursive; font-size: 2rem; text-align: center;">
+                        ${titulo}
+                    </h2>
                     
-                    <div style="width: 100%; max-width: 500px; margin: 0 auto 25px;">
-                        <img src="${dato.contenido}" alt="Foto especial" 
+                    <div style="width: 100%; max-width: 500px; margin: 0 auto 25px; position: relative;">
+                        <img src="${dato.contenido}" alt="Foto especial" id="imagen-descargable"
                              style="width: 100%; height: auto; max-height: 400px; border-radius: 15px; border: 3px solid #ffebee; box-shadow: 0 8px 20px rgba(0,0,0,0.15); object-fit: contain; background: #f8f9fa;"
-                             onerror="this.onerror=null; this.style.display='none'">
+                             onerror="this.onerror=null; this.style.display='none'; document.getElementById('btn-descargar-foto').style.display='none';">
+                        
+                        <!-- Botón flotante de descarga -->
+                        <button onclick="descargarFoto('${dato.contenido}', '${nombreArchivo}')" 
+                                id="btn-descargar-foto"
+                                style="position: absolute; top: 15px; right: 15px; background: linear-gradient(135deg, #9C27B0, #7B1FA2); color: white; border: none; width: 45px; height: 45px; border-radius: 50%; cursor: pointer; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.3); transition: all 0.3s ease; z-index: 10;"
+                                title="Descargar foto">
+                            <i class="fas fa-download"></i>
+                        </button>
                     </div>
                     
                     <div style="font-size: 1.3rem; padding: 20px; background: linear-gradient(135deg, #ffebee, #fce4ec); border-radius: 15px; margin: 20px 0; text-align: center; line-height: 1.6;">
@@ -385,7 +426,10 @@ function mostrarContenidoAjustado(numeroDia, fecha) {
                 `;
             } else {
                 contenidoHTML = `
-                    <h2 style="color: #9C27B0; margin-bottom: 20px; font-family: 'Poppins', sans-serif; font-size: 1.8rem; text-align: center; font-weight: 600;">${titulo}</h2><div style="font-size: 1.5rem; padding: 30px; background: linear-gradient(135deg, #f3e5f5, #e8eaf6); border-radius: 15px; margin: 20px 0; text-align: center; font-style: italic; line-height: 1.6;">
+                    <h2 style="color: #9C27B0; margin-bottom: 20px; font-family: 'Poppins', sans-serif; font-size: 1.8rem; text-align: center; font-weight: 600;">
+                        ${titulo}
+                    </h2>
+                    <div style="font-size: 1.5rem; padding: 30px; background: linear-gradient(135deg, #f3e5f5, #e8eaf6); border-radius: 15px; margin: 20px 0; text-align: center; font-style: italic; line-height: 1.6;">
                         "${dato.contenido}"
                         ${dato.texto ? `<p style="margin-top: 20px; font-size: 1.1rem; color: #666; font-style: normal;">${dato.texto}</p>` : ''}
                     </div>
@@ -408,7 +452,10 @@ function mostrarContenidoAjustado(numeroDia, fecha) {
         const fraseAleatoria = frases[Math.floor(Math.random() * frases.length)];
         
         contenidoHTML = `
-    <h2 style="color: #9C27B0; margin-bottom: 20px; font-family: 'Poppins', sans-serif; font-size: 1.8rem; text-align: center; font-weight: 600;">${titulo}</h2> <div style="font-size: 1.5rem; padding: 30px; background: linear-gradient(135deg, #e8f5e9, #f1f8e9); border-radius: 15px; margin: 20px 0; text-align: center; font-style: italic; line-height: 1.6;">
+            <h2 style="color: #9C27B0; margin-bottom: 20px; font-family: 'Poppins', sans-serif; font-size: 1.8rem; text-align: center; font-weight: 600;">
+                ${titulo}
+            </h2>
+            <div style="font-size: 1.5rem; padding: 30px; background: linear-gradient(135deg, #e8f5e9, #f1f8e9); border-radius: 15px; margin: 20px 0; text-align: center; font-style: italic; line-height: 1.6;">
                 "${fraseAleatoria}"
                 <p style="margin-top: 20px; font-size: 1rem; color: #666; font-style: normal;">
                     <i class="fas fa-heart" style="color: #9C27B0;"></i>
@@ -418,15 +465,14 @@ function mostrarContenidoAjustado(numeroDia, fecha) {
         `;
     }
     
-    // ==================== 5. MOSTRAR EL CONTENIDO ====================
-    mostrarPopupContenido(contenidoHTML);
+    // ==================== 5. MOSTRAR EL CONTENIDO CON BOTÓN DE DESCARGA SI HAY FOTO ====================
+    mostrarPopupContenido(contenidoHTML, tieneFoto, urlFoto, textoFoto, fecha);
 }
 
-// ==================== FUNCIÓN PARA CONFETI ESPECIAL DE ANIVERSARIO ====================
+// ==================== FUNCIONES AUXILIARES PARA CONFETI Y EFECTOS ====================
 function lanzarConfetiEspecial() {
     console.log("🎉 Lanzando confeti especial de aniversario!");
     
-    // Crear más confeti y de colores especiales
     for (let i = 0; i < 50; i++) {
         setTimeout(() => {
             const confeti = document.createElement('div');
@@ -445,7 +491,6 @@ function lanzarConfetiEspecial() {
             
             document.body.appendChild(confeti);
             
-            // Auto-eliminar
             setTimeout(() => {
                 if (confeti.parentNode) {
                     confeti.parentNode.removeChild(confeti);
@@ -454,7 +499,6 @@ function lanzarConfetiEspecial() {
         }, i * 50);
     }
     
-    // Agregar animación CSS para el confeti
     const estiloConfeti = document.createElement('style');
     estiloConfeti.textContent = `
         @keyframes caerConfeti {
@@ -471,9 +515,7 @@ function lanzarConfetiEspecial() {
     document.head.appendChild(estiloConfeti);
 }
 
-// ==================== FUNCIÓN PARA EFECTOS ESPECIALES NORMALES ====================
 function lanzarEfectosEspeciales() {
-    // Confeti normal (menos cantidad)
     for (let i = 0; i < 20; i++) {
         setTimeout(() => {
             const confeti = document.createElement('div');
@@ -499,6 +541,312 @@ function lanzarEfectosEspeciales() {
             }, 1500);
         }, i * 100);
     }
+}
+
+// ==================== FUNCIÓN PARA GENERAR NOMBRE DE DESCARGA ====================
+function generarNombreDescarga(fecha, texto) {
+    const dia = fecha.getDate().toString().padStart(2, '0');
+    const mes = (fecha.getMonth() + 1).toString().padStart(2, '0');
+    const año = fecha.getFullYear();
+    
+    // Crear un nombre de archivo seguro
+    let nombreBase = `nuestro-dia-${dia}-${mes}-${año}`;
+    
+    // Si hay texto, agregar palabras clave (máximo 3 palabras)
+    if (texto && texto.length > 0) {
+        const palabras = texto.split(' ').slice(0, 3);
+        const palabrasSeguras = palabras.map(palabra => 
+            palabra.replace(/[^a-zA-Z0-9áéíóúÁÉÍÓÚñÑ]/g, '').toLowerCase()
+        ).filter(palabra => palabra.length > 0);
+        
+        if (palabrasSeguras.length > 0) {
+            nombreBase += '-' + palabrasSeguras.join('-');
+        }
+    }
+    
+    return `${nombreBase}.jpg`;
+}
+
+// ==================== FUNCIÓN PARA DESCARGAR FOTOS ====================
+function descargarFoto(urlFoto, nombreArchivo = 'foto-especial.jpg') {
+    console.log(`📥 Intentando descargar: ${urlFoto} como ${nombreArchivo}`);
+    
+    // Mostrar mensaje de inicio
+    mostrarNotificacion('Preparando descarga...', 'info');
+    
+    // Crear un enlace temporal
+    const link = document.createElement('a');
+    link.href = urlFoto;
+    link.download = nombreArchivo;
+    link.target = '_blank';
+    
+    // Configurar atributos para descarga
+    link.setAttribute('download', nombreArchivo);
+    
+    // Para dispositivos móviles y diferentes navegadores
+    if (typeof link.download === 'undefined') {
+        // Fallback para navegadores antiguos: abrir en nueva pestaña
+        link.target = '_blank';
+        mostrarNotificacion('La foto se abrirá en una nueva pestaña. Mantén presionada para guardarla.', 'info');
+    }
+    
+    // Simular clic en el enlace
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
+    // Mostrar mensaje de éxito después de un breve retraso
+    setTimeout(() => {
+        mostrarNotificacion('¡Foto descargada! 💖', 'success');
+        console.log(`✅ Descarga iniciada: ${nombreArchivo}`);
+    }, 500);
+    
+    // Si después de 3 segundos no pasó nada, mostrar instrucciones alternativas
+    setTimeout(() => {
+        // Verificar si estamos en un dispositivo móvil
+        const esMovil = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        
+        if (esMovil) {
+            mostrarNotificacion('Si no se descargó, mantén presionada la imagen y selecciona "Guardar imagen"', 'info');
+        }
+    }, 3000);
+}
+
+// ==================== FUNCIÓN PARA MOSTRAR POPUP CON OPCIÓN DE DESCARGA ====================
+function mostrarPopupContenido(contenidoHTML, tieneFoto = false, urlFoto = '', textoFoto = '', fecha = null) {
+    // Cerrar popup anterior si existe
+    const popupAnterior = document.getElementById('popup-simple');
+    if (popupAnterior) {
+        popupAnterior.remove();
+    }
+    
+    // Crear botón de descarga adicional si hay foto
+    let botonDescargaExtra = '';
+    if (tieneFoto && urlFoto) {
+        const nombreArchivo = fecha ? generarNombreDescarga(fecha, textoFoto) : 'foto-especial.jpg';
+        botonDescargaExtra = `
+            <button onclick="descargarFoto('${urlFoto}', '${nombreArchivo}')" 
+                    style="
+                        margin-top: 15px;
+                        background: linear-gradient(45deg, #4CAF50, #2E7D32);
+                        color: white;
+                        border: none;
+                        padding: 12px 25px;
+                        border-radius: 25px;
+                        cursor: pointer;
+                        font-weight: bold;
+                        font-size: 1rem;
+                        transition: all 0.2s;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        gap: 10px;
+                        width: 100%;
+                        max-width: 300px;
+                        margin-left: auto;
+                        margin-right: auto;
+                    ">
+                <i class="fas fa-download"></i>
+                Descargar esta foto
+            </button>
+        `;
+    }
+    
+    // Crear nuevo popup
+    const popup = document.createElement('div');
+    popup.id = 'popup-simple';
+    popup.style.cssText = `
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: rgba(0,0,0,0.85);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        animation: fadeIn 0.3s ease;
+    `;
+    
+    popup.innerHTML = `
+        <div style="
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            animation: slideUp 0.4s ease;
+        ">
+            <button onclick="cerrarPopup()" style="
+                position: absolute;
+                top: 15px;
+                right: 15px;
+                background: #9C27B0;
+                color: white;
+                border: none;
+                width: 35px;
+                height: 35px;
+                border-radius: 50%;
+                cursor: pointer;
+                font-size: 1rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: all 0.2s;
+            ">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            ${contenidoHTML}
+            
+            ${botonDescargaExtra}
+            
+            <button onclick="cerrarPopup()" style="
+                margin-top: 25px;
+                background: linear-gradient(45deg, #9C27B0, #7B1FA2);
+                color: white;
+                border: none;
+                padding: 12px 30px;
+                border-radius: 25px;
+                cursor: pointer;
+                font-weight: bold;
+                font-size: 1rem;
+                transition: all 0.2s;
+            ">
+                <i class="fas fa-heart" style="margin-right: 8px;"></i>
+                Cerrar
+            </button>
+        </div>
+        
+        <style>
+            @keyframes fadeIn {
+                from { opacity: 0; }
+                to { opacity: 1; }
+            }
+            @keyframes slideUp {
+                from { opacity: 0; transform: translateY(30px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            
+            /* Animación para el botón de descarga flotante */
+            #btn-descargar-foto:hover {
+                transform: scale(1.1) rotate(5deg);
+                box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+            }
+            
+            /* Estilos para la imagen con efecto hover */
+            #imagen-descargable {
+                transition: transform 0.3s ease;
+                cursor: pointer;
+            }
+            
+            #imagen-descargable:hover {
+                transform: scale(1.02);
+            }
+        </style>
+    `;
+    
+    document.body.appendChild(popup);
+    
+    // Agregar funcionalidad de toque largo para móviles
+    const imagen = document.getElementById('imagen-descargable');
+    if (imagen && tieneFoto) {
+        let touchTimer;
+        
+        imagen.addEventListener('touchstart', function(e) {
+            touchTimer = setTimeout(() => {
+                mostrarMenuDescargaMovil(urlFoto, fecha, textoFoto);
+                e.preventDefault();
+            }, 500); // 500ms para toque largo
+        });
+        
+        imagen.addEventListener('touchend', function(e) {
+            clearTimeout(touchTimer);
+        });
+        
+        imagen.addEventListener('touchmove', function(e) {
+            clearTimeout(touchTimer);
+        });
+    }
+}
+
+// ==================== FUNCIÓN PARA MENÚ DE DESCARGA EN MÓVILES ====================
+function mostrarMenuDescargaMovil(urlFoto, fecha, textoFoto) {
+    const nombreArchivo = fecha ? generarNombreDescarga(fecha, textoFoto) : 'foto-especial.jpg';
+    
+    // Crear menú contextual
+    const menu = document.createElement('div');
+    menu.style.cssText = `
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: white;
+        border-radius: 15px;
+        padding: 20px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        z-index: 1001;
+        min-width: 250px;
+        animation: fadeIn 0.2s ease;
+    `;
+    
+    menu.innerHTML = `
+        <h3 style="color: #9C27B0; margin-bottom: 15px; text-align: center;">
+            <i class="fas fa-download"></i> Descargar foto
+        </h3>
+        <p style="margin-bottom: 20px; color: #666; font-size: 0.9rem; text-align: center;">
+            ¿Quieres guardar esta foto en tu dispositivo?
+        </p>
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+            <button onclick="descargarFoto('${urlFoto}', '${nombreArchivo}'); this.parentNode.parentNode.remove();" 
+                    style="
+                        background: linear-gradient(45deg, #4CAF50, #2E7D32);
+                        color: white;
+                        border: none;
+                        padding: 12px;
+                        border-radius: 10px;
+                        cursor: pointer;
+                        font-weight: bold;
+                    ">
+                <i class="fas fa-download"></i> Descargar ahora
+            </button>
+            <button onclick="this.parentNode.parentNode.remove();" 
+                    style="
+                        background: #f5f5f5;
+                        color: #666;
+                        border: 1px solid #ddd;
+                        padding: 12px;
+                        border-radius: 10px;
+                        cursor: pointer;
+                    ">
+                Cancelar
+            </button>
+        </div>
+        <p style="margin-top: 15px; font-size: 0.8rem; color: #999; text-align: center;">
+            También puedes mantener presionada la imagen para guardarla
+        </p>
+    `;
+    
+    // Fondo oscuro
+    const fondo = document.createElement('div');
+    fondo.style.cssText = `
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: rgba(0,0,0,0.5);
+        z-index: 1000;
+    `;
+    fondo.onclick = function() {
+        document.body.removeChild(menu);
+        document.body.removeChild(fondo);
+    };
+    
+    document.body.appendChild(fondo);
+    document.body.appendChild(menu);
 }
 
 // ==================== BUSCADOR AJUSTADO ====================
@@ -563,7 +911,6 @@ function configurarBuscadorAjustado() {
     console.log("✅ Buscador elegante configurado correctamente");
 }
 
-// Función para buscar fecha
 function buscarFechaEspecial() {
     const inputFecha = document.getElementById('buscarFecha');
     const contenedor = inputFecha.closest('.contenedor-buscador-elegante');
@@ -588,13 +935,13 @@ function buscarFechaEspecial() {
         return;
     }
     
-  // Convertir la fecha del input a fecha local (sin problemas de zona horaria)
-const fechaInput = inputFecha.value; // Formato: "YYYY-MM-DD"
-const partes = fechaInput.split('-');
-const año = parseInt(partes[0]);
-const mes = parseInt(partes[1]) - 1; // Restar 1 porque enero es 0
-const dia = parseInt(partes[2]);
-const fechaSeleccionada = new Date(año, mes, dia); // Fecha local
+    // Convertir la fecha del input a fecha local (sin problemas de zona horaria)
+    const fechaInput = inputFecha.value; // Formato: "YYYY-MM-DD"
+    const partes = fechaInput.split('-');
+    const año = parseInt(partes[0]);
+    const mes = parseInt(partes[1]) - 1; // Restar 1 porque enero es 0
+    const dia = parseInt(partes[2]);
+    const fechaSeleccionada = new Date(año, mes, dia); // Fecha local
     
     // Verificar que esté dentro del rango (5/4/2025 - 5/4/2026)
     if (fechaSeleccionada < FECHA_INICIO || fechaSeleccionada > new Date('2026-04-05')) {
@@ -611,116 +958,13 @@ const fechaSeleccionada = new Date(año, mes, dia); // Fecha local
     mostrarContenidoAjustado(numeroDia, fechaSeleccionada);
 }
 
-// ==================== FUNCIONES AUXILIARES ====================
-function mostrarPopupContenido(contenidoHTML) {
-    // Cerrar popup anterior si existe
-    const popupAnterior = document.getElementById('popup-simple');
-    if (popupAnterior) {
-        popupAnterior.remove();
-    }
-    
-    // Crear nuevo popup
-    const popup = document.createElement('div');
-    popup.id = 'popup-simple';
-    popup.style.cssText = `
-        position: fixed;
-        top: 0; left: 0;
-        width: 100%; height: 100%;
-        background: rgba(0,0,0,0.85);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 1000;
-        animation: fadeIn 0.3s ease;
-    `;
-    
-    popup.innerHTML = `
-        <div style="
-            background: white;
-            padding: 30px;
-            border-radius: 20px;
-            max-width: 600px;
-            width: 90%;
-            max-height: 80vh;
-            overflow-y: auto;
-            text-align: center;
-            position: relative;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
-            animation: slideUp 0.4s ease;
-        ">
-            <button onclick="cerrarPopup()" style="
-                position: absolute;
-                top: 15px;
-                right: 15px;
-                background: #9C27B0;
-                color: white;
-                border: none;
-                width: 35px;
-                height: 35px;
-                border-radius: 50%;
-                cursor: pointer;
-                font-size: 1rem;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                transition: all 0.2s;
-            ">
-                <i class="fas fa-times"></i>
-            </button>
-            
-            ${contenidoHTML}
-            
-            <button onclick="cerrarPopup()" style="
-                margin-top: 25px;
-                background: linear-gradient(45deg, #9C27B0, #7B1FA2);
-                color: white;
-                border: none;
-                padding: 12px 30px;
-                border-radius: 25px;
-                cursor: pointer;
-                font-weight: bold;
-                font-size: 1rem;
-                transition: all 0.2s;
-            ">
-                <i class="fas fa-heart" style="margin-right: 8px;"></i>
-                Cerrar
-            </button>
-        </div>
-        
-        <style>
-            @keyframes fadeIn {
-                from { opacity: 0; }
-                to { opacity: 1; }
-            }
-            @keyframes slideUp {
-                from { opacity: 0; transform: translateY(30px); }
-                to { opacity: 1; transform: translateY(0); }
-            }
-        </style>
-    `;
-    
-    document.body.appendChild(popup);
-}
-
-function cerrarPopup() {
-    const popup = document.getElementById('popup-simple');
-    if (popup) {
-        popup.style.animation = 'fadeOut 0.3s ease forwards';
-        setTimeout(() => {
-            if (popup.parentNode) {
-                popup.parentNode.removeChild(popup);
-            }
-        }, 300);
-    }
-}
-
 function mostrarNotificacion(mensaje, tipo = 'info') {
     const notificacion = document.createElement('div');
     notificacion.style.cssText = `
         position: fixed;
         top: 20px;
         right: 20px;
-        background: ${tipo === 'error' ? ' #9C27B0' : '#4CAF50'};
+        background: ${tipo === 'error' ? ' #9C27B0' : tipo === 'success' ? '#4CAF50' : '#2196F3'};
         color: white;
         padding: 12px 20px;
         border-radius: 8px;
@@ -730,9 +974,12 @@ function mostrarNotificacion(mensaje, tipo = 'info') {
         animation: slideIn 0.3s ease, slideOut 0.3s ease 3s forwards;
     `;
     
+    const icono = tipo === 'error' ? 'exclamation-triangle' : 
+                  tipo === 'success' ? 'check-circle' : 'info-circle';
+    
     notificacion.innerHTML = `
         <div style="display: flex; align-items: center; gap: 10px;">
-            <i class="fas fa-${tipo === 'error' ? 'exclamation-triangle' : 'info-circle'}"></i>
+            <i class="fas fa-${icono}"></i>
             <span>${mensaje}</span>
         </div>
     `;
@@ -884,6 +1131,20 @@ function actualizarEstadisticasAjustadas() {
     console.log(`📊 Estadísticas: ${diasTranscurridos}/${totalDias} días`);
 }
 
+function cerrarPopup() {
+    const popup = document.getElementById('popup-simple');
+    if (popup) {
+        popup.style.animation = 'fadeOut 0.3s ease forwards';
+        setTimeout(() => {
+            if (popup.parentNode) {
+                popup.parentNode.removeChild(popup);
+            }
+        }, 300);
+    }
+}
+
 // Hacer funciones disponibles globalmente
 window.cerrarPopup = cerrarPopup;
 window.mostrarContenidoAjustado = mostrarContenidoAjustado;
+window.descargarFoto = descargarFoto;
+window.generarNombreDescarga = generarNombreDescarga;

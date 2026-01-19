@@ -43,8 +43,8 @@ const frasesGenericas = [
 
 // DATOS ADICIONALES
 const primerasVeces = {
-    "primeraCita": { fecha: "01-15", titulo: "Nuestra primera cita", descripcion: "Recuerdo que estabas tan nervioso/a que...", emoji: "🥰" },
-    "primerBeso": { fecha: "01-20", titulo: "Nuestro primer beso", descripcion: "Fue bajo la lluvia/luna/etc...", emoji: "💋" },
+    "primeraCita": { fecha: "04-05", titulo: "Nuestra primera cita", descripcion: "Recuerdo que estabas tan nervioso/a que...", emoji: "🥰" },
+    "primerBeso": { fecha: "04-12", titulo: "Nuestro primer beso", descripcion: "Fue bajo la lluvia/luna/etc...", emoji: "💋" },
     "primeraAventura": { fecha: "03-10", titulo: "Nuestro primer viaje", descripcion: "Cuando nos perdimos y...", emoji: "🧳" }
 };
 
