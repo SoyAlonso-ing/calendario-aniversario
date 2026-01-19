@@ -9,6 +9,10 @@ console.log("📅 Cargando calendario ajustado (5/4/2025 - 5/4/2026)...");
 const FECHA_INICIO = new Date('2025-04-05');
 const FECHA_FIN = new Date('2026-04-06');
 
+// Variables para controlar el scroll
+let scrollPosition = 0;
+let isPopupOpen = false;
+
 // Función para calcular el día exacto desde el inicio (CORREGIDA PARA ZONA HORARIA)
 function calcularDiaExacto(fecha) {
     // Crear fechas en hora local (sin problemas de zona horaria)
@@ -371,83 +375,108 @@ function mostrarContenidoAjustado(numeroDia, fecha) {
         lanzarEfectosEspeciales();
         
     }
-    // ==================== 3. LUEGO VERIFICAR OTROS DÍAS ESPECIALES ====================
-    else if (window.datosConfig && window.datosConfig.diasEspeciales) {
-        // Buscar primero con año, luego sin año
-        const dato = window.datosConfig.diasEspeciales[fechaKeyConAnio] || 
-                    window.datosConfig.diasEspeciales[fechaKey];
-        
-        if (dato) {
-            const titulo = `Día ${numeroDia} - ${dia} de ${MESES[mes]} ${año}`;
-            
-            if (dato.tipo === "foto") {
-                tieneFoto = true;
-                urlFoto = dato.contenido;
-                textoFoto = dato.texto || 'Foto especial de nuestro día';
-                
-                // Generar nombre de archivo para descarga
-                const nombreArchivo = generarNombreDescarga(fecha, dato.texto);
-                
-                contenidoHTML = `
-                    <h2 style="color: #9C27B0; margin-bottom: 15px; font-family: 'Poppins', sans-serif; font-size: 1.6rem; text-align: center; font-weight: 700;">
-                        ${titulo}
-                    </h2>
-                    
-                    <!-- IMAGEN (tamaño original) -->
-                    <div style="width: 100%; max-width: 500px; margin: 0 auto 15px;">
-                        <img src="${dato.contenido}" alt="Foto especial" id="imagen-descargable" class="imagen-popup"
-                             style="width: 100%; height: auto; max-height: 300px; border-radius: 12px; border: 2px solid #ffebee; box-shadow: 0 5px 15px rgba(0,0,0,0.12); object-fit: contain; background: #f8f9fa; cursor: pointer;"
-                             onerror="this.onerror=null; this.style.display='none';">
-                    </div>
-                    
-                    <div style="font-size: 1.1rem; padding: 15px; background: linear-gradient(135deg, #ffebee, #fce4ec); border-radius: 12px; margin: 15px 0; text-align: center; line-height: 1.5;">
-                        <i class="fas fa-heart" style="color: #9C27B0; margin-right: 8px;"></i>
-                        ${dato.texto || 'Un día especial contigo 💘'}
-                    </div>
-                `;
-            } else {
-                contenidoHTML = `
-                    <h2 style="color: #9C27B0; margin-bottom: 15px; font-family: 'Poppins', sans-serif; font-size: 1.6rem; text-align: center; font-weight: 700;">
-                        ${titulo}
-                    </h2>
-                    <div style="font-size: 1.2rem; padding: 20px; background: linear-gradient(135deg, #f3e5f5, #e8eaf6); border-radius: 12px; margin: 15px 0; text-align: center; font-style: italic; line-height: 1.5;">
-                        "${dato.contenido}"
-                        ${dato.texto ? `<p style="margin-top: 15px; font-size: 1rem; color: #666; font-style: normal;">${dato.texto}</p>` : ''}
-                    </div>
-                `;
-            }
-            
-            lanzarEfectosEspeciales();
-        }
-    }
+   // ==================== 3. LUEGO VERIFICAR OTROS DÍAS ESPECIALES ====================
+else if (window.datosConfig && window.datosConfig.diasEspeciales) {
+    // Buscar primero con año, luego sin año
+    const dato = window.datosConfig.diasEspeciales[fechaKeyConAnio] || 
+                window.datosConfig.diasEspeciales[fechaKey];
     
-    // ==================== 4. SI NO ES ESPECIAL, MOSTRAR FRASE GENÉRICA ====================
-    if (!contenidoHTML) {
+    if (dato) {
         const titulo = `Día ${numeroDia} - ${dia} de ${MESES[mes]} ${año}`;
-        const frases = window.datosConfig?.frasesGenericas || [
-            "Un día más a tu lado es un regalo",
-            "Hoy es perfecto porque estás en mi vida",
-            "Cada momento contigo es especial",
-            "Te amo más que ayer, menos que mañana"
-        ];
-        const fraseAleatoria = frases[Math.floor(Math.random() * frases.length)];
         
-        contenidoHTML = `
-            <h2 style="color: #9C27B0; margin-bottom: 15px; font-family: 'Poppins', sans-serif; font-size: 1.6rem; text-align: center; font-weight: 700;">
-                ${titulo}
-            </h2>
-            <div style="font-size: 1.2rem; padding: 20px; background: linear-gradient(135deg, #e8f5e9, #f1f8e9); border-radius: 12px; margin: 15px 0; text-align: center; font-style: italic; line-height: 1.5;">
-                "${fraseAleatoria}"
-                <p style="margin-top: 15px; font-size: 0.9rem; color: #666; font-style: normal;">
-                    <i class="fas fa-heart" style="color: #9C27B0;"></i>
-                    Aunque no haya un recuerdo especial registrado, este día fue perfecto porque estuviste en él.
-                </p>
-            </div>
-        `;
+        if (dato.tipo === "foto") {
+            tieneFoto = true;
+            urlFoto = dato.contenido;
+            textoFoto = dato.texto || 'Foto especial de nuestro día';
+            
+            contenidoHTML = `
+                <h2 style="color: #9C27B0; margin-bottom: 15px; font-family: 'Poppins', sans-serif; font-size: 1.6rem; text-align: center; font-weight: 700;">
+                    ${titulo}
+                </h2>
+                
+                <!-- IMAGEN (tamaño original) -->
+                <div style="width: 100%; max-width: 500px; margin: 0 auto 15px;">
+                    <img src="${dato.contenido}" alt="Foto especial" id="imagen-descargable" class="imagen-popup"
+                         style="width: 100%; height: auto; max-height: 300px; border-radius: 12px; border: 2px solid #ffebee; box-shadow: 0 5px 15px rgba(0,0,0,0.12); object-fit: contain; background: #f8f9fa; cursor: pointer;"
+                         onerror="this.onerror=null; this.style.display='none'; document.getElementById('mensaje-error-imagen')?.remove(); const errorDiv=document.createElement('div'); errorDiv.id='mensaje-error-imagen'; errorDiv.innerHTML='<p style=\'color:#FF5722;padding:10px;background:#ffebee;border-radius:8px;\'><i class=\'fas fa-exclamation-triangle\'></i> La imagen no pudo cargarse</p>'; this.parentNode.appendChild(errorDiv);">
+                </div>
+                
+                <div style="font-size: 1.1rem; padding: 15px; background: linear-gradient(135deg, #ffebee, #fce4ec); border-radius: 12px; margin: 15px 0; text-align: center; line-height: 1.5;">
+                    <i class="fas fa-heart" style="color: #9C27B0; margin-right: 8px;"></i>
+                    ${dato.texto || 'Un día especial contigo 💘'}
+                </div>
+            `;
+        } else {
+            // Asegurar que dato.contenido existe
+            const textoContenido = dato.contenido || dato.texto || 'Un mensaje especial para ti';
+            
+            contenidoHTML = `
+                <h2 style="color: #9C27B0; margin-bottom: 15px; font-family: 'Poppins', sans-serif; font-size: 1.6rem; text-align: center; font-weight: 700;">
+                    ${titulo}
+                </h2>
+                <div style="font-size: 1.2rem; padding: 20px; background: linear-gradient(135deg, #f3e5f5, #e8eaf6); border-radius: 12px; margin: 15px 0; text-align: center; font-style: italic; line-height: 1.5;">
+                    "${textoContenido}"
+                    ${dato.texto && dato.texto !== textoContenido ? `<p style="margin-top: 15px; font-size: 1rem; color: #666; font-style: normal;">${dato.texto}</p>` : ''}
+                </div>
+            `;
+        }
+        
+        lanzarEfectosEspeciales();
     }
+}
     
-    // ==================== 5. MOSTRAR EL CONTENIDO CON BOTÓN DE DESCARGA SI HAY FOTO ====================
+// ==================== 4. SI NO ES ESPECIAL, MOSTRAR FRASE GENÉRICA ====================
+if (!contenidoHTML) {
+    const titulo = `Día ${numeroDia} - ${dia} de ${MESES[mes]} ${año}`;
+    const frases = window.datosConfig?.frasesGenericas || [
+        "Un día más a tu lado es un regalo",
+        "Hoy es perfecto porque estás en mi vida",
+        "Cada momento contigo es especial",
+        "Te amo más que ayer, menos que mañana"
+    ];
+    const fraseAleatoria = frases[Math.floor(Math.random() * frases.length)];
+    
+    contenidoHTML = `
+        <h2 style="color: #9C27B0; margin-bottom: 15px; font-family: 'Poppins', sans-serif; font-size: 1.6rem; text-align: center; font-weight: 700;">
+            ${titulo}
+        </h2>
+        <div style="font-size: 1.2rem; padding: 20px; background: linear-gradient(135deg, #e8f5e9, #f1f8e9); border-radius: 12px; margin: 15px 0; text-align: center; font-style: italic; line-height: 1.5;">
+            "${fraseAleatoria}"
+            <p style="margin-top: 15px; font-size: 0.9rem; color: #666; font-style: normal;">
+                <i class="fas fa-heart" style="color: #9C27B0;"></i>
+                Aunque no haya un recuerdo especial registrado, este día fue perfecto porque estuviste en él.
+            </p>
+        </div>
+    `;
+    
+    // ¡IMPORTANTE! Agregar esto para que tenga contenido válido:
+    tieneFoto = false;
+    urlFoto = '';
+    textoFoto = '';
+}
+
+// ==================== 5. MOSTRAR EL CONTENIDO CON BOTÓN DE DESCARGA SI HAY FOTO ====================
+// Verificar que el contenidoHTML no esté vacío
+if (contenidoHTML && contenidoHTML.trim() !== '') {
     mostrarPopupContenido(contenidoHTML, tieneFoto, urlFoto, textoFoto, fecha);
+} else {
+    console.error("❌ Error: contenidoHTML está vacío o indefinido");
+    // Mostrar un mensaje de error o contenido por defecto
+    const tituloError = `Día ${numeroDia} - ${dia} de ${MESES[mes]} ${año}`;
+    const contenidoError = `
+        <h2 style="color: #FF5722; margin-bottom: 15px; font-family: 'Poppins', sans-serif; font-size: 1.6rem; text-align: center; font-weight: 700;">
+            ${tituloError}
+        </h2>
+        <div style="font-size: 1.2rem; padding: 20px; background: linear-gradient(135deg, #ffebee, #ffcdd2); border-radius: 12px; margin: 15px 0; text-align: center; line-height: 1.5;">
+            <i class="fas fa-heart-broken" style="color: #FF5722; font-size: 2rem; margin-bottom: 15px;"></i>
+            <p>¡Ups! Algo salió mal al cargar este día.</p>
+            <p style="margin-top: 10px; font-size: 1rem; color: #666;">
+                Pero recuerda que cada día contigo es especial 💖
+            </p>
+        </div>
+    `;
+    mostrarPopupContenido(contenidoError, false, '', '', fecha);
+}
 }
 
 // ==================== FUNCIONES AUXILIARES PARA CONFETI Y EFECTOS ====================
@@ -595,6 +624,20 @@ function descargarFoto(urlFoto, nombreArchivo = 'foto-especial.jpg') {
 
 // ==================== FUNCIÓN PARA MOSTRAR POPUP CON OPCIÓN DE DESCARGA ====================
 function mostrarPopupContenido(contenidoHTML, tieneFoto = false, urlFoto = '', textoFoto = '', fecha = null) {
+    
+    // Guardar posición del scroll ANTES de bloquear
+    scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+    isPopupOpen = true;
+    
+    // Guardar la posición como atributo para restaurarla
+    document.body.setAttribute('data-scroll-pos', scrollPosition);
+    
+    // Bloquear scroll de manera más efectiva
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${scrollPosition}px`;
+    document.body.style.width = '100%';
+    document.body.style.overflow = 'hidden';
+    
     // Cerrar popup anterior si existe
     const popupAnterior = document.getElementById('popup-simple');
     if (popupAnterior) {
@@ -664,26 +707,26 @@ function mostrarPopupContenido(contenidoHTML, tieneFoto = false, urlFoto = '', t
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
             animation: slideUp 0.4s ease;
         " id="contenedor-popup">
-            <button onclick="cerrarPopup()" style="
-                position: absolute;
-                top: 12px;
-                right: 12px;
-                background: #9C27B0;
-                color: white;
-                border: none;
-                width: 32px;
-                height: 32px;
-                border-radius: 50%;
-                cursor: pointer;
-                font-size: 0.9rem;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                transition: all 0.2s;
-                z-index: 10;
-            ">
-                <i class="fas fa-times"></i>
-            </button>
+            <button onclick="cerrarPopup(); event.stopPropagation();" style="
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: #9C27B0;
+    color: white;
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    z-index: 10;
+">
+    <i class="fas fa-times"></i>
+</button>
             
             ${contenidoHTML}
             
@@ -740,6 +783,7 @@ function mostrarPopupContenido(contenidoHTML, tieneFoto = false, urlFoto = '', t
             }
         </style>
     `;
+    
     
     // Agregar el popup al body y prevenir scroll
     document.body.classList.add('popup-abierto');
@@ -1143,18 +1187,95 @@ function cerrarPopup() {
     const popup = document.getElementById('popup-simple');
     if (popup) {
         popup.style.animation = 'fadeOut 0.3s ease forwards';
+        
+        // Obtener la posición guardada ANTES de cerrar
+        const savedPosition = parseInt(document.body.getAttribute('data-scroll-pos') || '0');
+        
         setTimeout(() => {
             if (popup.parentNode) {
                 popup.parentNode.removeChild(popup);
             }
-            // Restaurar el scroll del body
-            document.body.classList.remove('popup-abierto');
+            
+            // Remover clase de bloqueo de scroll
+            document.body.classList.remove('body-no-scroll', 'popup-abierto');
+            
+            // Restaurar estilos del body
+            document.body.style.position = '';
+            document.body.style.top = '';
+            document.body.style.width = '';
+            document.body.style.height = '';
+            document.body.style.overflow = '';
+            
+            // Restaurar scroll después de que el DOM se actualice
+            setTimeout(() => {
+                window.scrollTo({
+                    top: savedPosition,
+                    behavior: 'instant' // Usar 'instant' en lugar de 'smooth'
+                });
+            }, 10);
+            
+            // Limpiar atributo
+            document.body.removeAttribute('data-scroll-pos');
+            isPopupOpen = false;
+            
         }, 300);
     }
 }
-
 // Hacer funciones disponibles globalmente
 window.cerrarPopup = cerrarPopup;
 window.mostrarContenidoAjustado = mostrarContenidoAjustado;
 window.descargarFoto = descargarFoto;
 window.generarNombreDescarga = generarNombreDescarga;
+
+// Función auxiliar para restaurar scroll correctamente
+function restaurarScrollDespuesDePopup() {
+    const savedPosition = parseInt(document.body.getAttribute('data-scroll-pos') || '0');
+    
+    // Restaurar estilos del body
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.width = '';
+    document.body.style.height = '';
+    document.body.style.overflow = '';
+    
+    // Forzar un reflow para asegurar que los estilos se aplican
+    document.body.offsetHeight;
+    
+    // Restaurar scroll
+    window.scrollTo(0, savedPosition);
+    
+    // Limpiar atributos
+    document.body.removeAttribute('data-scroll-pos');
+}
+
+/*// Manejar clics fuera del popup para cerrarlo
+document.addEventListener('click', function(event) {
+    const popup = document.getElementById('popup-simple');
+    if (popup && isPopupOpen) {
+        const contenedor = document.getElementById('contenedor-popup');
+        if (!contenedor.contains(event.target) && event.target !== popup) {
+            cerrarPopup();
+        }
+    }
+});*/
+
+// Manejar tecla Escape para cerrar popup
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape' && isPopupOpen) {
+        cerrarPopup();
+    }
+});
+
+// Manejar resize de ventana
+window.addEventListener('resize', function() {
+    if (isPopupOpen) {
+        const popup = document.getElementById('popup-simple');
+        if (popup) {
+            // Asegurar que el popup se mantenga centrado
+            const contenedor = document.getElementById('contenedor-popup');
+            if (contenedor) {
+                contenedor.style.maxHeight = `${window.innerHeight * 0.85}px`;
+            }
+        }
+    }
+});
