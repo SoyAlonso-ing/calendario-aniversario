@@ -1,11 +1,11 @@
 // ============================================
 // ARCHIVO: reproductor-simple.js - VERSIÓN ESTÁTICA
-// REPRODUCTOR SIMPLE Y ESTÁTICO
+// REPRODUCTOR SIMPLE Y ESTÁTICO - CORREGIDO
 // ============================================
 
-console.log("🎵 Inicializando reproductor estático...");
+console.log("🎵 Inicializando reproductor estático (CORREGIDO)...");
 
-// Lista de canciones
+// Lista de canciones - RUTAS CORREGIDAS
 const canciones = [
     "audio/teAmo.mp3",
     "audio/labiosCompartidos.mp3", 
@@ -15,23 +15,24 @@ const canciones = [
 
 // Nombres para mostrar de las canciones
 const nombresCanciones = [
-    "Te Amo (Pochi) 💘",
-    "Labios (Mine Mine Mine) 💋",
-    "Barbacoa (las mejores papas) 🍖",
-    "Una de tu artista (Melendi) 🌸"
+    "Te Amo (Pochi)💘",
+    "Labios (Mine)👄",
+    "Barbacoa (las #1)🍟",
+    "Tu artista (Melendi)🌸"
 ];
 
 let cancionActual = 0;
 let volumen = 0.7;
+let intentosFallidos = 0; // Para evitar bucles infinitos
 
 // Inicializar cuando el DOM cargue
 document.addEventListener('DOMContentLoaded', function() {
-    console.log("🎵 DOM cargado, inicializando reproductor estático...");
+    console.log("🎵 DOM cargado, inicializando reproductor estático CORREGIDO...");
     inicializarReproductor();
 });
 
 function inicializarReproductor() {
-    console.log("🎵 Inicializando reproductor estático...");
+    console.log("🎵 Inicializando reproductor estático CORREGIDO...");
     
     const audio = document.getElementById('musicaFondo');
     const reproductor = document.getElementById('reproductorMusica');
@@ -58,6 +59,28 @@ function inicializarReproductor() {
     // Configurar volumen inicial
     audio.volume = volumen;
     
+    // Configurar errores del audio
+    audio.onerror = function(e) {
+        console.error("❌ Error en el elemento de audio:", e);
+        mostrarNotificacion(`Error con: ${canciones[cancionActual]}`, "error");
+        
+        // Incrementar contador de intentos fallidos
+        intentosFallidos++;
+        
+        // Si hemos fallado demasiadas veces, no intentar más
+        if (intentosFallidos >= canciones.length * 2) {
+            console.error("❌ Demasiados errores. Deteniendo reproductor.");
+            mostrarNotificacion("No se pueden reproducir las canciones", "error");
+            return;
+        }
+        
+        // Intentar con la siguiente canción después de un breve retraso
+        setTimeout(() => {
+            console.log("🔄 Intentando siguiente canción después de error...");
+            siguienteCancion();
+        }, 1000);
+    };
+    
     // 1. Configurar botón principal de música
     btnMusicaPrincipal.onclick = function() {
         console.log("🎵 Botón principal clickeado");
@@ -70,6 +93,16 @@ function inicializarReproductor() {
             if (audio.paused || !audio.src) {
                 console.log("🎵 Reproduciendo canción actual...");
                 reproducirCancionActual();
+            } else if (audio.ended) {
+                // Si la canción terminó, pasar a la siguiente
+                siguienteCancion();
+            } else {
+                // Si está pausada, reanudar
+                audio.play().then(() => {
+                    this.innerHTML = '<i class="fas fa-pause"></i>';
+                }).catch(e => {
+                    console.error("Error al reanudar:", e);
+                });
             }
         } else {
             reproductor.style.display = 'none';
@@ -86,21 +119,22 @@ function inicializarReproductor() {
     
     // 4. Actualizar duración cuando se carga la canción
     audio.addEventListener('loadedmetadata', function() {
-        console.log("🎵 Metadatos cargados");
+        console.log("🎵 Metadatos cargados correctamente");
         actualizarDuracionTotal();
+        intentosFallidos = 0; // Resetear contador cuando se carga correctamente
     });
     
     // 5. Cuando termine la canción, pasar a la siguiente
     audio.addEventListener('ended', function() {
-        console.log("🎵 Canción terminada, siguiente...");
+        console.log("🎵 Canción terminada correctamente, siguiente...");
         siguienteCancion();
     });
     
-    console.log("✅ Reproductor estático inicializado correctamente");
+    console.log("✅ Reproductor estático CORREGIDO inicializado correctamente");
 }
 
 function configurarControles() {
-    console.log("🎵 Configurando controles...");
+    console.log("🎵 Configurando controles CORREGIDO...");
     
     const audio = document.getElementById('musicaFondo');
     const reproductor = document.getElementById('reproductorMusica');
@@ -128,26 +162,29 @@ function configurarControles() {
     if (btnPlayPause) {
         btnPlayPause.onclick = function() {
             console.log("⏯️ Play/Pause clickeado");
+            
+            if (!audio.src) {
+                // Si no hay fuente, cargar la primera canción
+                reproducirCancionActual();
+                return;
+            }
+            
             if (audio.paused) {
-                // Si no hay fuente o la canción terminó, cargar la actual
-                if (!audio.src || audio.ended || audio.currentTime >= audio.duration) {
-                    console.log("🎵 No hay fuente, cargando canción actual...");
-                    reproducirCancionActual();
-                } else {
-                    // Si está pausada, reanudar
-                    console.log("▶️ Reanudando...");
-                    audio.play();
+                audio.play().then(() => {
                     this.innerHTML = '<i class="fas fa-pause"></i>';
                     const btnMusica = document.getElementById('btnMusica');
                     if (btnMusica) btnMusica.innerHTML = '<i class="fas fa-pause"></i>';
-                }
+                    console.log("▶️ Reproduciendo...");
+                }).catch(error => {
+                    console.error("❌ Error al reproducir:", error);
+                    mostrarNotificacion("No se pudo reproducir la canción", "error");
+                });
             } else {
-                // Pausar
-                console.log("⏸️ Pausando...");
                 audio.pause();
                 this.innerHTML = '<i class="fas fa-play"></i>';
                 const btnMusica = document.getElementById('btnMusica');
                 if (btnMusica) btnMusica.innerHTML = '<i class="fas fa-music"></i>';
+                console.log("⏸️ Pausado...");
             }
         };
     }
@@ -157,7 +194,15 @@ function configurarControles() {
     if (btnAnterior) {
         btnAnterior.onclick = function() {
             console.log("⏮️ Canción anterior...");
+            // Guardar canción anterior para evitar bucles
+            const anterior = cancionActual;
             cancionActual = (cancionActual - 1 + canciones.length) % canciones.length;
+            
+            // Si estamos cambiando a la misma canción, forzar cambio
+            if (anterior === cancionActual && canciones.length > 1) {
+                cancionActual = (cancionActual - 1 + canciones.length) % canciones.length;
+            }
+            
             reproducirCancionActual();
         };
     }
@@ -179,14 +224,14 @@ function configurarControles() {
             const clickX = e.clientX - rect.left;
             const porcentaje = clickX / rect.width;
             
-            if (audio.duration) {
+            if (audio.duration && !isNaN(audio.duration)) {
                 audio.currentTime = audio.duration * porcentaje;
                 actualizarBarraProgreso();
             }
         };
     }
     
-    console.log("✅ Controles configurados");
+    console.log("✅ Controles CORREGIDOS configurados");
 }
 
 function reproducirCancionActual() {
@@ -198,64 +243,89 @@ function reproducirCancionActual() {
         return;
     }
     
-    // Verificar que la canción existe
+    // Verificar que la canción existe en el array
     if (!canciones[cancionActual]) {
-        console.error(`❌ Canción ${cancionActual} no encontrada`);
-        siguienteCancion();
+        console.error(`❌ Canción ${cancionActual} no encontrada en el array`);
+        cancionActual = 0; // Resetear al inicio
         return;
     }
     
-    // Establecer la fuente de la canción actual
-    audio.src = canciones[cancionActual];
-    
-    // Resetear el tiempo actual
-    audio.currentTime = 0;
-    
-    // Actualizar nombre de la canción
+    // Mostrar el nombre de la canción primero
     actualizarNombreCancion();
     
-    // Cargar y reproducir
-    audio.load();
-    
-    // Intentar reproducir
-    const playPromise = audio.play();
-    
-    if (playPromise !== undefined) {
-        playPromise.then(() => {
-            // Éxito: cambiar iconos a "pause"
-            const btnPlayPause = document.getElementById('btnPlayPause');
-            const btnMusica = document.getElementById('btnMusica');
-            
-            if (btnPlayPause) btnPlayPause.innerHTML = '<i class="fas fa-pause"></i>';
-            if (btnMusica) btnMusica.innerHTML = '<i class="fas fa-pause"></i>';
-            
-            console.log(`✅ Reproduciendo: ${canciones[cancionActual]}`);
-            
-        }).catch(error => {
-            console.error("❌ Error al reproducir:", error);
-            
-            // Mostrar notificación de error
-            mostrarNotificacion("No se pudo reproducir la canción", "error");
-            
-            // Intentar con la siguiente canción
-            setTimeout(() => {
-                console.log("⏭️ Intentando siguiente canción...");
-                siguienteCancion();
-            }, 1000);
-        });
+    try {
+        // Establecer la fuente de la canción actual
+        audio.src = canciones[cancionActual];
+        
+        // Resetear el tiempo actual
+        audio.currentTime = 0;
+        
+        // Cargar la canción
+        audio.load();
+        
+        // Intentar reproducir
+        const playPromise = audio.play();
+        
+        if (playPromise !== undefined) {
+            playPromise.then(() => {
+                // Éxito: cambiar iconos a "pause"
+                const btnPlayPause = document.getElementById('btnPlayPause');
+                const btnMusica = document.getElementById('btnMusica');
+                
+                if (btnPlayPause) btnPlayPause.innerHTML = '<i class="fas fa-pause"></i>';
+                if (btnMusica) btnMusica.innerHTML = '<i class="fas fa-pause"></i>';
+                
+                console.log(`✅ Reproduciendo: ${canciones[cancionActual]}`);
+                intentosFallidos = 0; // Resetear contador de fallos
+                
+            }).catch(error => {
+                console.error("❌ Error al reproducir (promesa):", error);
+                
+                // Si es un error de interacción del usuario, mostrar mensaje útil
+                if (error.name === 'NotAllowedError') {
+                    mostrarNotificacion("Haz clic en el botón play para iniciar la música", "info");
+                } else {
+                    mostrarNotificacion("No se pudo reproducir la canción", "error");
+                }
+                
+                // Cambiar iconos a "play" porque falló
+                const btnPlayPause = document.getElementById('btnPlayPause');
+                const btnMusica = document.getElementById('btnMusica');
+                
+                if (btnPlayPause) btnPlayPause.innerHTML = '<i class="fas fa-play"></i>';
+                if (btnMusica) btnMusica.innerHTML = '<i class="fas fa-music"></i>';
+            });
+        }
+    } catch (error) {
+        console.error("❌ Error general al reproducir:", error);
+        mostrarNotificacion("Error al cargar la canción", "error");
     }
 }
 
 function siguienteCancion() {
-    console.log("🎵 Cambiando a siguiente canción...");
+    console.log("🎵 Cambiando a siguiente canción CORREGIDO...");
+    
+    // Guardar canción actual para verificar
+    const actual = cancionActual;
+    
+    // Avanzar a la siguiente
     cancionActual = (cancionActual + 1) % canciones.length;
+    
+    // Verificar que no estamos en la misma canción (solo si hay más de una)
+    if (actual === cancionActual && canciones.length > 1) {
+        cancionActual = (cancionActual + 1) % canciones.length;
+    }
+    
+    // Reproducir la nueva canción
     reproducirCancionActual();
 }
 
 function actualizarNombreCancion() {
     const nombreCancionElement = document.getElementById('nombre-cancion');
     if (nombreCancionElement) {
-        nombreCancionElement.textContent = nombresCanciones[cancionActual] || `Canción ${cancionActual + 1}`;
+        const nombre = nombresCanciones[cancionActual] || `Canción ${cancionActual + 1}`;
+        nombreCancionElement.textContent = nombre;
+        console.log(`📝 Mostrando nombre: ${nombre}`);
     }
 }
 
@@ -264,7 +334,7 @@ function actualizarBarraProgreso() {
     const progreso = document.getElementById('progresoActual');
     const tiempoActual = document.getElementById('tiempoActual');
     
-    if (audio && audio.duration && !isNaN(audio.duration)) {
+    if (audio && audio.duration && !isNaN(audio.duration) && audio.duration > 0) {
         const porcentaje = (audio.currentTime / audio.duration) * 100;
         if (progreso) progreso.style.width = `${porcentaje}%`;
         
@@ -274,6 +344,9 @@ function actualizarBarraProgreso() {
             const segundos = Math.floor(audio.currentTime % 60);
             tiempoActual.textContent = `${minutos}:${segundos.toString().padStart(2, '0')}`;
         }
+    } else if (tiempoActual && (!audio.duration || isNaN(audio.duration))) {
+        tiempoActual.textContent = "0:00";
+        if (progreso) progreso.style.width = "0%";
     }
 }
 
@@ -281,20 +354,30 @@ function actualizarDuracionTotal() {
     const audio = document.getElementById('musicaFondo');
     const duracionTotal = document.getElementById('duracionTotal');
     
-    if (audio && audio.duration && !isNaN(audio.duration) && duracionTotal) {
+    if (audio && audio.duration && !isNaN(audio.duration) && audio.duration > 0 && duracionTotal) {
         const minutos = Math.floor(audio.duration / 60);
         const segundos = Math.floor(audio.duration % 60);
         duracionTotal.textContent = `${minutos}:${segundos.toString().padStart(2, '0')}`;
+        console.log(`⏱️ Duración total: ${minutos}:${segundos.toString().padStart(2, '0')}`);
+    } else if (duracionTotal) {
+        duracionTotal.textContent = "0:00";
     }
 }
 
 function mostrarNotificacion(mensaje, tipo = 'error') {
+    // Eliminar notificaciones anteriores para evitar acumulación
+    const notificacionesAnteriores = document.querySelectorAll('.notificacion-temporal');
+    notificacionesAnteriores.forEach(notif => {
+        if (notif.parentNode) notif.parentNode.removeChild(notif);
+    });
+    
     const notificacion = document.createElement('div');
+    notificacion.className = 'notificacion-temporal';
     notificacion.style.cssText = `
         position: fixed;
         top: 20px;
         right: 20px;
-        background: ${tipo === 'error' ? '#f44336' : '#4CAF50'};
+        background: ${tipo === 'error' ? '#9C27B0' : tipo === 'info' ? '#2196F3' : '#4CAF50'};
         color: white;
         padding: 12px 20px;
         border-radius: 8px;
@@ -306,27 +389,31 @@ function mostrarNotificacion(mensaje, tipo = 'error') {
     
     notificacion.innerHTML = `
         <div style="display: flex; align-items: center; gap: 10px;">
-            <i class="fas fa-${tipo === 'error' ? 'exclamation-triangle' : 'info-circle'}"></i>
+            <i class="fas fa-${tipo === 'error' ? 'exclamation-triangle' : tipo === 'info' ? 'info-circle' : 'check-circle'}"></i>
             <span>${mensaje}</span>
         </div>
     `;
     
-    // Agregar animaciones
-    const style = document.createElement('style');
-    style.textContent = `
-        @keyframes slideIn {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-        @keyframes slideOut {
-            from { transform: translateX(0); opacity: 1; }
-            to { transform: translateX(100%); opacity: 0; }
-        }
-    `;
-    document.head.appendChild(style);
+    // Agregar animaciones si no existen
+    if (!document.querySelector('#estilos-notificacion')) {
+        const style = document.createElement('style');
+        style.id = 'estilos-notificacion';
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOut {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+    }
     
     document.body.appendChild(notificacion);
     
+    // Auto-eliminar después de 3 segundos
     setTimeout(() => {
         if (notificacion.parentNode) {
             notificacion.parentNode.removeChild(notificacion);
@@ -338,3 +425,14 @@ function mostrarNotificacion(mensaje, tipo = 'error') {
 window.reproducirCancionActual = reproducirCancionActual;
 window.siguienteCancion = siguienteCancion;
 window.actualizarNombreCancion = actualizarNombreCancion;
+
+// Función para probar las rutas de audio
+function probarRutasAudio() {
+    console.log("🔍 Probando rutas de audio:");
+    canciones.forEach((ruta, index) => {
+        console.log(`  ${index + 1}. ${ruta} -> ${nombresCanciones[index] || 'Sin nombre'}`);
+    });
+}
+
+// Ejecutar prueba al cargar
+setTimeout(probarRutasAudio, 1000);
