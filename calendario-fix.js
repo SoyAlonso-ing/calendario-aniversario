@@ -288,43 +288,37 @@ function mostrarContenidoAjustado(numeroDia, fecha) {
         urlFoto = "fotos/aniversario.jpg";
         textoFoto = datoAniversario?.texto || 'Foto de nuestro aniversario';
         
-        contenidoHTML = `
-            <h2 style="color: #9C27B0; margin-bottom: 20px; font-family: 'Poppins', sans-serif; font-size: 2rem; text-align: center; font-weight: 700;">
+         contenidoHTML = `
+            <h2 style="color: #9C27B0; margin-bottom: 15px; font-family: 'Poppins', sans-serif; font-size: 1.6rem; text-align: center; font-weight: 700;">
                 ¡FELIZ PRIMER ANIVERSARIO! 🎉
             </h2>
-            <div style="background: linear-gradient(135deg, #f3e5f5, #e1bee7); padding: 25px; border-radius: 20px; margin: 20px 0; text-align: center;">
-                <h3 style="color: #7B1FA2; margin-bottom: 15px; font-size: 1.8rem;">Día ${numeroDia} - 5 de Abril 2026</h3>
+            <div style="background: linear-gradient(135deg, #f3e5f5, #e1bee7); padding: 15px; border-radius: 15px; margin: 15px 0; text-align: center;">
+                <h3 style="color: #7B1FA2; margin-bottom: 10px; font-size: 1.3rem;">Día ${numeroDia} - 5 de Abril 2026</h3>
                 
-                <div style="background: white; padding: 20px; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
-                    <p style="font-size: 1.4rem; color: #4A148C; margin-bottom: 15px; line-height: 1.6;">
-                        <i class="fas fa-heart" style="color: #9C27B0; margin-right: 10px;"></i>
+                <div style="background: white; padding: 15px; border-radius: 12px; margin-bottom: 15px; box-shadow: 0 3px 10px rgba(0,0,0,0.1);">
+                    <p style="font-size: 1.1rem; color: #4A148C; margin-bottom: 10px; line-height: 1.5;">
+                        <i class="fas fa-heart" style="color: #9C27B0; margin-right: 8px;"></i>
                         365 días juntos, 525,600 minutos de felicidad, un amor infinito.
                     </p>
-                    <p style="font-size: 1.1rem; color: #666; font-style: italic;">
+                    <p style="font-size: 0.9rem; color: #666; font-style: italic;">
                         "Hoy celebramos un año de risas, abrazos y momentos inolvidables"
                     </p>
                 </div>
                 
-                <!-- IMAGEN CON PROPORCIONES CORRECTAS -->
-                <div style="width: 100%; max-width: 500px; margin: 0 auto 20px; position: relative;">
-                    <img src="${urlFoto}" alt="Nuestro aniversario" id="imagen-descargable"
-                         style="width: 100%; height: auto; border-radius: 15px; border: 5px solid white; box-shadow: 0 8px 25px rgba(0,0,0,0.2); object-fit: contain; background: #f8f9fa;"
+                <!-- IMAGEN (tamaño original) -->
+                <div style="width: 100%; max-width: 500px; margin: 0 auto 15px;">
+                    <img src="${urlFoto}" alt="Nuestro aniversario" id="imagen-descargable" class="imagen-popup"
+                         style="width: 100%; height: auto; border-radius: 12px; border: 3px solid white; box-shadow: 0 5px 15px rgba(0,0,0,0.15); object-fit: contain; background: #f8f9fa; cursor: pointer;"
                          onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"500\" height=\"300\" viewBox=\"0 0 500 300\"><rect width=\"500\" height=\"300\" fill=\"%239C27B0\"/><text x=\"250\" y=\"150\" font-family=\"Arial\" font-size=\"40\" text-anchor=\"middle\" fill=\"white\" dy=\".3em\">🎉 1 AÑO JUNTOS 🎉</text></svg>';">
-                    
-                    <!-- Botón flotante de descarga -->
-                    <button onclick="descargarFoto('${urlFoto}', 'aniversario-5-abril-2026.jpg')" 
-                            style="position: absolute; top: 15px; right: 15px; background: linear-gradient(135deg, #9C27B0, #7B1FA2); color: white; border: none; width: 45px; height: 45px; border-radius: 50%; cursor: pointer; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.3); transition: all 0.3s ease; z-index: 10;">
-                        <i class="fas fa-download"></i>
-                    </button>
                 </div>
                 
-                <div style="font-size: 1.3rem; padding: 25px; background: white; border-radius: 15px; margin-top: 20px; border-left: 5px solid #9C27B0; text-align: left; line-height: 1.6;">
-                    <i class="fas fa-heart" style="color: #9C27B0; margin-right: 10px; font-size: 1.5rem; vertical-align: middle;"></i>
+                <div style="font-size: 1.1rem; padding: 15px; background: white; border-radius: 12px; margin-top: 15px; border-left: 4px solid #9C27B0; text-align: left; line-height: 1.5;">
+                    <i class="fas fa-heart" style="color: #9C27B0; margin-right: 8px; font-size: 1.2rem; vertical-align: middle;"></i>
                     ${datoAniversario?.texto || '"El día que cumplimos nuestro primer año juntos. Cada risa, cada abrazo, cada momento contigo ha sido el mejor regalo. Te amo más que ayer y menos que mañana."'}
                 </div>
                 
-                <div style="margin-top: 25px; padding: 15px; background: linear-gradient(45deg, #FF9800, #FF5722); color: white; border-radius: 10px; font-size: 1.2rem;">
-                    <i class="fas fa-champagne-glasses" style="margin-right: 10px;"></i>
+                <div style="margin-top: 15px; padding: 12px; background: linear-gradient(45deg, #FF9800, #FF5722); color: white; border-radius: 8px; font-size: 1rem;">
+                    <i class="fas fa-champagne-glasses" style="margin-right: 8px;"></i>
                     ¡Por muchos años más juntos! 🥂
                 </div>
             </div>
@@ -346,35 +340,29 @@ function mostrarContenidoAjustado(numeroDia, fecha) {
         textoFoto = datoInicio?.texto || 'Foto de nuestro comienzo';
         
         const titulo = `Día ${numeroDia} - ${dia} de ${MESES[mes]} ${año}`;
-        contenidoHTML = `
-            <h2 style="color: #FF9800; margin-bottom: 20px; font-family: 'Poppins', sans-serif; font-size: 2rem; text-align: center; font-weight: 700;">
+          contenidoHTML = `
+            <h2 style="color: #FF9800; margin-bottom: 15px; font-family: 'Poppins', sans-serif; font-size: 1.6rem; text-align: center; font-weight: 700;">
                 ¡COMIENZA NUESTRA AVENTURA! 🚀
             </h2>
-            <div style="background: linear-gradient(135deg, #ffffff, #f3e5f5); padding: 25px; border-radius: 20px; margin: 20px 0; text-align: center; border: 2px solid #FF9800;">
-                <h3 style="color: #F57C00; margin-bottom: 15px; font-size: 1.8rem;">${titulo}</h3>
+            <div style="background: linear-gradient(135deg, #ffffff, #f3e5f5); padding: 15px; border-radius: 15px; margin: 15px 0; text-align: center; border: 2px solid #FF9800;">
+                <h3 style="color: #F57C00; margin-bottom: 10px; font-size: 1.3rem;">Día ${numeroDia} - 5 de Abril 2025</h3>
                 
-                <div style="background: white; padding: 20px; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
-                    <p style="font-size: 1.4rem; color: #E65100; margin-bottom: 15px; line-height: 1.6;">
-                        <i class="fas fa-star" style="color: #FF9800; margin-right: 10px;"></i>
+                <div style="background: white; padding: 15px; border-radius: 12px; margin-bottom: 15px; box-shadow: 0 3px 10px rgba(0,0,0,0.1);">
+                    <p style="font-size: 1.1rem; color: #E65100; margin-bottom: 10px; line-height: 1.5;">
+                        <i class="fas fa-star" style="color: #FF9800; margin-right: 8px;"></i>
                         El día en que nuestros caminos se unieron para siempre
                     </p>
                 </div>
                 
-                <!-- IMAGEN CON PROPORCIONES CORRECTAS -->
-                <div style="width: 100%; max-width: 500px; margin: 0 auto 20px; position: relative;">
-                    <img src="${urlFoto}" alt="Nuestro comienzo" id="imagen-descargable"
-                         style="width: 100%; height: auto; border-radius: 15px; border: 5px solid white; box-shadow: 0 8px 25px rgba(0,0,0,0.2); object-fit: contain; background: #f8f9fa;"
+                <!-- IMAGEN (tamaño original) -->
+                <div style="width: 100%; max-width: 500px; margin: 0 auto 15px;">
+                    <img src="${urlFoto}" alt="Nuestro comienzo" id="imagen-descargable" class="imagen-popup"
+                         style="width: 100%; height: auto; border-radius: 12px; border: 3px solid white; box-shadow: 0 5px 15px rgba(0,0,0,0.15); object-fit: contain; background: #f8f9fa; cursor: pointer;"
                          onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"500\" height=\"300\" viewBox=\"0 0 500 300\"><rect width=\"500\" height=\"300\" fill=\"%23FF9800\"/><text x=\"250\" y=\"150\" font-family=\"Arial\" font-size=\"40\" text-anchor=\"middle\" fill=\"white\" dy=\".3em\">🌟 COMIENZO 🌟</text></svg>';">
-                    
-                    <!-- Botón flotante de descarga -->
-                    <button onclick="descargarFoto('${urlFoto}', 'inicio-5-abril-2025.jpg')" 
-                            style="position: absolute; top: 15px; right: 15px; background: linear-gradient(135deg, #FF9800, #F57C00); color: white; border: none; width: 45px; height: 45px; border-radius: 50%; cursor: pointer; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.3); transition: all 0.3s ease; z-index: 10;">
-                        <i class="fas fa-download"></i>
-                    </button>
                 </div>
                 
-                <div style="font-size: 1.3rem; padding: 25px; background: white; border-radius: 15px; margin-top: 20px; border-left: 5px solid #FF9800; text-align: left; line-height: 1.6;">
-                    <i class="fas fa-heart" style="color: #9C27B0; margin-right: 10px; font-size: 1.5rem; vertical-align: middle;"></i>
+                <div style="font-size: 1.1rem; padding: 15px; background: white; border-radius: 12px; margin-top: 15px; border-left: 4px solid #FF9800; text-align: left; line-height: 1.5;">
+                    <i class="fas fa-heart" style="color: #9C27B0; margin-right: 8px; font-size: 1.2rem; vertical-align: middle;"></i>
                     ${datoInicio?.texto || '"El primer día de nuestra historia juntos. Todo comenzó aquí, con una sonrisa y la promesa de muchos días felices por venir."'}
                 </div>
             </div>
@@ -401,37 +389,30 @@ function mostrarContenidoAjustado(numeroDia, fecha) {
                 const nombreArchivo = generarNombreDescarga(fecha, dato.texto);
                 
                 contenidoHTML = `
-                    <h2 style="color: #9C27B0; margin-bottom: 20px; font-family: 'Dancing Script', cursive; font-size: 2rem; text-align: center;">
+                    <h2 style="color: #9C27B0; margin-bottom: 15px; font-family: 'Poppins', sans-serif; font-size: 1.6rem; text-align: center; font-weight: 700;">
                         ${titulo}
                     </h2>
                     
-                    <div style="width: 100%; max-width: 500px; margin: 0 auto 25px; position: relative;">
-                        <img src="${dato.contenido}" alt="Foto especial" id="imagen-descargable"
-                             style="width: 100%; height: auto; max-height: 400px; border-radius: 15px; border: 3px solid #ffebee; box-shadow: 0 8px 20px rgba(0,0,0,0.15); object-fit: contain; background: #f8f9fa;"
-                             onerror="this.onerror=null; this.style.display='none'; document.getElementById('btn-descargar-foto').style.display='none';">
-                        
-                        <!-- Botón flotante de descarga -->
-                        <button onclick="descargarFoto('${dato.contenido}', '${nombreArchivo}')" 
-                                id="btn-descargar-foto"
-                                style="position: absolute; top: 15px; right: 15px; background: linear-gradient(135deg, #9C27B0, #7B1FA2); color: white; border: none; width: 45px; height: 45px; border-radius: 50%; cursor: pointer; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.3); transition: all 0.3s ease; z-index: 10;"
-                                title="Descargar foto">
-                            <i class="fas fa-download"></i>
-                        </button>
+                    <!-- IMAGEN (tamaño original) -->
+                    <div style="width: 100%; max-width: 500px; margin: 0 auto 15px;">
+                        <img src="${dato.contenido}" alt="Foto especial" id="imagen-descargable" class="imagen-popup"
+                             style="width: 100%; height: auto; max-height: 300px; border-radius: 12px; border: 2px solid #ffebee; box-shadow: 0 5px 15px rgba(0,0,0,0.12); object-fit: contain; background: #f8f9fa; cursor: pointer;"
+                             onerror="this.onerror=null; this.style.display='none';">
                     </div>
                     
-                    <div style="font-size: 1.3rem; padding: 20px; background: linear-gradient(135deg, #ffebee, #fce4ec); border-radius: 15px; margin: 20px 0; text-align: center; line-height: 1.6;">
-                        <i class="fas fa-heart" style="color: #9C27B0; margin-right: 10px;"></i>
+                    <div style="font-size: 1.1rem; padding: 15px; background: linear-gradient(135deg, #ffebee, #fce4ec); border-radius: 12px; margin: 15px 0; text-align: center; line-height: 1.5;">
+                        <i class="fas fa-heart" style="color: #9C27B0; margin-right: 8px;"></i>
                         ${dato.texto || 'Un día especial contigo 💘'}
                     </div>
                 `;
             } else {
                 contenidoHTML = `
-                    <h2 style="color: #9C27B0; margin-bottom: 20px; font-family: 'Poppins', sans-serif; font-size: 1.8rem; text-align: center; font-weight: 600;">
+                    <h2 style="color: #9C27B0; margin-bottom: 15px; font-family: 'Poppins', sans-serif; font-size: 1.6rem; text-align: center; font-weight: 700;">
                         ${titulo}
                     </h2>
-                    <div style="font-size: 1.5rem; padding: 30px; background: linear-gradient(135deg, #f3e5f5, #e8eaf6); border-radius: 15px; margin: 20px 0; text-align: center; font-style: italic; line-height: 1.6;">
+                    <div style="font-size: 1.2rem; padding: 20px; background: linear-gradient(135deg, #f3e5f5, #e8eaf6); border-radius: 12px; margin: 15px 0; text-align: center; font-style: italic; line-height: 1.5;">
                         "${dato.contenido}"
-                        ${dato.texto ? `<p style="margin-top: 20px; font-size: 1.1rem; color: #666; font-style: normal;">${dato.texto}</p>` : ''}
+                        ${dato.texto ? `<p style="margin-top: 15px; font-size: 1rem; color: #666; font-style: normal;">${dato.texto}</p>` : ''}
                     </div>
                 `;
             }
@@ -452,12 +433,12 @@ function mostrarContenidoAjustado(numeroDia, fecha) {
         const fraseAleatoria = frases[Math.floor(Math.random() * frases.length)];
         
         contenidoHTML = `
-            <h2 style="color: #9C27B0; margin-bottom: 20px; font-family: 'Poppins', sans-serif; font-size: 1.8rem; text-align: center; font-weight: 600;">
+            <h2 style="color: #9C27B0; margin-bottom: 15px; font-family: 'Poppins', sans-serif; font-size: 1.6rem; text-align: center; font-weight: 700;">
                 ${titulo}
             </h2>
-            <div style="font-size: 1.5rem; padding: 30px; background: linear-gradient(135deg, #e8f5e9, #f1f8e9); border-radius: 15px; margin: 20px 0; text-align: center; font-style: italic; line-height: 1.6;">
+            <div style="font-size: 1.2rem; padding: 20px; background: linear-gradient(135deg, #e8f5e9, #f1f8e9); border-radius: 12px; margin: 15px 0; text-align: center; font-style: italic; line-height: 1.5;">
                 "${fraseAleatoria}"
-                <p style="margin-top: 20px; font-size: 1rem; color: #666; font-style: normal;">
+                <p style="margin-top: 15px; font-size: 0.9rem; color: #666; font-style: normal;">
                     <i class="fas fa-heart" style="color: #9C27B0;"></i>
                     Aunque no haya un recuerdo especial registrado, este día fue perfecto porque estuviste en él.
                 </p>
@@ -620,29 +601,29 @@ function mostrarPopupContenido(contenidoHTML, tieneFoto = false, urlFoto = '', t
         popupAnterior.remove();
     }
     
-    // Crear botón de descarga adicional si hay foto
+    // Crear botón de descarga adicional si hay foto (más compacto)
     let botonDescargaExtra = '';
     if (tieneFoto && urlFoto) {
         const nombreArchivo = fecha ? generarNombreDescarga(fecha, textoFoto) : 'foto-especial.jpg';
         botonDescargaExtra = `
             <button onclick="descargarFoto('${urlFoto}', '${nombreArchivo}')" 
                     style="
-                        margin-top: 15px;
+                        margin-top: 12px;
                         background: linear-gradient(45deg, #4CAF50, #2E7D32);
                         color: white;
                         border: none;
-                        padding: 12px 25px;
-                        border-radius: 25px;
+                        padding: 10px 20px;
+                        border-radius: 20px;
                         cursor: pointer;
                         font-weight: bold;
-                        font-size: 1rem;
+                        font-size: 0.9rem;
                         transition: all 0.2s;
                         display: flex;
                         align-items: center;
                         justify-content: center;
-                        gap: 10px;
+                        gap: 8px;
                         width: 100%;
-                        max-width: 300px;
+                        max-width: 250px;
                         margin-left: auto;
                         margin-right: auto;
                     ">
@@ -665,38 +646,41 @@ function mostrarPopupContenido(contenidoHTML, tieneFoto = false, urlFoto = '', t
         align-items: center;
         z-index: 1000;
         animation: fadeIn 0.3s ease;
+        overflow: hidden;
+        padding: 10px;
     `;
     
     popup.innerHTML = `
         <div style="
             background: white;
-            padding: 30px;
-            border-radius: 20px;
-            max-width: 600px;
-            width: 90%;
-            max-height: 80vh;
+            padding: 20px;
+            border-radius: 15px;
+            max-width: 550px;
+            width: 95%;
+            max-height: 85vh;
             overflow-y: auto;
             text-align: center;
             position: relative;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
             animation: slideUp 0.4s ease;
-        ">
+        " id="contenedor-popup">
             <button onclick="cerrarPopup()" style="
                 position: absolute;
-                top: 15px;
-                right: 15px;
+                top: 12px;
+                right: 12px;
                 background: #9C27B0;
                 color: white;
                 border: none;
-                width: 35px;
-                height: 35px;
+                width: 32px;
+                height: 32px;
                 border-radius: 50%;
                 cursor: pointer;
-                font-size: 1rem;
+                font-size: 0.9rem;
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 transition: all 0.2s;
+                z-index: 10;
             ">
                 <i class="fas fa-times"></i>
             </button>
@@ -706,18 +690,18 @@ function mostrarPopupContenido(contenidoHTML, tieneFoto = false, urlFoto = '', t
             ${botonDescargaExtra}
             
             <button onclick="cerrarPopup()" style="
-                margin-top: 25px;
+                margin-top: 20px;
                 background: linear-gradient(45deg, #9C27B0, #7B1FA2);
                 color: white;
                 border: none;
-                padding: 12px 30px;
-                border-radius: 25px;
+                padding: 10px 25px;
+                border-radius: 20px;
                 cursor: pointer;
                 font-weight: bold;
-                font-size: 1rem;
+                font-size: 0.9rem;
                 transition: all 0.2s;
             ">
-                <i class="fas fa-heart" style="margin-right: 8px;"></i>
+                <i class="fas fa-heart" style="margin-right: 6px;"></i>
                 Cerrar
             </button>
         </div>
@@ -728,54 +712,78 @@ function mostrarPopupContenido(contenidoHTML, tieneFoto = false, urlFoto = '', t
                 to { opacity: 1; }
             }
             @keyframes slideUp {
-                from { opacity: 0; transform: translateY(30px); }
+                from { opacity: 0; transform: translateY(20px); }
                 to { opacity: 1; transform: translateY(0); }
             }
             
-            /* Animación para el botón de descarga flotante */
-            #btn-descargar-foto:hover {
-                transform: scale(1.1) rotate(5deg);
-                box-shadow: 0 6px 18px rgba(0,0,0,0.4);
-            }
-            
-            /* Estilos para la imagen con efecto hover */
-            #imagen-descargable {
-                transition: transform 0.3s ease;
+            /* Estilos para la imagen con efecto hover y zoom */
+            .imagen-popup {
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
                 cursor: pointer;
             }
             
-            #imagen-descargable:hover {
+            .imagen-popup:hover {
                 transform: scale(1.02);
+                box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            }
+            
+            .imagen-popup.zoom {
+                transform: scale(1.4);
+                z-index: 1001;
+                position: relative;
+                box-shadow: 0 15px 40px rgba(0,0,0,0.35);
+            }
+            
+            /* Prevenir scroll del body cuando el popup está abierto */
+            body.popup-abierto {
+                overflow: hidden;
             }
         </style>
     `;
     
+    // Agregar el popup al body y prevenir scroll
+    document.body.classList.add('popup-abierto');
     document.body.appendChild(popup);
     
-    // Agregar funcionalidad de toque largo para móviles
+    // Agregar funcionalidad de zoom a la imagen (solo si existe)
     const imagen = document.getElementById('imagen-descargable');
-    if (imagen && tieneFoto) {
-        let touchTimer;
-        
+    if (imagen) {
+        // Quitar cualquier evento de toque largo existente
         imagen.addEventListener('touchstart', function(e) {
-            touchTimer = setTimeout(() => {
-                mostrarMenuDescargaMovil(urlFoto, fecha, textoFoto);
-                e.preventDefault();
-            }, 500); // 500ms para toque largo
-        });
+            // Solo prevenir el comportamiento por defecto, sin menú
+            e.preventDefault();
+        }, { passive: false });
         
-        imagen.addEventListener('touchend', function(e) {
-            clearTimeout(touchTimer);
-        });
-        
-        imagen.addEventListener('touchmove', function(e) {
-            clearTimeout(touchTimer);
+        // Agregar funcionalidad de clic para zoom
+        imagen.addEventListener('click', function() {
+            this.classList.toggle('zoom');
+            
+            if (this.classList.contains('zoom')) {
+                console.log("🔍 Imagen ampliada");
+                // Desplazar la imagen a la vista si está muy arriba o abajo
+                this.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            } else {
+                console.log("📷 Imagen normal");
+            }
         });
     }
+    
+    // Prevenir que el scroll se propague al body
+    const contenedor = document.getElementById('contenedor-popup');
+    if (contenedor) {
+        contenedor.addEventListener('wheel', function(e) {
+            // Si estamos en el top y seguimos scrolleando hacia arriba, o en el bottom y seguimos hacia abajo
+            const isAtTop = this.scrollTop === 0;
+            const isAtBottom = this.scrollTop + this.clientHeight >= this.scrollHeight - 1;
+            
+            if ((isAtTop && e.deltaY < 0) || (isAtBottom && e.deltaY > 0)) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+    }
 }
-
 // ==================== FUNCIÓN PARA MENÚ DE DESCARGA EN MÓVILES ====================
-function mostrarMenuDescargaMovil(urlFoto, fecha, textoFoto) {
+/*function mostrarMenuDescargaMovil(urlFoto, fecha, textoFoto) {
     const nombreArchivo = fecha ? generarNombreDescarga(fecha, textoFoto) : 'foto-especial.jpg';
     
     // Crear menú contextual
@@ -847,7 +855,7 @@ function mostrarMenuDescargaMovil(urlFoto, fecha, textoFoto) {
     
     document.body.appendChild(fondo);
     document.body.appendChild(menu);
-}
+}*/
 
 // ==================== BUSCADOR AJUSTADO ====================
 function configurarBuscadorAjustado() {
@@ -1139,6 +1147,8 @@ function cerrarPopup() {
             if (popup.parentNode) {
                 popup.parentNode.removeChild(popup);
             }
+            // Restaurar el scroll del body
+            document.body.classList.remove('popup-abierto');
         }, 300);
     }
 }

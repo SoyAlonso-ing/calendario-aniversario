@@ -16,7 +16,7 @@ const canciones = [
 // Nombres para mostrar de las canciones
 const nombresCanciones = [
     "Te Amo (Pochi)💘",
-    "Labios (Mine)👄",
+    "Tus Labios (Mine)👄",
     "Barbacoa (las #1)🍟",
     "Tu artista (Melendi)🌸"
 ];
@@ -58,29 +58,7 @@ function inicializarReproductor() {
     
     // Configurar volumen inicial
     audio.volume = volumen;
-    
-    // Configurar errores del audio
-    audio.onerror = function(e) {
-        console.error("❌ Error en el elemento de audio:", e);
-        mostrarNotificacion(`Error con: ${canciones[cancionActual]}`, "error");
-        
-        // Incrementar contador de intentos fallidos
-        intentosFallidos++;
-        
-        // Si hemos fallado demasiadas veces, no intentar más
-        if (intentosFallidos >= canciones.length * 2) {
-            console.error("❌ Demasiados errores. Deteniendo reproductor.");
-            mostrarNotificacion("No se pueden reproducir las canciones", "error");
-            return;
-        }
-        
-        // Intentar con la siguiente canción después de un breve retraso
-        setTimeout(() => {
-            console.log("🔄 Intentando siguiente canción después de error...");
-            siguienteCancion();
-        }, 1000);
-    };
-    
+
     // 1. Configurar botón principal de música
     btnMusicaPrincipal.onclick = function() {
         console.log("🎵 Botón principal clickeado");
@@ -158,36 +136,47 @@ function configurarControles() {
     }
     
     // Botón play/pause
-    const btnPlayPause = document.getElementById('btnPlayPause');
-    if (btnPlayPause) {
-        btnPlayPause.onclick = function() {
-            console.log("⏯️ Play/Pause clickeado");
+const btnPlayPause = document.getElementById('btnPlayPause');
+if (btnPlayPause) {
+    btnPlayPause.onclick = function() {
+        console.log("⏯️ Play/Pause clickeado");
+        
+        // Cambiar icono inmediatamente
+        if (audio.paused) {
+            // Cambiar a icono de pausa (para mostrar que está reproduciendo/cargando)
+            this.innerHTML = '<i class="fas fa-pause"></i>';
+            const btnMusica = document.getElementById('btnMusica');
+            if (btnMusica) btnMusica.innerHTML = '<i class="fas fa-pause"></i>';
             
-            if (!audio.src) {
-                // Si no hay fuente, cargar la primera canción
+            console.log("🔄 Intentando reproducir...");
+            
+            // Si no hay fuente o la canción terminó, cargar la actual
+            if (!audio.src || audio.ended || audio.currentTime >= audio.duration) {
+                console.log("🎵 No hay fuente, cargando canción actual...");
                 reproducirCancionActual();
                 return;
             }
             
-            if (audio.paused) {
-                audio.play().then(() => {
-                    this.innerHTML = '<i class="fas fa-pause"></i>';
-                    const btnMusica = document.getElementById('btnMusica');
-                    if (btnMusica) btnMusica.innerHTML = '<i class="fas fa-pause"></i>';
-                    console.log("▶️ Reproduciendo...");
-                }).catch(error => {
-                    console.error("❌ Error al reproducir:", error);
-                    mostrarNotificacion("No se pudo reproducir la canción", "error");
-                });
-            } else {
-                audio.pause();
-                this.innerHTML = '<i class="fas fa-play"></i>';
-                const btnMusica = document.getElementById('btnMusica');
-                if (btnMusica) btnMusica.innerHTML = '<i class="fas fa-music"></i>';
-                console.log("⏸️ Pausado...");
-            }
-        };
-    }
+            // Intentar reproducir (sin mostrar errores al usuario)
+            audio.play().then(() => {
+                console.log("▶️ Reproduciendo...");
+                // El icono ya está en pausa desde arriba
+            }).catch(error => {
+                console.log("⏸️ No se pudo reproducir aún (puede estar cargando)");
+                // Mantener el icono de pausa para indicar que está intentando reproducir
+                // El audio.paused seguirá siendo true si falló
+            });
+            
+        } else {
+            // Pausar inmediatamente y cambiar a icono de play
+            audio.pause();
+            this.innerHTML = '<i class="fas fa-play"></i>';
+            const btnMusica = document.getElementById('btnMusica');
+            if (btnMusica) btnMusica.innerHTML = '<i class="fas fa-music"></i>';
+            console.log("⏸️ Pausado...");
+        }
+    };
+}
     
     // Botón anterior
     const btnAnterior = document.getElementById('btnMusicaAnterior');
@@ -263,42 +252,29 @@ function reproducirCancionActual() {
         // Cargar la canción
         audio.load();
         
-        // Intentar reproducir
+        // Los iconos ya deberían estar en pausa desde el click del botón
+        // Intentar reproducir automáticamente
         const playPromise = audio.play();
         
         if (playPromise !== undefined) {
             playPromise.then(() => {
-                // Éxito: cambiar iconos a "pause"
-                const btnPlayPause = document.getElementById('btnPlayPause');
-                const btnMusica = document.getElementById('btnMusica');
-                
-                if (btnPlayPause) btnPlayPause.innerHTML = '<i class="fas fa-pause"></i>';
-                if (btnMusica) btnMusica.innerHTML = '<i class="fas fa-pause"></i>';
-                
                 console.log(`✅ Reproduciendo: ${canciones[cancionActual]}`);
                 intentosFallidos = 0; // Resetear contador de fallos
                 
             }).catch(error => {
-                console.error("❌ Error al reproducir (promesa):", error);
-                
-                // Si es un error de interacción del usuario, mostrar mensaje útil
-                if (error.name === 'NotAllowedError') {
-                    mostrarNotificacion("Haz clic en el botón play para iniciar la música", "info");
-                } else {
-                    mostrarNotificacion("No se pudo reproducir la canción", "error");
-                }
-                
-                // Cambiar iconos a "play" porque falló
-                const btnPlayPause = document.getElementById('btnPlayPause');
-                const btnMusica = document.getElementById('btnMusica');
-                
-                if (btnPlayPause) btnPlayPause.innerHTML = '<i class="fas fa-play"></i>';
-                if (btnMusica) btnMusica.innerHTML = '<i class="fas fa-music"></i>';
+                console.log("🔄 Audio cargado pero esperando interacción o cargando...");
+                // No hacemos nada, mantenemos los iconos como están
+                // El audio se reproducirá cuando esté listo y el usuario vuelva a dar play
             });
         }
     } catch (error) {
-        console.error("❌ Error general al reproducir:", error);
-        mostrarNotificacion("Error al cargar la canción", "error");
+        console.error("❌ Error al cargar canción:", error);
+        // Si hay error, volver al estado de play
+        const btnPlayPause = document.getElementById('btnPlayPause');
+        const btnMusica = document.getElementById('btnMusica');
+        
+        if (btnPlayPause) btnPlayPause.innerHTML = '<i class="fas fa-play"></i>';
+        if (btnMusica) btnMusica.innerHTML = '<i class="fas fa-music"></i>';
     }
 }
 
