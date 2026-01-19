@@ -259,7 +259,6 @@ function agregarDiaAniversarioManualmente() {
 function mostrarContenidoAjustado(numeroDia, fecha) {
     // Verificar que el número de día sea válido
     if (numeroDia < 1 || numeroDia > 366) {
-        // Recalcular por si acaso
         const diffTiempo = fecha - FECHA_INICIO;
         numeroDia = Math.floor(diffTiempo / (1000 * 60 * 60 * 24)) + 1;
     }
@@ -275,9 +274,9 @@ function mostrarContenidoAjustado(numeroDia, fecha) {
     const fechaKeyConAnio = `${año}-${(mes + 1).toString().padStart(2, '0')}-${dia.toString().padStart(2, '0')}`;
     
     let contenidoHTML = '';
-    let tieneFoto = false;
-    let urlFoto = '';
-    let textoFoto = '';
+    let tieneFotos = false;
+    let fotosArray = [];
+    let mensajesArray = [];
     
     // ==================== 1. PRIMERO VERIFICAR SI ES EL ANIVERSARIO (2026-04-05) ====================
     if (dia === 5 && mes === 3 && año === 2026) {
@@ -288,48 +287,49 @@ function mostrarContenidoAjustado(numeroDia, fecha) {
                              window.datosConfig.diasEspeciales[fechaKey];
         }
         
-        tieneFoto = true;
-        urlFoto = "fotos/aniversario.jpg";
-        textoFoto = datoAniversario?.texto || 'Foto de nuestro aniversario';
+        // Configurar para galería
+        if (datoAniversario && datoAniversario.tipo === "galeria") {
+            tieneFotos = true;
+            fotosArray = datoAniversario.fotos || [];
+            mensajesArray = datoAniversario.mensajes || [];
+        } else if (datoAniversario && datoAniversario.tipo === "foto") {
+            // Compatibilidad con datos antiguos
+            tieneFotos = true;
+            fotosArray = [{
+                url: datoAniversario.contenido,
+                texto: datoAniversario.texto || 'Foto especial',
+                descripcion: datoAniversario.texto || ''
+            }];
+        }
         
-         contenidoHTML = `
-            <h2 style="color: #9C27B0; margin-bottom: 15px; font-family: 'Poppins', sans-serif; font-size: 1.6rem; text-align: center; font-weight: 700;">
-                ¡FELIZ PRIMER ANIVERSARIO! 🎉
-            </h2>
-            <div style="background: linear-gradient(135deg, #f3e5f5, #e1bee7); padding: 15px; border-radius: 15px; margin: 15px 0; text-align: center;">
-                <h3 style="color: #7B1FA2; margin-bottom: 10px; font-size: 1.3rem;">Día ${numeroDia} - 5 de Abril 2026</h3>
-                
-                <div style="background: white; padding: 15px; border-radius: 12px; margin-bottom: 15px; box-shadow: 0 3px 10px rgba(0,0,0,0.1);">
-                    <p style="font-size: 1.1rem; color: #4A148C; margin-bottom: 10px; line-height: 1.5;">
-                        <i class="fas fa-heart" style="color: #9C27B0; margin-right: 8px;"></i>
-                        365 días juntos, 525,600 minutos de felicidad, un amor infinito.
-                    </p>
-                    <p style="font-size: 0.9rem; color: #666; font-style: italic;">
-                        "Hoy celebramos un año de risas, abrazos y momentos inolvidables"
-                    </p>
+        // HTML especial para aniversario
+        if (tieneFotos && fotosArray.length > 0) {
+            const primeraFoto = fotosArray[0];
+            contenidoHTML = crearHTMLGaleria(numeroDia, fecha, fotosArray, mensajesArray, true);
+        } else {
+            contenidoHTML = `
+                <h2 style="color: #9C27B0; margin-bottom: 15px; font-family: 'Poppins', sans-serif; font-size: 1.6rem; text-align: center; font-weight: 700;">
+                    ¡FELIZ PRIMER ANIVERSARIO! 🎉
+                </h2>
+                <div style="background: linear-gradient(135deg, #f3e5f5, #e1bee7); padding: 15px; border-radius: 15px; margin: 15px 0; text-align: center;">
+                    <h3 style="color: #7B1FA2; margin-bottom: 10px; font-size: 1.3rem;">Día ${numeroDia} - 5 de Abril 2026</h3>
+                    
+                    <div style="background: white; padding: 15px; border-radius: 12px; margin-bottom: 15px; box-shadow: 0 3px 10px rgba(0,0,0,0.1);">
+                        <p style="font-size: 1.1rem; color: #4A148C; margin-bottom: 10px; line-height: 1.5;">
+                            <i class="fas fa-heart" style="color: #9C27B0; margin-right: 8px;"></i>
+                            365 días juntos, 525,600 minutos de felicidad, un amor infinito.
+                        </p>
+                    </div>
+                    
+                    <div style="font-size: 1.1rem; padding: 15px; background: white; border-radius: 12px; margin-top: 15px; border-left: 4px solid #9C27B0; text-align: left; line-height: 1.5;">
+                        <i class="fas fa-heart" style="color: #9C27B0; margin-right: 8px; font-size: 1.2rem; vertical-align: middle;"></i>
+                        ${datoAniversario?.texto || '"El día que cumplimos nuestro primer año juntos. Cada risa, cada abrazo, cada momento contigo ha sido el mejor regalo. Te amo más que ayer y menos que mañana."'}
+                    </div>
                 </div>
-                
-                <!-- IMAGEN (tamaño original) -->
-                <div style="width: 100%; max-width: 500px; margin: 0 auto 15px;">
-                    <img src="${urlFoto}" alt="Nuestro aniversario" id="imagen-descargable" class="imagen-popup"
-                         style="width: 100%; height: auto; border-radius: 12px; border: 3px solid white; box-shadow: 0 5px 15px rgba(0,0,0,0.15); object-fit: contain; background: #f8f9fa; cursor: pointer;"
-                         onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"500\" height=\"300\" viewBox=\"0 0 500 300\"><rect width=\"500\" height=\"300\" fill=\"%239C27B0\"/><text x=\"250\" y=\"150\" font-family=\"Arial\" font-size=\"40\" text-anchor=\"middle\" fill=\"white\" dy=\".3em\">🎉 1 AÑO JUNTOS 🎉</text></svg>';">
-                </div>
-                
-                <div style="font-size: 1.1rem; padding: 15px; background: white; border-radius: 12px; margin-top: 15px; border-left: 4px solid #9C27B0; text-align: left; line-height: 1.5;">
-                    <i class="fas fa-heart" style="color: #9C27B0; margin-right: 8px; font-size: 1.2rem; vertical-align: middle;"></i>
-                    ${datoAniversario?.texto || '"El día que cumplimos nuestro primer año juntos. Cada risa, cada abrazo, cada momento contigo ha sido el mejor regalo. Te amo más que ayer y menos que mañana."'}
-                </div>
-                
-                <div style="margin-top: 15px; padding: 12px; background: linear-gradient(45deg, #FF9800, #FF5722); color: white; border-radius: 8px; font-size: 1rem;">
-                    <i class="fas fa-champagne-glasses" style="margin-right: 8px;"></i>
-                    ¡Por muchos años más juntos! 🥂
-                </div>
-            </div>
-        `;
+            `;
+        }
         
         lanzarConfetiEspecial();
-        
     } 
     // ==================== 2. VERIFICAR SI ES DÍA DE INICIO (2025-04-05) ====================
     else if (dia === 5 && mes === 3 && año === 2025) {
@@ -339,146 +339,217 @@ function mostrarContenidoAjustado(numeroDia, fecha) {
                         window.datosConfig.diasEspeciales[fechaKey];
         }
         
-        tieneFoto = true;
-        urlFoto = "fotos/inicio.jpg";
-        textoFoto = datoInicio?.texto || 'Foto de nuestro comienzo';
+        // Configurar para galería
+        if (datoInicio && datoInicio.tipo === "galeria") {
+            tieneFotos = true;
+            fotosArray = datoInicio.fotos || [];
+            mensajesArray = datoInicio.mensajes || [];
+        } else if (datoInicio && datoInicio.tipo === "foto") {
+            // Compatibilidad con datos antiguos
+            tieneFotos = true;
+            fotosArray = [{
+                url: datoInicio.contenido,
+                texto: datoInicio.texto || 'Foto especial',
+                descripcion: datoInicio.texto || ''
+            }];
+        }
         
-        const titulo = `Día ${numeroDia} - ${dia} de ${MESES[mes]} ${año}`;
-          contenidoHTML = `
-            <h2 style="color: #FF9800; margin-bottom: 15px; font-family: 'Poppins', sans-serif; font-size: 1.6rem; text-align: center; font-weight: 700;">
-                ¡COMIENZA NUESTRA AVENTURA! 🚀
-            </h2>
-            <div style="background: linear-gradient(135deg, #ffffff, #f3e5f5); padding: 15px; border-radius: 15px; margin: 15px 0; text-align: center; border: 2px solid #FF9800;">
-                <h3 style="color: #F57C00; margin-bottom: 10px; font-size: 1.3rem;">Día ${numeroDia} - 5 de Abril 2025</h3>
-                
-                <div style="background: white; padding: 15px; border-radius: 12px; margin-bottom: 15px; box-shadow: 0 3px 10px rgba(0,0,0,0.1);">
-                    <p style="font-size: 1.1rem; color: #E65100; margin-bottom: 10px; line-height: 1.5;">
-                        <i class="fas fa-star" style="color: #FF9800; margin-right: 8px;"></i>
-                        El día en que nuestros caminos se unieron para siempre
-                    </p>
-                </div>
-                
-                <!-- IMAGEN (tamaño original) -->
-                <div style="width: 100%; max-width: 500px; margin: 0 auto 15px;">
-                    <img src="${urlFoto}" alt="Nuestro comienzo" id="imagen-descargable" class="imagen-popup"
-                         style="width: 100%; height: auto; border-radius: 12px; border: 3px solid white; box-shadow: 0 5px 15px rgba(0,0,0,0.15); object-fit: contain; background: #f8f9fa; cursor: pointer;"
-                         onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"500\" height=\"300\" viewBox=\"0 0 500 300\"><rect width=\"500\" height=\"300\" fill=\"%23FF9800\"/><text x=\"250\" y=\"150\" font-family=\"Arial\" font-size=\"40\" text-anchor=\"middle\" fill=\"white\" dy=\".3em\">🌟 COMIENZO 🌟</text></svg>';">
-                </div>
-                
-                <div style="font-size: 1.1rem; padding: 15px; background: white; border-radius: 12px; margin-top: 15px; border-left: 4px solid #FF9800; text-align: left; line-height: 1.5;">
-                    <i class="fas fa-heart" style="color: #9C27B0; margin-right: 8px; font-size: 1.2rem; vertical-align: middle;"></i>
-                    ${datoInicio?.texto || '"El primer día de nuestra historia juntos. Todo comenzó aquí, con una sonrisa y la promesa de muchos días felices por venir."'}
-                </div>
-            </div>
-        `;
-        
-        lanzarEfectosEspeciales();
-        
-    }
-   // ==================== 3. LUEGO VERIFICAR OTROS DÍAS ESPECIALES ====================
-else if (window.datosConfig && window.datosConfig.diasEspeciales) {
-    // Buscar primero con año, luego sin año
-    const dato = window.datosConfig.diasEspeciales[fechaKeyConAnio] || 
-                window.datosConfig.diasEspeciales[fechaKey];
-    
-    if (dato) {
-        const titulo = `Día ${numeroDia} - ${dia} de ${MESES[mes]} ${año}`;
-        
-        if (dato.tipo === "foto") {
-            tieneFoto = true;
-            urlFoto = dato.contenido;
-            textoFoto = dato.texto || 'Foto especial de nuestro día';
-            
-            contenidoHTML = `
-                <h2 style="color: #9C27B0; margin-bottom: 15px; font-family: 'Poppins', sans-serif; font-size: 1.6rem; text-align: center; font-weight: 700;">
-                    ${titulo}
-                </h2>
-                
-                <!-- IMAGEN (tamaño original) -->
-                <div style="width: 100%; max-width: 500px; margin: 0 auto 15px;">
-                    <img src="${dato.contenido}" alt="Foto especial" id="imagen-descargable" class="imagen-popup"
-                         style="width: 100%; height: auto; max-height: 300px; border-radius: 12px; border: 2px solid #ffebee; box-shadow: 0 5px 15px rgba(0,0,0,0.12); object-fit: contain; background: #f8f9fa; cursor: pointer;"
-                         onerror="this.onerror=null; this.style.display='none'; document.getElementById('mensaje-error-imagen')?.remove(); const errorDiv=document.createElement('div'); errorDiv.id='mensaje-error-imagen'; errorDiv.innerHTML='<p style=\'color:#FF5722;padding:10px;background:#ffebee;border-radius:8px;\'><i class=\'fas fa-exclamation-triangle\'></i> La imagen no pudo cargarse</p>'; this.parentNode.appendChild(errorDiv);">
-                </div>
-                
-                <div style="font-size: 1.1rem; padding: 15px; background: linear-gradient(135deg, #ffebee, #fce4ec); border-radius: 12px; margin: 15px 0; text-align: center; line-height: 1.5;">
-                    <i class="fas fa-heart" style="color: #9C27B0; margin-right: 8px;"></i>
-                    ${dato.texto || 'Un día especial contigo 💘'}
-                </div>
-            `;
+        // HTML para día de inicio con galería
+        if (tieneFotos && fotosArray.length > 0) {
+            contenidoHTML = crearHTMLGaleria(numeroDia, fecha, fotosArray, mensajesArray, false);
         } else {
-            // Asegurar que dato.contenido existe
-            const textoContenido = dato.contenido || dato.texto || 'Un mensaje especial para ti';
-            
+            const titulo = `Día ${numeroDia} - ${dia} de ${MESES[mes]} ${año}`;
             contenidoHTML = `
-                <h2 style="color: #9C27B0; margin-bottom: 15px; font-family: 'Poppins', sans-serif; font-size: 1.6rem; text-align: center; font-weight: 700;">
-                    ${titulo}
+                <h2 style="color: #FF9800; margin-bottom: 15px; font-family: 'Poppins', sans-serif; font-size: 1.6rem; text-align: center; font-weight: 700;">
+                    ¡COMIENZA NUESTRA AVENTURA! 🚀
                 </h2>
-                <div style="font-size: 1.2rem; padding: 20px; background: linear-gradient(135deg, #f3e5f5, #e8eaf6); border-radius: 12px; margin: 15px 0; text-align: center; font-style: italic; line-height: 1.5;">
-                    "${textoContenido}"
-                    ${dato.texto && dato.texto !== textoContenido ? `<p style="margin-top: 15px; font-size: 1rem; color: #666; font-style: normal;">${dato.texto}</p>` : ''}
+                <div style="background: linear-gradient(135deg, #ffffff, #f3e5f5); padding: 15px; border-radius: 15px; margin: 15px 0; text-align: center; border: 2px solid #FF9800;">
+                    <h3 style="color: #F57C00; margin-bottom: 10px; font-size: 1.3rem;">Día ${numeroDia} - 5 de Abril 2025</h3>
+                    
+                    <div style="font-size: 1.1rem; padding: 15px; background: white; border-radius: 12px; margin-top: 15px; border-left: 4px solid #FF9800; text-align: left; line-height: 1.5;">
+                        <i class="fas fa-heart" style="color: #9C27B0; margin-right: 8px; font-size: 1.2rem; vertical-align: middle;"></i>
+                        ${datoInicio?.texto || '"El primer día de nuestra historia juntos. Todo comenzó aquí, con una sonrisa y la promesa de muchos días felices por venir."'}
+                    </div>
                 </div>
             `;
         }
         
         lanzarEfectosEspeciales();
     }
-}
+    // ==================== 3. LUEGO VERIFICAR OTROS DÍAS ESPECIALES ====================
+    else if (window.datosConfig && window.datosConfig.diasEspeciales) {
+        // Buscar primero con año, luego sin año
+        const dato = window.datosConfig.diasEspeciales[fechaKeyConAnio] || 
+                    window.datosConfig.diasEspeciales[fechaKey];
+        
+        if (dato) {
+            // Configurar para galería
+            if (dato.tipo === "galeria") {
+                tieneFotos = true;
+                fotosArray = dato.fotos || [];
+                mensajesArray = dato.mensajes || [];
+            } else if (dato.tipo === "foto") {
+                // Compatibilidad con datos antiguos
+                tieneFotos = true;
+                fotosArray = [{
+                    url: dato.contenido,
+                    texto: dato.texto || 'Foto especial',
+                    descripcion: dato.texto || ''
+                }];
+            } else {
+                // Solo texto
+                const textoContenido = dato.contenido || dato.texto || 'Un mensaje especial para ti';
+                const titulo = `Día ${numeroDia} - ${dia} de ${MESES[mes]} ${año}`;
+                
+                contenidoHTML = `
+                    <h2 style="color: #9C27B0; margin-bottom: 15px; font-family: 'Poppins', sans-serif; font-size: 1.6rem; text-align: center; font-weight: 700;">
+                        ${titulo}
+                    </h2>
+                    <div style="font-size: 1.2rem; padding: 20px; background: linear-gradient(135deg, #f3e5f5, #e8eaf6); border-radius: 12px; margin: 15px 0; text-align: center; font-style: italic; line-height: 1.5;">
+                        "${textoContenido}"
+                        ${dato.texto && dato.texto !== textoContenido ? `<p style="margin-top: 15px; font-size: 1rem; color: #666; font-style: normal;">${dato.texto}</p>` : ''}
+                    </div>
+                `;
+                
+                lanzarEfectosEspeciales();
+            }
+            
+            // Si tiene fotos, crear galería
+            if (tieneFotos && fotosArray.length > 0) {
+                contenidoHTML = crearHTMLGaleria(numeroDia, fecha, fotosArray, mensajesArray, false);
+                lanzarEfectosEspeciales();
+            }
+        }
+    }
     
-// ==================== 4. SI NO ES ESPECIAL, MOSTRAR FRASE GENÉRICA ====================
-if (!contenidoHTML) {
+    // ==================== 4. SI NO ES ESPECIAL, MOSTRAR FRASE GENÉRICA ====================
+    if (!contenidoHTML) {
+        const titulo = `Día ${numeroDia} - ${dia} de ${MESES[mes]} ${año}`;
+        const frases = window.datosConfig?.frasesGenericas || [
+            "Un día más a tu lado es un regalo",
+            "Hoy es perfecto porque estás en mi vida",
+            "Cada momento contigo es especial",
+            "Te amo más que ayer, menos que mañana"
+        ];
+        const fraseAleatoria = frases[Math.floor(Math.random() * frases.length)];
+        
+        contenidoHTML = `
+            <h2 style="color: #9C27B0; margin-bottom: 15px; font-family: 'Poppins', sans-serif; font-size: 1.6rem; text-align: center; font-weight: 700;">
+                ${titulo}
+            </h2>
+            <div style="font-size: 1.2rem; padding: 20px; background: linear-gradient(135deg, #e8f5e9, #f1f8e9); border-radius: 12px; margin: 15px 0; text-align: center; font-style: italic; line-height: 1.5;">
+                "${fraseAleatoria}"
+                <p style="margin-top: 15px; font-size: 0.9rem; color: #666; font-style: normal;">
+                    <i class="fas fa-heart" style="color: #9C27B0;"></i>
+                    Aunque no haya un recuerdo especial registrado, este día fue perfecto porque estuviste en él.
+                </p>
+            </div>
+        `;
+        
+        // ¡IMPORTANTE! Agregar esto para que tenga contenido válido:
+        tieneFotos = false;
+        fotosArray = [];
+    }
+
+    // ==================== 5. MOSTRAR EL CONTENIDO ====================
+    // Verificar que el contenidoHTML no esté vacío
+    if (contenidoHTML && contenidoHTML.trim() !== '') {
+        mostrarPopupContenido(contenidoHTML, tieneFotos, fotosArray, fecha);
+    } else {
+        console.error("❌ Error: contenidoHTML está vacío o indefinido");
+        // Mostrar un mensaje de error o contenido por defecto
+        const tituloError = `Día ${numeroDia} - ${dia} de ${MESES[mes]} ${año}`;
+        const contenidoError = `
+            <h2 style="color: #FF5722; margin-bottom: 15px; font-family: 'Poppins', sans-serif; font-size: 1.6rem; text-align: center; font-weight: 700;">
+                ${tituloError}
+            </h2>
+            <div style="font-size: 1.2rem; padding: 20px; background: linear-gradient(135deg, #ffebee, #ffcdd2); border-radius: 12px; margin: 15px 0; text-align: center; line-height: 1.5;">
+                <i class="fas fa-heart-broken" style="color: #FF5722; font-size: 2rem; margin-bottom: 15px;"></i>
+                <p>¡Ups! Algo salió mal al cargar este día.</p>
+                <p style="margin-top: 10px; font-size: 1rem; color: #666;">
+                    Pero recuerda que cada día contigo es especial 💖
+                </p>
+            </div>
+        `;
+        mostrarPopupContenido(contenidoError, false, [], fecha);
+    }
+}
+
+// ==================== FUNCIÓN PARA CREAR HTML DE GALERÍA (VERSIÓN SIMPLIFICADA) ====================
+function crearHTMLGaleria(numeroDia, fecha, fotosArray, mensajesArray, esAniversario = false) {
+    const mes = fecha.getMonth();
+    const dia = fecha.getDate();
+    const año = fecha.getFullYear();
+    
     const titulo = `Día ${numeroDia} - ${dia} de ${MESES[mes]} ${año}`;
-    const frases = window.datosConfig?.frasesGenericas || [
-        "Un día más a tu lado es un regalo",
-        "Hoy es perfecto porque estás en mi vida",
-        "Cada momento contigo es especial",
-        "Te amo más que ayer, menos que mañana"
-    ];
-    const fraseAleatoria = frases[Math.floor(Math.random() * frases.length)];
+    const totalFotos = fotosArray.length;
     
-    contenidoHTML = `
-        <h2 style="color: #9C27B0; margin-bottom: 15px; font-family: 'Poppins', sans-serif; font-size: 1.6rem; text-align: center; font-weight: 700;">
+    // Título especial para aniversario
+    const tituloEspecial = esAniversario ? 
+        `<h2 style="color: #9C27B0; margin-bottom: 10px; font-family: 'Poppins', sans-serif; font-size: 1.6rem; text-align: center; font-weight: 700;">
+            ¡FELIZ PRIMER ANIVERSARIO! 🎉
+        </h2>
+        <h3 style="color: #7B1FA2; margin-bottom: 15px; font-size: 1.3rem; text-align: center;">${titulo}</h3>` :
+        `<h2 style="color: #9C27B0; margin-bottom: 15px; font-family: 'Poppins', sans-serif; font-size: 1.6rem; text-align: center; font-weight: 700;">
             ${titulo}
-        </h2>
-        <div style="font-size: 1.2rem; padding: 20px; background: linear-gradient(135deg, #e8f5e9, #f1f8e9); border-radius: 12px; margin: 15px 0; text-align: center; font-style: italic; line-height: 1.5;">
-            "${fraseAleatoria}"
-            <p style="margin-top: 15px; font-size: 0.9rem; color: #666; font-style: normal;">
-                <i class="fas fa-heart" style="color: #9C27B0;"></i>
-                Aunque no haya un recuerdo especial registrado, este día fue perfecto porque estuviste en él.
-            </p>
-        </div>
-    `;
+        </h2>`;
     
-    // ¡IMPORTANTE! Agregar esto para que tenga contenido válido:
-    tieneFoto = false;
-    urlFoto = '';
-    textoFoto = '';
-}
-
-// ==================== 5. MOSTRAR EL CONTENIDO CON BOTÓN DE DESCARGA SI HAY FOTO ====================
-// Verificar que el contenidoHTML no esté vacío
-if (contenidoHTML && contenidoHTML.trim() !== '') {
-    mostrarPopupContenido(contenidoHTML, tieneFoto, urlFoto, textoFoto, fecha);
-} else {
-    console.error("❌ Error: contenidoHTML está vacío o indefinido");
-    // Mostrar un mensaje de error o contenido por defecto
-    const tituloError = `Día ${numeroDia} - ${dia} de ${MESES[mes]} ${año}`;
-    const contenidoError = `
-        <h2 style="color: #FF5722; margin-bottom: 15px; font-family: 'Poppins', sans-serif; font-size: 1.6rem; text-align: center; font-weight: 700;">
-            ${tituloError}
-        </h2>
-        <div style="font-size: 1.2rem; padding: 20px; background: linear-gradient(135deg, #ffebee, #ffcdd2); border-radius: 12px; margin: 15px 0; text-align: center; line-height: 1.5;">
-            <i class="fas fa-heart-broken" style="color: #FF5722; font-size: 2rem; margin-bottom: 15px;"></i>
-            <p>¡Ups! Algo salió mal al cargar este día.</p>
-            <p style="margin-top: 10px; font-size: 1rem; color: #666;">
-                Pero recuerda que cada día contigo es especial 💖
-            </p>
+    return `
+  
+${tituloEspecial}
+    
+<div class="contenedor-galeria">
+    <!-- Eliminamos el contador de fotos de arriba -->
+    
+    <!-- Carousel Horizontal -->
+    <div class="foto-principal-container-horizontal" data-fotos='${JSON.stringify(fotosArray)}' data-total="${totalFotos}">
+        <!-- Contenedor de todas las fotos (para el deslizamiento) -->
+        <div class="carousel-track" style="transform: translateX(0%);">
+            ${fotosArray.map((foto, index) => `
+                <div class="carousel-slide ${index === 0 ? 'active' : ''}" data-index="${index}">
+    <div class="slide-image-container">
+        <img src="${foto.url}" 
+             alt="${foto.texto}" 
+             class="slide-image"
+             onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"500\" height=\"375\" viewBox=\"0 0 500 375\"><rect width=\"500\" height=\"375\" fill=\"%239C27B0\"/><text x=\"250\" y=\"150\" font-family=\"Arial\" font-size=\"24\" text-anchor=\"middle\" fill=\"white\" dy=\".3em\">${foto.texto || 'Nuestra foto'}</text><text x=\"250\" y=\"200\" font-family=\"Arial\" font-size=\"14\" text-anchor=\"middle\" fill=\"white\" dy=\".3em\">Foto ${index + 1}/${totalFotos}</text></svg>';">
+    </div>
+    <div class="slide-text">
+        <h4>${foto.texto || 'Nuestra foto'}</h4>
+        ${foto.descripcion ? `<p>${foto.descripcion}</p>` : ''}
+    </div>
+</div>
+            `).join('')}
         </div>
-    `;
-    mostrarPopupContenido(contenidoError, false, '', '', fecha);
+        
+        <!-- Controles del carrusel -->
+        <button class="btn-carrusel-horizontal btn-anterior-horizontal">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="btn-carrusel-horizontal btn-siguiente-horizontal">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+        
+        <!-- Contador de posición (ahora más visible) -->
+        <div class="carousel-counter">
+            <span class="current-slide">1</span>
+            <span class="total-slides"> / ${totalFotos}</span>
+        </div>
+    </div>
+    
+    <!-- Mensajes del día -->
+    ${mensajesArray && mensajesArray.length > 0 ? `
+        <div class="mensajes-dia">
+            ${mensajesArray.map(msg => `
+                <div class="mensaje-item">
+                    <i class="fas fa-heart"></i>
+                    <p>${msg}</p>
+                </div>
+            `).join('')}
+        </div>
+    ` : ''}
+</div>
+`;
 }
-}
-
 // ==================== FUNCIONES AUXILIARES PARA CONFETI Y EFECTOS ====================
 function lanzarConfetiEspecial() {
     console.log("🎉 Lanzando confeti especial de aniversario!");
@@ -724,6 +795,7 @@ function mostrarPopupContenido(contenidoHTML, tieneFoto = false, urlFoto = '', t
     justify-content: center;
     transition: all 0.2s;
     z-index: 10;
+    display:none;
 ">
     <i class="fas fa-times"></i>
 </button>
@@ -788,118 +860,425 @@ function mostrarPopupContenido(contenidoHTML, tieneFoto = false, urlFoto = '', t
     // Agregar el popup al body y prevenir scroll
     document.body.classList.add('popup-abierto');
     document.body.appendChild(popup);
-    
-    // Agregar funcionalidad de zoom a la imagen (solo si existe)
-    const imagen = document.getElementById('imagen-descargable');
-    if (imagen) {
-        // Quitar cualquier evento de toque largo existente
-        imagen.addEventListener('touchstart', function(e) {
-            // Solo prevenir el comportamiento por defecto, sin menú
-            e.preventDefault();
-        }, { passive: false });
-        
-        // Agregar funcionalidad de clic para zoom
-        imagen.addEventListener('click', function() {
-            this.classList.toggle('zoom');
-            
-            if (this.classList.contains('zoom')) {
-                console.log("🔍 Imagen ampliada");
-                // Desplazar la imagen a la vista si está muy arriba o abajo
-                this.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            } else {
-                console.log("📷 Imagen normal");
-            }
-        });
+
+// Después de agregar el popup al DOM, configurar el carousel si existe
+setTimeout(() => {
+    const carouselContainer = document.querySelector('#contenedor-popup .foto-principal-container-horizontal');
+    if (carouselContainer) {
+        const fotosData = JSON.parse(carouselContainer.getAttribute('data-fotos') || '[]');
+        configurarCarouselHorizontal(carouselContainer, fotosData);
     }
-    
-    // Prevenir que el scroll se propague al body
-    const contenedor = document.getElementById('contenedor-popup');
-    if (contenedor) {
-        contenedor.addEventListener('wheel', function(e) {
-            // Si estamos en el top y seguimos scrolleando hacia arriba, o en el bottom y seguimos hacia abajo
-            const isAtTop = this.scrollTop === 0;
-            const isAtBottom = this.scrollTop + this.clientHeight >= this.scrollHeight - 1;
-            
-            if ((isAtTop && e.deltaY < 0) || (isAtBottom && e.deltaY > 0)) {
-                e.preventDefault();
-            }
-        }, { passive: false });
-    }
+}, 50);
 }
-// ==================== FUNCIÓN PARA MENÚ DE DESCARGA EN MÓVILES ====================
-/*function mostrarMenuDescargaMovil(urlFoto, fecha, textoFoto) {
-    const nombreArchivo = fecha ? generarNombreDescarga(fecha, textoFoto) : 'foto-especial.jpg';
+
+// ==================== FUNCIONES PARA MANEJAR LA GALERÍA ====================
+
+// Configurar eventos de la galería después de que se muestra el popup
+function configurarGaleriaPopup(contenedorGaleria) {
+    if (!contenedorGaleria) return;
     
-    // Crear menú contextual
-    const menu = document.createElement('div');
-    menu.style.cssText = `
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background: white;
-        border-radius: 15px;
-        padding: 20px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        z-index: 1001;
-        min-width: 250px;
-        animation: fadeIn 0.2s ease;
-    `;
+    const totalFotos = parseInt(contenedorGaleria.getAttribute('data-total-fotos')) || 1;
+    const fechaISO = contenedorGaleria.getAttribute('data-fecha');
+    const fecha = fechaISO ? new Date(fechaISO) : new Date();
     
-    menu.innerHTML = `
-        <h3 style="color: #9C27B0; margin-bottom: 15px; text-align: center;">
-            <i class="fas fa-download"></i> Descargar foto
-        </h3>
-        <p style="margin-bottom: 20px; color: #666; font-size: 0.9rem; text-align: center;">
-            ¿Quieres guardar esta foto en tu dispositivo?
-        </p>
-        <div style="display: flex; flex-direction: column; gap: 10px;">
-            <button onclick="descargarFoto('${urlFoto}', '${nombreArchivo}'); this.parentNode.parentNode.remove();" 
-                    style="
-                        background: linear-gradient(45deg, #4CAF50, #2E7D32);
-                        color: white;
-                        border: none;
-                        padding: 12px;
-                        border-radius: 10px;
-                        cursor: pointer;
-                        font-weight: bold;
-                    ">
-                <i class="fas fa-download"></i> Descargar ahora
-            </button>
-            <button onclick="this.parentNode.parentNode.remove();" 
-                    style="
-                        background: #f5f5f5;
-                        color: #666;
-                        border: 1px solid #ddd;
-                        padding: 12px;
-                        border-radius: 10px;
-                        cursor: pointer;
-                    ">
-                Cancelar
-            </button>
-        </div>
-        <p style="margin-top: 15px; font-size: 0.8rem; color: #999; text-align: center;">
-            También puedes mantener presionada la imagen para guardarla
-        </p>
-    `;
+    // Encontrar todos los elementos dentro de esta galería
+    const fotoPrincipal = contenedorGaleria.querySelector('.foto-principal');
+    const contadorActual = contenedorGaleria.querySelector('.contador-actual');
+    const miniaturas = contenedorGaleria.querySelectorAll('.miniatura-foto');
+    const indicadores = contenedorGaleria.querySelectorAll('.indicador');
+    const textoH4 = contenedorGaleria.querySelector('.texto-foto h4');
+    const textoP = contenedorGaleria.querySelector('.texto-foto p');
+    const btnDescargaIndividual = contenedorGaleria.querySelector('.btn-descarga-individual');
+    const btnDescargaMultiple = contenedorGaleria.querySelector('.btn-descarga-multiple');
     
-    // Fondo oscuro
-    const fondo = document.createElement('div');
-    fondo.style.cssText = `
-        position: fixed;
-        top: 0; left: 0;
-        width: 100%; height: 100%;
-        background: rgba(0,0,0,0.5);
-        z-index: 1000;
-    `;
-    fondo.onclick = function() {
-        document.body.removeChild(menu);
-        document.body.removeChild(fondo);
+// Obtener elementos de preview
+const previewAnterior = contenedorGaleria.querySelector('.preview-anterior');
+const previewSiguiente = contenedorGaleria.querySelector('.preview-siguiente');
+const imgPreviewAnterior = contenedorGaleria.querySelector('.preview-anterior img');
+const imgPreviewSiguiente = contenedorGaleria.querySelector('.preview-siguiente img');
+
+    // Estado de la galería
+    let indiceActual = 0;
+    
+    // Obtener datos de las fotos desde las miniaturas
+    const fotosData = Array.from(miniaturas).map(miniatura => {
+        const img = miniatura.querySelector('img');
+        const index = parseInt(miniatura.getAttribute('data-index'));
+        return {
+            index,
+            url: img ? img.src : '',
+            texto: img ? img.alt : `Foto ${index + 1}`
+        };
+    });
+    
+    // Función para actualizar la galería
+    function actualizarGaleria() {
+        const fotoActual = fotosData[indiceActual];
+        
+        // Actualizar foto principal
+        if (fotoPrincipal && fotoActual) {
+            fotoPrincipal.src = fotoActual.url;
+            fotoPrincipal.alt = fotoActual.texto;
+        }
+
+        // Actualizar previews
+if (imgPreviewAnterior && imgPreviewSiguiente) {
+    const prevIndex = (indiceActual - 1 + totalFotos) % totalFotos;
+    const nextIndex = (indiceActual + 1) % totalFotos;
+    
+    imgPreviewAnterior.src = fotosData[prevIndex].url;
+    imgPreviewAnterior.alt = `Foto anterior: ${fotosData[prevIndex].texto || `Foto ${prevIndex + 1}`}`;
+    
+    imgPreviewSiguiente.src = fotosData[nextIndex].url;
+    imgPreviewSiguiente.alt = `Foto siguiente: ${fotosData[nextIndex].texto || `Foto ${nextIndex + 1}`}`;
+}
+
+// Hacer clickeables los previews
+if (previewAnterior) {
+    previewAnterior.onclick = () => cambiarFoto('prev');
+    previewAnterior.style.cursor = 'pointer';
+}
+
+if (previewSiguiente) {
+    previewSiguiente.onclick = () => cambiarFoto('next');
+    previewSiguiente.style.cursor = 'pointer';
+}
+        
+        // Actualizar contador
+        if (contadorActual) {
+            contadorActual.textContent = indiceActual + 1;
+        }
+        
+        // Actualizar miniaturas
+        miniaturas.forEach((miniatura, index) => {
+            miniatura.classList.toggle('active', index === indiceActual);
+        });
+        
+        // Actualizar indicadores
+        indicadores.forEach((indicador, index) => {
+            indicador.classList.toggle('active', index === indiceActual);
+        });
+        
+        // Actualizar botón de descarga individual
+        if (btnDescargaIndividual && fotoActual) {
+            btnDescargaIndividual.onclick = function() {
+                const nombreArchivo = generarNombreDescarga(fecha, fotoActual.texto);
+                descargarFoto(fotoActual.url, nombreArchivo);
+            };
+        }
+    }
+    
+    // Función para cambiar de foto
+    function cambiarFoto(direccion) {
+        if (direccion === 'prev') {
+            indiceActual = (indiceActual - 1 + totalFotos) % totalFotos;
+        } else if (direccion === 'next') {
+            indiceActual = (indiceActual + 1) % totalFotos;
+        } else if (typeof direccion === 'number') {
+            indiceActual = direccion;
+        }
+        actualizarGaleria();
+    }
+    
+    // Configurar eventos de navegación
+    const btnAnterior = contenedorGaleria.querySelector('.btn-anterior');
+    const btnSiguiente = contenedorGaleria.querySelector('.btn-siguiente');
+    const btnAnteriorInferior = contenedorGaleria.querySelector('.btn-anterior-inferior');
+    const btnSiguienteInferior = contenedorGaleria.querySelector('.btn-siguiente-inferior');
+    
+    if (btnAnterior) btnAnterior.onclick = () => cambiarFoto('prev');
+    if (btnSiguiente) btnSiguiente.onclick = () => cambiarFoto('next');
+    if (btnAnteriorInferior) btnAnteriorInferior.onclick = () => cambiarFoto('prev');
+    if (btnSiguienteInferior) btnSiguienteInferior.onclick = () => cambiarFoto('next');
+    
+    // Configurar eventos de miniaturas
+    miniaturas.forEach(miniatura => {
+        miniatura.onclick = function() {
+            const index = parseInt(this.getAttribute('data-index'));
+            cambiarFoto(index);
+        };
+    });
+    
+    // Configurar eventos de indicadores
+    indicadores.forEach(indicador => {
+        indicador.onclick = function() {
+            const index = parseInt(this.getAttribute('data-index'));
+            cambiarFoto(index);
+        };
+    });
+    
+   // Configurar evento de zoom en la foto principal
+if (fotoPrincipal) {
+    fotoPrincipal.onclick = function(e) {
+        e.stopPropagation();
+        
+        if (this.classList.contains('zoom')) {
+            // Salir del zoom
+            this.classList.remove('zoom');
+            document.body.style.overflow = 'auto';
+            
+            // Quitar overlay si existe
+            const existingOverlay = document.querySelector('.zoom-overlay');
+            if (existingOverlay) {
+                existingOverlay.remove();
+            }
+        } else {
+            // Entrar en zoom
+            this.classList.add('zoom');
+            document.body.style.overflow = 'hidden';
+            
+            // Crear overlay oscuro
+            const overlay = document.createElement('div');
+            overlay.className = 'zoom-overlay';
+            overlay.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.95);
+                z-index: 1000;
+                cursor: zoom-out;
+            `;
+            overlay.onclick = function() {
+                fotoPrincipal.classList.remove('zoom');
+                document.body.style.overflow = 'auto';
+                this.remove();
+            };
+            document.body.appendChild(overlay);
+        }
     };
+}
+    // Agrega esto en configurarGaleriaPopup, después de configurar el evento de zoom:
+if (fotoPrincipal) {
+    fotoPrincipal.onclick = function() {
+        const yaEstaEnZoom = this.classList.contains('zoom');
+        
+        if (yaEstaEnZoom) {
+            this.classList.remove('zoom');
+            // Restaurar posición original
+            this.style.position = '';
+            this.style.top = '';
+            this.style.left = '';
+            this.style.transform = '';
+            this.style.zIndex = '';
+        } else {
+            this.classList.add('zoom');
+            // Calcular posición para centrar
+            const rect = this.getBoundingClientRect();
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            this.style.position = 'fixed';
+            this.style.top = '50%';
+            this.style.left = '50%';
+            this.style.transform = 'translate(-50%, -50%) scale(1.8)';
+            this.style.zIndex = '1001';
+            this.style.cursor = 'zoom-out';
+        }
+    };
+}
     
-    document.body.appendChild(fondo);
-    document.body.appendChild(menu);
-}*/
+    // Configurar botón de descarga múltiple
+    if (btnDescargaMultiple && totalFotos > 1) {
+        btnDescargaMultiple.onclick = function() {
+            const urls = fotosData.map(foto => foto.url);
+            descargarTodasLasFotosGaleria(urls, fecha, totalFotos);
+        };
+    }
+    
+    // Inicializar
+    actualizarGaleria();
+}
+
+// ==================== CONFIGURAR CAROUSEL HORIZONTAL (VERSIÓN MEJORADA) ====================
+function configurarCarouselHorizontal(contenedorCarousel, fotosArray) {
+    if (!contenedorCarousel || !fotosArray.length) return;
+    
+    const track = contenedorCarousel.querySelector('.carousel-track');
+    const slides = contenedorCarousel.querySelectorAll('.carousel-slide');
+    const btnAnterior = contenedorCarousel.querySelector('.btn-anterior-horizontal');
+    const btnSiguiente = contenedorCarousel.querySelector('.btn-siguiente-horizontal');
+    const positionIndicator = contenedorCarousel.querySelector('.current-slide');
+    const totalSlidesElement = contenedorCarousel.querySelector('.total-slides');
+    
+    let slideActual = 0;
+    const totalSlides = slides.length;
+    const slideWidth = 85; // Porcentaje que ocupa cada slide (coincide con CSS)
+    
+    // Actualizar botones de descarga
+    function actualizarBotonesDescarga() {
+        const btnDescargaIndividual = document.querySelector('.btn-descarga-individual');
+        const btnDescargaMultiple = document.querySelector('.btn-descarga-multiple');
+        const fechaAttr = contenedorCarousel.closest('.contenedor-galeria')?.getAttribute('data-fecha');
+        const fecha = fechaAttr ? new Date(fechaAttr) : new Date();
+        
+        if (btnDescargaIndividual) {
+            const fotoActual = fotosArray[slideActual];
+            btnDescargaIndividual.onclick = function() {
+                const nombreArchivo = generarNombreDescarga(fecha, fotoActual.texto || '');
+                descargarFoto(fotoActual.url, nombreArchivo);
+            };
+            btnDescargaIndividual.innerHTML = `<i class="fas fa-download"></i> Descargar esta foto (${slideActual + 1}/${totalSlides})`;
+        }
+        
+        if (btnDescargaMultiple) {
+            btnDescargaMultiple.onclick = function() {
+                descargarTodasLasFotosGaleria(fotosArray, fecha);
+            };
+        }
+    }
+    
+    // Función para actualizar carousel
+    function actualizarCarousel() {
+        // Calcular desplazamiento
+        const desplazamiento = -slideActual * slideWidth;
+        track.style.transform = `translateX(${desplazamiento}%)`;
+        
+        // Actualizar clases active
+        slides.forEach((slide, index) => {
+            slide.classList.toggle('active', index === slideActual);
+        });
+        
+        // Actualizar indicador de posición
+        if (positionIndicator) {
+            positionIndicator.textContent = slideActual + 1;
+        }
+        
+        if (totalSlidesElement) {
+            totalSlidesElement.textContent = ` / ${totalSlides}`;
+        }
+        
+        // Actualizar estado de botones de navegación
+        if (btnAnterior) {
+            const isDisabled = slideActual === 0;
+            btnAnterior.disabled = isDisabled;
+            btnAnterior.style.opacity = isDisabled ? '0.3' : '1';
+            btnAnterior.style.cursor = isDisabled ? 'not-allowed' : 'pointer';
+            btnAnterior.title = isDisabled ? 'Primera foto' : 'Foto anterior';
+        }
+        
+        if (btnSiguiente) {
+            const isDisabled = slideActual === totalSlides - 1;
+            btnSiguiente.disabled = isDisabled;
+            btnSiguiente.style.opacity = isDisabled ? '0.3' : '1';
+            btnSiguiente.style.cursor = isDisabled ? 'not-allowed' : 'pointer';
+            btnSiguiente.title = isDisabled ? 'Última foto' : 'Foto siguiente';
+        }
+        
+        // Agregar funcionalidad de zoom a la imagen activa
+        const slideActivo = slides[slideActual];
+        const imagenActiva = slideActivo.querySelector('.slide-image');
+        if (imagenActiva) {
+            imagenActiva.onclick = function(e) {
+                e.stopPropagation();
+                
+                // Crear overlay para zoom
+                const overlay = document.createElement('div');
+                overlay.className = 'zoom-overlay-carousel';
+                
+                const imgZoom = document.createElement('img');
+                imgZoom.src = this.src;
+                imgZoom.alt = this.alt;
+                
+                overlay.appendChild(imgZoom);
+                overlay.onclick = function() {
+                    document.body.removeChild(this);
+                };
+                
+                document.body.appendChild(overlay);
+                
+                // También cerrar con Escape
+                const closeOnEscape = function(e) {
+                    if (e.key === 'Escape') {
+                        if (overlay.parentNode) {
+                            overlay.parentNode.removeChild(overlay);
+                        }
+                        document.removeEventListener('keydown', closeOnEscape);
+                    }
+                };
+                document.addEventListener('keydown', closeOnEscape);
+            };
+        }
+        
+        // Actualizar botones de descarga
+        actualizarBotonesDescarga();
+    }
+    
+    // Configurar eventos de navegación
+    if (btnAnterior) {
+        btnAnterior.onclick = function() {
+            if (slideActual > 0) {
+                slideActual--;
+                actualizarCarousel();
+            }
+        };
+    }
+    
+    if (btnSiguiente) {
+        btnSiguiente.onclick = function() {
+            if (slideActual < totalSlides - 1) {
+                slideActual++;
+                actualizarCarousel();
+            }
+        };
+    }
+    
+    // Configurar clic en slides para navegación directa
+    slides.forEach((slide, index) => {
+        slide.onclick = function(e) {
+            // Solo navegar si no se hizo clic en la imagen (para no interferir con zoom)
+            if (!e.target.classList.contains('slide-image')) {
+                slideActual = index;
+                actualizarCarousel();
+            }
+        };
+    });
+    
+    // Inicializar
+    actualizarCarousel();
+    
+    // Configurar eventos de teclado
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'ArrowLeft') {
+            if (slideActual > 0) {
+                slideActual--;
+                actualizarCarousel();
+            }
+        } else if (e.key === 'ArrowRight') {
+            if (slideActual < totalSlides - 1) {
+                slideActual++;
+                actualizarCarousel();
+            }
+        }
+    });
+}
+
+// Función para descargar múltiples fotos
+function descargarTodasLasFotosGaleria(urls, fecha, totalFotos) {
+    if (!urls || !urls.length) return;
+    
+    const nombreBase = `fotos-${fecha.getDate()}-${fecha.getMonth()+1}-${fecha.getFullYear()}`;
+    
+    mostrarNotificacion(`Preparando descarga de ${totalFotos} fotos...`, 'info');
+    
+    // Descargar una por una
+    urls.forEach((url, index) => {
+        setTimeout(() => {
+            const nombreArchivo = `${nombreBase}-${index+1}.jpg`;
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = nombreArchivo;
+            link.target = '_blank';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }, index * 500);
+    });
+    
+    setTimeout(() => {
+        mostrarNotificacion(`¡${totalFotos} fotos descargadas! 💖`, 'success');
+    }, totalFotos * 500 + 500);
+}
 
 // ==================== BUSCADOR AJUSTADO ====================
 function configurarBuscadorAjustado() {

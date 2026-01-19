@@ -1515,3 +1515,1038 @@ body.popup-abierto {
 body:has(#popup-simple) {
     overflow: hidden !important;
 }
+
+/* ==================== ESTILOS PARA GALERÍA DE FOTOS ==================== */
+
+/* Contenedor principal de galería */
+.contenedor-galeria {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    margin: 15px 0;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* Contador de fotos */
+.contador-fotos {
+    text-align: center;
+    margin-bottom: 15px;
+    padding: 10px;
+    background: linear-gradient(135deg, #f3e5f5, #e1bee7);
+    border-radius: 10px;
+    font-size: 1rem;
+    color: #7B1FA2;
+    font-weight: 600;
+}
+
+.contador-fotos i {
+    margin-right: 8px;
+    color: #9C27B0;
+}
+
+.contador-fotos #contador-actual {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #9C27B0;
+}
+
+/* Miniaturas */
+.miniaturas-container {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-bottom: 20px;
+    overflow-x: auto;
+    padding: 10px 0;
+}
+
+.miniatura-foto {
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+    border: 3px solid transparent;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.miniatura-foto:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+}
+
+.miniatura-foto.active {
+    border-color: #9C27B0;
+    transform: scale(1.1);
+}
+
+.miniatura-foto img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.contador-miniaturas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(156, 39, 176, 0.8);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+/* Foto principal */
+.foto-principal-container {
+    position: relative;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #f8f9fa;
+    min-height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.foto-principal {
+    max-width: 100%;
+    max-height: 400px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    object-fit: contain;
+}
+
+.foto-principal.zoom {
+    transform: scale(1.5);
+    z-index: 1001;
+    position: relative;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+}
+
+/* Controles del carrusel */
+.btn-carrusel {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.9);
+    color: #9C27B0;
+    border: none;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+    z-index: 10;
+}
+
+.btn-carrusel:hover {
+    background: white;
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.btn-carrusel.btn-anterior {
+    left: 15px;
+}
+
+.btn-carrusel.btn-siguiente {
+    right: 15px;
+}
+
+/* Texto de la foto */
+.texto-foto {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0,0,0,0.8));
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+.texto-foto h4 {
+    margin: 0 0 5px 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.texto-foto p {
+    margin: 0;
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+/* Navegación inferior */
+.navegacion-inferior {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 10px 0;
+}
+
+.btn-navegacion {
+    background: linear-gradient(135deg, #9C27B0, #7B1FA2);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+}
+
+.btn-navegacion:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(156, 39, 176, 0.3);
+}
+
+.btn-navegacion:disabled {
+    background: #cccccc;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Indicadores de fotos */
+.indicadores-fotos {
+    display: flex;
+    gap: 8px;
+}
+
+.indicador {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #e0e0e0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.indicador:hover {
+    background: #b0b0b0;
+    transform: scale(1.2);
+}
+
+.indicador.active {
+    background: #9C27B0;
+    transform: scale(1.2);
+}
+
+/* Mensajes del día */
+.mensajes-dia {
+    margin-top: 20px;
+    padding: 15px;
+    background: linear-gradient(135deg, #fff3e0, #ffecb3);
+    border-radius: 10px;
+    border-left: 4px solid #FF9800;
+}
+
+.mensaje-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.mensaje-item:last-child {
+    margin-bottom: 0;
+}
+
+.mensaje-item i {
+    color: #FF9800;
+    margin-top: 3px;
+    flex-shrink: 0;
+}
+
+.mensaje-item p {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    color: #5D4037;
+}
+
+/* Responsive para galería */
+@media (max-width: 768px) {
+    .miniaturas-container {
+        gap: 6px;
+    }
+    
+    .miniatura-foto {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .foto-principal-container {
+        min-height: 200px;
+    }
+    
+    .foto-principal {
+        max-height: 300px;
+    }
+    
+    .btn-carrusel {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+    
+    .btn-navegacion {
+        padding: 8px 15px;
+        font-size: 0.85rem;
+    }
+    
+    .texto-foto {
+        padding: 15px;
+    }
+    
+    .texto-foto h4 {
+        font-size: 1rem;
+    }
+    
+    .texto-foto p {
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .contenedor-galeria {
+        padding: 15px;
+    }
+    
+    .miniatura-foto {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .foto-principal-container {
+        min-height: 180px;
+    }
+    
+    .navegacion-inferior {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .btn-navegacion {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .indicadores-fotos {
+        order: -1;
+    }
+}
+
+
+/* Mejoras para la galería - AGREGAR AL FINAL DE style.css */
+
+/* Contenedor flexible que se adapta a la foto */
+.foto-principal-container {
+    position: relative;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    min-height: 300px;
+    max-height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
+
+/* Foto inteligente que se adapta */
+.foto-principal {
+    max-width: 100%;
+    max-height: 450px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    object-fit: contain; /* Muestra toda la imagen */
+    background: white;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    border: 5px solid white;
+}
+
+/* Para fotos verticales (portrait) */
+.foto-principal[data-orientacion="vertical"] {
+    max-height: 500px;
+    max-width: 80%;
+}
+
+/* Para fotos horizontales (landscape) */
+.foto-principal[data-orientacion="horizontal"] {
+    max-width: 100%;
+    max-height: 400px;
+}
+
+/* Efecto hover */
+.foto-principal:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+
+/* Zoom mejorado */
+.foto-principal.zoom {
+    transform: scale(1.8);
+    z-index: 1001;
+    position: fixed;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) scale(1.8) !important;
+    max-height: 90vh !important;
+    max-width: 90vw !important;
+    object-fit: contain;
+    cursor: zoom-out;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+}
+
+/* ==================== ESTILOS PARA GALERÍA CON PREVIEW ==================== */
+
+/* Contenedor principal con previews */
+.foto-principal-container {
+    position: relative;
+    margin-bottom: 20px;
+    border-radius: 15px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #1a0f40, #2d1b69, #4a1e7a); /* Fondo morado oscuro elegante */
+    min-height: 350px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 20px;
+    box-shadow: 
+        inset 0 0 50px rgba(0,0,0,0.3),
+        0 10px 30px rgba(0,0,0,0.4);
+}
+
+/* Preview de fotos laterales */
+.preview-foto {
+    flex: 1;
+    height: 250px;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    opacity: 0.5;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+    cursor: pointer;
+    border: 3px solid transparent;
+}
+
+.preview-foto:hover {
+    opacity: 0.8;
+    transform: scale(1.08);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 25px rgba(156, 39, 176, 0.4);
+}
+
+.preview-anterior {
+    order: 1;
+}
+
+.foto-principal {
+    order: 2;
+    width: auto;
+    height: 320px;
+    max-width: 50%;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    object-fit: contain;
+    background: white;
+    box-shadow: 
+        0 10px 35px rgba(0,0,0,0.4),
+        0 0 0 12px white,
+        0 0 0 15px rgba(156, 39, 176, 0.2);
+    border: 8px solid white;
+    z-index: 3;
+}
+
+.foto-principal:hover {
+    transform: scale(1.03);
+    box-shadow: 
+        0 15px 40px rgba(0,0,0,0.5),
+        0 0 0 12px white,
+        0 0 0 15px rgba(156, 39, 176, 0.3);
+}
+
+.preview-siguiente {
+    order: 3;
+}
+
+/* Imagen dentro del preview */
+.preview-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: blur(2px) brightness(0.7);
+    transition: all 0.4s ease;
+}
+
+.preview-foto:hover .preview-img {
+    filter: blur(0.5px) brightness(0.9);
+    transform: scale(1.05);
+}
+
+/* Overlay para los previews */
+.preview-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        45deg, 
+        rgba(156, 39, 176, 0.4) 0%,
+        rgba(103, 58, 183, 0.3) 50%,
+        rgba(63, 81, 181, 0.2) 100%
+    );
+    z-index: 1;
+}
+
+/* Flechas indicadoras en previews */
+.preview-flecha {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+    z-index: 2;
+    text-shadow: 0 3px 10px rgba(0,0,0,0.7);
+    opacity: 0.7;
+    transition: all 0.3s ease;
+}
+
+.preview-anterior .preview-flecha {
+    left: 15px;
+}
+
+.preview-siguiente .preview-flecha {
+    right: 15px;
+}
+
+.preview-foto:hover .preview-flecha {
+    opacity: 1;
+    transform: translateY(-50%) scale(1.2);
+}
+
+/* Texto de la foto (mejorado) */
+.texto-foto {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+    color: white;
+    padding: 25px 20px 15px;
+    text-align: center;
+    z-index: 4;
+}
+
+.texto-foto h4 {
+    margin: 0 0 8px 0;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #fff;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+.texto-foto p {
+    margin: 0;
+    font-size: 0.95rem;
+    opacity: 0.9;
+    color: #e0e0e0;
+    max-width: 80%;
+    margin: 0 auto;
+    line-height: 1.4;
+}
+
+/* Botones de carrusel sobrepuestos */
+.btn-carrusel {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.95);
+    color: #9C27B0;
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    z-index: 10;
+}
+
+.btn-carrusel:hover {
+    background: white;
+    transform: translateY(-50%) scale(1.15);
+    color: #7B1FA2;
+    box-shadow: 0 6px 20px rgba(156, 39, 176, 0.4);
+}
+
+.btn-carrusel.btn-anterior {
+    left: calc(25% - 25px); /* Posición entre preview y foto principal */
+}
+
+.btn-carrusel.btn-siguiente {
+    right: calc(25% - 25px); /* Posición entre foto principal y preview */
+}
+
+/* Zoom mejorado */
+.foto-principal.zoom {
+    transform: scale(2) !important;
+    z-index: 1001;
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) scale(2) !important;
+    max-height: 85vh !important;
+    max-width: 85vw !important;
+    cursor: zoom-out;
+    box-shadow: 
+        0 25px 60px rgba(0,0,0,0.6),
+        0 0 0 100vmax rgba(0,0,0,0.9);
+    border: 15px solid white;
+    border-radius: 5px;
+}
+
+/* Responsive para galería con preview */
+@media (max-width: 992px) {
+    .foto-principal-container {
+        gap: 10px;
+        padding: 15px;
+    }
+    
+    .preview-foto {
+        height: 200px;
+    }
+    
+    .foto-principal {
+        height: 280px;
+        max-width: 55%;
+    }
+    
+    .btn-carrusel.btn-anterior {
+        left: calc(27% - 25px);
+    }
+    
+    .btn-carrusel.btn-siguiente {
+        right: calc(27% - 25px);
+    }
+}
+
+@media (max-width: 768px) {
+    .foto-principal-container {
+        flex-direction: column;
+        gap: 20px;
+        min-height: 500px;
+        padding: 20px 15px;
+    }
+    
+    .preview-foto {
+        width: 80%;
+        height: 120px;
+        order: 1 !important;
+    }
+    
+    .preview-anterior {
+        margin-bottom: -10px;
+    }
+    
+    .preview-siguiente {
+        margin-top: -10px;
+    }
+    
+    .foto-principal {
+        order: 2;
+        width: 90%;
+        max-width: 90%;
+        height: auto;
+        max-height: 300px;
+    }
+    
+    .preview-flecha {
+        font-size: 30px;
+    }
+    
+    .btn-carrusel.btn-anterior {
+        left: 20px;
+        top: 40%;
+    }
+    
+    .btn-carrusel.btn-siguiente {
+        right: 20px;
+        top: 40%;
+    }
+    
+    .texto-foto {
+        padding: 20px 15px 10px;
+    }
+    
+    .texto-foto h4 {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .foto-principal-container {
+        padding: 15px 10px;
+        min-height: 450px;
+    }
+    
+    .preview-foto {
+        width: 90%;
+        height: 100px;
+    }
+    
+    .foto-principal {
+        width: 95%;
+        max-height: 250px;
+    }
+    
+    .btn-carrusel {
+        width: 40px;
+        height: 40px;
+        font-size: 1.1rem;
+    }
+    
+    .texto-foto h4 {
+        font-size: 1rem;
+    }
+    
+    .texto-foto p {
+        font-size: 0.85rem;
+    }
+}
+
+/* ==================== CAROUSEL HORIZONTAL CON PREVIEW ==================== */
+
+/* Contenedor principal */
+.foto-principal-container-horizontal {
+    position: relative;
+    margin-bottom: 20px;
+    border-radius: 15px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #2d1b69, #1a0f40);
+    height: 400px; /* Altura fija */
+    width: 100%;
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+/* Track del carousel (contiene todas las fotos) */
+.carousel-track {
+    display: flex;
+    height: 100%;
+    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    gap: 20px;
+    align-items: center;
+    padding: 0 50px; /* Espacio para que se vea el preview */
+}
+
+/* Cada slide (foto) */
+.carousel-slide {
+    flex: 0 0 auto;
+    width: 80%; /* Cada slide ocupa 80% del contenedor */
+    height: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+    transition: all 0.3s ease;
+    opacity: 0.7;
+    transform: scale(0.9);
+}
+
+/* Slide activo (el central) */
+.carousel-slide.active {
+    opacity: 1;
+    transform: scale(1);
+    box-shadow: 0 15px 40px rgba(156, 39, 176, 0.4);
+    z-index: 3;
+    border: 5px solid white;
+}
+
+/* Slide siguiente (a la derecha) */
+.carousel-slide.active + .carousel-slide {
+    opacity: 0.8;
+    transform: scale(0.95) translateX(-10%);
+    z-index: 2;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+/* Slide anterior (a la izquierda) */
+.carousel-slide:has(+ .carousel-slide.active) {
+    opacity: 0.8;
+    transform: scale(0.95) translateX(10%);
+    z-index: 2;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+/* Imagen dentro del slide */
+.slide-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Texto en el slide */
+.slide-text {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+    color: white;
+    padding: 20px 15px 10px;
+    text-align: center;
+}
+
+.slide-text h4 {
+    margin: 0 0 5px 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.slide-text p {
+    margin: 0;
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+/* Controles del carousel */
+.btn-carrusel-horizontal {
+    display:none;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.95);
+    color: #9C27B0;
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    z-index: 10;
+}
+
+.btn-carrusel-horizontal:hover {
+    background: white;
+    transform: translateY(-50%) scale(1.15);
+    color: #7B1FA2;
+    box-shadow: 0 6px 20px rgba(156, 39, 176, 0.4);
+}
+
+.btn-carrusel-horizontal.btn-anterior-horizontal {
+    left: 10px;
+}
+
+.btn-carrusel-horizontal.btn-siguiente-horizontal {
+    right: 10px;
+}
+
+/* Indicador de posición */
+.carousel-position {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    z-index: 10;
+}
+
+.carousel-position .current-position {
+    color: #9C27B0;
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+/* Miniaturas debajo (opcional) */
+.carousel-thumbnails {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 15px;
+    padding: 10px;
+}
+
+.carousel-thumbnail {
+    width: 50px;
+    height: 50px;
+    border-radius: 6px;
+    overflow: hidden;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.carousel-thumbnail.active {
+    opacity: 1;
+    border-color: #9C27B0;
+    transform: scale(1.1);
+}
+
+.carousel-thumbnail:hover {
+    opacity: 0.8;
+    transform: scale(1.05);
+}
+
+.carousel-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .foto-principal-container-horizontal {
+        height: 300px;
+        padding: 15px;
+    }
+    
+    .carousel-track {
+        gap: 15px;
+        padding: 0 40px;
+    }
+    
+    .carousel-slide {
+        width: 85%;
+    }
+    
+    .btn-carrusel-horizontal {
+        width: 40px;
+        height: 40px;
+        font-size: 1.1rem;
+    }
+    
+    .slide-text h4 {
+        font-size: 1rem;
+    }
+    
+    .slide-text p {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .foto-principal-container-horizontal {
+        height: 250px;
+        padding: 10px;
+    }
+    
+    .carousel-track {
+        gap: 10px;
+        padding: 0 35px;
+    }
+    
+    .carousel-slide {
+        width: 90%;
+    }
+    
+    .carousel-position {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+    }
+}
+
+/* ==================== ZOOM PARA EL CAROUSEL HORIZONTAL ==================== */
+
+/* Asegurar que la imagen sea clickeable */
+.slide-image {
+    cursor: zoom-in !important;
+    transition: transform 0.3s ease !important;
+}
+
+.slide-image:hover {
+    transform: scale(1.02) !important;
+}
+
+/* Overlay para el zoom */
+.zoom-overlay-carousel {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: rgba(0, 0, 0, 0.95) !important;
+    z-index: 1001 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: zoom-out !important;
+}
+
+.zoom-overlay-carousel img {
+    max-width: 90% !important;
+    max-height: 90% !important;
+    object-fit: contain !important;
+    border-radius: 8px !important;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8) !important;
+    border: 10px solid white !important;
+    animation: zoomIn 0.3s ease-out !important;
+}
+
+@keyframes zoomIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Prevenir scroll cuando el zoom está activo */
+body.zoom-activo {
+    overflow: hidden !important;
+}
+
+.btn-carrusel,
+.btn-carrusel-horizontal {
+    display: none !important;
+}
+
+#popup-simple .btn-carrusel,
+#popup-simple .btn-carrusel-horizontal {
+    display: flex !important;
+}

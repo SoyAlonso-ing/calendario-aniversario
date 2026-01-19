@@ -1,33 +1,117 @@
 // ============================================
-// ARCHIVO: datos.js
-// CONTIENE: Solo datos, NO funciones
+// ARCHIVO: datos.js - VERSIÓN MULTIFOTO
+// CONTIENE: Datos con múltiples fotos por día
 // ============================================
 
-// DATOS PARA CADA DÍA ESPECIAL DEL AÑO
+// DATOS PARA CADA DÍA ESPECIAL DEL AÑO - AHORA CON MÚLTIPLES FOTOS
 const diasEspeciales = {
-    // Día de inicio (5 abril 2025)
+    // Día de inicio (5 abril 2025) - AHORA CON ARRAY DE FOTOS
     "2025-04-05": { 
-        tipo: "foto", 
-        contenido: "fotos/inicio.jpg", 
-        texto: "¡Comenzamos nuestra aventura juntos el 5 de abril de 2025! 💘" 
+        tipo: "galeria",
+        fotos: [
+            { 
+                url: "fotos/inicio/inicio.jpg", 
+                texto: "¡Nuestro primer día juntos! 💘",
+                descripcion: "El comienzo de nuestra hermosa historia"
+            },
+            { 
+                url: "fotos/inicio/inicio2.jpg", 
+                texto: "Esa sonrisa que me robó el corazón",
+                descripcion: "No podía dejar de mirarte"
+            },
+            { 
+                url: "fotos/inicio/inicio3.jpg", 
+                texto: "El primer abrazo que duró para siempre",
+                descripcion: "Sentí que estaba en casa"
+            }
+        ],
+        mensajes: [
+            "¡Comenzamos nuestra aventura juntos el 5 de abril de 2025!",
+            "Cada latido de mi corazón te nombra desde este día"
+        ]
     },
     
-    // Otros días especiales (puedes usar formato MM-DD si son anuales)
-    "01-15": { tipo: "foto", contenido: "fotos/01-15.jpg", texto: "Nuestro primer encuentro 💘" },
-    "01-20": { tipo: "frase", contenido: "El día que supe que quería pasar todos mis días contigo" },
-    "02-14": { tipo: "foto", contenido: "fotos/02-14.jpg", texto: "Nuestro primer San Valentín juntos 💘" },
+    // Otros días especiales - EJEMPLO CON MÚLTIPLES FOTOS
+    "01-15": { 
+        tipo: "galeria",
+        fotos: [
+            { 
+                url: "fotos/01-15/foto1.jpg", 
+                texto: "Nuestro primer encuentro 💘",
+                descripcion: "El día que todo cambió"
+            },
+            { 
+                url: "fotos/01-15/foto2.jpg", 
+                texto: "Esa mirada que lo dijo todo",
+                descripcion: "No necesitábamos palabras"
+            }
+        ],
+        mensajes: ["El día que supe que quería pasar todos mis días contigo"]
+    },
     
-    // ... tus otras fechas ...
+    "02-14": { 
+        tipo: "galeria",
+        fotos: [
+            { 
+                url: "fotos/02-14/foto1.jpg", 
+                texto: "Nuestro primer San Valentín juntos 💘",
+                descripcion: "Flores, chocolate y tu risa"
+            },
+            { 
+                url: "fotos/02-14/foto2.jpg", 
+                texto: "La cena más especial",
+                descripcion: "Porque estabas tú"
+            },
+            { 
+                url: "fotos/02-14/foto3.jpg", 
+                texto: "El regalo perfecto",
+                descripcion: "Tu tiempo, tu amor, tu presencia"
+            }
+        ],
+        mensajes: ["El amor no necesita un día especial, pero hoy lo celebramos doble"]
+    },
     
-    // Día del aniversario (5 abril 2026) - FORMATO COMPLETO CON AÑO
+    // Ejemplo de día con solo una foto (para compatibilidad)
+    "03-20": { 
+        tipo: "foto",
+        contenido: "fotos/03-20.jpg", 
+        texto: "Paseo primaveral juntos 🌸"
+    },
+    
+    // Día del aniversario (5 abril 2026) - CON MÚLTIPLES FOTOS
     "2026-04-05": { 
-        tipo: "foto", 
-        contenido: "fotos/aniversario.jpg", 
-        texto: "¡FELIZ PRIMER ANIVERSARIO! 365 días de amor incondicional. Te amo más cada día. 💘" 
+        tipo: "galeria",
+        fotos: [
+            { 
+                url: "fotos/aniversario/foto1.jpg", 
+                texto: "¡365 días de amor! 🎉",
+                descripcion: "Un año entero contigo"
+            },
+            { 
+                url: "fotos/aniversario/foto2.jpg", 
+                texto: "Celebrando cada momento",
+                descripcion: "Las risas que compartimos"
+            },
+            { 
+                url: "fotos/aniversario/foto3.jpg", 
+                texto: "Más unidos que nunca",
+                descripcion: "Nuestro amor crece cada día"
+            },
+            { 
+                url: "fotos/aniversario/foto4.jpg", 
+                texto: "Por muchos años más",
+                descripcion: "El futuro nos espera"
+            }
+        ],
+        mensajes: [
+            "¡FELIZ PRIMER ANIVERSARIO! 365 días de amor incondicional",
+            "Te amo más cada día. 💘",
+            "El mejor año de mi vida, porque estuviste en él"
+        ]
     }
 };
 
-// FRASES PARA DÍAS SIN CONTENIDO ESPECÍFICO
+// FRASES PARA DÍAS SIN CONTENIDO ESPECÍFICO (igual)
 const frasesGenericas = [
     "Un día más a tu lado es un regalo", "Hoy es perfecto porque estás en mi vida",
     "Cada momento contigo es especial", "Te amo más que ayer, menos que mañana",
@@ -41,7 +125,7 @@ const frasesGenericas = [
     "Eres mi refugio seguro", "Tu risa es mi sonido favorito"
 ];
 
-// DATOS ADICIONALES
+// DATOS ADICIONALES (igual que antes)
 const primerasVeces = {
     "primeraCita": { fecha: "04-05", titulo: "Nuestra primera cita", descripcion: "Recuerdo que estabas tan nervioso/a que...", emoji: "🥰" },
     "primerBeso": { fecha: "04-12", titulo: "Nuestro primer beso", descripcion: "Fue bajo la lluvia/luna/etc...", emoji: "💋" },
@@ -89,7 +173,7 @@ const diasFuturos = {
 // Código secreto de teclas (Konami Code)
 const codigoCorrecto = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
 
-// Exportar variables globalmente
+// Exportar variables globales
 window.datosConfig = {
     diasEspeciales,
     frasesGenericas,
@@ -102,4 +186,4 @@ window.datosConfig = {
     codigoCorrecto
 };
 
-console.log("📊 Datos.js cargado correctamente");
+console.log("📊 Datos.js cargado correctamente (VERSIÓN MULTIFOTO)");
