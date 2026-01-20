@@ -301,6 +301,45 @@ body {
     font-size: 0.9rem;
 }
 
+/* ==================== ESTILOS PARA ESTADÍSTICAS CLICABLES ==================== */
+.estadistica-item:nth-child(2) {
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.estadistica-item:nth-child(2):hover {
+    background: linear-gradient(135deg, #f3e5f5, #e1bee7);
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 10px 25px rgba(156, 39, 176, 0.3) !important;
+    border-color: #9C27B0;
+}
+
+.estadistica-item:nth-child(2):hover i {
+    animation: latido 1s infinite;
+    color: #7B1FA2;
+}
+
+.estadistica-item:nth-child(2):hover span {
+    color: #9C27B0;
+    text-shadow: 0 2px 4px rgba(156, 39, 176, 0.2);
+}
+
+/* Indicador visual de que es clicable */
+.estadistica-item:nth-child(2)::after {
+    content: '👆';
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    font-size: 0.8rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.estadistica-item:nth-child(2):hover::after {
+    opacity: 1;
+}
+
 /* ==================== CALENDARIO PRINCIPAL ==================== */
 .calendario-contenedor {
     background: rgba(255, 255, 255, 0.98);

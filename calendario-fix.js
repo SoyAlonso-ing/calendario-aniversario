@@ -1500,6 +1500,109 @@ function configurarBotonesBasicosAjustados() {
             }, 4000);
         };
     }
+
+    // ==================== AGREGAR ESTO EN configurarBotonesBasicosAjustados() ====================
+// Buscar el elemento de estadísticas "Razones para amarte"
+const estadisticaRazones = document.querySelector('.estadistica-item:nth-child(2)');
+if (estadisticaRazones) {
+    estadisticaRazones.style.cursor = 'pointer';
+    estadisticaRazones.title = "Haz clic para ver una razón por la que te amo";
+    
+    estadisticaRazones.addEventListener('click', function() {
+        mostrarRazonAleatoria();
+    });
+    
+    // También hacer clickeable el icono y el texto dentro
+    const iconoRazones = estadisticaRazones.querySelector('i');
+    const textoRazones = estadisticaRazones.querySelector('p');
+    const contadorRazones = estadisticaRazones.querySelector('span');
+    
+    if (iconoRazones) iconoRazones.style.cursor = 'pointer';
+    if (textoRazones) textoRazones.style.cursor = 'pointer';
+    if (contadorRazones) contadorRazones.style.cursor = 'pointer';
+}
+
+// ==================== FUNCIÓN PARA MOSTRAR RAZÓN ALEATORIA ====================
+function mostrarRazonAleatoria() {
+    const razones = window.datosConfig?.razonesTeAmo || [
+        "Por tu sonrisa que ilumina mi día",
+        "Por cómo me haces reír sin esfuerzo",
+        "Por tu paciencia cuando soy terco/a",
+        "Por tu forma de mirarme",
+        "Por cada momento a tu lado",
+        "Por ser mi mejor amigo/a y mi amor",
+        "Por cómo me haces sentir especial",
+        "Por tu corazón bondadoso",
+        "Por todas nuestras aventuras juntos",
+        "Por cómo me entiendes sin palabras"
+    ];
+    
+    const razon = razones[Math.floor(Math.random() * razones.length)];
+    const numero = Math.floor(Math.random() * razones.length) + 1;
+    
+    // Notificación bonita
+    const notificacion = document.createElement('div');
+    notificacion.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: linear-gradient(135deg, #9C27B0, #7B1FA2);
+        color: white;
+        padding: 15px 20px;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        z-index: 9999;
+        max-width: 300px;
+        animation: slideIn 0.3s ease, slideOut 0.3s ease 4s forwards;
+        cursor: pointer;
+    `;
+    
+    notificacion.innerHTML = `
+        <div style="display: flex; align-items: center; margin-bottom: 5px;">
+            <i class="fas fa-heart" style="margin-right: 10px; font-size: 1.2rem;"></i>
+            <strong style="font-size: 0.95rem;">Razón #${numero} por la que te amo:</strong>
+        </div>
+        <div style="font-style: italic; font-size: 0.9rem; line-height: 1.4;">"${razon}"</div>
+    `;
+    
+    // Hacer clicable la notificación para cerrarla
+    notificacion.addEventListener('click', function() {
+        if (notificacion.parentNode) {
+            notificacion.parentNode.removeChild(notificacion);
+        }
+    });
+    
+    // Eliminar notificaciones anteriores
+    const notificacionesAnteriores = document.querySelectorAll('[style*="position: fixed"][style*="top: 20px"][style*="right: 20px"]');
+    notificacionesAnteriores.forEach(notif => {
+        if (notif !== notificacion && notif.parentNode) {
+            notif.parentNode.removeChild(notif);
+        }
+    });
+    
+    document.body.appendChild(notificacion);
+    
+    // Efecto visual en el elemento de estadísticas
+    const estadisticaItem = document.querySelector('.estadistica-item:nth-child(2)');
+    if (estadisticaItem) {
+        estadisticaItem.style.transform = 'scale(1.05)';
+        estadisticaItem.style.boxShadow = '0 10px 25px rgba(156, 39, 176, 0.3)';
+        setTimeout(() => {
+            estadisticaItem.style.transform = '';
+            estadisticaItem.style.boxShadow = '';
+        }, 500);
+    }
+    
+    // Auto-cerrar después de 4 segundos
+    setTimeout(() => {
+        if (notificacion.parentNode) {
+            notificacion.parentNode.removeChild(notificacion);
+        }
+    }, 4000);
+}
+
+// Hacer la función disponible globalmente
+window.mostrarRazonAleatoria = mostrarRazonAleatoria;
 }
 
 function actualizarEstadisticasAjustadas() {

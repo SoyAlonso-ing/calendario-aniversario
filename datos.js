@@ -12,17 +12,14 @@ const diasEspeciales = {
             { 
                 url: "fotos/inicio/inicio.jpg", 
                 texto: "¡Nuestro primer día juntos! 💘",
-                descripcion: "El comienzo de nuestra hermosa historia"
             },
             { 
                 url: "fotos/inicio/inicio2.jpg", 
                 texto: "Esa sonrisa que me robó el corazón",
-                descripcion: "No podía dejar de mirarte"
             },
             { 
                 url: "fotos/inicio/inicio3.jpg", 
                 texto: "El primer abrazo que duró para siempre",
-                descripcion: "Sentí que estaba en casa"
             }
         ],
         mensajes: [
@@ -38,12 +35,10 @@ const diasEspeciales = {
             { 
                 url: "fotos/01-15/foto1.jpg", 
                 texto: "Nuestro primer encuentro 💘",
-                descripcion: "El día que todo cambió"
             },
             { 
                 url: "fotos/01-15/foto2.jpg", 
                 texto: "Esa mirada que lo dijo todo",
-                descripcion: "No necesitábamos palabras"
             }
         ],
         mensajes: ["El día que supe que quería pasar todos mis días contigo"]
@@ -55,17 +50,14 @@ const diasEspeciales = {
             { 
                 url: "fotos/02-14/foto1.jpg", 
                 texto: "Nuestro primer San Valentín juntos 💘",
-                descripcion: "Flores, chocolate y tu risa"
             },
             { 
                 url: "fotos/02-14/foto2.jpg", 
                 texto: "La cena más especial",
-                descripcion: "Porque estabas tú"
             },
             { 
                 url: "fotos/02-14/foto3.jpg", 
                 texto: "El regalo perfecto",
-                descripcion: "Tu tiempo, tu amor, tu presencia"
             }
         ],
         mensajes: ["El amor no necesita un día especial, pero hoy lo celebramos doble"]
