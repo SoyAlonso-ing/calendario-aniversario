@@ -2370,7 +2370,7 @@ body:has(#popup-simple) {
 
 .slide-text h4 {
     margin: 0 0 5px 0;
-    font-size: 1.1rem;
+    font-size: 0.8rem;
     font-weight: 600;
 }
 
@@ -2498,7 +2498,7 @@ body:has(#popup-simple) {
     }
     
     .slide-text h4 {
-        font-size: 1rem;
+        font-size: 0.8rem;
     }
     
     .slide-text p {

@@ -1094,6 +1094,21 @@ if (fotoPrincipal) {
 function configurarCarouselHorizontal(contenedorCarousel, fotosArray) {
     if (!contenedorCarousel || !fotosArray.length) return;
     
+ const btnDescargaIndividual = document.querySelector('.btn-descarga-individual');
+    const btnDescargaMultiple = document.querySelector('.btn-descarga-multiple');
+    
+    if (btnDescargaIndividual) {
+        // Actualizar botón de descarga individual para la primera foto
+        const fechaAttr = contenedorCarousel.closest('.contenedor-galeria')?.getAttribute('data-fecha');
+        const fecha = fechaAttr ? new Date(fechaAttr) : new Date();
+        const primeraFoto = fotosArray[0];
+        
+        btnDescargaIndividual.onclick = function() {
+            const nombreArchivo = generarNombreDescarga(fecha, primeraFoto.texto || '');
+            descargarFoto(primeraFoto.url, nombreArchivo);
+        };
+    }
+
     const track = contenedorCarousel.querySelector('.carousel-track');
     const slides = contenedorCarousel.querySelectorAll('.carousel-slide');
     const btnAnterior = contenedorCarousel.querySelector('.btn-anterior-horizontal');
