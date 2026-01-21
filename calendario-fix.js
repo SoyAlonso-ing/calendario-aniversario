@@ -38,6 +38,7 @@ const DIAS_POR_MES = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
 // Variables
 let momentosDesbloqueados = 0;
+let diaDesdeFavoritos = false; // <-- AÑADIR ESTA LÍNEA
 
 // Esperar a que todo cargue
 window.addEventListener('DOMContentLoaded', function() {
@@ -60,6 +61,11 @@ window.addEventListener('DOMContentLoaded', function() {
     
     // Actualizar estadísticas
     actualizarEstadisticasAjustadas();
+
+     // ACTUALIZAR MARCADORES DE FAVORITOS (NUEVO)
+    setTimeout(() => {
+        actualizarMarcadoresFavoritos();
+    }, 500);
 });
 
 // ==================== CALENDARIO AJUSTADO ====================
@@ -304,7 +310,6 @@ function mostrarContenidoAjustado(numeroDia, fecha) {
         
         // HTML especial para aniversario
         if (tieneFotos && fotosArray.length > 0) {
-            const primeraFoto = fotosArray[0];
             contenidoHTML = crearHTMLGaleria(numeroDia, fecha, fotosArray, mensajesArray, true);
         } else {
             contenidoHTML = `
@@ -454,7 +459,12 @@ function mostrarContenidoAjustado(numeroDia, fecha) {
     // ==================== 5. MOSTRAR EL CONTENIDO ====================
     // Verificar que el contenidoHTML no esté vacío
     if (contenidoHTML && contenidoHTML.trim() !== '') {
-        mostrarPopupContenido(contenidoHTML, tieneFotos, fotosArray, fecha);
+        if (numeroDia) {
+    sessionStorage.removeItem('volverAFavoritos');
+}
+         const botonFavorito = agregarBotonFavoritoPopup(numeroDia, fecha);
+          contenidoHTML += botonFavorito;
+        mostrarPopupContenido(contenidoHTML, tieneFotos, fotosArray, fecha, false);
     } else {
         console.error("❌ Error: contenidoHTML está vacío o indefinido");
         // Mostrar un mensaje de error o contenido por defecto
@@ -475,7 +485,14 @@ function mostrarContenidoAjustado(numeroDia, fecha) {
     }
 }
 
-// ==================== FUNCIÓN PARA CREAR HTML DE GALERÍA (VERSIÓN SIMPLIFICADA) ====================
+
+// ==================== FUNCIÓN PARA CERRAR POPUP DE FAVORITOS ====================
+function cerrarPopupFavoritos() {
+    sessionStorage.removeItem('volverAFavoritos'); // Limpiar flag
+    cerrarPopup(); // Usar la función normal
+}
+
+// ==================== FUNCIÓN PARA CREAR HTML DE GALERÍA (CORREGIDA) ====================
 function crearHTMLGaleria(numeroDia, fecha, fotosArray, mensajesArray, esAniversario = false) {
     const mes = fecha.getMonth();
     const dia = fecha.getDate();
@@ -494,30 +511,26 @@ function crearHTMLGaleria(numeroDia, fecha, fotosArray, mensajesArray, esAnivers
             ${titulo}
         </h2>`;
     
-    return `
-  
-${tituloEspecial}
+    return `${tituloEspecial}
     
 <div class="contenedor-galeria">
-    <!-- Eliminamos el contador de fotos de arriba -->
-    
-    <!-- Carousel Horizontal -->
+    <!-- Carrusel Horizontal -->
     <div class="foto-principal-container-horizontal" data-fotos='${JSON.stringify(fotosArray)}' data-total="${totalFotos}">
-        <!-- Contenedor de todas las fotos (para el deslizamiento) -->
+        <!-- Contenedor de todas las fotos -->
         <div class="carousel-track" style="transform: translateX(0%);">
             ${fotosArray.map((foto, index) => `
                 <div class="carousel-slide ${index === 0 ? 'active' : ''}" data-index="${index}">
-    <div class="slide-image-container">
-        <img src="${foto.url}" 
-             alt="${foto.texto}" 
-             class="slide-image"
-             onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"500\" height=\"375\" viewBox=\"0 0 500 375\"><rect width=\"500\" height=\"375\" fill=\"%239C27B0\"/><text x=\"250\" y=\"150\" font-family=\"Arial\" font-size=\"24\" text-anchor=\"middle\" fill=\"white\" dy=\".3em\">${foto.texto || 'Nuestra foto'}</text><text x=\"250\" y=\"200\" font-family=\"Arial\" font-size=\"14\" text-anchor=\"middle\" fill=\"white\" dy=\".3em\">Foto ${index + 1}/${totalFotos}</text></svg>';">
-    </div>
-    <div class="slide-text">
-        <h4>${foto.texto || 'Nuestra foto'}</h4>
-        ${foto.descripcion ? `<p>${foto.descripcion}</p>` : ''}
-    </div>
-</div>
+                    <div class="slide-image-container">
+                        <img src="${foto.url}" 
+                             alt="${foto.texto}" 
+                             class="slide-image"
+                             onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"500\" height=\"375\" viewBox=\"0 0 500 375\"><rect width=\"500\" height=\"375\" fill=\"%239C27B0\"/><text x=\"250\" y=\"150\" font-family=\"Arial\" font-size=\"24\" text-anchor=\"middle\" fill=\"white\" dy=\".3em\">${foto.texto || 'Nuestra foto'}</text><text x=\"250\" y=\"200\" font-family=\"Arial\" font-size=\"14\" text-anchor=\"middle\" fill=\"white\" dy=\".3em\">Foto ${index + 1}/${totalFotos}</text></svg>'">
+                    </div>
+                    <div class="slide-text">
+                        <h4>${foto.texto || 'Nuestra foto'}</h4>
+                        ${foto.descripcion ? `<p>${foto.descripcion}</p>` : ''}
+                    </div>
+                </div>
             `).join('')}
         </div>
         
@@ -529,12 +542,68 @@ ${tituloEspecial}
             <i class="fas fa-chevron-right"></i>
         </button>
         
-        <!-- Contador de posición (ahora más visible) -->
+        <!-- Contador de posición -->
         <div class="carousel-counter">
             <span class="current-slide">1</span>
             <span class="total-slides"> / ${totalFotos}</span>
         </div>
     </div>
+    
+    <!-- BOTÓN DE DESCARGA INDIVIDUAL (CORREGIDO) -->
+    <button class="btn-descarga-individual" 
+            style="
+                margin-top: 20px;
+                background: linear-gradient(135deg, #4CAF50, #2E7D32);
+                color: white;
+                border: none;
+                padding: 12px 24px;
+                border-radius: 25px;
+                cursor: pointer;
+                font-weight: bold;
+                font-size: 0.9rem;
+                transition: all 0.3s ease;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 10px;
+                width: 100%;
+                max-width: 300px;
+                margin-left: auto;
+                margin-right: auto;
+                box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+            ">
+        <i class="fas fa-download"></i>
+        Descargar esta foto (1/${totalFotos})
+    </button>
+    
+    ${totalFotos > 1 ? `
+        <!-- Opcional: Botón para descargar todas las fotos -->
+        <button class="btn-descarga-multiple" 
+                style="
+                    margin-top: 10px;
+                    background: linear-gradient(135deg, #9C27B0, #7B1FA2);
+                    color: white;
+                    border: none;
+                    padding: 10px 20px;
+                    border-radius: 20px;
+                    cursor: pointer;
+                    font-size: 0.85rem;
+                    font-weight:bold;
+                    transition: all 0.3s ease;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 8px;
+                    width: 100%;
+                    max-width: 250px;
+                    margin-left: auto;
+                    margin-right: auto;
+                    opacity: 0.8;
+                ">
+            <i class="fas fa-download"></i>
+            Descargar todas las fotos (${totalFotos})
+        </button>
+    ` : ''}
     
     <!-- Mensajes del día -->
     ${mensajesArray && mensajesArray.length > 0 ? `
@@ -547,9 +616,9 @@ ${tituloEspecial}
             `).join('')}
         </div>
     ` : ''}
-</div>
-`;
+</div>`;
 }
+
 // ==================== FUNCIONES AUXILIARES PARA CONFETI Y EFECTOS ====================
 function lanzarConfetiEspecial() {
     console.log("🎉 Lanzando confeti especial de aniversario!");
@@ -694,7 +763,8 @@ function descargarFoto(urlFoto, nombreArchivo = 'foto-especial.jpg') {
 }
 
 // ==================== FUNCIÓN PARA MOSTRAR POPUP CON OPCIÓN DE DESCARGA ====================
-function mostrarPopupContenido(contenidoHTML, tieneFoto = false, urlFoto = '', textoFoto = '', fecha = null) {
+// ==================== FUNCIÓN MODIFICADA PARA MOSTRAR POPUP ====================
+function mostrarPopupContenido(contenidoHTML, tieneFoto = false, fotosArray = [], fecha = null, esFavoritos = false) {
     
     // Guardar posición del scroll ANTES de bloquear
     scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
@@ -715,34 +785,24 @@ function mostrarPopupContenido(contenidoHTML, tieneFoto = false, urlFoto = '', t
         popupAnterior.remove();
     }
     
-    // Crear botón de descarga adicional si hay foto (más compacto)
-    let botonDescargaExtra = '';
-    if (tieneFoto && urlFoto) {
-        const nombreArchivo = fecha ? generarNombreDescarga(fecha, textoFoto) : 'foto-especial.jpg';
-        botonDescargaExtra = `
-            <button onclick="descargarFoto('${urlFoto}', '${nombreArchivo}')" 
-                    style="
-                        margin-top: 12px;
-                        background: linear-gradient(45deg, #4CAF50, #2E7D32);
-                        color: white;
-                        border: none;
-                        padding: 10px 20px;
-                        border-radius: 20px;
-                        cursor: pointer;
-                        font-weight: bold;
-                        font-size: 0.9rem;
-                        transition: all 0.2s;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        gap: 8px;
-                        width: 100%;
-                        max-width: 250px;
-                        margin-left: auto;
-                        margin-right: auto;
-                    ">
-                <i class="fas fa-download"></i>
-                Descargar esta foto
+    // Determinar si mostrar botón de cerrar
+    let botonCerrarHTML = '';
+    if (!esFavoritos) {
+        botonCerrarHTML = `
+            <button onclick="cerrarPopup()" style="
+                margin-top: 20px;
+                background: linear-gradient(45deg, #9C27B0, #7B1FA2);
+                color: white;
+                border: none;
+                padding: 10px 25px;
+                border-radius: 20px;
+                cursor: pointer;
+                font-weight: bold;
+                font-size: 0.9rem;
+                transition: all 0.2s;
+            ">
+                <i class="fas fa-heart" style="margin-right: 6px;"></i>
+                Cerrar
             </button>
         `;
     }
@@ -778,47 +838,8 @@ function mostrarPopupContenido(contenidoHTML, tieneFoto = false, urlFoto = '', t
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
             animation: slideUp 0.4s ease;
         " id="contenedor-popup">
-            <button onclick="cerrarPopup(); event.stopPropagation();" style="
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    background: #9C27B0;
-    color: white;
-    border: none;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 0.9rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s;
-    z-index: 10;
-    display:none;
-">
-    <i class="fas fa-times"></i>
-</button>
-            
             ${contenidoHTML}
-            
-            ${botonDescargaExtra}
-            
-            <button onclick="cerrarPopup()" style="
-                margin-top: 20px;
-                background: linear-gradient(45deg, #9C27B0, #7B1FA2);
-                color: white;
-                border: none;
-                padding: 10px 25px;
-                border-radius: 20px;
-                cursor: pointer;
-                font-weight: bold;
-                font-size: 0.9rem;
-                transition: all 0.2s;
-            ">
-                <i class="fas fa-heart" style="margin-right: 6px;"></i>
-                Cerrar
-            </button>
+            ${botonCerrarHTML}
         </div>
         
         <style>
@@ -856,290 +877,112 @@ function mostrarPopupContenido(contenidoHTML, tieneFoto = false, urlFoto = '', t
         </style>
     `;
     
-    
     // Agregar el popup al body y prevenir scroll
     document.body.classList.add('popup-abierto');
     document.body.appendChild(popup);
-
-// Después de agregar el popup al DOM, configurar el carousel si existe
-setTimeout(() => {
-    const carouselContainer = document.querySelector('#contenedor-popup .foto-principal-container-horizontal');
-    if (carouselContainer) {
-        const fotosData = JSON.parse(carouselContainer.getAttribute('data-fotos') || '[]');
-        configurarCarouselHorizontal(carouselContainer, fotosData);
+    
+    // Marcar si es popup de favoritos
+    if (esFavoritos) {
+        popup.setAttribute('data-es-favoritos', 'true');
     }
-}, 50);
-}
 
-// ==================== FUNCIONES PARA MANEJAR LA GALERÍA ====================
-
-// Configurar eventos de la galería después de que se muestra el popup
-function configurarGaleriaPopup(contenedorGaleria) {
-    if (!contenedorGaleria) return;
-    
-    const totalFotos = parseInt(contenedorGaleria.getAttribute('data-total-fotos')) || 1;
-    const fechaISO = contenedorGaleria.getAttribute('data-fecha');
-    const fecha = fechaISO ? new Date(fechaISO) : new Date();
-    
-    // Encontrar todos los elementos dentro de esta galería
-    const fotoPrincipal = contenedorGaleria.querySelector('.foto-principal');
-    const contadorActual = contenedorGaleria.querySelector('.contador-actual');
-    const miniaturas = contenedorGaleria.querySelectorAll('.miniatura-foto');
-    const indicadores = contenedorGaleria.querySelectorAll('.indicador');
-    const textoH4 = contenedorGaleria.querySelector('.texto-foto h4');
-    const textoP = contenedorGaleria.querySelector('.texto-foto p');
-    const btnDescargaIndividual = contenedorGaleria.querySelector('.btn-descarga-individual');
-    const btnDescargaMultiple = contenedorGaleria.querySelector('.btn-descarga-multiple');
-    
-// Obtener elementos de preview
-const previewAnterior = contenedorGaleria.querySelector('.preview-anterior');
-const previewSiguiente = contenedorGaleria.querySelector('.preview-siguiente');
-const imgPreviewAnterior = contenedorGaleria.querySelector('.preview-anterior img');
-const imgPreviewSiguiente = contenedorGaleria.querySelector('.preview-siguiente img');
-
-    // Estado de la galería
-    let indiceActual = 0;
-    
-    // Obtener datos de las fotos desde las miniaturas
-    const fotosData = Array.from(miniaturas).map(miniatura => {
-        const img = miniatura.querySelector('img');
-        const index = parseInt(miniatura.getAttribute('data-index'));
-        return {
-            index,
-            url: img ? img.src : '',
-            texto: img ? img.alt : `Foto ${index + 1}`
-        };
-    });
-    
-    // Función para actualizar la galería
-    function actualizarGaleria() {
-        const fotoActual = fotosData[indiceActual];
-        
-        // Actualizar foto principal
-        if (fotoPrincipal && fotoActual) {
-            fotoPrincipal.src = fotoActual.url;
-            fotoPrincipal.alt = fotoActual.texto;
-        }
-
-        // Actualizar previews
-if (imgPreviewAnterior && imgPreviewSiguiente) {
-    const prevIndex = (indiceActual - 1 + totalFotos) % totalFotos;
-    const nextIndex = (indiceActual + 1) % totalFotos;
-    
-    imgPreviewAnterior.src = fotosData[prevIndex].url;
-    imgPreviewAnterior.alt = `Foto anterior: ${fotosData[prevIndex].texto || `Foto ${prevIndex + 1}`}`;
-    
-    imgPreviewSiguiente.src = fotosData[nextIndex].url;
-    imgPreviewSiguiente.alt = `Foto siguiente: ${fotosData[nextIndex].texto || `Foto ${nextIndex + 1}`}`;
-}
-
-// Hacer clickeables los previews
-if (previewAnterior) {
-    previewAnterior.onclick = () => cambiarFoto('prev');
-    previewAnterior.style.cursor = 'pointer';
-}
-
-if (previewSiguiente) {
-    previewSiguiente.onclick = () => cambiarFoto('next');
-    previewSiguiente.style.cursor = 'pointer';
-}
-        
-        // Actualizar contador
-        if (contadorActual) {
-            contadorActual.textContent = indiceActual + 1;
+    // DESPUÉS de agregar al DOM, buscar el contenedor-galeria y agregar data-fecha
+    setTimeout(() => {
+        const contenedorGaleria = popup.querySelector('.contenedor-galeria');
+        if (contenedorGaleria && fecha) {
+            contenedorGaleria.setAttribute('data-fecha', fecha.toISOString());
         }
         
-        // Actualizar miniaturas
-        miniaturas.forEach((miniatura, index) => {
-            miniatura.classList.toggle('active', index === indiceActual);
-        });
-        
-        // Actualizar indicadores
-        indicadores.forEach((indicador, index) => {
-            indicador.classList.toggle('active', index === indiceActual);
-        });
-        
-        // Actualizar botón de descarga individual
-        if (btnDescargaIndividual && fotoActual) {
-            btnDescargaIndividual.onclick = function() {
-                const nombreArchivo = generarNombreDescarga(fecha, fotoActual.texto);
-                descargarFoto(fotoActual.url, nombreArchivo);
-            };
+        // Configurar el carrusel después de que se renderice
+        const carouselContainer = popup.querySelector('.foto-principal-container-horizontal');
+        if (carouselContainer) {
+            const fotosData = JSON.parse(carouselContainer.getAttribute('data-fotos') || '[]');
+            configurarCarouselHorizontal(carouselContainer, fotosData);
         }
-    }
-    
-    // Función para cambiar de foto
-    function cambiarFoto(direccion) {
-        if (direccion === 'prev') {
-            indiceActual = (indiceActual - 1 + totalFotos) % totalFotos;
-        } else if (direccion === 'next') {
-            indiceActual = (indiceActual + 1) % totalFotos;
-        } else if (typeof direccion === 'number') {
-            indiceActual = direccion;
-        }
-        actualizarGaleria();
-    }
-    
-    // Configurar eventos de navegación
-    const btnAnterior = contenedorGaleria.querySelector('.btn-anterior');
-    const btnSiguiente = contenedorGaleria.querySelector('.btn-siguiente');
-    const btnAnteriorInferior = contenedorGaleria.querySelector('.btn-anterior-inferior');
-    const btnSiguienteInferior = contenedorGaleria.querySelector('.btn-siguiente-inferior');
-    
-    if (btnAnterior) btnAnterior.onclick = () => cambiarFoto('prev');
-    if (btnSiguiente) btnSiguiente.onclick = () => cambiarFoto('next');
-    if (btnAnteriorInferior) btnAnteriorInferior.onclick = () => cambiarFoto('prev');
-    if (btnSiguienteInferior) btnSiguienteInferior.onclick = () => cambiarFoto('next');
-    
-    // Configurar eventos de miniaturas
-    miniaturas.forEach(miniatura => {
-        miniatura.onclick = function() {
-            const index = parseInt(this.getAttribute('data-index'));
-            cambiarFoto(index);
-        };
-    });
-    
-    // Configurar eventos de indicadores
-    indicadores.forEach(indicador => {
-        indicador.onclick = function() {
-            const index = parseInt(this.getAttribute('data-index'));
-            cambiarFoto(index);
-        };
-    });
-    
-   // Configurar evento de zoom en la foto principal
-if (fotoPrincipal) {
-    fotoPrincipal.onclick = function(e) {
-        e.stopPropagation();
-        
-        if (this.classList.contains('zoom')) {
-            // Salir del zoom
-            this.classList.remove('zoom');
-            document.body.style.overflow = 'auto';
-            
-            // Quitar overlay si existe
-            const existingOverlay = document.querySelector('.zoom-overlay');
-            if (existingOverlay) {
-                existingOverlay.remove();
-            }
-        } else {
-            // Entrar en zoom
-            this.classList.add('zoom');
-            document.body.style.overflow = 'hidden';
-            
-            // Crear overlay oscuro
-            const overlay = document.createElement('div');
-            overlay.className = 'zoom-overlay';
-            overlay.style.cssText = `
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0,0,0,0.95);
-                z-index: 1000;
-                cursor: zoom-out;
-            `;
-            overlay.onclick = function() {
-                fotoPrincipal.classList.remove('zoom');
-                document.body.style.overflow = 'auto';
-                this.remove();
-            };
-            document.body.appendChild(overlay);
-        }
-    };
+    }, 50);
 }
-    // Agrega esto en configurarGaleriaPopup, después de configurar el evento de zoom:
-if (fotoPrincipal) {
-    fotoPrincipal.onclick = function() {
-        const yaEstaEnZoom = this.classList.contains('zoom');
-        
-        if (yaEstaEnZoom) {
-            this.classList.remove('zoom');
-            // Restaurar posición original
-            this.style.position = '';
-            this.style.top = '';
-            this.style.left = '';
-            this.style.transform = '';
-            this.style.zIndex = '';
-        } else {
-            this.classList.add('zoom');
-            // Calcular posición para centrar
-            const rect = this.getBoundingClientRect();
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            
-            this.style.position = 'fixed';
-            this.style.top = '50%';
-            this.style.left = '50%';
-            this.style.transform = 'translate(-50%, -50%) scale(1.8)';
-            this.style.zIndex = '1001';
-            this.style.cursor = 'zoom-out';
-        }
-    };
-}
-    
-    // Configurar botón de descarga múltiple
-    if (btnDescargaMultiple && totalFotos > 1) {
-        btnDescargaMultiple.onclick = function() {
-            const urls = fotosData.map(foto => foto.url);
-            descargarTodasLasFotosGaleria(urls, fecha, totalFotos);
-        };
-    }
-    
-    // Inicializar
-    actualizarGaleria();
-}
-
-// ==================== CONFIGURAR CAROUSEL HORIZONTAL (VERSIÓN MEJORADA) ====================
+// ==================== CONFIGURAR CAROUSEL HORIZONTAL (VERSIÓN CORREGIDA) ====================
 function configurarCarouselHorizontal(contenedorCarousel, fotosArray) {
     if (!contenedorCarousel || !fotosArray.length) return;
     
- const btnDescargaIndividual = document.querySelector('.btn-descarga-individual');
-    const btnDescargaMultiple = document.querySelector('.btn-descarga-multiple');
+    // Obtener los botones DEL CONTENEDOR DE LA GALERÍA
+    const contenedorGaleria = contenedorCarousel.closest('.contenedor-galeria');
+    const btnDescargaIndividual = contenedorGaleria.querySelector('.btn-descarga-individual');
+    const btnDescargaMultiple = contenedorGaleria.querySelector('.btn-descarga-multiple');
     
-    if (btnDescargaIndividual) {
-        // Actualizar botón de descarga individual para la primera foto
-        const fechaAttr = contenedorCarousel.closest('.contenedor-galeria')?.getAttribute('data-fecha');
-        const fecha = fechaAttr ? new Date(fechaAttr) : new Date();
-        const primeraFoto = fotosArray[0];
-        
-        btnDescargaIndividual.onclick = function() {
-            const nombreArchivo = generarNombreDescarga(fecha, primeraFoto.texto || '');
-            descargarFoto(primeraFoto.url, nombreArchivo);
-        };
-    }
-
     const track = contenedorCarousel.querySelector('.carousel-track');
     const slides = contenedorCarousel.querySelectorAll('.carousel-slide');
     const btnAnterior = contenedorCarousel.querySelector('.btn-anterior-horizontal');
     const btnSiguiente = contenedorCarousel.querySelector('.btn-siguiente-horizontal');
-    const positionIndicator = contenedorCarousel.querySelector('.current-slide');
+    const currentSlideElement = contenedorCarousel.querySelector('.current-slide');
     const totalSlidesElement = contenedorCarousel.querySelector('.total-slides');
     
     let slideActual = 0;
     const totalSlides = slides.length;
-    const slideWidth = 85; // Porcentaje que ocupa cada slide (coincide con CSS)
+    const slideWidth = 85; // Porcentaje que ocupa cada slide
     
-    // Actualizar botones de descarga
+    // Función para actualizar botones de descarga
     function actualizarBotonesDescarga() {
-        const btnDescargaIndividual = document.querySelector('.btn-descarga-individual');
-        const btnDescargaMultiple = document.querySelector('.btn-descarga-multiple');
-        const fechaAttr = contenedorCarousel.closest('.contenedor-galeria')?.getAttribute('data-fecha');
+        // Obtener fecha para el nombre del archivo
+        const fechaAttr = contenedorGaleria.getAttribute('data-fecha');
         const fecha = fechaAttr ? new Date(fechaAttr) : new Date();
         
+        // Actualizar botón de descarga INDIVIDUAL
         if (btnDescargaIndividual) {
             const fotoActual = fotosArray[slideActual];
+            
+            // Configurar evento de clic
             btnDescargaIndividual.onclick = function() {
                 const nombreArchivo = generarNombreDescarga(fecha, fotoActual.texto || '');
                 descargarFoto(fotoActual.url, nombreArchivo);
             };
-            btnDescargaIndividual.innerHTML = `<i class="fas fa-download"></i> Descargar esta foto (${slideActual + 1}/${totalSlides})`;
+            
+            // Actualizar texto del botón
+            btnDescargaIndividual.innerHTML = `
+                <i class="fas fa-download"></i>
+                Descargar esta foto (${slideActual + 1}/${totalSlides})
+            `;
+            
+            // Efecto visual al pasar el mouse
+            btnDescargaIndividual.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-2px)';
+                this.style.boxShadow = '0 6px 20px rgba(76, 175, 80, 0.4)';
+            });
+            
+            btnDescargaIndividual.addEventListener('mouseleave', function() {
+                this.style.transform = '';
+                this.style.boxShadow = '0 4px 15px rgba(76, 175, 80, 0.3)';
+            });
         }
         
-        if (btnDescargaMultiple) {
+        // Actualizar botón de descarga MÚLTIPLE (si existe)
+        if (btnDescargaMultiple && totalSlides > 1) {
             btnDescargaMultiple.onclick = function() {
-                descargarTodasLasFotosGaleria(fotosArray, fecha);
+                const urls = fotosArray.map(foto => foto.url);
+                const nombres = fotosArray.map((foto, index) => 
+                    generarNombreDescarga(fecha, foto.texto || `Foto ${index + 1}`)
+                );
+                
+                // Descargar todas las fotos
+                mostrarNotificacion(`Descargando ${totalSlides} fotos...`, 'info');
+                
+                urls.forEach((url, index) => {
+                    setTimeout(() => {
+                        descargarFoto(url, nombres[index]);
+                    }, index * 800); // Espaciado para evitar bloqueos
+                });
             };
+            
+            // Efecto visual para el botón múltiple
+            btnDescargaMultiple.addEventListener('mouseenter', function() {
+                this.style.opacity = '1';
+                this.style.transform = 'translateY(-2px)';
+            });
+            
+            btnDescargaMultiple.addEventListener('mouseleave', function() {
+                this.style.opacity = '0.8';
+                this.style.transform = '';
+            });
         }
     }
     
@@ -1155,8 +998,8 @@ function configurarCarouselHorizontal(contenedorCarousel, fotosArray) {
         });
         
         // Actualizar indicador de posición
-        if (positionIndicator) {
-            positionIndicator.textContent = slideActual + 1;
+        if (currentSlideElement) {
+            currentSlideElement.textContent = slideActual + 1;
         }
         
         if (totalSlidesElement) {
@@ -1268,33 +1111,6 @@ function configurarCarouselHorizontal(contenedorCarousel, fotosArray) {
     });
 }
 
-// Función para descargar múltiples fotos
-function descargarTodasLasFotosGaleria(urls, fecha, totalFotos) {
-    if (!urls || !urls.length) return;
-    
-    const nombreBase = `fotos-${fecha.getDate()}-${fecha.getMonth()+1}-${fecha.getFullYear()}`;
-    
-    mostrarNotificacion(`Preparando descarga de ${totalFotos} fotos...`, 'info');
-    
-    // Descargar una por una
-    urls.forEach((url, index) => {
-        setTimeout(() => {
-            const nombreArchivo = `${nombreBase}-${index+1}.jpg`;
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = nombreArchivo;
-            link.target = '_blank';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        }, index * 500);
-    });
-    
-    setTimeout(() => {
-        mostrarNotificacion(`¡${totalFotos} fotos descargadas! 💖`, 'success');
-    }, totalFotos * 500 + 500);
-}
-
 // ==================== BUSCADOR AJUSTADO ====================
 function configurarBuscadorAjustado() {
     const inputFecha = document.getElementById('buscarFecha');
@@ -1390,7 +1206,7 @@ function buscarFechaEspecial() {
     const fechaSeleccionada = new Date(año, mes, dia); // Fecha local
     
     // Verificar que esté dentro del rango (5/4/2025 - 5/4/2026)
-    if (fechaSeleccionada < FECHA_INICIO || fechaSeleccionada > new Date('2026-04-05')) {
+    if (fechaSeleccionada < FECHA_INICIO || fechaSeleccionada > FECHA_FIN) {
         mostrarNotificacion('Selecciona una fecha entre el 5/4/2025 y el 5/4/2026', 'error');
         inputFecha.value = '';
         return;
@@ -1456,18 +1272,6 @@ function mostrarNotificacion(mensaje, tipo = 'info') {
 function configurarBotonesBasicosAjustados() {
     console.log("🔄 Configurando botones básicos ajustados...");
     
-    // Botón modo nocturno
-    const btnModo = document.getElementById('btnModoNocturno');
-    if (btnModo) {
-        btnModo.onclick = function() {
-            document.body.classList.toggle('modo-nocturno');
-            const esNocturno = document.body.classList.contains('modo-nocturno');
-            this.innerHTML = esNocturno ? 
-                '<i class="fas fa-sun"></i>' : 
-                '<i class="fas fa-moon"></i>';
-            this.title = esNocturno ? "Modo diurno" : "Modo nocturno";
-        };
-    }
     
     // Botón razón aleatoria
     const btnRazon = document.getElementById('btnRazonAleatoria');
@@ -1516,25 +1320,68 @@ function configurarBotonesBasicosAjustados() {
         };
     }
 
-    // ==================== AGREGAR ESTO EN configurarBotonesBasicosAjustados() ====================
-// Buscar el elemento de estadísticas "Razones para amarte"
-const estadisticaRazones = document.querySelector('.estadistica-item:nth-child(2)');
-if (estadisticaRazones) {
-    estadisticaRazones.style.cursor = 'pointer';
-    estadisticaRazones.title = "Haz clic para ver una razón por la que te amo";
-    
-    estadisticaRazones.addEventListener('click', function() {
-        mostrarRazonAleatoria();
-    });
-    
-    // También hacer clickeable el icono y el texto dentro
-    const iconoRazones = estadisticaRazones.querySelector('i');
-    const textoRazones = estadisticaRazones.querySelector('p');
-    const contadorRazones = estadisticaRazones.querySelector('span');
-    
-    if (iconoRazones) iconoRazones.style.cursor = 'pointer';
-    if (textoRazones) textoRazones.style.cursor = 'pointer';
-    if (contadorRazones) contadorRazones.style.cursor = 'pointer';
+    // Configurar estadística de momentos/favoritos como interactiva
+    const estadisticaMomentos = document.querySelector('.estadistica-item:nth-child(1)');
+    if (estadisticaMomentos) {
+        // Cambiar el texto
+        const textoEstadistica = estadisticaMomentos.querySelector('p');
+        if (textoEstadistica) {
+            textoEstadistica.textContent = 'Días favoritos';
+        }
+        
+        // Cambiar el icono
+        const iconoEstadistica = estadisticaMomentos.querySelector('i');
+        if (iconoEstadistica) {
+            iconoEstadistica.className = 'fas fa-heart';
+        }
+        
+        // Hacer clickeable
+        estadisticaMomentos.style.cursor = 'pointer';
+        estadisticaMomentos.title = "Haz clic para ver tus días favoritos";
+        
+        // Efecto hover mejorado
+        estadisticaMomentos.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-5px) scale(1.05)';
+            this.style.background = 'linear-gradient(135deg, #fce4ec, #f8bbd9)';
+            this.style.boxShadow = '0 10px 25px rgba(233, 30, 99, 0.3)';
+            this.style.borderColor = '#E91E63';
+        });
+        
+        estadisticaMomentos.addEventListener('mouseleave', function() {
+            this.style.transform = '';
+            this.style.background = '';
+            this.style.boxShadow = '';
+            this.style.borderColor = '';
+        });
+        
+        // Evento click
+        estadisticaMomentos.addEventListener('click', function() {
+            mostrarFavoritosPopup();
+        });
+        
+        // Actualizar contador inicial
+        actualizarEstadisticaFavoritos();
+    }
+
+    // Buscar el elemento de estadísticas "Razones para amarte"
+    const estadisticaRazones = document.querySelector('.estadistica-item:nth-child(2)');
+    if (estadisticaRazones) {
+        estadisticaRazones.style.cursor = 'pointer';
+       // estadisticaRazones.title = "Haz clic para ver una razón por la que te amo";
+        
+        estadisticaRazones.addEventListener('click', function() {
+            mostrarRazonAleatoria();
+        });
+        
+        // También hacer clickeable el icono y el texto dentro
+        const iconoRazones = estadisticaRazones.querySelector('i');
+        const textoRazones = estadisticaRazones.querySelector('p');
+        const contadorRazones = estadisticaRazones.querySelector('span');
+        
+        if (iconoRazones) iconoRazones.style.cursor = 'pointer';
+        if (textoRazones) textoRazones.style.cursor = 'pointer';
+        if (contadorRazones) contadorRazones.style.cursor = 'pointer';
+    }
 }
 
 // ==================== FUNCIÓN PARA MOSTRAR RAZÓN ALEATORIA ====================
@@ -1616,25 +1463,21 @@ function mostrarRazonAleatoria() {
     }, 4000);
 }
 
-// Hacer la función disponible globalmente
-window.mostrarRazonAleatoria = mostrarRazonAleatoria;
-}
-
 function actualizarEstadisticasAjustadas() {
     console.log("📊 Actualizando estadísticas ajustadas...");
     
-    // Calcular días totales (INCLUYENDO 5 abril 2026)
+    // Calcular días totales
     const totalDias = Math.floor((FECHA_FIN - FECHA_INICIO) / (1000 * 60 * 60 * 24));
     
-    // Calcular días transcurridos desde 5 abril 2025
+    // Calcular días transcurridos
     const hoy = new Date();
     let diasTranscurridos = 0;
     
     if (hoy >= FECHA_INICIO) {
         if (hoy >= FECHA_FIN) {
-            diasTranscurridos = totalDias; // Ya pasó el aniversario
+            diasTranscurridos = totalDias;
         } else {
-            diasTranscurridos = Math.floor((hoy - FECHA_INICIO) / (1000 * 60 * 60 * 24)) ;
+            diasTranscurridos = Math.floor((hoy - FECHA_INICIO) / (1000 * 60 * 60 * 24));
         }
     }
     
@@ -1650,13 +1493,10 @@ function actualizarEstadisticasAjustadas() {
         }
     }
     
-    // Actualizar contador de momentos
-    const contadorMomentos = document.getElementById('contador-momentos');
-    if (contadorMomentos) {
-        contadorMomentos.textContent = `${momentosDesbloqueados}/${totalDias}`;
-    }
+    // Actualizar favoritos (nueva estadística)
+    actualizarEstadisticaFavoritos();
     
-    // Contador de razones
+    // Contador de razones (existente)
     if (window.datosConfig && window.datosConfig.razonesTeAmo) {
         const contadorRazones = document.getElementById('contador-razones');
         if (contadorRazones) {
@@ -1664,11 +1504,17 @@ function actualizarEstadisticasAjustadas() {
         }
     }
     
-    // Contador de fotos
+    // Contador de fotos (existente)
     if (window.datosConfig && window.datosConfig.diasEspeciales) {
         let fotosCount = 0;
         Object.values(window.datosConfig.diasEspeciales).forEach(dia => {
-            if (dia.tipo === "foto") fotosCount++;
+            if (dia.tipo === "foto" || dia.tipo === "galeria") {
+                if (dia.fotos) {
+                    fotosCount += dia.fotos.length;
+                } else {
+                    fotosCount++;
+                }
+            }
         });
         
         const contadorFotos = document.getElementById('contador-fotos');
@@ -1677,15 +1523,448 @@ function actualizarEstadisticasAjustadas() {
         }
     }
     
-    console.log(`📊 Estadísticas: ${diasTranscurridos}/${totalDias} días`);
+    console.log(`📊 Estadísticas actualizadas: ${diasTranscurridos}/${totalDias} días, ${diasFavoritos.length} favoritos`);
+}
+// ==================== SISTEMA DE FAVORITOS ====================
+
+// Inicializar favoritos desde localStorage
+let diasFavoritos = JSON.parse(localStorage.getItem('diasFavoritos')) || [];
+
+// ==================== FUNCIÓN MEJORADA PARA GUARDAR FAVORITOS ====================
+function guardarFavorito(numeroDia, fecha) {
+    const index = diasFavoritos.findIndex(fav => fav.dia === numeroDia);
+    let agregado = false;
+    
+    if (index === -1) {
+        // Agregar a favoritos
+        diasFavoritos.push({
+            dia: numeroDia,
+            fecha: fecha.toISOString(),
+            fechaFormateada: fecha.toLocaleDateString('es-ES', { 
+                day: 'numeric', 
+                month: 'long', 
+                year: 'numeric' 
+            })
+        });
+        agregado = true;
+        mostrarNotificacion('❤️ ¡Día agregado a favoritos!', 'success');
+    } else {
+        // Remover de favoritos
+        diasFavoritos.splice(index, 1);
+        agregado = false;
+        mostrarNotificacion('💔 Día removido de favoritos', 'info');
+    }
+    
+    // Guardar en localStorage
+    localStorage.setItem('diasFavoritos', JSON.stringify(diasFavoritos));
+    
+    // Actualizar estadísticas
+    actualizarEstadisticaFavoritos();
+    
+    // Actualizar calendario para marcar días favoritos
+    actualizarMarcadoresFavoritos();
+    
+    return agregado; // Devuelve true si se agregó, false si se removió
 }
 
+// ==================== FUNCIÓN PARA ACTUALIZAR MARCADORES EN CALENDARIO ====================
+function actualizarMarcadoresFavoritos() {
+    const diasCalendario = document.querySelectorAll('.dia');
+    
+    diasCalendario.forEach(diaElement => {
+        // Obtener fecha del elemento día
+        const mesTitulo = diaElement.closest('.mes-contenedor')?.querySelector('.mes-titulo')?.textContent;
+        const numeroDia = diaElement.querySelector('.numero-dia')?.textContent;
+        
+        if (mesTitulo && numeroDia) {
+            // Extraer mes y año del título
+            const partes = mesTitulo.split(' ');
+            const mesTexto = partes[0];
+            const año = parseInt(partes[1]);
+            
+            // Convertir texto del mes a número (0-11)
+            const meses = ["ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", 
+                          "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE"];
+            const mes = meses.indexOf(mesTexto);
+            
+            if (mes !== -1) {
+                const fecha = new Date(año, mes, parseInt(numeroDia));
+                const numeroDiaCalculado = calcularDiaExacto(fecha);
+                
+                // Verificar si es favorito
+                const esFavorito = diasFavoritos.some(fav => fav.dia === numeroDiaCalculado);
+                
+                if (esFavorito) {
+                    diaElement.classList.add('es-favorito');
+                    if (!diaElement.querySelector('.corazon-favorito')) {
+                        const corazon = document.createElement('span');
+                        corazon.className = 'corazon-favorito';
+                        corazon.innerHTML = '❤️';
+                        corazon.style.cssText = `
+                            position: absolute;
+                            top: 2px;
+                            right: 2px;
+                            font-size: 10px;
+                            z-index: 2;
+                        `;
+                        diaElement.appendChild(corazon);
+                    }
+                } else {
+                    diaElement.classList.remove('es-favorito');
+                    const corazonExistente = diaElement.querySelector('.corazon-favorito');
+                    if (corazonExistente) {
+                        corazonExistente.remove();
+                    }
+                }
+            }
+        }
+    });
+}
+
+// Función para actualizar la estadística de favoritos
+function actualizarEstadisticaFavoritos() {
+    const contadorMomentos = document.getElementById('contador-momentos');
+    if (contadorMomentos) {
+        contadorMomentos.textContent = `${diasFavoritos.length} ❤️`;
+        
+        // Efecto visual si hay favoritos
+        if (diasFavoritos.length > 0) {
+            contadorMomentos.style.color = '#E91E63';
+            contadorMomentos.style.fontWeight = 'bold';
+        } else {
+            contadorMomentos.style.color = '';
+            contadorMomentos.style.fontWeight = '';
+        }
+    }
+}
+
+// ==================== FUNCIÓN CORREGIDA PARA MOSTRAR POPUP DE FAVORITOS ====================
+// ==================== FUNCIÓN CORREGIDA PARA MOSTRAR POPUP DE FAVORITOS ====================
+function mostrarFavoritosPopup() {
+    if (diasFavoritos.length === 0) {
+        mostrarNotificacion('Aún no tienes días favoritos. ¡Haz clic en un día especial y guárdalo!', 'info');
+        return;
+    }
+    
+    let contenidoHTML = `
+        <div style="max-width: 500px; margin: 0 auto;">
+            <h2 style="color: #E91E63; margin-bottom: 15px; font-family: 'Poppins', sans-serif; font-size: 1.6rem; text-align: center; font-weight: 700;">
+                <i class="fas fa-heart"></i> Tus Días Favoritos (${diasFavoritos.length})
+            </h2>
+            <div style="max-height: 300px; overflow-y: auto; margin-bottom: 20px; padding: 10px; background: #f9f9f9; border-radius: 10px;">
+    `;
+    
+    // Ordenar por número de día
+    diasFavoritos.sort((a, b) => a.dia - b.dia);
+    
+    diasFavoritos.forEach((favorito, index) => {
+        const fecha = new Date(favorito.fecha);
+        contenidoHTML += `
+            <div style="
+                background: white;
+                border-radius: 10px;
+                padding: 12px 15px;
+                margin-bottom: 10px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                border-left: 4px solid #E91E63;
+                cursor: pointer;
+                transition: all 0.2s;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            " onclick="abrirDiaDesdeFavoritos(${favorito.dia}, '${favorito.fecha}')">
+                <div>
+                    <strong style="color: #C2185B; font-size: 1rem;">Día ${favorito.dia}</strong>
+                    <div style="font-size: 0.85rem; color: #666; margin-top: 3px;">${favorito.fechaFormateada}</div>
+                </div>
+                <div style="display: flex; gap: 8px; align-items: center;">
+                    <span style="color: #E91E63; font-size: 0.9rem;">
+                        <i class="fas fa-heart"></i>
+                    </span>
+                    <button onclick="event.stopPropagation(); quitarFavorito(${favorito.dia})" 
+                            style="
+                                background: #ffebee;
+                                border: none;
+                                color: #f44336;
+                                width: 30px;
+                                height: 30px;
+                                border-radius: 50%;
+                                cursor: pointer;
+                                font-size: 0.8rem;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                            ">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+        `;
+    });
+    
+    contenidoHTML += `
+            </div>
+            <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+                <button onclick="exportarFavoritos()" style="
+                    background: linear-gradient(135deg, #4CAF50, #2E7D32);
+                    color: white;
+                    border: none;
+                    padding: 10px 20px;
+                    border-radius: 20px;
+                    cursor: pointer;
+                    font-size: 0.85rem;
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                    transition: all 0.3s;
+                " onmouseenter="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 5px 15px rgba(76, 175, 80, 0.3)';"
+                onmouseleave="this.style.transform=''; this.style.boxShadow='';">
+                    <i class="fas fa-download"></i> Exportar
+                </button>
+                <button onclick="limpiarFavoritos()" style="
+                    background: linear-gradient(135deg, #f44336, #d32f2f);
+                    color: white;
+                    border: none;
+                    padding: 10px 20px;
+                    border-radius: 20px;
+                    cursor: pointer;
+                    font-size: 0.85rem;
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                    transition: all 0.3s;
+                " onmouseenter="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 5px 15px rgba(244, 67, 54, 0.3)';"
+                onmouseleave="this.style.transform=''; this.style.boxShadow='';">
+                    <i class="fas fa-trash"></i> Limpiar
+                </button>
+                <button onclick="cerrarPopup()" style="
+                    background: linear-gradient(135deg, #9C27B0, #7B1FA2);
+                    color: white;
+                    border: none;
+                    padding: 10px 20px;
+                    border-radius: 20px;
+                    cursor: pointer;
+                    font-size: 0.85rem;
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                    transition: all 0.3s;
+                " onmouseenter="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 5px 15px rgba(156, 39, 176, 0.3)';"
+                onmouseleave="this.style.transform=''; this.style.boxShadow='';">
+                    <i class="fas fa-times"></i> Cerrar
+                </button>
+            </div>
+        </div>
+    `;
+    
+    // IMPORTANTE: Pasar true como último parámetro para indicar que es popup de favoritos
+    mostrarPopupContenido(contenidoHTML, false, [], null, true);
+}
+// ==================== FUNCIÓN MEJORADA PARA ABRIR DÍA DESDE FAVORITOS ====================
+function abrirDiaDesdeFavoritos(numeroDia, fechaISO) {
+    // Guardar que venimos desde favoritos
+    window.diaDesdeFavoritos = true;
+    
+    const fecha = new Date(fechaISO);
+    
+    // Cerrar popup actual (el de favoritos)
+    const popupActual = document.getElementById('popup-simple');
+    if (popupActual) {
+        popupActual.style.animation = 'fadeOut 0.3s ease forwards';
+        setTimeout(() => {
+            if (popupActual.parentNode) {
+                popupActual.parentNode.removeChild(popupActual);
+            }
+            
+            // Restaurar estilos del body
+            document.body.style.position = '';
+            document.body.style.top = '';
+            document.body.style.overflow = '';
+            document.body.classList.remove('popup-abierto');
+            
+            // Mostrar el día después de cerrar
+            setTimeout(() => {
+                mostrarContenidoAjustado(numeroDia, fecha);
+            }, 100);
+        }, 300);
+    } else {
+        // Si no hay popup, mostrar directamente
+        mostrarContenidoAjustado(numeroDia, fecha);
+    }
+}
+// Función para quitar favorito desde el popup
+function quitarFavorito(numeroDia) {
+    diasFavoritos = diasFavoritos.filter(fav => fav.dia !== numeroDia);
+    localStorage.setItem('diasFavoritos', JSON.stringify(diasFavoritos));
+    actualizarEstadisticaFavoritos();
+    mostrarFavoritosPopup(); // Recargar popup
+}
+
+// Función para exportar favoritos
+function exportarFavoritos() {
+    if (diasFavoritos.length === 0) {
+        mostrarNotificacion('No hay favoritos para exportar', 'info');
+        return;
+    }
+    
+    const texto = diasFavoritos.map(fav => 
+        `Día ${fav.dia}: ${fav.fechaFormateada}`
+    ).join('\n');
+    
+    const blob = new Blob([`Tus Días Favoritos:\n\n${texto}`], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'mis-dias-favoritos.txt';
+    link.click();
+    
+    mostrarNotificacion('¡Favoritos exportados!', 'success');
+}
+
+// Función para limpiar favoritos
+function limpiarFavoritos() {
+    if (confirm('¿Estás seguro de que quieres eliminar todos tus días favoritos?')) {
+        diasFavoritos = [];
+        localStorage.removeItem('diasFavoritos');
+        actualizarEstadisticaFavoritos();
+        cerrarPopup();
+        mostrarNotificacion('Favoritos eliminados', 'info');
+    }
+}
+
+// ==================== FUNCIÓN CORREGIDA PARA AGREGAR BOTÓN DE FAVORITOS ====================
+// ==================== FUNCIÓN CORREGIDA PARA AGREGAR BOTÓN DE FAVORITOS ====================
+function agregarBotonFavoritoPopup(numeroDia, fecha) {
+    const esFavorito = diasFavoritos.some(fav => fav.dia === numeroDia);
+    
+    return `
+        <div class="contenedor-botones-popup" 
+             style="
+                display: flex;
+                gap: 10px;
+                margin-top: 20px;
+                justify-content: center;
+             ">
+            <button onclick="toggleFavoritoDesdePopup(${numeroDia}, '${fecha.toISOString()}')" 
+                    class="btn-favorito-popup"
+                    style="
+                        background: ${esFavorito ? 'linear-gradient(135deg, #E91E63, #C2185B)' : 'linear-gradient(135deg, #9C27B0, #7B1FA2)'};
+                        color: white;
+                        border: none;
+                        padding: 10px 20px;
+                        border-radius: 25px;
+                        cursor: pointer;
+                        font-weight: bold;
+                        font-size: 0.9rem;
+                        transition: all 0.3s;
+                        display: flex;
+                        align-items: center;
+                        gap: 8px;
+                        min-width: 180px;
+                    ">
+                ${esFavorito ? '❤️ Quitar de favoritos' : '🤍 Agregar a favoritos'}
+            </button>
+        </div>
+    `;
+}
+
+// ==================== FUNCIÓN CORREGIDA PARA TOGGLE FAVORITOS ====================
+// ==================== FUNCIÓN CORREGIDA PARA TOGGLE FAVORITOS ====================
+window.toggleFavoritoDesdePopup = function(numeroDia, fechaISO) {
+    const fecha = new Date(fechaISO);
+    const agregado = guardarFavorito(numeroDia, fecha);
+    
+    // Actualizar botón en el popup
+    const btnFavorito = document.querySelector('.btn-favorito-popup');
+    if (btnFavorito) {
+        if (agregado) {
+            btnFavorito.innerHTML = '❤️ Quitar de favoritos';
+            btnFavorito.style.background = 'linear-gradient(135deg, #E91E63, #C2185B)';
+            
+            // Efecto de latido
+            btnFavorito.style.animation = 'latido 0.5s ease';
+            setTimeout(() => {
+                btnFavorito.style.animation = '';
+            }, 500);
+            
+            // Efecto de confeti (solo si se agregó)
+            lanzarConfetiFavorito();
+        } else {
+            btnFavorito.innerHTML = '🤍 Agregar a favoritos';
+            btnFavorito.style.background = 'linear-gradient(135deg, #9C27B0, #7B1FA2)';
+        }
+    }
+};
+    
+
+// Notificación mini más discreta
+function mostrarNotificacionMini(mensaje, tipo) {
+    const notificacion = document.createElement('div');
+    notificacion.style.cssText = `
+        position: fixed;
+        top: 70px;
+        right: 20px;
+        background: ${tipo === 'success' ? '#4CAF50' : '#9C27B0'};
+        color: white;
+        padding: 8px 15px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        z-index: 9999;
+        animation: slideInMini 0.3s ease, slideOutMini 0.3s ease 2s forwards;
+    `;
+    
+    notificacion.textContent = mensaje;
+    
+    document.body.appendChild(notificacion);
+    
+    setTimeout(() => {
+        if (notificacion.parentNode) {
+            notificacion.parentNode.removeChild(notificacion);
+        }
+    }, 2000);
+}
+
+function lanzarConfetiFavorito() {
+    const colores = ['#E91E63', '#9C27B0', '#2196F3', '#4CAF50', '#FF9800'];
+    
+    for (let i = 0; i < 15; i++) {
+        setTimeout(() => {
+            const confeti = document.createElement('div');
+            confeti.style.cssText = `
+                position: fixed;
+                width: 8px;
+                height: 8px;
+                background: ${colores[Math.floor(Math.random() * colores.length)]};
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 9998;
+                top: 80px;
+                right: 90px;
+                animation: confeti-favorito 1s ease-out forwards;
+            `;
+            
+            document.body.appendChild(confeti);
+            
+            setTimeout(() => {
+                if (confeti.parentNode) {
+                    confeti.parentNode.removeChild(confeti);
+                }
+            }, 1000);
+        }, i * 50);
+    }
+}
+
+// ==================== FUNCIÓN MEJORADA PARA CERRAR POPUP ====================
+// ==================== FUNCIÓN MEJORADA PARA CERRAR POPUP ====================
 function cerrarPopup() {
     const popup = document.getElementById('popup-simple');
     if (popup) {
+        // Verificar si el popup actual NO es de favoritos pero veníamos desde favoritos
+        const esPopupFavoritos = popup.getAttribute('data-es-favoritos') === 'true';
+        const veniaDeFavoritos = window.diaDesdeFavoritos === true;
+        
         popup.style.animation = 'fadeOut 0.3s ease forwards';
         
-        // Obtener la posición guardada ANTES de cerrar
         const savedPosition = parseInt(document.body.getAttribute('data-scroll-pos') || '0');
         
         setTimeout(() => {
@@ -1703,12 +1982,23 @@ function cerrarPopup() {
             document.body.style.height = '';
             document.body.style.overflow = '';
             
-            // Restaurar scroll después de que el DOM se actualice
             setTimeout(() => {
                 window.scrollTo({
                     top: savedPosition,
-                    behavior: 'instant' // Usar 'instant' en lugar de 'smooth'
+                    behavior: 'instant'
                 });
+                
+                // Si NO es popup de favoritos pero veníamos desde favoritos, volver
+                if (!esPopupFavoritos && veniaDeFavoritos) {
+                    // Limpiar flag
+                    window.diaDesdeFavoritos = false;
+                    
+                    // Esperar un poco y volver a mostrar favoritos
+                    setTimeout(() => {
+                        mostrarFavoritosPopup();
+                    }, 300);
+                }
+                
             }, 10);
             
             // Limpiar atributo
@@ -1718,12 +2008,41 @@ function cerrarPopup() {
         }, 300);
     }
 }
+
 // Hacer funciones disponibles globalmente
 window.cerrarPopup = cerrarPopup;
 window.mostrarContenidoAjustado = mostrarContenidoAjustado;
 window.descargarFoto = descargarFoto;
 window.generarNombreDescarga = generarNombreDescarga;
-
+window.mostrarRazonAleatoria = mostrarRazonAleatoria;
+// Función para abrir día desde favoritos
+function abrirDiaDesdeFavoritos(numeroDia, fechaISO) {
+    // Guardar que venimos desde favoritos
+    sessionStorage.setItem('volverAFavoritos', 'true');
+    
+    const fecha = new Date(fechaISO);
+    
+    // Cerrar popup actual
+    const popupActual = document.getElementById('popup-simple');
+    if (popupActual) {
+        popupActual.style.animation = 'fadeOut 0.3s ease forwards';
+        setTimeout(() => {
+            if (popupActual.parentNode) {
+                popupActual.parentNode.removeChild(popupActual);
+            }
+            document.body.classList.remove('popup-abierto');
+            document.body.style.overflow = 'auto';
+            
+            // Mostrar el día después de cerrar
+            setTimeout(() => {
+                mostrarContenidoAjustado(numeroDia, fecha);
+            }, 100);
+        }, 300);
+    } else {
+        // Si no hay popup, mostrar directamente
+        mostrarContenidoAjustado(numeroDia, fecha);
+    }
+}
 // Función auxiliar para restaurar scroll correctamente
 function restaurarScrollDespuesDePopup() {
     const savedPosition = parseInt(document.body.getAttribute('data-scroll-pos') || '0');
@@ -1744,17 +2063,6 @@ function restaurarScrollDespuesDePopup() {
     // Limpiar atributos
     document.body.removeAttribute('data-scroll-pos');
 }
-
-/*// Manejar clics fuera del popup para cerrarlo
-document.addEventListener('click', function(event) {
-    const popup = document.getElementById('popup-simple');
-    if (popup && isPopupOpen) {
-        const contenedor = document.getElementById('contenedor-popup');
-        if (!contenedor.contains(event.target) && event.target !== popup) {
-            cerrarPopup();
-        }
-    }
-});*/
 
 // Manejar tecla Escape para cerrar popup
 document.addEventListener('keydown', function(event) {
