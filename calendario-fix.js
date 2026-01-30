@@ -2033,9 +2033,9 @@ function actualizarEstadisticaFavoritos() {
     const contadorMomentos = document.getElementById('contador-momentos');
     if (contadorMomentos) {
         contadorMomentos.textContent = `${diasFavoritos.length} `;
-        
+
         // Efecto visual si hay favoritos
-        if (diasFavoritos.length > 0) {
+        if (diasFavoritos.length > -1) {
             contadorMomentos.style.color = '#940a38';
             contadorMomentos.style.fontWeight = 'bold';
         } else {
