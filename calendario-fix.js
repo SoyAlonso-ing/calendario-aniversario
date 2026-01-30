@@ -1273,6 +1273,82 @@ function configurarBotonesBasicosAjustados() {
     console.log("🔄 Configurando botones básicos ajustados...");
     
     
+// ============================================
+    // CONFIGURAR ESTADÍSTICA 3: DICCIONARIO SECRETO
+    // ============================================
+    const estadisticaDiccionario = document.querySelector('.estadistica-item:nth-child(3)');
+    if (estadisticaDiccionario) {
+        console.log("📚 Configurando estadística de diccionario secreto...");
+        
+        // Cambiar el texto
+        const textoEstadistica = estadisticaDiccionario.querySelector('p');
+        if (textoEstadistica) {
+            textoEstadistica.textContent = ' Solo nosotros entendemos';
+        }
+        
+        // Cambiar el icono
+        const iconoEstadistica = estadisticaDiccionario.querySelector('i');
+        if (iconoEstadistica) {
+            iconoEstadistica.className = 'fas fa-book';
+            iconoEstadistica.style.color = '#2196F3';
+        }
+        
+        // Hacer clickeable
+        estadisticaDiccionario.style.cursor = 'pointer';
+        estadisticaDiccionario.title = "Haz clic para ver una palabra secreta de nuestra relación";
+        
+        // Efecto hover mejorado
+        estadisticaDiccionario.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-5px) scale(1.05)';
+            this.style.background = 'linear-gradient(135deg, #ffffff, #7dabda)';
+            this.style.boxShadow = '0 10px 25px rgba(33, 150, 243, 0.3)';
+            this.style.borderColor = '#2196F3';
+            
+            // Animación del icono
+            const icono = this.querySelector('i');
+            if (icono) {
+                 icono.style.color = '#1976D2';
+                icono.style.animation = 'latidoDiccionario 1s infinite';
+            }
+        });
+        
+        estadisticaDiccionario.addEventListener('mouseleave', function() {
+            this.style.transform = '';
+            this.style.background = '';
+            this.style.boxShadow = '';
+            this.style.borderColor = '';
+            
+            const icono = this.querySelector('i');
+            if (icono) {
+                icono.style.color = '#2196F3';
+                icono.style.animation = '';
+            }
+        });
+        
+        // Evento click
+        estadisticaDiccionario.addEventListener('click', function(e) {
+            // Evitar que se dispare en los botones internos
+            if (e.target.closest('.btn-favoritos, .btn-limpiar-favoritos')) {
+                return;
+            }
+            mostrarPalabraSecreta();
+        });
+        
+        // También hacer clickeable el icono y el texto dentro
+        const iconoDiccionario = estadisticaDiccionario.querySelector('i');
+        const textoDiccionario = estadisticaDiccionario.querySelector('p');
+        const contadorDiccionario = estadisticaDiccionario.querySelector('span');
+        
+        if (iconoDiccionario) iconoDiccionario.style.cursor = 'pointer';
+        if (textoDiccionario) textoDiccionario.style.cursor = 'pointer';
+        if (contadorDiccionario) {
+            contadorDiccionario.style.color = '#1772db'
+            contadorDiccionario.style.cursor = 'pointer';
+        }
+        console.log("✅ Estadística de diccionario secreto configurada");
+    }
+
+
     // Botón razón aleatoria
     const btnRazon = document.getElementById('btnRazonAleatoria');
     if (btnRazon) {
@@ -1332,6 +1408,7 @@ function configurarBotonesBasicosAjustados() {
         // Cambiar el icono
         const iconoEstadistica = estadisticaMomentos.querySelector('i');
         if (iconoEstadistica) {
+            iconoEstadistica.style.color = '#920909';
             iconoEstadistica.className = 'fas fa-heart';
         }
         
@@ -1343,8 +1420,9 @@ function configurarBotonesBasicosAjustados() {
         estadisticaMomentos.addEventListener('mouseenter', function() {
             this.style.transform = 'translateY(-5px) scale(1.05)';
             this.style.background = 'linear-gradient(135deg, #fce4ec, #f8bbd9)';
-            this.style.boxShadow = '0 10px 25px rgba(233, 30, 99, 0.3)';
+            this.style.boxShadow = '0 10px 25px rgb(97, 5, 36)';
             this.style.borderColor = '#E91E63';
+            this.style.color = '#5f0b0b';
         });
         
         estadisticaMomentos.addEventListener('mouseleave', function() {
@@ -1448,7 +1526,7 @@ function mostrarRazonAleatoria() {
     const estadisticaItem = document.querySelector('.estadistica-item:nth-child(2)');
     if (estadisticaItem) {
         estadisticaItem.style.transform = 'scale(1.05)';
-        estadisticaItem.style.boxShadow = '0 10px 25px rgba(156, 39, 176, 0.3)';
+        estadisticaItem.style.boxShadow = '0 10px 25px rgb(101, 59, 199)';
         setTimeout(() => {
             estadisticaItem.style.transform = '';
             estadisticaItem.style.boxShadow = '';
@@ -1461,6 +1539,346 @@ function mostrarRazonAleatoria() {
             notificacion.parentNode.removeChild(notificacion);
         }
     }, 4000);
+}
+
+// ============================================
+// FUNCIÓN PARA MOSTRAR PALABRA SECRETA - DISEÑO BÁSICO Y ELEGANTE
+// ============================================
+function mostrarPalabraSecreta() {
+    console.log("📚 Mostrando palabra secreta...");
+    
+    // Obtener palabras secretas
+    const palabras = window.datosConfig?.palabrasSecretas || [
+        { palabra: "Barbacoa", significado: "Nuestro lugar especial 🍟" },
+        { palabra: "Pochi", significado: "Tu apodo especial 💘" }
+    ];
+    
+    let currentIndex = Math.floor(Math.random() * palabras.length);
+    let ultimaPalabra = currentIndex;
+    
+    // Función para obtener una nueva palabra aleatoria diferente a la actual
+    function obtenerNuevaPalabraAleatoria() {
+        if (palabras.length <= 1) return 0;
+        
+        let nuevaPalabra;
+        do {
+            nuevaPalabra = Math.floor(Math.random() * palabras.length);
+        } while (nuevaPalabra === ultimaPalabra && palabras.length > 1);
+        
+        ultimaPalabra = nuevaPalabra;
+        return nuevaPalabra;
+    }
+    
+    // Crear overlay oscuro (bloquea clics fuera del popup)
+    const overlay = document.createElement('div');
+    overlay.id = 'overlay-palabra-secreta';
+    overlay.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        backdrop-filter: blur(5px);
+        z-index: 9998;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: fadeInOverlay 0.3s ease;
+        cursor: pointer;
+    `;
+    
+    // Función para actualizar el contenido del popup
+    function actualizarPopup() {
+        const palabraSecreta = palabras[currentIndex];
+        
+        popup.innerHTML = `
+            <!-- Icono decorativo -->
+            <div style="
+                width: 80px;
+                height: 80px;
+                background: linear-gradient(135deg, #9C27B0, #7B1FA2);
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin: 0 auto 25px;
+                box-shadow: 0 8px 20px rgba(156, 39, 176, 0.3);
+            ">
+                <i class="fas fa-book" style="font-size: 2.8rem; color: white;"></i>
+            </div>
+            
+            <!-- Título -->
+            <h3 style="
+                font-family: 'Poppins', sans-serif;
+                font-size: 1.4rem;
+                color: #333;
+                margin-bottom: 30px;
+                font-weight: 600;
+                letter-spacing: 0.5px;
+            ">
+                Nuestro Diccionario Secreto
+            </h3>
+            
+            <!-- Contenedor de la palabra -->
+            <div style="
+                background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+                border-radius: 15px;
+                padding: 30px;
+                margin-bottom: 25px;
+                border: 1px solid rgba(0, 0, 0, 0.05);
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            ">
+                <!-- Palabra -->
+                <div style="
+                    font-family: 'Poppins', sans-serif;
+                    font-size: 2.2rem;
+                    font-weight: 700;
+                    color: #9C27B0;
+                    margin-bottom: 15px;
+                    letter-spacing: 1px;
+                ">
+                    "${palabraSecreta.palabra}"
+                </div>
+                
+                <!-- Separador sutil -->
+                <div style="
+                    width: 60px;
+                    height: 2px;
+                    background: linear-gradient(90deg, transparent, #9C27B0, transparent);
+                    margin: 15px auto;
+                "></div>
+                
+                <!-- Significado -->
+                <div style="
+                    font-family: 'Poppins', sans-serif;
+                    font-size: 1.1rem;
+                    line-height: 1.6;
+                    color: #555;
+                    font-style: italic;
+                    padding-top: 10px;
+                ">
+                    ${palabraSecreta.significado}
+                </div>
+            </div>
+            
+            <!-- Contador -->
+            <div style="
+                font-family: 'Poppins', sans-serif;
+                font-size: 0.9rem;
+                color: #999;
+                margin-top: 15px;
+            ">
+                Palabra #${currentIndex + 1} de ${palabras.length}
+            </div>
+            
+            <!-- Instrucción sutil -->
+            <div style="
+                font-family: 'Poppins', sans-serif;
+                font-size: 0.8rem;
+                color: #bbb;
+                margin-top: 10px;
+                font-style: italic;
+            ">
+                Haz clic en la tarjeta para ver otra palabra
+            </div>
+            
+            <!-- Botón de cerrar -->
+            <button id="btn-cerrar-palabra-secreta" style="
+                margin-top: 25px;
+                background: linear-gradient(135deg, #9C27B0, #7B1FA2);
+                color: white;
+                border: none;
+                padding: 12px 35px;
+                border-radius: 25px;
+                cursor: pointer;
+                font-family: 'Poppins', sans-serif;
+                font-size: 0.95rem;
+                font-weight: 600;
+                letter-spacing: 0.5px;
+                transition: all 0.3s ease;
+                box-shadow: 0 4px 15px rgba(156, 39, 176, 0.3);
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+            " onmouseenter="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(156, 39, 176, 0.4)';"
+            onmouseleave="this.style.transform=''; this.style.boxShadow='0 4px 15px rgba(156, 39, 176, 0.3)';">
+                <i class="fas fa-times"></i>
+                Cerrar
+            </button>
+        `;
+        
+        // Reasignar el event listener al botón de cerrar
+        const btnCerrar = popup.querySelector('#btn-cerrar-palabra-secreta');
+        btnCerrar.addEventListener('click', function(e) {
+            e.stopPropagation();
+            cerrarPopupPalabraSecreta();
+        });
+    }
+    
+    // Crear popup elegante y básico
+    const popup = document.createElement('div');
+    popup.id = 'popup-palabra-secreta';
+    popup.style.cssText = `
+        background: white;
+        border-radius: 20px;
+        padding: 40px 50px;
+        max-width: 500px;
+        width: 90%;
+        text-align: center;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        animation: slideUpPopup 0.4s ease;
+        cursor: pointer;
+        position: relative;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+    `;
+    
+    // GUARDAR POSICIÓN DEL SCROLL ANTES DE ABRIR EL POPUP
+    const scrollY = window.scrollY || document.documentElement.scrollTop;
+    document.body.setAttribute('data-scroll-pos', scrollY);
+    
+    // Inicializar el contenido del popup
+    actualizarPopup();
+    
+    // Agregar popup al overlay
+    overlay.appendChild(popup);
+    
+    // Evento para cambiar palabra al hacer clic dentro del popup
+    popup.addEventListener('click', function(e) {
+        // No hacer nada si se hace clic en el botón de cerrar (ese ya tiene su propio handler)
+        if (e.target.closest('#btn-cerrar-palabra-secreta')) {
+            return;
+        }
+        
+        // Cambiar a una nueva palabra aleatoria (diferente a la actual)
+        currentIndex = obtenerNuevaPalabraAleatoria();
+        actualizarPopup();
+        
+        // Efecto sutil de transición
+        const palabraContainer = popup.querySelector('div[style*="background: linear-gradient(135deg, #f8f9fa, #e9ecef)"]');
+        if (palabraContainer) {
+            palabraContainer.style.transform = 'scale(0.98)';
+            palabraContainer.style.transition = 'transform 0.2s ease';
+            setTimeout(() => {
+                palabraContainer.style.transform = 'scale(1)';
+            }, 200);
+        }
+        
+        console.log(`📚 Nueva palabra secreta: "${palabras[currentIndex].palabra}"`);
+    });
+    
+    // Cerrar al hacer clic en el overlay (fuera del popup)
+    overlay.addEventListener('click', function(e) {
+        if (e.target === overlay) {
+            cerrarPopupPalabraSecreta();
+        }
+    });
+    
+    // Cerrar con tecla Escape
+    const closeOnEscape = function(e) {
+        if (e.key === 'Escape') {
+            cerrarPopupPalabraSecreta();
+            document.removeEventListener('keydown', closeOnEscape);
+        }
+    };
+    document.addEventListener('keydown', closeOnEscape);
+    
+    // Agregar estilos de animación si no existen
+    if (!document.querySelector('#estilos-popup-palabras')) {
+        const style = document.createElement('style');
+        style.id = 'estilos-popup-palabras';
+        style.textContent = `
+            @keyframes fadeInOverlay {
+                from {
+                    opacity: 0;
+                }
+                to {
+                    opacity: 1;
+                }
+            }
+            
+            @keyframes slideUpPopup {
+                from {
+                    opacity: 0;
+                    transform: translateY(30px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+            
+            @keyframes slideDownPopup {
+                from {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+                to {
+                    opacity: 0;
+                    transform: translateY(30px);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+    
+    // Bloquear scroll del body (sin cambiar la posición)
+    document.body.style.overflow = 'hidden';
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.width = '100%';
+    
+    // Agregar overlay al body
+    document.body.appendChild(overlay);
+    
+    // Efecto visual en la estadística
+    const estadisticaItem = document.querySelector('.estadistica-item:nth-child(3)');
+    if (estadisticaItem) {
+        estadisticaItem.style.transform = 'scale(1.05)';
+        estadisticaItem.style.boxShadow = '0 10px 25px rgba(156, 39, 176, 0.4)';
+        setTimeout(() => {
+            estadisticaItem.style.transform = '';
+            estadisticaItem.style.boxShadow = '';
+        }, 500);
+    }
+    
+    console.log(`📚 Palabra secreta mostrada: "${palabras[currentIndex].palabra}"`);
+}
+
+// ============================================
+// FUNCIÓN PARA CERRAR POPUP DE PALABRA SECRETA
+// ============================================
+function cerrarPopupPalabraSecreta() {
+    const overlay = document.getElementById('overlay-palabra-secreta');
+    const popup = document.getElementById('popup-palabra-secreta');
+    
+    if (!overlay || !popup) return;
+    
+    // Animación de salida
+    overlay.style.animation = 'fadeInOverlay 0.3s ease reverse';
+    popup.style.animation = 'slideDownPopup 0.3s ease';
+    
+    // Obtener la posición del scroll guardada
+    const scrollY = parseInt(document.body.getAttribute('data-scroll-pos') || '0');
+    
+    // Restaurar scroll del body después de la animación
+    setTimeout(() => {
+        if (overlay.parentNode) {
+            overlay.parentNode.removeChild(overlay);
+        }
+        
+        // Restaurar estilos del body
+        document.body.style.overflow = '';
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.width = '';
+        
+        // RESTAURAR LA POSICIÓN DEL SCROLL EXACTAMENTE DONDE ESTABA
+        window.scrollTo(0, scrollY);
+        
+        // Limpiar atributo
+        document.body.removeAttribute('data-scroll-pos');
+    }, 300);
 }
 
 function actualizarEstadisticasAjustadas() {
@@ -1504,23 +1922,12 @@ function actualizarEstadisticasAjustadas() {
         }
     }
     
-    // Contador de fotos (existente)
-    if (window.datosConfig && window.datosConfig.diasEspeciales) {
-        let fotosCount = 0;
-        Object.values(window.datosConfig.diasEspeciales).forEach(dia => {
-            if (dia.tipo === "foto" || dia.tipo === "galeria") {
-                if (dia.fotos) {
-                    fotosCount += dia.fotos.length;
-                } else {
-                    fotosCount++;
-                }
-            }
-        });
-        
-        const contadorFotos = document.getElementById('contador-fotos');
-        if (contadorFotos) {
-            contadorFotos.textContent = fotosCount;
-        }
+     // Contador de palabras secretas
+    const contadorPalabras = document.getElementById('contador-fotos');
+    if (window.datosConfig && window.datosConfig.palabrasSecretas && contadorPalabras) {
+        contadorPalabras.textContent = window.datosConfig.palabrasSecretas.length;
+        console.log(`📚 Contador de palabras secretas: ${window.datosConfig.palabrasSecretas.length}`);
+        contadorPalabras.style.color = '#3752ca'
     }
     
     console.log(`📊 Estadísticas actualizadas: ${diasTranscurridos}/${totalDias} días, ${diasFavoritos.length} favoritos`);
@@ -1625,11 +2032,11 @@ function actualizarMarcadoresFavoritos() {
 function actualizarEstadisticaFavoritos() {
     const contadorMomentos = document.getElementById('contador-momentos');
     if (contadorMomentos) {
-        contadorMomentos.textContent = `${diasFavoritos.length} ❤️`;
+        contadorMomentos.textContent = `${diasFavoritos.length} `;
         
         // Efecto visual si hay favoritos
         if (diasFavoritos.length > 0) {
-            contadorMomentos.style.color = '#E91E63';
+            contadorMomentos.style.color = '#940a38';
             contadorMomentos.style.fontWeight = 'bold';
         } else {
             contadorMomentos.style.color = '';
@@ -1648,7 +2055,7 @@ function mostrarFavoritosPopup() {
     
     let contenidoHTML = `
         <div style="max-width: 500px; margin: 0 auto;">
-            <h2 style="color: #E91E63; margin-bottom: 15px; font-family: 'Poppins', sans-serif; font-size: 1.6rem; text-align: center; font-weight: 700;">
+            <h2 style="color: #940a38; margin-bottom: 15px; font-family: 'Poppins', sans-serif; font-size: 1.6rem; text-align: center; font-weight: 700;">
                 <i class="fas fa-heart"></i> Tus Días Favoritos (${diasFavoritos.length})
             </h2>
             <div style="max-height: 300px; overflow-y: auto; margin-bottom: 20px; padding: 10px; background: #f9f9f9; border-radius: 10px;">
@@ -1668,24 +2075,24 @@ function mostrarFavoritosPopup() {
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
-                border-left: 4px solid #E91E63;
+                border-left: 4px solid #940a38;
                 cursor: pointer;
                 transition: all 0.2s;
                 box-shadow: 0 2px 5px rgba(0,0,0,0.1);
             " onclick="abrirDiaDesdeFavoritos(${favorito.dia}, '${favorito.fecha}')">
                 <div>
-                    <strong style="color: #C2185B; font-size: 1rem;">Día ${favorito.dia}</strong>
+                    <strong style="color: #940a38; font-size: 1rem;">Día ${favorito.dia}</strong>
                     <div style="font-size: 0.85rem; color: #666; margin-top: 3px;">${favorito.fechaFormateada}</div>
                 </div>
                 <div style="display: flex; gap: 8px; align-items: center;">
-                    <span style="color: #E91E63; font-size: 0.9rem;">
+                    <span style="color: #940a38; font-size: 0.9rem;">
                         <i class="fas fa-heart"></i>
                     </span>
                     <button onclick="event.stopPropagation(); quitarFavorito(${favorito.dia})" 
                             style="
-                                background: #ffebee;
+                                background: #7314df;
                                 border: none;
-                                color: #f44336;
+                                color: #ffffff;
                                 width: 30px;
                                 height: 30px;
                                 border-radius: 50%;
@@ -1706,7 +2113,7 @@ function mostrarFavoritosPopup() {
             </div>
             <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
                 <button onclick="exportarFavoritos()" style="
-                    background: linear-gradient(135deg, #4CAF50, #2E7D32);
+                    background: linear-gradient(135deg, #0b5f0d, #2E7D32);
                     color: white;
                     border: none;
                     padding: 10px 20px;
@@ -1722,7 +2129,7 @@ function mostrarFavoritosPopup() {
                     <i class="fas fa-download"></i> Exportar
                 </button>
                 <button onclick="limpiarFavoritos()" style="
-                    background: linear-gradient(135deg, #f44336, #d32f2f);
+                    background: linear-gradient(135deg, #c7190d, #b60909);
                     color: white;
                     border: none;
                     padding: 10px 20px;
@@ -2084,3 +2491,11 @@ window.addEventListener('resize', function() {
         }
     }
 });
+
+// ============================================
+// EXPORTAR FUNCIONES GLOBALES
+// ============================================
+window.mostrarRazonAleatoria = mostrarRazonAleatoria;
+window.mostrarPalabraSecreta = mostrarPalabraSecreta;
+window.actualizarEstadisticasAjustadas = actualizarEstadisticasAjustadas;
+window.configurarBotonesBasicosAjustados = configurarBotonesBasicosAjustados;
