@@ -1586,6 +1586,8 @@ function mostrarPalabraSecreta() {
         justify-content: center;
         animation: fadeInOverlay 0.3s ease;
         cursor: pointer;
+        padding: 20px;
+        box-sizing: border-box;
     `;
     
     // Función para actualizar el contenido del popup
@@ -1593,119 +1595,132 @@ function mostrarPalabraSecreta() {
         const palabraSecreta = palabras[currentIndex];
         
         popup.innerHTML = `
-            <!-- Icono decorativo -->
-            <div style="
-                width: 80px;
-                height: 80px;
-                background: linear-gradient(135deg, #9C27B0, #7B1FA2);
-                border-radius: 50%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                margin: 0 auto 25px;
-                box-shadow: 0 8px 20px rgba(156, 39, 176, 0.3);
+            <!-- Contenedor interno con pointer-events: auto -->
+            <div id="contenido-popup" style="
+                width: 100%;
+                height: 100%;
+                pointer-events: auto;
             ">
-                <i class="fas fa-book" style="font-size: 2.8rem; color: white;"></i>
-            </div>
-            
-            <!-- Título -->
-            <h3 style="
-                font-family: 'Poppins', sans-serif;
-                font-size: 1.4rem;
-                color: #333;
-                margin-bottom: 30px;
-                font-weight: 600;
-                letter-spacing: 0.5px;
-            ">
-                Nuestro Diccionario Secreto
-            </h3>
-            
-            <!-- Contenedor de la palabra -->
-            <div style="
-                background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-                border-radius: 15px;
-                padding: 30px;
-                margin-bottom: 25px;
-                border: 1px solid rgba(0, 0, 0, 0.05);
-                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-            ">
-                <!-- Palabra -->
+                <!-- Icono decorativo -->
                 <div style="
-                    font-family: 'Poppins', sans-serif;
-                    font-size: 2.2rem;
-                    font-weight: 700;
-                    color: #9C27B0;
-                    margin-bottom: 15px;
-                    letter-spacing: 1px;
+                    width: 70px;
+                    height: 70px;
+                    background: linear-gradient(135deg, #9C27B0, #7B1FA2);
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin: 0 auto 20px;
+                    box-shadow: 0 8px 20px rgba(156, 39, 176, 0.3);
                 ">
-                    "${palabraSecreta.palabra}"
+                    <i class="fas fa-book" style="font-size: 2.4rem; color: white;"></i>
                 </div>
                 
-                <!-- Separador sutil -->
-                <div style="
-                    width: 60px;
-                    height: 2px;
-                    background: linear-gradient(90deg, transparent, #9C27B0, transparent);
-                    margin: 15px auto;
-                "></div>
+                <!-- Título -->
+                <h3 style="
+                    font-family: 'Poppins', sans-serif;
+                    font-size: 1.2rem;
+                    color: #333;
+                    margin-bottom: 20px;
+                    font-weight: 600;
+                    letter-spacing: 0.5px;
+                ">
+                    Nuestro Diccionario Secreto
+                </h3>
                 
-                <!-- Significado -->
+                <!-- Contenedor de la palabra - CLICKEABLE -->
+                <div id="contenedor-palabra" style="
+                    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+                    border-radius: 12px;
+                    padding: 20px;
+                    margin-bottom: 20px;
+                    border: 1px solid rgba(0, 0, 0, 0.05);
+                    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+                    cursor: pointer;
+                    transition: transform 0.2s ease, background 0.3s ease;
+                " onmouseenter="this.style.transform='translateY(-2px)'; this.style.background='linear-gradient(135deg, #f0f2f5, #e3e6ea)';"
+                onmouseleave="this.style.transform=''; this.style.background='linear-gradient(135deg, #f8f9fa, #e9ecef)';">
+                    <!-- Palabra -->
+                    <div style="
+                        font-family: 'Poppins', sans-serif;
+                        font-size: 1.8rem;
+                        font-weight: 700;
+                        color: #9C27B0;
+                        margin-bottom: 12px;
+                        letter-spacing: 1px;
+                    ">
+                        "${palabraSecreta.palabra}"
+                    </div>
+                    
+                    <!-- Separador sutil -->
+                    <div style="
+                        width: 50px;
+                        height: 2px;
+                        background: linear-gradient(90deg, transparent, #9C27B0, transparent);
+                        margin: 12px auto;
+                    "></div>
+                    
+                    <!-- Significado -->
+                    <div style="
+                        font-family: 'Poppins', sans-serif;
+                        font-size: 1rem;
+                        line-height: 1.5;
+                        color: #555;
+                        font-style: italic;
+                        padding-top: 8px;
+                    ">
+                        ${palabraSecreta.significado}
+                    </div>
+                </div>
+                
+                <!-- Contador -->
                 <div style="
                     font-family: 'Poppins', sans-serif;
-                    font-size: 1.1rem;
-                    line-height: 1.6;
-                    color: #555;
+                    font-size: 0.85rem;
+                    color: #999;
+                    margin-top: 12px;
+                ">
+                    Palabra #${currentIndex + 1} de ${palabras.length}
+                </div>
+                
+                <!-- Instrucción sutil -->
+                <div style="
+                    font-family: 'Poppins', sans-serif;
+                    font-size: 0.75rem;
+                    color: #bbb;
+                    margin-top: 8px;
                     font-style: italic;
-                    padding-top: 10px;
                 ">
-                    ${palabraSecreta.significado}
+                    Toca la tarjeta para ver otra palabra
                 </div>
+                
+                <!-- Botón de cerrar -->
+                <button id="btn-cerrar-palabra-secreta" style="
+                    margin-top: 20px;
+                    background: linear-gradient(135deg, #9C27B0, #7B1FA2);
+                    color: white;
+                    border: none;
+                    padding: 12px 30px;
+                    border-radius: 25px;
+                    cursor: pointer;
+                    font-family: 'Poppins', sans-serif;
+                    font-size: 0.9rem;
+                    font-weight: 600;
+                    letter-spacing: 0.5px;
+                    transition: all 0.3s ease;
+                    box-shadow: 0 4px 15px rgba(156, 39, 176, 0.3);
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 8px;
+                    width: 100%;
+                    justify-content: center;
+                    max-width: 200px;
+                " onmouseenter="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(156, 39, 176, 0.4)';"
+                onmouseleave="this.style.transform=''; this.style.boxShadow='0 4px 15px rgba(156, 39, 176, 0.3)';">
+                    <i class="fas fa-times"></i>
+                    Cerrar
+                </button>
             </div>
-            
-            <!-- Contador -->
-            <div style="
-                font-family: 'Poppins', sans-serif;
-                font-size: 0.9rem;
-                color: #999;
-                margin-top: 15px;
-            ">
-                Palabra #${currentIndex + 1} de ${palabras.length}
-            </div>
-            
-            <!-- Instrucción sutil -->
-            <div style="
-                font-family: 'Poppins', sans-serif;
-                font-size: 0.8rem;
-                color: #bbb;
-                margin-top: 10px;
-                font-style: italic;
-            ">
-                Haz clic en la tarjeta para ver otra palabra
-            </div>
-            
-            <!-- Botón de cerrar -->
-            <button id="btn-cerrar-palabra-secreta" style="
-                margin-top: 25px;
-                background: linear-gradient(135deg, #9C27B0, #7B1FA2);
-                color: white;
-                border: none;
-                padding: 12px 35px;
-                border-radius: 25px;
-                cursor: pointer;
-                font-family: 'Poppins', sans-serif;
-                font-size: 0.95rem;
-                font-weight: 600;
-                letter-spacing: 0.5px;
-                transition: all 0.3s ease;
-                box-shadow: 0 4px 15px rgba(156, 39, 176, 0.3);
-                display: inline-flex;
-                align-items: center;
-                gap: 8px;
-            " onmouseenter="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(156, 39, 176, 0.4)';"
-            onmouseleave="this.style.transform=''; this.style.boxShadow='0 4px 15px rgba(156, 39, 176, 0.3)';">
-                <i class="fas fa-times"></i>
-                Cerrar
-            </button>
         `;
         
         // Reasignar el event listener al botón de cerrar
@@ -1714,6 +1729,22 @@ function mostrarPalabraSecreta() {
             e.stopPropagation();
             cerrarPopupPalabraSecreta();
         });
+        
+        // Event listener para el contenedor de palabra
+        const contenedorPalabra = popup.querySelector('#contenedor-palabra');
+        contenedorPalabra.addEventListener('click', function(e) {
+            e.stopPropagation();
+            cambiarPalabra();
+        });
+    }
+    
+    // Función para cambiar de palabra
+    function cambiarPalabra() {
+        // Cambiar a una nueva palabra aleatoria (diferente a la actual)
+        currentIndex = obtenerNuevaPalabraAleatoria();
+        actualizarPopup();
+        
+        console.log(`📚 Nueva palabra secreta: "${palabras[currentIndex].palabra}"`);
     }
     
     // Crear popup elegante y básico
@@ -1722,15 +1753,78 @@ function mostrarPalabraSecreta() {
     popup.style.cssText = `
         background: white;
         border-radius: 20px;
-        padding: 40px 50px;
         max-width: 500px;
-        width: 90%;
+        width: 100%;
         text-align: center;
         box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
         animation: slideUpPopup 0.4s ease;
-        cursor: pointer;
+        cursor: default;
         position: relative;
         border: 1px solid rgba(0, 0, 0, 0.1);
+        pointer-events: auto;
+        overflow: hidden;
+    `;
+    
+    // Estilos responsive para el popup
+    const responsiveStyles = `
+        @media (max-width: 768px) {
+            #popup-palabra-secreta {
+                border-radius: 16px;
+                width: calc(100% - 40px);
+                max-width: 400px;
+                padding: 30px 20px;
+            }
+            
+            #contenedor-palabra {
+                padding: 15px !important;
+            }
+            
+            #contenedor-palabra > div:first-child {
+                font-size: 1.6rem !important;
+            }
+            
+            #contenedor-palabra > div:last-child {
+                font-size: 0.95rem !important;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            #popup-palabra-secreta {
+                border-radius: 12px;
+                width: calc(100% - 30px);
+                padding: 20px 15px;
+            }
+            
+            #popup-palabra-secreta h3 {
+                font-size: 1.1rem !important;
+                margin-bottom: 15px !important;
+            }
+            
+            #contenedor-palabra {
+                padding: 12px !important;
+            }
+            
+            #contenedor-palabra > div:first-child {
+                font-size: 1.4rem !important;
+                margin-bottom: 10px !important;
+            }
+            
+            #contenedor-palabra > div:last-child {
+                font-size: 0.9rem !important;
+            }
+            
+            #btn-cerrar-palabra-secreta {
+                padding: 10px 20px !important;
+                font-size: 0.85rem !important;
+            }
+        }
+        
+        @media (max-height: 600px) {
+            #popup-palabra-secreta {
+                max-height: 90vh;
+                overflow-y: auto;
+            }
+        }
     `;
     
     // GUARDAR POSICIÓN DEL SCROLL ANTES DE ABRIR EL POPUP
@@ -1743,31 +1837,7 @@ function mostrarPalabraSecreta() {
     // Agregar popup al overlay
     overlay.appendChild(popup);
     
-    // Evento para cambiar palabra al hacer clic dentro del popup
-    popup.addEventListener('click', function(e) {
-        // No hacer nada si se hace clic en el botón de cerrar (ese ya tiene su propio handler)
-        if (e.target.closest('#btn-cerrar-palabra-secreta')) {
-            return;
-        }
-        
-        // Cambiar a una nueva palabra aleatoria (diferente a la actual)
-        currentIndex = obtenerNuevaPalabraAleatoria();
-        actualizarPopup();
-        
-        // Efecto sutil de transición
-        const palabraContainer = popup.querySelector('div[style*="background: linear-gradient(135deg, #f8f9fa, #e9ecef)"]');
-        if (palabraContainer) {
-            palabraContainer.style.transform = 'scale(0.98)';
-            palabraContainer.style.transition = 'transform 0.2s ease';
-            setTimeout(() => {
-                palabraContainer.style.transform = 'scale(1)';
-            }, 200);
-        }
-        
-        console.log(`📚 Nueva palabra secreta: "${palabras[currentIndex].palabra}"`);
-    });
-    
-    // Cerrar al hacer clic en el overlay (fuera del popup)
+    // Evento para cambiar palabra al hacer clic en el overlay (pero no en el popup)
     overlay.addEventListener('click', function(e) {
         if (e.target === overlay) {
             cerrarPopupPalabraSecreta();
@@ -1818,6 +1888,7 @@ function mostrarPalabraSecreta() {
                     transform: translateY(30px);
                 }
             }
+            ${responsiveStyles}
         `;
         document.head.appendChild(style);
     }
