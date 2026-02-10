@@ -146,7 +146,8 @@ function generarCalendarioAjustado() {
                 elementoDia.classList.add('dia-especial');
                 elementoDia.style.background = 'linear-gradient(45deg, #FF9800, #FF5722)';
                 elementoDia.innerHTML = `<span class="numero-dia">${dia}</span><span class="estrella">🎉</span>`;
-                elementoDia.title = "¡Comenzamos nuestra aventura!";
+
+                
                 
                 // Sobrescribir evento click para asegurar día 1
                 elementoDia.addEventListener('click', function(e) {
@@ -160,7 +161,7 @@ function generarCalendarioAjustado() {
             // Día de aniversario (5 abril 2026) - ¡ESTO ES LO QUE FALTABA!
             if (dia === 5 && mes === 3 && año === 2026) {
                 elementoDia.classList.add('dia-especial');
-                elementoDia.style.background = 'linear-gradient(45deg, #9C27B0, #673AB7)';
+                elementoDia.style.background = 'linear-gradient(45deg, #ff0000, #420205)';
                 elementoDia.style.color = 'white';
                 elementoDia.innerHTML = `<span class="numero-dia">${dia}</span><span class="estrella">🌟</span>`;
                 elementoDia.title = "¡FELIZ PRIMER ANIVERSARIO!";
