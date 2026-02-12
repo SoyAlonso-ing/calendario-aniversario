@@ -920,7 +920,7 @@ function configurarCarouselHorizontal(contenedorCarousel, fotosArray) {
     
     let slideActual = 0;
     const totalSlides = slides.length;
-    const slideWidth = 85; // Porcentaje que ocupa cada slide
+    const slideWidth = 65; // Porcentaje que ocupa cada slide
     
     // Función para actualizar botones de descarga
     function actualizarBotonesDescarga() {

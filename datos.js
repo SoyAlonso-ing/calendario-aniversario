@@ -1338,9 +1338,9 @@ const razonesTeAmo = [
   "Por darme cuenta que nadie me había querido como tú",
   "Por llegar a mi vida cuando menos lo esperaba y más lo necesitaba sin saberlo",
   "Porque por más razones que pueda decirte aqui nunca voy a poder decirte todo lo que te amo",
-  "Por ver que ya no imagino un dia sin ti",
+  "Por ver que ya no imagino un día sin ti",
   "Por darme cuenta que eres todo lo que siempre pedi",
-  "Se que te amo desde el dia que empecé a imaginarme un futuro contigo",
+  "Se que te amo desde el día que empecé a imaginarme un futuro contigo",
   "Se que te amo porque por primera vez en mi vida no se si quiero que me llegue el viaje o no ",
 ];
 
@@ -1357,7 +1357,7 @@ const palabrasSecretas = [
   { palabra: "gordito", significado: "Como me dices cuando estás de buenas" },
   {
     palabra: "rana cua cua",
-    significado: "Ese dia en el baño nunca lo voy a superar jajaja",
+    significado: "Ese día en el baño nunca lo voy a superar jajaja",
   },
   {
     palabra: "nacional",
@@ -1419,7 +1419,7 @@ const palabrasSecretas = [
   {
     palabra: "ajito",
     significado:
-      "Dias aguantando tu fetidez a ajo en la boca ya que eres excesiva con el ajo",
+      "Días aguantando tu fetidez a ajo en la boca ya que eres excesiva con el ajo",
   },
   {
     palabra: "dumplings",
@@ -1464,8 +1464,8 @@ const palabrasSecretas = [
       "Cuando en tu cama te pregunté para ser mi novia y te hiciste la graciosa de decir que no jodiendo",
   },
   {
-    palabra: "dias 5",
-    significado: "Por el resto de tu vida ese dia va a ser mio siempre",
+    palabra: "días 5",
+    significado: "Por el resto de tu vida ese día va a ser mío siempre",
   },
   {
     palabra: "marianao es un campo",
@@ -1567,7 +1567,7 @@ const palabrasSecretas = [
   {
     palabra: "corazón con flecha",
     significado:
-      "El emoji que desde el dia que lo vimos en el malecón lo elegimos los dos y que x siempre estará reservado para ti",
+      "El emoji que desde el día que lo vimos en el malecón lo elegimos los dos y que x siempre estará reservado para ti",
   },
   {
     palabra: "manualidades",
@@ -1578,7 +1578,7 @@ const palabrasSecretas = [
     significado: "Que siempre pueda oirte hablarme asi con esa ternura",
   },
   {
-    palabra: "2 dias sin vernos",
+    palabra: "2 días sin vernos",
     significado:
       "Obviamente todo no iba a er bueno y hay que acabar de solucionar todas esas peleas innecesarias que desgastan la relación",
   },
@@ -1632,7 +1632,7 @@ const palabrasSecretas = [
   { palabra: "cocino/friegas", significado: "La mejor combinación" },
   {
     palabra: "la placa",
-    significado: "Algun dia dejarás de ser oriental y le dirás azotea ?",
+    significado: "Algun día dejarás de ser oriental y le dirás azotea ?",
   },
   {
     palabra: "te amo (cancion)",
@@ -1738,7 +1738,7 @@ const palabrasSecretas = [
     significado: "Nunca he conocido a una persona que sea tan tramposa ño",
   },
   {
-    palabra: "fotografo",
+    palabra: "fotógrafo",
     significado:
       "Después de meses de malas fotos ya puedo decir que soy un fotógrafo gracias a tus clases",
   },
@@ -1755,7 +1755,7 @@ const palabrasSecretas = [
   {
     palabra: "hazme un masajito",
     significado:
-      "Los mios de 20min y bien dados para luego recibir uno de 2min y oir ¨Estoy cansada¨",
+      "Los míos de 20min y bien dados para luego recibir uno de 2min y oir ¨Estoy cansada¨",
   },
   {
     palabra: "estoy cansada y me duele la cabeza",
@@ -1798,9 +1798,9 @@ const palabrasSecretas = [
       "Se volvió tradición que lo último en mandarnos antes de dormir sea eso",
   },
   {
-    palabra: "tu corsel el dia de habachela",
+    palabra: "tu corsel el día de habachela",
     significado:
-      "Nunca te lo dije pero ese dia ese corsel te quedaba de locura",
+      "Nunca te lo dije pero ese día ese corsel te quedaba de locura",
   },
   {
     palabra: "ultima hora de telegram",
@@ -1813,7 +1813,7 @@ const palabrasSecretas = [
   },
   {
     palabra: "polaroid",
-    significado: "A dia de hoy llevo una en la billetera de nosotros",
+    significado: "A día de hoy llevo una en la billetera de nosotros",
   },
   {
     palabra: "foto de pasaporte",
@@ -1828,17 +1828,17 @@ const palabrasSecretas = [
   {
     palabra: "mi trigueñona",
     significado:
-      "Dios mio cuando llegas de hacerte la keratina, nunca habia visto una trigueña tan linda",
+      "Dios mío cuando llegas de hacerte la keratina, nunca habia visto una trigueña tan linda",
   },
   {
-    palabra: "ay dios mio esas nalgas mias",
+    palabra: "ay dios mío esas nalgas mías",
     significado:
-      "Escribiendo esta linea se me paró lo siento, es que esas nalgassss...ay dios mioooo",
+      "Escribiendo esta línea se me paró lo siento, es que esas nalgassss...ay dios míoooo",
   },
   {
     palabra: "los 4 dedos",
     significado:
-      "A cada dedo le pusimos un significad(Te amo, me quiero ir, te quiero, quiero singarte)",
+      "A cada dedo le pusimos un significado (Te amo, me quiero ir, te quiero, quiero singarte)",
   },
   {
     palabra: "melendi",
@@ -1859,12 +1859,12 @@ const palabrasSecretas = [
   },
   {
     palabra: "karla craft",
-    significado: "El primer regalo que me hiciste el dia de mi cumpleaños",
+    significado: "El primer regalo que me hiciste el día de mi cumpleaños",
   },
   {
     palabra: "letras de fritiqui de otro color",
     significado:
-      "El dia que te dichavaste y admitiste que habías completado la palabra en la carta de mi cumpleaños",
+      "El día que te dichavaste y admitiste que habías completado la palabra en la carta de mi cumpleaños",
   },
   {
     palabra: "cuarto de mi abuela #1",
@@ -1883,23 +1883,23 @@ const palabrasSecretas = [
   {
     palabra: "desayunos",
     significado:
-      "Un dia te hice uno y de x vida estuve condenado a hacértelo todas las mañanas",
+      "Un día te hice uno y de x vida estuve condenado a hacértelo todas las mañanas",
   },
   {
-    palabra: "esa barriguita mia",
-    significado: "Ese abdomen perfecto...dios mioooo que hot",
+    palabra: "esa barriguita mía",
+    significado: "Ese abdomen perfecto...dios míoooo que hot",
   },
   {
     palabra: "69",
     significado: "La pose fantasma...Imposible hacerla contigo",
   },
   {
-    palabra: "tu arriba",
+    palabra: "tú arriba",
     significado:
       "Que locura cuando estás arriba...te vuelves una locota amor jajaja",
   },
   {
-    palabra: "la sabana en el medio en 4",
+    palabra: "la sábana en el medio en 4",
     significado: "Para que la gente no oiga shhhh",
   },
   {
@@ -1926,14 +1926,14 @@ const palabrasSecretas = [
     significado:
       "Es andar contigo y automaticamente todo el mundo me ve cara de millo y quieren venderme de todo",
   },
-  { palabra: "fusion frappe", significado: "Buenos frapus nos tomamos x ahi" },
+  { palabra: "fusión frappe", significado: "Buenos frapus nos tomamos x ahi" },
   {
-    palabra: "domino en pazillo",
+    palabra: "dominó en pazillo",
     significado:
-      "Aunque fue antes de estar juntos me acuerdo un dia en pazillo que me llamaste para jugar dominó(Cuando aun eras mala)",
+      "Aunque fue antes de estar juntos me acuerdo un día en pazillo que me llamaste para jugar dominó(Cuando aun eras mala)",
   },
   {
-    palabra: "domino",
+    palabra: "dominó",
     significado:
       "Gracias a tu maravilloso novio podrás decir el resto de tu vida que sabes jugar dominó",
   },
@@ -1948,9 +1948,9 @@ const palabrasSecretas = [
       "Aunque hemos tenido varias peleas duras, creo que todas han ayudado para llegar a estar como estamos ahora",
   },
   {
-    palabra: "15 dias sin hablar",
+    palabra: "15 días sin hablar",
     significado:
-      "Antes de tallar cuando hablábamos x orgullosos estuvimos 15 dias sin hablar, después de eso no hemos estado más de 1 dia sin hablar",
+      "Antes de tallar cuando hablábamos x orgullosos estuvimos 15 días sin hablar, después de eso no hemos estado más de 1 dia sin hablar",
   },
   {
     palabra: "sandro como es adrian en una relacion",
@@ -1960,7 +1960,7 @@ const palabrasSecretas = [
   {
     palabra: "daily chat",
     significado:
-      "No se como pasó pero un dia te convertiste en mi chat diario sin darme cuenta hasta el dia de hoy",
+      "No se como pasó pero un día te convertiste en mi chat diario sin darme cuenta hasta el día de hoy",
   },
   {
     palabra: "promesa de dormir encueros",
@@ -1984,9 +1984,9 @@ const palabrasSecretas = [
   {
     palabra: "catarro",
     significado:
-      "Esta palabra resume que lo que cojas tu lo cojo yo, con esto me refiero a que tus problemas siempre van a ser los mios también",
+      "Esta palabra resume que lo que cojas tu lo cojo yo, con esto me refiero a que tus problemas siempre van a ser los míos también",
   },
-  { palabra: "quivican", significado: "Cuando a conocí a toda tu familia" },
+  { palabra: "quivican", significado: "Cuando conocí a toda tu familia" },
   {
     palabra: "alicia sal de ese cuerpo",
     significado: "No tengo dudas de que eres la versión jóven de mi abuela",
