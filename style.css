@@ -2284,8 +2284,7 @@ body:has(#popup-simple) {
     }
 }
 
-/* ==================== CAROUSEL HORIZONTAL CON PREVIEW ==================== */
-
+/* ==================== CAROUSEL HORIZONTAL CORREGIDO ==================== */
 /* Contenedor principal */
 .foto-principal-container-horizontal {
     position: relative;
@@ -2293,67 +2292,78 @@ body:has(#popup-simple) {
     border-radius: 15px;
     overflow: hidden;
     background: linear-gradient(135deg, #2d1b69, #1a0f40);
-    height: 400px; /* Altura fija */
+    height: 450px; /* Altura fija consistente */
     width: 100%;
-    padding: 20px;
+    padding: 0;
     box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
 
-/* Track del carousel (contiene todas las fotos) */
+/* Track del carousel */
 .carousel-track {
     display: flex;
     height: 100%;
     transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    gap: 20px;
+    gap: 0; /* Sin gap para que las fotos ocupen todo */
     align-items: center;
-    padding: 0 50px; /* Espacio para que se vea el preview */
+    padding: 0;
 }
 
-/* Cada slide (foto) */
+/* Cada slide (foto) - AHORA OCUPA EL 100% DEL CONTAINER */
 .carousel-slide {
-    flex: 0 0 auto;
-    width: 80%; /* Cada slide ocupa 80% del contenedor */
+    flex: 0 0 100%; /* Cada slide ocupa 100% del ancho visible */
+    width: 100%;
     height: 100%;
-    border-radius: 12px;
-    overflow: hidden;
     position: relative;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
-    transition: all 0.3s ease;
-    opacity: 0.7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.3;
     transform: scale(0.9);
+    transition: all 0.5s ease;
 }
 
-/* Slide activo (el central) */
+/* Slide activo (el central) - TOTALMENTE VISIBLE */
 .carousel-slide.active {
     opacity: 1;
     transform: scale(1);
-    box-shadow: 0 15px 40px rgba(156, 39, 176, 0.4);
     z-index: 3;
-    border: 5px solid white;
 }
 
-/* Slide siguiente (a la derecha) */
-.carousel-slide.active + .carousel-slide {
-    opacity: 0.8;
-    transform: scale(0.95) translateX(-10%);
+/* Slides adyacentes (se ven parcialmente) */
+.carousel-slide.prev,
+.carousel-slide.next {
+    opacity: 0.5;
+    transform: scale(0.95);
     z-index: 2;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
 
-/* Slide anterior (a la izquierda) */
-.carousel-slide:has(+ .carousel-slide.active) {
-    opacity: 0.8;
-    transform: scale(0.95) translateX(10%);
-    z-index: 2;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+/* Contenedor de imagen/video - AHORA LLENA TODO EL SLIDE */
+.slide-image-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #000; /* Fondo negro para videos */
+    overflow: hidden;
 }
 
-/* Imagen dentro del slide */
+/* Imagen - USAR cover PARA LLENAR TODO */
 .slide-image {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: cover; /* CAMBIADO: Ahora llena todo el rectángulo */
     display: block;
+    cursor: pointer;
+}
+
+/* Video */
+.slide-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* CAMBIADO: Ahora llena todo el rectángulo */
+    display: block;
+    cursor: pointer;
 }
 
 /* Texto en el slide */
@@ -2364,25 +2374,29 @@ body:has(#popup-simple) {
     right: 0;
     background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
     color: white;
-    padding: 20px 15px 10px;
+    padding: 40px 20px 20px;
     text-align: center;
+    z-index: 5;
 }
 
 .slide-text h4 {
-    margin: 0 0 5px 0;
-    font-size: 0.8rem;
+    margin: 0 0 8px 0;
+    font-size: 1.1rem;
     font-weight: 600;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
 }
 
 .slide-text p {
     margin: 0;
     font-size: 0.9rem;
     opacity: 0.9;
+    max-width: 80%;
+    margin: 0 auto;
+    line-height: 1.4;
 }
 
-/* Controles del carousel */
+/* Botones de navegación */
 .btn-carrusel-horizontal {
-    display:none;
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -2394,7 +2408,7 @@ body:has(#popup-simple) {
     border-radius: 50%;
     cursor: pointer;
     font-size: 1.3rem;
-    display: flex;
+    display: flex !important; /* FORZAR VISIBILIDAD */
     align-items: center;
     justify-content: center;
     transition: all 0.3s ease;
@@ -2409,86 +2423,36 @@ body:has(#popup-simple) {
     box-shadow: 0 6px 20px rgba(156, 39, 176, 0.4);
 }
 
-.btn-carrusel-horizontal.btn-anterior-horizontal {
-    left: 10px;
+.btn-anterior-horizontal {
+    left: 15px;
 }
 
-.btn-carrusel-horizontal.btn-siguiente-horizontal {
-    right: 10px;
+.btn-siguiente-horizontal {
+    right: 15px;
 }
 
-/* Indicador de posición */
-.carousel-position {
+.btn-carrusel-horizontal:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+/* Contador de posición */
+.carousel-counter {
     position: absolute;
     bottom: 15px;
-    left: 50%;
-    transform: translateX(-50%);
+    right: 15px;
     background: rgba(0, 0, 0, 0.7);
     color: white;
-    padding: 8px 15px;
-    border-radius: 20px;
-    font-size: 0.9rem;
-    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 12px;
+    font-size: 0.85rem;
     z-index: 10;
-}
-
-.carousel-position .current-position {
-    color: #9C27B0;
-    font-weight: 700;
-    font-size: 1.1rem;
-}
-
-/* Miniaturas debajo (opcional) */
-.carousel-thumbnails {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    margin-top: 15px;
-    padding: 10px;
-}
-
-.carousel-thumbnail {
-    width: 50px;
-    height: 50px;
-    border-radius: 6px;
-    overflow: hidden;
-    cursor: pointer;
-    opacity: 0.6;
-    transition: all 0.3s ease;
-    border: 2px solid transparent;
-}
-
-.carousel-thumbnail.active {
-    opacity: 1;
-    border-color: #9C27B0;
-    transform: scale(1.1);
-}
-
-.carousel-thumbnail:hover {
-    opacity: 0.8;
-    transform: scale(1.05);
-}
-
-.carousel-thumbnail img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
 }
 
 /* Responsive */
 @media (max-width: 768px) {
     .foto-principal-container-horizontal {
-        height: 300px;
-        padding: 15px;
-    }
-    
-    .carousel-track {
-        gap: 15px;
-        padding: 0 40px;
-    }
-    
-    .carousel-slide {
-        width: 85%;
+        height: 350px;
     }
     
     .btn-carrusel-horizontal {
@@ -2498,32 +2462,25 @@ body:has(#popup-simple) {
     }
     
     .slide-text h4 {
-        font-size: 0.8rem;
+        font-size: 1rem;
     }
     
     .slide-text p {
-        font-size: 0.8rem;
+        font-size: 0.85rem;
     }
 }
 
 @media (max-width: 480px) {
     .foto-principal-container-horizontal {
-        height: 250px;
-        padding: 10px;
+        height: 300px;
     }
     
-    .carousel-track {
-        gap: 10px;
-        padding: 0 35px;
-    }
-    
-    .carousel-slide {
-        width: 90%;
-    }
-    
-    .carousel-position {
-        padding: 6px 12px;
-        font-size: 0.8rem;
+    .btn-carrusel-horizontal {
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
+        left: 10px;
+        right: 10px;
     }
 }
 
@@ -2761,4 +2718,303 @@ body.zoom-activo {
     background: linear-gradient(135deg, #fce4ec, #f8bbd9) !important;
     transform: translateX(5px) !important;
     box-shadow: 0 5px 15px rgba(233, 30, 99, 0.2) !important;
+}
+
+/* Estilos para videos en el carrusel */
+.slide-video {
+    width: 100%;
+    height: 375px;
+    object-fit: cover;
+    border-radius: 10px;
+    background: #000;
+    cursor: pointer;
+}
+
+.slide-video:focus {
+    outline: 2px solid #9C27B0;
+}
+
+@media (max-width: 768px) {
+    .slide-video {
+        height: 280px;
+    }
+}
+
+@media (max-width: 480px) {
+    .slide-video {
+        height: 220px;
+    }
+}
+
+/* Indicador visual para videos (opcional) */
+.carousel-slide[data-tipo="video"] .slide-image-container::before {
+    content: '▶';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3rem;
+    color: white;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    opacity: 0.7;
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* ==================== RESPONSIVE PARA CARRUSEL EN POPUP MÓVIL ==================== */
+
+/* Cuando el carousel está dentro del popup */
+#popup-simple .foto-principal-container-horizontal {
+    height: auto !important;
+    min-height: 300px;
+    max-height: 45vh; /* Máximo 45% de la altura de la pantalla */
+    margin-bottom: 15px !important;
+}
+
+#popup-simple .carousel-track {
+    height: auto !important;
+    min-height: 300px;
+}
+
+#popup-simple .carousel-slide {
+    height: auto !important;
+    min-height: 300px;
+}
+
+#popup-simple .slide-image-container {
+    height: 300px !important;
+    min-height: 250px;
+}
+
+/* Tablets */
+@media (max-width: 1024px) {
+    #popup-simple .foto-principal-container-horizontal {
+        max-height: 50vh;
+    }
+    #popup-simple .slide-image-container {
+        height: 350px !important;
+    }
+}
+
+/* Móviles medianos */
+@media (max-width: 768px) {
+    #popup-simple .foto-principal-container-horizontal {
+        max-height: 45vh;
+        margin: 10px !important;
+        border-radius: 12px !important;
+    }
+    
+    #popup-simple .carousel-slide {
+        min-height: 280px;
+    }
+    
+    #popup-simple .slide-image-container {
+        height: 280px !important;
+    }
+    
+    #popup-simple .btn-carrusel-horizontal {
+        width: 40px !important;
+        height: 40px !important;
+        font-size: 1.1rem !important;
+    }
+    
+    #popup-simple .btn-anterior-horizontal {
+        left: 8px !important;
+    }
+    
+    #popup-simple .btn-siguiente-horizontal {
+        right: 8px !important;
+    }
+    
+    #popup-simple .carousel-counter {
+        bottom: 10px !important;
+        right: 10px !important;
+        padding: 4px 10px !important;
+        font-size: 0.8rem !important;
+    }
+    
+    #popup-simple .slide-text {
+        padding: 30px 15px 15px !important;
+    }
+    
+    #popup-simple .slide-text h4 {
+        font-size: 1rem !important;
+    }
+    
+    #popup-simple .slide-text p {
+        font-size: 0.85rem !important;
+    }
+}
+
+/* Móviles pequeños */
+@media (max-width: 480px) {
+    #popup-simple .foto-principal-container-horizontal {
+        max-height: 40vh;
+        margin: 5px !important;
+        border-radius: 10px !important;
+    }
+    
+    #popup-simple .carousel-slide {
+        min-height: 240px;
+    }
+    
+    #popup-simple .slide-image-container {
+        height: 240px !important;
+    }
+    
+    #popup-simple .btn-carrusel-horizontal {
+        width: 35px !important;
+        height: 35px !important;
+        font-size: 1rem !important;
+    }
+    
+    #popup-simple .btn-anterior-horizontal {
+        left: 5px !important;
+    }
+    
+    #popup-simple .btn-siguiente-horizontal {
+        right: 5px !important;
+    }
+    
+    #popup-simple .carousel-counter {
+        bottom: 8px !important;
+        right: 8px !important;
+        padding: 3px 8px !important;
+        font-size: 0.75rem !important;
+    }
+    
+    #popup-simple .slide-text {
+        padding: 25px 10px 10px !important;
+    }
+    
+    #popup-simple .slide-text h4 {
+        font-size: 0.9rem !important;
+        margin-bottom: 5px !important;
+    }
+    
+    #popup-simple .slide-text p {
+        font-size: 0.8rem !important;
+        max-width: 90% !important;
+    }
+    
+    /* Ajustar botón de descarga en móvil */
+    #popup-simple .btn-descarga-individual {
+        padding: 10px 20px !important;
+        font-size: 0.85rem !important;
+        margin: 15px auto !important;
+    }
+    
+    /* Ajustar mensajes del día */
+    #popup-simple .mensajes-dia {
+        padding: 10px !important;
+        margin-top: 15px !important;
+    }
+    
+    #popup-simple .mensaje-item p {
+        font-size: 0.9rem !important;
+    }
+}
+
+/* Móviles muy pequeños */
+@media (max-width: 360px) {
+    #popup-simple .foto-principal-container-horizontal {
+        max-height: 38vh;
+    }
+    
+    #popup-simple .slide-image-container {
+        height: 220px !important;
+    }
+    
+    #popup-simple .carousel-slide {
+        min-height: 220px;
+    }
+}
+
+/* Asegurar que el popup permita scroll si el contenido es muy largo */
+#popup-simple > div {
+    max-height: 95vh !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Prevenir que el carousel se salga del popup */
+#popup-simple .foto-principal-container-horizontal {
+    width: calc(100% - 20px) !important;
+    margin: 0 10px !important;
+}
+/* ==================== FIX: POSICIÓN DE FLECHAS EN MÓVIL ==================== */
+
+/* Asegurar que las flechas tengan posiciones únicas y no se superpongan */
+#popup-simple .btn-anterior-horizontal {
+    left: 10px !important;
+    right: auto !important;
+    z-index: 20 !important;
+}
+
+#popup-simple .btn-siguiente-horizontal {
+    right: 10px !important;
+    left: auto !important;
+    z-index: 20 !important;
+}
+
+/* Fix específico para móviles - asegurar separación */
+@media (max-width: 768px) {
+    #popup-simple .btn-anterior-horizontal {
+        left: 8px !important;
+        right: auto !important;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+    }
+    
+    #popup-simple .btn-siguiente-horizontal {
+        right: 8px !important;
+        left: auto !important;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+    }
+    
+    /* Asegurar que el contenedor tenga posición relativa para que absolute funcione */
+    #popup-simple .foto-principal-container-horizontal {
+        position: relative !important;
+    }
+}
+
+@media (max-width: 480px) {
+    #popup-simple .btn-anterior-horizontal {
+        left: 5px !important;
+        right: auto !important;
+    }
+    
+    #popup-simple .btn-siguiente-horizontal {
+        right: 5px !important;
+        left: auto !important;
+    }
+    
+    /* Reducir tamaño de botones en pantallas muy pequeñas */
+    #popup-simple .btn-carrusel-horizontal {
+        width: 32px !important;
+        height: 32px !important;
+        font-size: 0.9rem !important;
+    }
+}
+
+/* Fix para evitar que los botones se salgan del contenedor */
+#popup-simple .foto-principal-container-horizontal {
+    overflow: visible !important;
+}
+
+/* Asegurar que los botones estén por encima de las imágenes */
+#popup-simple .btn-carrusel-horizontal {
+    z-index: 25 !important;
+    pointer-events: auto !important;
+}
+/* ==================== FIX: BOTÓN DE DESCARGA SIEMPRE VISIBLE ==================== */
+.btn-descarga-individual {
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+#popup-simple .btn-descarga-individual {
+    display: flex !important;
 }

@@ -11,12 +11,12 @@ const diasEspeciales = {
     fotos: [
       {
         url: "fotos/inicio/inicio.jpg",
-        texto: "¡Nuestro primer día juntos! 💘",
+        texto: "Cuando me llevaste a ver porno",
       },
     ],
     mensajes: [
-      "¡Comenzamos nuestra aventura juntos el 5 de abril de 2025!",
-      "Cada latido de mi corazón te nombra desde este día",
+      "¡Nuestra primera cita! 💘",
+      "El día que empezó nuestra historia ",
     ],
   },
 
@@ -126,154 +126,172 @@ const diasEspeciales = {
   "04-14": {
     tipo: "galeria",
     fotos: [
-      { url: "fotos/04-14/foto1.jpg", texto: "14 de abril radiante" },
-      { url: "fotos/04-14/foto2.jpg", texto: "Sonrisas primaverales" },
-      { url: "fotos/04-14/foto3.jpg", texto: "Momentos dorados" },
-      { url: "fotos/04-14/foto4.jpg", texto: "Amor en floración" },
-      { url: "fotos/04-14/foto5.jpg", texto: "Juntos en primavera" },
+      { url: "fotos/04-14/foto1.jpg", texto: "Combinados hasta sin querer" },
+      { url: "fotos/04-14/foto2.jpg", texto: "Mirar a la cámara nunca ha sido lo mío" },
+      { url: "fotos/04-14/foto3.jpg", texto: "Linda noche" },
+      { url: "fotos/04-14/foto4.jpg", texto: "La pizza de helado" },
+      { url: "fotos/04-14/foto5.jpg", texto: "Nunca voy a olvidar ese olor" },
     ],
-    mensajes: ["La primavera llega con tu sonrisa"],
+    videos: [
+      {
+      url: "fotos/04-14/video1.MP4",
+      miniatura: "fotos/04-14/foto1.jpg",
+      texto: "fotos/04-14/foto1.jpg"
+      },
+    ],
+    mensajes: [
+      "Nuestro primer beso",
+      "Toda la noche para que pasara lo inevitable al final",
+      "Nunca vamos a saber como nos despedimos ese día",
+      "Ese día bautizamos nuestro banco y nuestro lugar"
+    ],
   },
 
   "04-20": {
     tipo: "galeria",
     fotos: [
-      { url: "fotos/04-20/foto1.jpg", texto: "20 de abril especial" },
-      { url: "fotos/04-20/foto2.jpg", texto: "Risas primaverales" },
-      { url: "fotos/04-20/foto3.jpg", texto: "Momentos únicos" },
-      { url: "fotos/04-20/foto4.jpg", texto: "Complicidad perfecta" },
-      { url: "fotos/04-20/foto5.jpg", texto: "Sonrisas contagiosas" },
-      { url: "fotos/04-20/foto6.jpg", texto: "Abrazos que curan" },
-      { url: "fotos/04-20/foto7.jpg", texto: "Amor en cada instante" },
+      { url: "fotos/04-20/foto1.jpg", texto: "Mándame la ubi y te llego" },
+      { url: "fotos/04-20/foto2.jpg", texto: "Es aquí?" },
+      { url: "fotos/04-20/foto3.jpg", texto: "Y esos muslones?" },
+      { url: "fotos/04-20/foto4.jpg", texto: "Se nota que la tiró mi móvil" },
+      { url: "fotos/04-20/foto5.jpg", texto: "Que bellos" },
+      { url: "fotos/04-20/foto6.jpg", texto: "Mira esa carita" },
+      { url: "fotos/04-20/foto7.jpg", texto: "Tenía un poco de coriza" },
     ],
-    mensajes: ["7 días de abril, 7 fotos de felicidad"],
+    mensajes: ["Mi primera vez en tu casa"],
   },
 
   "04-24": {
     tipo: "galeria",
-    fotos: [{ url: "fotos/04-24/foto1.jpg", texto: "24 de abril inolvidable" }],
-    mensajes: ["Un día especial a tu lado"],
+    fotos: [{ url: "fotos/04-24/foto1.jpg", texto: "En las escaleras..." }],
+    mensajes: ["Cuando iba a verte a la UH"],
   },
 
   "04-30": {
     tipo: "galeria",
     fotos: [
-      { url: "fotos/04-30/foto1.jpg", texto: "Último día de abril" },
-      { url: "fotos/04-30/foto2.jpg", texto: "Despidiendo el mes juntos" },
+      { url: "fotos/04-30/foto1.jpg", texto: "Cuando empecé a darte las mieles" },
+      { url: "fotos/04-30/foto2.jpg", texto: "No ganamos un play" },
     ],
-    mensajes: ["Cerrando abril con amor"],
+    mensajes: ["Domineta en la casa FEU"],
   },
 
   // Mayo
   "05-05": {
     tipo: "galeria",
-    fotos: [{ url: "fotos/05-05/foto1.jpg", texto: "5 de mayo especial" }],
-    mensajes: ["Mayo comienza con tu sonrisa"],
+    fotos: [{ url: "fotos/05-05/foto1.jpg", texto: "Las mejores" }],
+    mensajes: ["Las BBQ siempre serán las mejores"],
   },
 
   "05-06": {
     tipo: "galeria",
-    fotos: [{ url: "fotos/05-06/foto1.jpg", texto: "6 de mayo mágico" }],
-    mensajes: ["Cada día es mejor contigo"],
+    fotos: [{ url: "fotos/05-06/foto1.jpg", texto: "Que lindo el buki" }],
+    mensajes: ["Cuando empezaste a venir  mi casa"],
   },
 
   "05-07": {
     tipo: "galeria",
-    fotos: [{ url: "fotos/05-07/foto1.jpg", texto: "7 de mayo inolvidable" }],
-    mensajes: ["La suerte de amarte cada día"],
+    fotos: [{ url: "fotos/05-07/foto1.jpg", texto: "ups nos cogieron" }],
+    mensajes: ["Cuando ibas a verme a la CUJAE"],
   },
 
   "05-16": {
     tipo: "galeria",
     fotos: [
-      { url: "fotos/05-16/foto1.jpg", texto: "16 de mayo perfecto" },
-      { url: "fotos/05-16/foto2.jpg", texto: "Risas compartidas" },
-      { url: "fotos/05-16/foto3.jpg", texto: "Momentos especiales" },
+      { url: "fotos/05-16/foto1.jpg", texto: "Lindo atardecer" },
+      { url: "fotos/05-16/foto2.jpg", texto: "El más risueño" },
+      { url: "fotos/05-16/foto3.jpg", texto: "MUAKKK" },
     ],
-    mensajes: ["3 días de mayo, 3 razones para sonreír"],
+    mensajes: [
+      "Cuando empezamos algo que sería costumbre",
+      "Nuestro primer beso captado en cámaras",
+
+    ],
   },
 
   "05-17": {
     tipo: "galeria",
-    fotos: [{ url: "fotos/05-17/foto1.jpg", texto: "17 de mayo feliz" }],
-    mensajes: ["Un sábado perfecto contigo"],
+    fotos: [{ url: "fotos/05-17/foto1.jpg", texto: "Pruebas de que tení razón" }],
+    mensajes: ["Tú como siempre porfiándome todo"],
   },
 
   "05-18": {
     tipo: "galeria",
     fotos: [
-      { url: "fotos/05-18/foto1.jpg", texto: "18 de mayo especial" },
-      { url: "fotos/05-18/foto2.jpg", texto: "Domingo de amor" },
-      { url: "fotos/05-18/foto3.jpg", texto: "Sonrisas eternas" },
-      { url: "fotos/05-18/foto4.jpg", texto: "Abrazos que curan" },
-      { url: "fotos/05-18/foto5.jpg", texto: "Miradas cómplices" },
-      { url: "fotos/05-18/foto6.jpg", texto: "Risas compartidas" },
-      { url: "fotos/05-18/foto7.jpg", texto: "Momentos únicos" },
-      { url: "fotos/05-18/foto8.jpg", texto: "Complicidad total" },
+      { url: "fotos/05-18/foto1.jpg", texto: "Siempre parece que me violas" },
+      { url: "fotos/05-18/foto2.jpg", texto: "Mi cara dice más que 1000 palabras" },
+      { url: "fotos/05-18/foto3.jpg", texto: "Que lindos" },
+      { url: "fotos/05-18/foto4.jpg", texto: "Que parejita se estaba formando" },
+      { url: "fotos/05-18/foto5.jpg", texto: "Malecón" },
+      { url: "fotos/05-18/foto6.jpg", texto: "¡Deja de agarrarme la cara!" },
+      { url: "fotos/05-18/foto7.jpg", texto: "Ni tan bueno estaba" },
+      { url: "fotos/05-18/foto8.jpg", texto: "Bellos" },
     ],
-    mensajes: ["8 fotos, 8 momentos de felicidad"],
+    mensajes: ["Kanda"],
   },
 
   "05-19": {
     tipo: "galeria",
-    fotos: [{ url: "fotos/05-19/foto1.jpg", texto: "19 de mayo inolvidable" }],
-    mensajes: ["Lunes de amor contigo"],
+    fotos: [{ url: "fotos/05-19/foto1.jpg", texto: "La 1ra de muchas" }],
+    mensajes: ["Esos vendedores del malecónnnn"],
   },
 
   "05-22": {
     tipo: "galeria",
     fotos: [
-      { url: "fotos/05-22/foto1.jpg", texto: "22 de mayo especial" },
-      { url: "fotos/05-22/foto2.jpg", texto: "Jueves perfecto" },
+      { url: "fotos/05-22/foto1.jpg", texto: "Porfiando" },
+      { url: "fotos/05-22/foto2.jpg", texto: "La jeringuilla" },
     ],
-    mensajes: ["2 días, 2 fotos, mucho amor"],
+    mensajes: ["Llevándome la contraria como siempre"],
   },
 
   "05-23": {
     tipo: "galeria",
     fotos: [
-      { url: "fotos/05-23/foto1.jpg", texto: "23 de mayo feliz" },
-      { url: "fotos/05-23/foto2.jpg", texto: "Viernes de aventuras" },
-      { url: "fotos/05-23/foto3.jpg", texto: "Sonrisas eternas" },
-      { url: "fotos/05-23/foto4.jpg", texto: "Momentos únicos" },
+      { url: "fotos/05-23/foto1.jpg", texto: "Gin&Sangría" },
+      { url: "fotos/05-23/foto2.jpg", texto: "Que fotazas tira mi novia" },
+      { url: "fotos/05-23/foto3.jpg", texto: "Fresa&Chocolate" },
+      { url: "fotos/05-23/foto4.jpg", texto: "Carla&Adrián" },
     ],
-    mensajes: ["4 fotos para un viernes perfecto"],
+    mensajes: ["Salidita pija"],
   },
 
   "05-24": {
     tipo: "galeria",
     fotos: [
-      { url: "fotos/05-24/foto1.jpg", texto: "24 de mayo especial" },
-      { url: "fotos/05-24/foto2.jpg", texto: "Sábado perfecto" },
-      { url: "fotos/05-24/foto3.jpg", texto: "Risas compartidas" },
-      { url: "fotos/05-24/foto4.jpg", texto: "Complicidad única" },
+      { url: "fotos/05-24/foto1.jpg", texto: "1ra y 70" },
+      { url: "fotos/05-24/foto2.jpg", texto: "Food Truck" },
+      { url: "fotos/05-24/foto3.jpg", texto: "Estaban buenas las bolitas" },
+      { url: "fotos/05-24/foto4.jpg", texto: "rico rico" },
     ],
-    mensajes: ["4 sábados, 4 fotos de felicidad"],
+    mensajes: ["Pelegrín"],
   },
 
   "05-27": {
     tipo: "galeria",
-    fotos: [{ url: "fotos/05-27/foto1.jpg", texto: "27 de mayo inolvidable" }],
-    mensajes: ["Martes de amor"],
+    fotos: [{ url: "fotos/05-27/foto1.jpg", texto: "Se supone que ese era yo" }],
+    mensajes: ["Ya estabas Fritiqui"],
   },
 
   "05-30": {
     tipo: "galeria",
-    fotos: [{ url: "fotos/05-30/foto1.jpg", texto: "30 de mayo especial" }],
-    mensajes: ["Viernes perfecto"],
+    fotos: [{ url: "fotos/05-30/foto1.jpg", texto: "Cuando te llevaste mi vicio" }],
+    mensajes: ["Mi vicio antes de que fueras tú"],
   },
 
   "05-31": {
     tipo: "galeria",
     fotos: [
-      { url: "fotos/05-31/foto1.jpg", texto: "Último día de mayo" },
-      { url: "fotos/05-31/foto2.jpg", texto: "Sábado perfecto" },
-      { url: "fotos/05-31/foto3.jpg", texto: "Sonrisas eternas" },
-      { url: "fotos/05-31/foto4.jpg", texto: "Risas compartidas" },
-      { url: "fotos/05-31/foto5.jpg", texto: "Abrazos que curan" },
-      { url: "fotos/05-31/foto6.jpg", texto: "Momentos únicos" },
+      { url: "fotos/05-31/foto1.jpg", texto: "Fotaza" },
+      { url: "fotos/05-31/foto2.jpg", texto: "Que rica estaba la comida" },
+      { url: "fotos/05-31/foto3.jpg", texto: "Un titii" },
+      { url: "fotos/05-31/foto4.jpg", texto: "tacoss" },
+      { url: "fotos/05-31/foto5.jpg", texto: "Que linda mi pochi" },
+      { url: "fotos/05-31/foto6.jpg", texto: "Ya aquí tiraba buenas fotos" },
     ],
-    mensajes: ["Despidiendo mayo con 6 fotos de amor"],
+    mensajes: ["El fortuna",
+      "La Habana",
+    ],
   },
 
   // Junio

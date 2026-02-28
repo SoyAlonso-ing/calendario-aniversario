@@ -284,6 +284,7 @@ function mostrarContenidoAjustado(numeroDia, fecha) {
     let tieneFotos = false;
     let fotosArray = [];
     let mensajesArray = [];
+    let videosArray = [];
     
     // ==================== 1. PRIMERO VERIFICAR SI ES EL ANIVERSARIO (2026-04-05) ====================
     if (dia === 5 && mes === 3 && año === 2026) {
@@ -294,11 +295,13 @@ function mostrarContenidoAjustado(numeroDia, fecha) {
                              window.datosConfig.diasEspeciales[fechaKey];
         }
         
+        
         // Configurar para galería
         if (datoAniversario && datoAniversario.tipo === "galeria") {
             tieneFotos = true;
             fotosArray = datoAniversario.fotos || [];
             mensajesArray = datoAniversario.mensajes || [];
+            videosArray = datoAniversario.videos || [];
         } else if (datoAniversario && datoAniversario.tipo === "foto") {
             // Compatibilidad con datos antiguos
             tieneFotos = true;
@@ -311,7 +314,7 @@ function mostrarContenidoAjustado(numeroDia, fecha) {
         
         // HTML especial para aniversario
         if (tieneFotos && fotosArray.length > 0) {
-            contenidoHTML = crearHTMLGaleria(numeroDia, fecha, fotosArray, mensajesArray, true);
+            contenidoHTML = crearHTMLGaleria(numeroDia, fecha, fotosArray, mensajesArray,videosArray, true);
         } else {
             contenidoHTML = `
                 <h2 style="color: #9C27B0; margin-bottom: 15px; font-family: 'Poppins', sans-serif; font-size: 1.6rem; text-align: center; font-weight: 700;">
@@ -340,16 +343,19 @@ function mostrarContenidoAjustado(numeroDia, fecha) {
     // ==================== 2. VERIFICAR SI ES DÍA DE INICIO (2025-04-05) ====================
     else if (dia === 5 && mes === 3 && año === 2025) {
         let datoInicio = null;
+         let videosArray = [];
         if (window.datosConfig && window.datosConfig.diasEspeciales) {
             datoInicio = window.datosConfig.diasEspeciales[fechaKeyConAnio] || 
                         window.datosConfig.diasEspeciales[fechaKey];
         }
+        
         
         // Configurar para galería
         if (datoInicio && datoInicio.tipo === "galeria") {
             tieneFotos = true;
             fotosArray = datoInicio.fotos || [];
             mensajesArray = datoInicio.mensajes || [];
+            videosArray = datoInicio.videos || [];
         } else if (datoInicio && datoInicio.tipo === "foto") {
             // Compatibilidad con datos antiguos
             tieneFotos = true;
@@ -362,7 +368,7 @@ function mostrarContenidoAjustado(numeroDia, fecha) {
         
         // HTML para día de inicio con galería
         if (tieneFotos && fotosArray.length > 0) {
-            contenidoHTML = crearHTMLGaleria(numeroDia, fecha, fotosArray, mensajesArray, false);
+            contenidoHTML = crearHTMLGaleria(numeroDia, fecha, fotosArray, mensajesArray, videosArray, false);
         } else {
             const titulo = `Día ${numeroDia} - ${dia} de ${MESES[mes]} ${año}`;
             contenidoHTML = `
@@ -389,11 +395,13 @@ function mostrarContenidoAjustado(numeroDia, fecha) {
                     window.datosConfig.diasEspeciales[fechaKey];
         
         if (dato) {
+            let videosArray = [];
             // Configurar para galería
             if (dato.tipo === "galeria") {
                 tieneFotos = true;
                 fotosArray = dato.fotos || [];
                 mensajesArray = dato.mensajes || [];
+              videosArray = dato.videos || [];
             } else if (dato.tipo === "foto") {
                 // Compatibilidad con datos antiguos
                 tieneFotos = true;
@@ -422,7 +430,7 @@ function mostrarContenidoAjustado(numeroDia, fecha) {
             
             // Si tiene fotos, crear galería
             if (tieneFotos && fotosArray.length > 0) {
-                contenidoHTML = crearHTMLGaleria(numeroDia, fecha, fotosArray, mensajesArray, false);
+                contenidoHTML = crearHTMLGaleria(numeroDia, fecha, fotosArray, mensajesArray, videosArray, false);
                 lanzarEfectosEspeciales();
             }
         }
@@ -493,131 +501,109 @@ function cerrarPopupFavoritos() {
     cerrarPopup(); // Usar la función normal
 }
 
-// ==================== FUNCIÓN PARA CREAR HTML DE GALERÍA (CORREGIDA) ====================
-function crearHTMLGaleria(numeroDia, fecha, fotosArray, mensajesArray, esAniversario = false) {
+function crearHTMLGaleria(numeroDia, fecha, fotosArray, mensajesArray, videosArray = [], esAniversario = false) {
     const mes = fecha.getMonth();
     const dia = fecha.getDate();
     const año = fecha.getFullYear();
-    
     const titulo = `Día ${numeroDia} - ${dia} de ${MESES[mes]} ${año}`;
-    const totalFotos = fotosArray.length;
-    
+
+    // Combinar fotos y videos en un solo array multimedia con tipo
+    const multimediaArray = [
+        ...fotosArray.map(foto => ({ ...foto, tipo: 'imagen' })),
+        ...videosArray.map(video => ({ ...video, tipo: 'video' }))
+    ];
+
+    const totalElementos = multimediaArray.length;
+
     // Título especial para aniversario
     const tituloEspecial = esAniversario ? 
         `<h2 style="color: #9C27B0; margin-bottom: 10px; font-family: 'Poppins', sans-serif; font-size: 1.6rem; text-align: center; font-weight: 700;">
             ¡FELIZ PRIMER ANIVERSARIO! 🎉
-        </h2>
-        <h3 style="color: #7B1FA2; margin-bottom: 15px; font-size: 1.3rem; text-align: center;">${titulo}</h3>` :
+         </h2>
+         <h3 style="color: #7B1FA2; margin-bottom: 15px; font-size: 1.3rem; text-align: center;">${titulo}</h3>` :
         `<h2 style="color: #9C27B0; margin-bottom: 15px; font-family: 'Poppins', sans-serif; font-size: 1.6rem; text-align: center; font-weight: 700;">
             ${titulo}
-        </h2>`;
-    
+         </h2>`;
+
     return `${tituloEspecial}
-    
-<div class="contenedor-galeria">
-    <!-- Carrusel Horizontal -->
-    <div class="foto-principal-container-horizontal" data-fotos='${JSON.stringify(fotosArray)}' data-total="${totalFotos}">
-        <!-- Contenedor de todas las fotos -->
-        <div class="carousel-track" style="transform: translateX(0%);">
-            ${fotosArray.map((foto, index) => `
-                <div class="carousel-slide ${index === 0 ? 'active' : ''}" data-index="${index}">
-                    <div class="slide-image-container">
-                        <img src="${foto.url}" 
-                             alt="${foto.texto}" 
-                             class="slide-image"
-                             onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"500\" height=\"375\" viewBox=\"0 0 500 375\"><rect width=\"500\" height=\"375\" fill=\"%239C27B0\"/><text x=\"250\" y=\"150\" font-family=\"Arial\" font-size=\"24\" text-anchor=\"middle\" fill=\"white\" dy=\".3em\">${foto.texto || 'Nuestra foto'}</text><text x=\"250\" y=\"200\" font-family=\"Arial\" font-size=\"14\" text-anchor=\"middle\" fill=\"white\" dy=\".3em\">Foto ${index + 1}/${totalFotos}</text></svg>'">
+        <div class="foto-principal-container-horizontal" data-multimedia='${JSON.stringify(multimediaArray)}'>
+            <div class="carousel-track">
+                ${multimediaArray.map((item, index) => `
+                    <div class="carousel-slide ${index === 0 ? 'active' : ''}">
+                        <div class="slide-image-container">
+                            ${item.tipo === 'imagen' ? `
+                                <img src="${item.url}" 
+                                     alt="${item.texto || 'Nuestro recuerdo'}" 
+                                     class="slide-image"
+                                     loading="lazy">
+                            ` : `
+                                <video src="${item.url}" 
+                                       class="slide-video" 
+                                       controls 
+                                       preload="metadata">
+                                    Tu navegador no soporta el elemento de video.
+                                </video>
+                            `}
+                        </div>
+                        <div class="slide-text">
+                            <h4>${item.texto || (item.tipo === 'imagen' ? 'Nuestra foto' : 'Nuestro video')}</h4>
+                            ${item.descripcion ? `<p>${item.descripcion}</p>` : ''}
+                        </div>
                     </div>
-                    <div class="slide-text">
-                        <h4>${foto.texto || 'Nuestra foto'}</h4>
-                        ${foto.descripcion ? `<p>${foto.descripcion}</p>` : ''}
+                `).join('')}
+            </div>
+            
+            <!-- Botones de navegación -->
+            <button class="btn-carrusel-horizontal btn-anterior-horizontal">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="btn-carrusel-horizontal btn-siguiente-horizontal">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+            
+            <!-- Contador de posición -->
+            <div class="carousel-counter">
+                <span class="current-slide">1</span>
+                <span class="total-slides"> / ${totalElementos}</span>
+            </div>
+        </div>
+
+<!-- BOTÓN DE DESCARGA (para imágenes y videos) -->
+<button class="btn-descarga-individual" 
+        style="
+            margin: 20px auto;
+            background: linear-gradient(135deg, #4CAF50, #2E7D32);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: fit-content;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        ">
+    <i class="fas fa-download"></i>
+    <span class="btn-descarga-texto">Descargando...</span>
+</button>
+
+        <!-- Mensajes del día -->
+        ${mensajesArray && mensajesArray.length > 0 ? `
+            <div class="mensajes-dia">
+                ${mensajesArray.map(msg => `
+                    <div class="mensaje-item">
+                        <i class="fas fa-heart"></i>
+                        <p>${msg}</p>
                     </div>
-                </div>
-            `).join('')}
-        </div>
-        
-        <!-- Controles del carrusel -->
-        <button class="btn-carrusel-horizontal btn-anterior-horizontal">
-            <i class="fas fa-chevron-left"></i>
-        </button>
-        <button class="btn-carrusel-horizontal btn-siguiente-horizontal">
-            <i class="fas fa-chevron-right"></i>
-        </button>
-        
-        <!-- Contador de posición -->
-        <div class="carousel-counter">
-            <span class="current-slide">1</span>
-            <span class="total-slides"> / ${totalFotos}</span>
-        </div>
-    </div>
-    
-    <!-- BOTÓN DE DESCARGA INDIVIDUAL (CORREGIDO) -->
-    <button class="btn-descarga-individual" 
-            style="
-                margin-top: 20px;
-                background: linear-gradient(135deg, #4CAF50, #2E7D32);
-                color: white;
-                border: none;
-                padding: 12px 24px;
-                border-radius: 25px;
-                cursor: pointer;
-                font-weight: bold;
-                font-size: 0.9rem;
-                transition: all 0.3s ease;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                gap: 10px;
-                width: 100%;
-                max-width: 300px;
-                margin-left: auto;
-                margin-right: auto;
-                box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
-            ">
-        <i class="fas fa-download"></i>
-        Descargar esta foto (1/${totalFotos})
-    </button>
-    
-    ${totalFotos > 1 ? `
-        <!-- Opcional: Botón para descargar todas las fotos -->
-        <button class="btn-descarga-multiple" 
-                style="
-                    margin-top: 10px;
-                    background: linear-gradient(135deg, #9C27B0, #7B1FA2);
-                    color: white;
-                    border: none;
-                    padding: 10px 20px;
-                    border-radius: 20px;
-                    cursor: pointer;
-                    font-size: 0.85rem;
-                    font-weight:bold;
-                    transition: all 0.3s ease;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    gap: 8px;
-                    width: 100%;
-                    max-width: 250px;
-                    margin-left: auto;
-                    margin-right: auto;
-                    opacity: 0.8;
-                ">
-            <i class="fas fa-download"></i>
-            Descargar todas las fotos (${totalFotos})
-        </button>
-    ` : ''}
-    
-    <!-- Mensajes del día -->
-    ${mensajesArray && mensajesArray.length > 0 ? `
-        <div class="mensajes-dia">
-            ${mensajesArray.map(msg => `
-                <div class="mensaje-item">
-                    <i class="fas fa-heart"></i>
-                    <p>${msg}</p>
-                </div>
-            `).join('')}
-        </div>
-    ` : ''}
-</div>`;
+                `).join('')}
+            </div>
+        ` : ''}
+    `;
 }
 
 // ==================== FUNCIONES AUXILIARES PARA CONFETI Y EFECTOS ====================
@@ -695,14 +681,14 @@ function lanzarEfectosEspeciales() {
 }
 
 // ==================== FUNCIÓN PARA GENERAR NOMBRE DE DESCARGA ====================
-function generarNombreDescarga(fecha, texto) {
+function generarNombreDescarga(fecha, texto, tipo = 'imagen') {
     const dia = fecha.getDate().toString().padStart(2, '0');
     const mes = (fecha.getMonth() + 1).toString().padStart(2, '0');
     const año = fecha.getFullYear();
     
     // Crear un nombre de archivo seguro
     let nombreBase = `nuestro-dia-${dia}-${mes}-${año}`;
-    
+
     // Si hay texto, agregar palabras clave (máximo 3 palabras)
     if (texto && texto.length > 0) {
         const palabras = texto.split(' ').slice(0, 3);
@@ -714,8 +700,10 @@ function generarNombreDescarga(fecha, texto) {
             nombreBase += '-' + palabrasSeguras.join('-');
         }
     }
-    
-    return `${nombreBase}.jpg`;
+
+    // CAMBIO: Extensión diferente para foto vs video
+    const extension = tipo === 'video' ? '.mp4' : '.jpg';
+    return `${nombreBase}${extension}`;
 }
 
 // ==================== FUNCIÓN PARA DESCARGAR FOTOS ====================
@@ -763,30 +751,58 @@ function descargarFoto(urlFoto, nombreArchivo = 'foto-especial.jpg') {
     }, 3000);
 }
 
-// ==================== FUNCIÓN PARA MOSTRAR POPUP CON OPCIÓN DE DESCARGA ====================
-// ==================== FUNCIÓN MODIFICADA PARA MOSTRAR POPUP ====================
-function mostrarPopupContenido(contenidoHTML, tieneFoto = false, fotosArray = [], fecha = null, esFavoritos = false) {
+// ==================== FUNCIÓN PARA DESCARGAR VIDEOS ====================
+function descargarVideo(urlVideo, nombreArchivo = 'video-especial.mp4') {
+    console.log(`📥 Intentando descargar video: ${urlVideo} como ${nombreArchivo}`);
     
-    // Guardar posición del scroll ANTES de bloquear
+    mostrarNotificacion('Preparando descarga del video...', 'info');
+
+    const link = document.createElement('a');
+    link.href = urlVideo;
+    link.download = nombreArchivo;
+    link.target = '_blank';
+    link.setAttribute('download', nombreArchivo);
+
+    if (typeof link.download === 'undefined') {
+        link.target = '_blank';
+        mostrarNotificacion('El video se abrirá en una nueva pestaña. Mantén presionado para guardarlo.', 'info');
+    }
+
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    setTimeout(() => {
+        mostrarNotificacion('¡Video descargado! 🎬', 'success');
+        console.log(`✅ Descarga de video iniciada: ${nombreArchivo}`);
+    }, 500);
+
+    setTimeout(() => {
+        const esMovil = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        if (esMovil) {
+            mostrarNotificacion('Si no se descargó, mantén presionado el video y selecciona "Guardar video"', 'info');
+        }
+    }, 3000);
+}
+
+// ==================== FUNCIÓN PARA MOSTRAR POPUP - VERSIÓN RESPONSIVE ====================
+function mostrarPopupContenido(contenidoHTML, tieneFoto = false, fotosArray = [], fecha = null, esFavoritos = false) {
+    // Guardar posición del scroll
     scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
     isPopupOpen = true;
-    
-    // Guardar la posición como atributo para restaurarla
     document.body.setAttribute('data-scroll-pos', scrollPosition);
-    
-    // Bloquear scroll de manera más efectiva
+
+    // Bloquear scroll de manera efectiva
     document.body.style.position = 'fixed';
     document.body.style.top = `-${scrollPosition}px`;
     document.body.style.width = '100%';
     document.body.style.overflow = 'hidden';
-    
+
     // Cerrar popup anterior si existe
     const popupAnterior = document.getElementById('popup-simple');
-    if (popupAnterior) {
-        popupAnterior.remove();
-    }
-    
-    // Determinar si mostrar botón de cerrar
+    if (popupAnterior) popupAnterior.remove();
+
+    // Botón de cerrar
     let botonCerrarHTML = '';
     if (!esFavoritos) {
         botonCerrarHTML = `
@@ -807,8 +823,8 @@ function mostrarPopupContenido(contenidoHTML, tieneFoto = false, fotosArray = []
             </button>
         `;
     }
-    
-    // Crear nuevo popup
+
+    // Crear popup con estructura responsive
     const popup = document.createElement('div');
     popup.id = 'popup-simple';
     popup.style.cssText = `
@@ -823,8 +839,9 @@ function mostrarPopupContenido(contenidoHTML, tieneFoto = false, fotosArray = []
         animation: fadeIn 0.3s ease;
         overflow: hidden;
         padding: 10px;
+        box-sizing: border-box;
     `;
-    
+
     popup.innerHTML = `
         <div style="
             background: white;
@@ -832,286 +849,383 @@ function mostrarPopupContenido(contenidoHTML, tieneFoto = false, fotosArray = []
             border-radius: 15px;
             max-width: 550px;
             width: 95%;
-            max-height: 85vh;
+            max-height: 95vh;
             overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
             text-align: center;
             position: relative;
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
             animation: slideUp 0.4s ease;
+            box-sizing: border-box;
         " id="contenedor-popup">
             ${contenidoHTML}
             ${botonCerrarHTML}
         </div>
         
         <style>
-            @keyframes fadeIn {
-                from { opacity: 0; }
-                to { opacity: 1; }
-            }
-            @keyframes slideUp {
-                from { opacity: 0; transform: translateY(20px); }
-                to { opacity: 1; transform: translateY(0); }
-            }
+            @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+            @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
             
-            /* Estilos para la imagen con efecto hover y zoom */
-            .imagen-popup {
-                transition: transform 0.3s ease, box-shadow 0.3s ease;
-                cursor: pointer;
-            }
+            /* Scroll suave dentro del popup */
+            #contenedor-popup::-webkit-scrollbar { width: 6px; }
+            #contenedor-popup::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 3px; }
+            #contenedor-popup::-webkit-scrollbar-thumb { background: #9C27B0; border-radius: 3px; }
             
-            .imagen-popup:hover {
-                transform: scale(1.02);
-                box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-            }
-            
-            .imagen-popup.zoom {
-                transform: scale(1.4);
-                z-index: 1001;
-                position: relative;
-                box-shadow: 0 15px 40px rgba(0,0,0,0.35);
-            }
-            
-            /* Prevenir scroll del body cuando el popup está abierto */
-            body.popup-abierto {
-                overflow: hidden;
+            /* Asegurar que las imágenes no se desborden */
+            #contenedor-popup img, 
+            #contenedor-popup video {
+                max-width: 100%;
+                height: auto;
+                display: block;
             }
         </style>
     `;
-    
-    // Agregar el popup al body y prevenir scroll
+
     document.body.classList.add('popup-abierto');
     document.body.appendChild(popup);
-    
-    // Marcar si es popup de favoritos
+
     if (esFavoritos) {
         popup.setAttribute('data-es-favoritos', 'true');
     }
 
-    // DESPUÉS de agregar al DOM, buscar el contenedor-galeria y agregar data-fecha
+    // Configurar carousel DESPUÉS de que el DOM esté listo
     setTimeout(() => {
         const contenedorGaleria = popup.querySelector('.contenedor-galeria');
         if (contenedorGaleria && fecha) {
             contenedorGaleria.setAttribute('data-fecha', fecha.toISOString());
         }
         
-        // Configurar el carrusel después de que se renderice
         const carouselContainer = popup.querySelector('.foto-principal-container-horizontal');
         if (carouselContainer) {
-            const fotosData = JSON.parse(carouselContainer.getAttribute('data-fotos') || '[]');
-            configurarCarouselHorizontal(carouselContainer, fotosData);
+            const multimediaData = JSON.parse(carouselContainer.getAttribute('data-multimedia') || '[]');
+            configurarCarouselHorizontal(carouselContainer, multimediaData);
+            
+            // FORZAR recálculo de dimensiones para móvil
+            if (window.innerWidth <= 768) {
+                setTimeout(() => {
+                    window.dispatchEvent(new Event('resize'));
+                }, 100);
+            }
         }
-    }, 50);
+    }, 100);
 }
-// ==================== CONFIGURAR CAROUSEL HORIZONTAL (VERSIÓN CORREGIDA) ====================
-function configurarCarouselHorizontal(contenedorCarousel, fotosArray) {
-    if (!contenedorCarousel || !fotosArray.length) return;
+// ==================== CONFIGURAR CAROUSEL HORIZONTAL - VERSIÓN CORREGIDA ====================
+function configurarCarouselHorizontal(contenedorCarousel, multimediaArray) {
+    if (!contenedorCarousel || !multimediaArray.length) return;
     
-    // Obtener los botones DEL CONTENEDOR DE LA GALERÍA
-    const contenedorGaleria = contenedorCarousel.closest('.contenedor-galeria');
-    const btnDescargaIndividual = contenedorGaleria.querySelector('.btn-descarga-individual');
-    const btnDescargaMultiple = contenedorGaleria.querySelector('.btn-descarga-multiple');
+    console.log("🎠 Configurando carrusel horizontal con", multimediaArray.length, "elementos");
     
+    // Obtener elementos del DOM
     const track = contenedorCarousel.querySelector('.carousel-track');
     const slides = contenedorCarousel.querySelectorAll('.carousel-slide');
     const btnAnterior = contenedorCarousel.querySelector('.btn-anterior-horizontal');
     const btnSiguiente = contenedorCarousel.querySelector('.btn-siguiente-horizontal');
     const currentSlideElement = contenedorCarousel.querySelector('.current-slide');
-    const totalSlidesElement = contenedorCarousel.querySelector('.total-slides');
+  const popup = document.getElementById('popup-simple');
+    const btnDescargaIndividual = popup ? popup.querySelector('.btn-descarga-individual') : null;
     
+    const contenedorGaleria = contenedorCarousel.closest('.contenedor-galeria');
+
     let slideActual = 0;
     const totalSlides = slides.length;
-    const slideWidth = 65; // Porcentaje que ocupa cada slide
-    
-    // Función para actualizar botones de descarga
-    function actualizarBotonesDescarga() {
-        // Obtener fecha para el nombre del archivo
-        const fechaAttr = contenedorGaleria.getAttribute('data-fecha');
-        const fecha = fechaAttr ? new Date(fechaAttr) : new Date();
-        
-        // Actualizar botón de descarga INDIVIDUAL
-        if (btnDescargaIndividual) {
-            const fotoActual = fotosArray[slideActual];
-            
-            // Configurar evento de clic
-            btnDescargaIndividual.onclick = function() {
-                const nombreArchivo = generarNombreDescarga(fecha, fotoActual.texto || '');
-                descargarFoto(fotoActual.url, nombreArchivo);
-            };
-            
-            // Actualizar texto del botón
-            btnDescargaIndividual.innerHTML = `
-                <i class="fas fa-download"></i>
-                Descargar esta foto (${slideActual + 1}/${totalSlides})
-            `;
-            
-            // Efecto visual al pasar el mouse
-            btnDescargaIndividual.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-2px)';
-                this.style.boxShadow = '0 6px 20px rgba(76, 175, 80, 0.4)';
-            });
-            
-            btnDescargaIndividual.addEventListener('mouseleave', function() {
-                this.style.transform = '';
-                this.style.boxShadow = '0 4px 15px rgba(76, 175, 80, 0.3)';
-            });
-        }
-        
-        // Actualizar botón de descarga MÚLTIPLE (si existe)
-        if (btnDescargaMultiple && totalSlides > 1) {
-            btnDescargaMultiple.onclick = function() {
-                const urls = fotosArray.map(foto => foto.url);
-                const nombres = fotosArray.map((foto, index) => 
-                    generarNombreDescarga(fecha, foto.texto || `Foto ${index + 1}`)
-                );
-                
-                // Descargar todas las fotos
-                mostrarNotificacion(`Descargando ${totalSlides} fotos...`, 'info');
-                
-                urls.forEach((url, index) => {
-                    setTimeout(() => {
-                        descargarFoto(url, nombres[index]);
-                    }, index * 800); // Espaciado para evitar bloqueos
-                });
-            };
-            
-            // Efecto visual para el botón múltiple
-            btnDescargaMultiple.addEventListener('mouseenter', function() {
-                this.style.opacity = '1';
-                this.style.transform = 'translateY(-2px)';
-            });
-            
-            btnDescargaMultiple.addEventListener('mouseleave', function() {
-                this.style.opacity = '0.8';
-                this.style.transform = '';
-            });
-        }
+
+    // Función para obtener el ancho del contenedor
+    function getContainerWidth() {
+        return contenedorCarousel.offsetWidth;
     }
-    
-    // Función para actualizar carousel
-    function actualizarCarousel() {
-        // Calcular desplazamiento
-        const desplazamiento = -slideActual * slideWidth;
-        track.style.transform = `translateX(${desplazamiento}%)`;
+
+    // Función para actualizar la posición del carrusel - CORREGIDA
+    function actualizarPosicion() {
+        const containerWidth = getContainerWidth();
+        // Cada slide ocupa 100% del contenedor, así que el desplazamiento es simple
+        const desplazamiento = slideActual * containerWidth;
+        track.style.transform = `translateX(-${desplazamiento}px)`;
         
-        // Actualizar clases active
+        console.log(`📍 Slide ${slideActual + 1}/${totalSlides}, desplazamiento: ${desplazamiento}px`);
+        
+        // Actualizar clases active en TODOS los slides
         slides.forEach((slide, index) => {
-            slide.classList.toggle('active', index === slideActual);
+            slide.classList.remove('active', 'prev', 'next');
+            
+            if (index === slideActual) {
+                slide.classList.add('active');
+                
+                // Reproducir video si es el slide activo
+                const video = slide.querySelector('video');
+                if (video) {
+                    video.play().catch(e => console.log("Video autoplay bloqueado"));
+                }
+            } else if (index === slideActual - 1) {
+                slide.classList.add('prev');
+            } else if (index === slideActual + 1) {
+                slide.classList.add('next');
+            }
+            
+            // Pausar videos que no son activos
+            if (index !== slideActual) {
+                const video = slide.querySelector('video');
+                if (video) video.pause();
+            }
         });
         
-        // Actualizar indicador de posición
+        // Actualizar contador
         if (currentSlideElement) {
             currentSlideElement.textContent = slideActual + 1;
         }
         
-        if (totalSlidesElement) {
-            totalSlidesElement.textContent = ` / ${totalSlides}`;
-        }
-        
-        // Actualizar estado de botones de navegación
+        // Actualizar botones de navegación
         if (btnAnterior) {
-            const isDisabled = slideActual === 0;
-            btnAnterior.disabled = isDisabled;
-            btnAnterior.style.opacity = isDisabled ? '0.3' : '1';
-            btnAnterior.style.cursor = isDisabled ? 'not-allowed' : 'pointer';
-            btnAnterior.title = isDisabled ? 'Primera foto' : 'Foto anterior';
+            btnAnterior.disabled = slideActual === 0;
+            btnAnterior.style.opacity = slideActual === 0 ? '0.3' : '1';
+            btnAnterior.style.cursor = slideActual === 0 ? 'not-allowed' : 'pointer';
         }
         
         if (btnSiguiente) {
-            const isDisabled = slideActual === totalSlides - 1;
-            btnSiguiente.disabled = isDisabled;
-            btnSiguiente.style.opacity = isDisabled ? '0.3' : '1';
-            btnSiguiente.style.cursor = isDisabled ? 'not-allowed' : 'pointer';
-            btnSiguiente.title = isDisabled ? 'Última foto' : 'Foto siguiente';
+            btnSiguiente.disabled = slideActual === totalSlides - 1;
+            btnSiguiente.style.opacity = slideActual === totalSlides - 1 ? '0.3' : '1';
+            btnSiguiente.style.cursor = slideActual === totalSlides - 1 ? 'not-allowed' : 'pointer';
         }
         
-        // Agregar funcionalidad de zoom a la imagen activa
-        const slideActivo = slides[slideActual];
-        const imagenActiva = slideActivo.querySelector('.slide-image');
-        if (imagenActiva) {
-            imagenActiva.onclick = function(e) {
-                e.stopPropagation();
-                
-                // Crear overlay para zoom
-                const overlay = document.createElement('div');
-                overlay.className = 'zoom-overlay-carousel';
-                
-                const imgZoom = document.createElement('img');
-                imgZoom.src = this.src;
-                imgZoom.alt = this.alt;
-                
-                overlay.appendChild(imgZoom);
-                overlay.onclick = function() {
-                    document.body.removeChild(this);
-                };
-                
-                document.body.appendChild(overlay);
-                
-                // También cerrar con Escape
-                const closeOnEscape = function(e) {
-                    if (e.key === 'Escape') {
-                        if (overlay.parentNode) {
-                            overlay.parentNode.removeChild(overlay);
-                        }
-                        document.removeEventListener('keydown', closeOnEscape);
-                    }
-                };
-                document.addEventListener('keydown', closeOnEscape);
-            };
-        }
-        
-        // Actualizar botones de descarga
-        actualizarBotonesDescarga();
+        // Actualizar botón de descarga
+        actualizarBotonDescarga();
     }
+
+// ==================== FUNCIÓN PARA ACTUALIZAR BOTÓN DE DESCARGA ====================
+function actualizarBotonDescarga() {
+    if (!btnDescargaIndividual) return;
     
+    const elementoActual = multimediaArray[slideActual];
+    const fechaAttr = contenedorGaleria?.getAttribute('data-fecha');
+    const fecha = fechaAttr ? new Date(fechaAttr) : new Date();
+    
+    // Mostrar botón tanto para imágenes como para videos
+    btnDescargaIndividual.style.display = 'flex';
+    
+    // Configurar clic según el tipo de multimedia
+    btnDescargaIndividual.onclick = function() {
+        const nombreArchivo = generarNombreDescarga(fecha, elementoActual.texto || '', elementoActual.tipo);
+        if (elementoActual.tipo === 'imagen') {
+            descargarFoto(elementoActual.url, nombreArchivo);
+        } else {
+            descargarVideo(elementoActual.url, nombreArchivo);
+        }
+    };
+    
+    const textoBtn = btnDescargaIndividual.querySelector('.btn-descarga-texto');
+    if (textoBtn) {
+        // CAMBIO: Texto diferente para foto vs video + contador correcto
+        if (elementoActual.tipo === 'imagen') {
+            textoBtn.textContent = `Descargar esta foto (${slideActual + 1}/${totalSlides})`;
+        } else {
+            textoBtn.textContent = `Descargar este video (${slideActual + 1}/${totalSlides})`;
+        }
+    }
+}
+
     // Configurar eventos de navegación
     if (btnAnterior) {
         btnAnterior.onclick = function() {
             if (slideActual > 0) {
                 slideActual--;
-                actualizarCarousel();
+                actualizarPosicion();
             }
         };
     }
-    
+
     if (btnSiguiente) {
         btnSiguiente.onclick = function() {
             if (slideActual < totalSlides - 1) {
                 slideActual++;
-                actualizarCarousel();
+                actualizarPosicion();
             }
         };
     }
-    
-    // Configurar clic en slides para navegación directa
+
+       actualizarBotonDescarga();
+
+    // Configurar clic en slides para navegar
     slides.forEach((slide, index) => {
         slide.onclick = function(e) {
-            // Solo navegar si no se hizo clic en la imagen (para no interferir con zoom)
-            if (!e.target.classList.contains('slide-image')) {
+            // Ignorar clicks en videos (para que puedan hacer play/pause)
+            if (e.target.closest('video')) return;
+            
+            if (index !== slideActual) {
                 slideActual = index;
-                actualizarCarousel();
+                actualizarPosicion();
             }
         };
     });
-    
-    // Inicializar
-    actualizarCarousel();
-    
-    // Configurar eventos de teclado
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'ArrowLeft') {
-            if (slideActual > 0) {
-                slideActual--;
-                actualizarCarousel();
-            }
-        } else if (e.key === 'ArrowRight') {
-            if (slideActual < totalSlides - 1) {
+
+    // Configurar swipe para móviles
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    contenedorCarousel.addEventListener('touchstart', function(e) {
+        touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    contenedorCarousel.addEventListener('touchend', function(e) {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+    }, { passive: true });
+
+    function handleSwipe() {
+        const swipeThreshold = 50;
+        const diff = touchStartX - touchEndX;
+        
+        if (Math.abs(diff) > swipeThreshold) {
+            if (diff > 0 && slideActual < totalSlides - 1) {
+                // Swipe izquierda - siguiente
                 slideActual++;
-                actualizarCarousel();
+                actualizarPosicion();
+            } else if (diff < 0 && slideActual > 0) {
+                // Swipe derecha - anterior
+                slideActual--;
+                actualizarPosicion();
             }
         }
+    }
+
+    // Configurar teclado
+    document.addEventListener('keydown', function(e) {
+        if (!document.getElementById('popup-simple')) return;
+        
+        if (e.key === 'ArrowLeft' && slideActual > 0) {
+            slideActual--;
+            actualizarPosicion();
+        } else if (e.key === 'ArrowRight' && slideActual < totalSlides - 1) {
+            slideActual++;
+            actualizarPosicion();
+        }
     });
+
+    // Agregar listener para redimensionamiento de ventana
+    window.addEventListener('resize', function() {
+        actualizarPosicion();
+    });
+
+    // Configurar zoom en imágenes
+    slides.forEach((slide, index) => {
+        const img = slide.querySelector('.slide-image');
+        if (img) {
+            img.addEventListener('click', function(e) {
+                e.stopPropagation();
+                abrirZoomImagen(img.src);
+            });
+        }
+    });
+
+    // Inicializar posición
+    actualizarPosicion();
+
+    console.log("✅ Carrusel horizontal configurado correctamente");
 }
 
+// ==================== FUNCIÓN PARA ZOOM DE IMÁGENES ====================
+function abrirZoomImagen(src) {
+    const overlay = document.createElement('div');
+    overlay.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.95);
+        z-index: 10000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: zoom-out;
+        animation: fadeIn 0.3s ease;
+    `;
+    
+    const img = document.createElement('img');
+    img.src = src;
+    img.style.cssText = `
+        max-width: 90%;
+        max-height: 90%;
+        object-fit: contain;
+        border-radius: 8px;
+        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
+        border: 10px solid white;
+        animation: zoomIn 0.3s ease;
+    `;
+    
+    overlay.appendChild(img);
+    document.body.appendChild(overlay);
+    
+    // Cerrar al hacer click
+    overlay.addEventListener('click', function() {
+        overlay.style.animation = 'fadeIn 0.3s ease reverse';
+        setTimeout(() => {
+            if (overlay.parentNode) {
+                overlay.parentNode.removeChild(overlay);
+            }
+        }, 300);
+    });
+    
+    // Cerrar con Escape
+    const closeOnEscape = function(e) {
+        if (e.key === 'Escape') {
+            overlay.click();
+            document.removeEventListener('keydown', closeOnEscape);
+        }
+    };
+    document.addEventListener('keydown', closeOnEscape);
+}
+
+// ==================== FUNCIÓN PARA ZOOM DE IMÁGENES ====================
+function abrirZoomImagen(src) {
+    const overlay = document.createElement('div');
+    overlay.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.95);
+        z-index: 10000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: zoom-out;
+        animation: fadeIn 0.3s ease;
+    `;
+    
+    const img = document.createElement('img');
+    img.src = src;
+    img.style.cssText = `
+        max-width: 90%;
+        max-height: 90%;
+        object-fit: contain;
+        border-radius: 8px;
+        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
+        border: 10px solid white;
+        animation: zoomIn 0.3s ease;
+    `;
+    
+    overlay.appendChild(img);
+    document.body.appendChild(overlay);
+    
+    // Cerrar al hacer click
+    overlay.addEventListener('click', function() {
+        overlay.style.animation = 'fadeIn 0.3s ease reverse';
+        setTimeout(() => {
+            if (overlay.parentNode) {
+                overlay.parentNode.removeChild(overlay);
+            }
+        }, 300);
+    });
+    
+    // Cerrar con Escape
+    const closeOnEscape = function(e) {
+        if (e.key === 'Escape') {
+            overlay.click();
+            document.removeEventListener('keydown', closeOnEscape);
+        }
+    };
+    document.addEventListener('keydown', closeOnEscape);
+}
 // ==================== BUSCADOR AJUSTADO ====================
 function configurarBuscadorAjustado() {
     const inputFecha = document.getElementById('buscarFecha');
