@@ -1152,6 +1152,334 @@ const diasEspeciales = {
     mensajes: ["9 fotos para despedir el año con amor"],
   },
 
+  "01-02": {
+    tipo: "galeria",
+    fotos: [
+      { url: "fotos/01-02/foto1.jpg", texto: "Ese abdomen perfecto" },
+    ],
+  },
+
+  "01-05": {
+    tipo: "galeria",
+    fotos: [
+      { url: "fotos/01-05/foto1.jpg" },
+      { url: "fotos/01-05/foto2.jpg" },
+      { url: "fotos/01-05/foto3.jpg" },
+      { url: "fotos/01-05/foto4.jpg" },
+      { url: "fotos/01-05/foto5.jpg" },
+    ],
+    mensajes: ["5ta y A"],
+  },
+
+    "01-06": {
+    tipo: "galeria",
+    fotos: [
+      { url: "fotos/01-06/foto1.jpg" },
+      { url: "fotos/01-06/foto2.jpg" },
+ ],
+    mensajes: ["Mi pullover"],
+  },
+
+  "01-11": {
+    tipo: "galeria",
+    fotos: [
+      { url: "fotos/01-11/foto1.jpg" },
+ ],
+    mensajes: ["Saliendo contigo jóven y contigo vieja "],
+  },
+
+  "01-12": {
+    tipo: "galeria",
+    fotos: [
+      { url: "fotos/01-12/foto1.jpg" },
+      { url: "fotos/01-12/foto2.jpg" },
+      { url: "fotos/01-12/foto3.jpg" },
+      { url: "fotos/01-12/foto4.jpg" },
+      { url: "fotos/01-12/foto5.jpg" },
+      { url: "fotos/01-12/foto6.jpg" },
+      { url: "fotos/01-12/foto7.jpg" },
+      { url: "fotos/01-12/foto8.jpg" },
+      { url: "fotos/01-12/foto9.jpg" },
+    ],
+    mensajes: ["El faro"],
+  },
+
+   "01-13": {
+    tipo: "galeria",
+    fotos: [
+      { url: "fotos/01-13/foto1.jpg" },
+ ],
+    mensajes: ["Dejándome noticas "],
+  },
+
+  "01-24": {
+    tipo: "galeria",
+    fotos: [
+      { url: "fotos/01-24/foto1.jpg" },
+      { url: "fotos/01-24/foto2.jpg" },
+      { url: "fotos/01-24/foto3.jpg" },
+      { url: "fotos/01-24/foto4.jpg" },
+      { url: "fotos/01-24/foto5.jpg" },
+      { url: "fotos/01-24/foto6.jpg" },
+      { url: "fotos/01-24/foto7.jpg" },
+    ],
+    mensajes: ["Wapa estabas tú"],
+  },
+
+  "01-25": {
+    tipo: "galeria",
+    fotos: [
+      { url: "fotos/01-25/foto1.jpg" },
+      { url: "fotos/01-25/foto2.jpg" },
+      { url: "fotos/01-25/foto3.jpg" },
+      { url: "fotos/01-25/foto4.jpg" },
+      { url: "fotos/01-25/foto5.jpg" },
+      { url: "fotos/01-25/foto6.jpg" },
+    ],
+    mensajes: ["Tu primera vez en el latino"],
+  },
+
+  "01-29": {
+    tipo: "galeria",
+    fotos: [
+      { url: "fotos/01-29/foto1.jpg" },
+      { url: "fotos/01-29/foto2.jpg" },
+    ],
+    mensajes: ["Terminando nuestro 1er rompecabezas"],
+  },
+
+"01-31": {
+    tipo: "galeria",
+    fotos: [
+      { url: "fotos/01-31/foto1.jpg" },
+      { url: "fotos/01-31/foto2.jpg" },
+      { url: "fotos/01-31/foto3.jpg" },
+      { url: "fotos/01-31/foto4.jpg" },
+    ],
+    mensajes: ["Mini Pochi"],
+  },
+
+  "02-01": {
+    tipo: "galeria",
+    fotos: [
+      { url: "fotos/02-01/foto1.jpg", texto: "Una therian?" },
+    ],
+  },
+
+  "02-02": {
+    tipo: "galeria",
+    fotos: [
+      { url: "fotos/02-02/foto1.jpg" },
+      { url: "fotos/02-02/foto2.jpg" },
+      { url: "fotos/02-02/foto3.jpg" },
+      { url: "fotos/02-02/foto4.jpg" },
+      { url: "fotos/02-02/foto5.jpg" },
+      { url: "fotos/02-02/foto6.jpg" },
+      { url: "fotos/02-02/foto7.jpg" },
+    ],
+    mensajes: ["Mochila Mochila"],
+  },
+
+    "02-03": {
+    tipo: "galeria",
+    fotos: [
+      { url: "fotos/02-03/foto1.jpg", texto: "Que linda mi mulata" },
+    ],
+  },
+
+    "02-05": {
+    tipo: "galeria",
+    fotos: [
+      { url: "fotos/02-05/foto1.jpg" },
+      { url: "fotos/02-05/foto2.jpg" },
+      { url: "fotos/02-05/foto3.jpg" },
+      { url: "fotos/02-05/foto4.jpg" },
+    ],
+    mensajes: ["Esa enguatada te queda mejor que a mí"],
+  },
+
+    "02-06": {
+    tipo: "galeria",
+    fotos: [
+      { url: "fotos/02-06/foto1.jpg" },
+      { url: "fotos/02-06/foto2.jpg" },
+      { url: "fotos/02-06/foto3.jpg" },
+      { url: "fotos/02-06/foto4.jpg" },
+      { url: "fotos/02-06/foto5.jpg" },
+      { url: "fotos/02-06/foto6.jpg" },
+    ],
+    mensajes: ["Otro latino juntos"],
+  },
+
+   "02-07": {
+    tipo: "galeria",
+    fotos: [
+      { url: "fotos/02-07/foto1.jpg", texto: "Que bellos somos" },
+      { url: "fotos/02-07/foto2.jpg" },
+      { url: "fotos/02-07/foto3.jpg" },
+      { url: "fotos/02-07/foto4.jpg" },
+      { url: "fotos/02-07/foto5.jpg", texto: "Vampirito" },
+      { url: "fotos/02-07/foto6.jpg", texto: "y ese beso?" },
+      { url: "fotos/02-07/foto7.jpg", texto: "Al fin lo terminamos" },
+    ],
+  },
+
+   "02-08": {
+    tipo: "galeria",
+    fotos: [
+      { url: "fotos/02-08/foto1.jpg" },
+      { url: "fotos/02-08/foto2.jpg" },
+    ],
+    mensajes: ["Acabados de despertar"],
+  },
+
+      "02-09": {
+    tipo: "galeria",
+    fotos: [
+      { url: "fotos/02-09/foto1.jpg", texto: "y ese culón?" },
+    ],
+  },
+
+  "02-13": {
+    tipo: "galeria",
+    fotos: [
+      { url: "fotos/02-13/foto1.jpg" },
+      { url: "fotos/02-13/foto2.jpg" },
+      { url: "fotos/02-13/foto3.jpg" },
+      { url: "fotos/02-13/foto4.jpg" },
+      { url: "fotos/02-13/foto5.jpg" },
+      { url: "fotos/02-13/foto6.jpg" },
+    ],
+    mensajes: ["Los desesperados, ni al 14 pudimos esperar"],
+  },
+
+  "02-14": {
+    tipo: "galeria",
+    fotos: [
+      { url: "fotos/02-14/foto1.jpg" },
+      { url: "fotos/02-14/foto2.jpg" },
+      { url: "fotos/02-14/foto3.jpg" },
+      { url: "fotos/02-14/foto4.jpg" },
+      { url: "fotos/02-14/foto5.jpg" },
+      { url: "fotos/02-14/foto6.jpg" },
+      { url: "fotos/02-14/foto7.jpg" },
+      { url: "fotos/02-14/foto8.jpg" },
+      { url: "fotos/02-14/foto9.jpg" },
+      { url: "fotos/02-14/foto10.jpg" },
+      { url: "fotos/02-14/foto11.jpg" },
+      { url: "fotos/02-14/foto12.jpg" },
+      { url: "fotos/02-14/foto13.jpg" },
+      { url: "fotos/02-14/foto14.jpg" },
+      { url: "fotos/02-14/foto15.jpg" },
+      { url: "fotos/02-14/foto16.jpg" },
+      { url: "fotos/02-14/foto17.jpg" },
+    ],
+    mensajes: ["Nuestro 1er 14 de febrero juntos"],
+  },
+
+        "02-17": {
+    tipo: "galeria",
+    fotos: [
+      { url: "fotos/02-17/foto1.jpg", texto: "y esas cejas tan lindas?" },
+    ],
+  },
+
+"02-20": { // 20 de febrero - 3 fotos
+    tipo: "galeria",
+    fotos: [
+      { url: "fotos/02-20/foto1.jpg", texto: "20 de febrero especial" },
+      { url: "fotos/02-20/foto2.jpg", texto: "Risas compartidas" },
+      { url: "fotos/02-20/foto3.jpg", texto: "Momentos únicos" },
+    ],
+    mensajes: ["3 fotos para un jueves perfecto"],
+  },
+
+  "02-21": { // 21 de febrero - 5 fotos
+    tipo: "galeria",
+    fotos: [
+      { url: "fotos/02-21/foto1.jpg", texto: "21 de febrero inolvidable" },
+      { url: "fotos/02-21/foto2.jpg", texto: "Viernes perfecto" },
+      { url: "fotos/02-21/foto3.jpg", texto: "Sonrisas eternas" },
+      { url: "fotos/02-21/foto4.jpg", texto: "Complicidad única" },
+      { url: "fotos/02-21/foto5.jpg", texto: "Amor en cada instante" },
+    ],
+    mensajes: ["5 fotos para un viernes perfecto"],
+  },
+
+  "02-22": { // 22 de febrero - 16 fotos
+    tipo: "galeria",
+    fotos: [
+      { url: "fotos/02-22/foto1.jpg", texto: "22 de febrero mágico" },
+      { url: "fotos/02-22/foto2.jpg", texto: "Sábado perfecto" },
+      { url: "fotos/02-22/foto3.jpg", texto: "Sonrisas eternas" },
+      { url: "fotos/02-22/foto4.jpg", texto: "Risas compartidas" },
+      { url: "fotos/02-22/foto5.jpg", texto: "Abrazos que curan" },
+      { url: "fotos/02-22/foto6.jpg", texto: "Miradas cómplices" },
+      { url: "fotos/02-22/foto7.jpg", texto: "Momentos únicos" },
+      { url: "fotos/02-22/foto8.jpg", texto: "Complicidad total" },
+      { url: "fotos/02-22/foto9.jpg", texto: "Amor en cada instante" },
+      { url: "fotos/02-22/foto10.jpg", texto: "Recuerdos eternos" },
+      { url: "fotos/02-22/foto11.jpg", texto: "Felicidad plena" },
+      { url: "fotos/02-22/foto12.jpg", texto: "Aventuras juntos" },
+      { url: "fotos/02-22/foto13.jpg", texto: "Miradas que enamoran" },
+      { url: "fotos/02-22/foto14.jpg", texto: "Juntos para siempre" },
+      { url: "fotos/02-22/foto15.jpg", texto: "Sonrisas contagiosas" },
+      { url: "fotos/02-22/foto16.jpg", texto: "Amor infinito" },
+    ],
+    mensajes: ["¡16 fotos para un sábado espectacular!"],
+  },
+
+  "02-23": { // 23 de febrero - 2 fotos
+    tipo: "galeria",
+    fotos: [
+      { url: "fotos/02-23/foto1.jpg", texto: "23 de febrero especial" },
+      { url: "fotos/02-23/foto2.jpg", texto: "Domingo perfecto" },
+    ],
+    mensajes: ["2 fotos para un domingo perfecto"],
+  },
+
+  "02-24": { // 24 de febrero - 3 fotos
+    tipo: "galeria",
+    fotos: [
+      { url: "fotos/02-24/foto1.jpg", texto: "24 de febrero inolvidable" },
+      { url: "fotos/02-24/foto2.jpg", texto: "Lunes perfecto" },
+      { url: "fotos/02-24/foto3.jpg", texto: "Complicidad única" },
+    ],
+    mensajes: ["3 fotos para un lunes perfecto"],
+  },
+
+  "02-26": { // 25 de febrero - 1 foto
+    tipo: "galeria",
+    fotos: [
+      { url: "fotos/02-26/foto1.jpg", texto: "25 de febrero mágico" },
+    ],
+    mensajes: ["Martes de amor"],
+  },
+
+  "02-28": { // 28 de febrero - 1 foto
+    tipo: "galeria",
+    fotos: [
+      { url: "fotos/02-28/foto1.jpg", texto: "28 de febrero especial" },
+    ],
+    mensajes: ["Despidiendo febrero con amor"],
+  },
+
+  "03-01": { // 1 de marzo - 8 fotos
+    tipo: "galeria",
+    fotos: [
+      { url: "fotos/03-01/foto1.jpg", texto: "¡Comienza marzo!" },
+      { url: "fotos/03-01/foto2.jpg", texto: "Domingo perfecto" },
+      { url: "fotos/03-01/foto3.jpg", texto: "Sonrisas eternas" },
+      { url: "fotos/03-01/foto4.jpg", texto: "Risas compartidas" },
+      { url: "fotos/03-01/foto5.jpg", texto: "Abrazos que curan" },
+      { url: "fotos/03-01/foto6.jpg", texto: "Miradas cómplices" },
+      { url: "fotos/03-01/foto7.jpg", texto: "Momentos únicos" },
+      { url: "fotos/03-01/foto8.jpg", texto: "Complicidad total" },
+    ],
+    mensajes: ["¡Nuevo mes con 8 fotos de felicidad!"],
+  },
+
+
   // Día del aniversario (5 abril 2026)
   "2026-04-05": {
     tipo: "galeria",
@@ -1378,6 +1706,14 @@ const palabrasSecretas = [
     significado: "Ese día en el baño nunca lo voy a superar jajaja",
   },
   {
+    palabra: "Casa de muñecas",
+    significado: "La casa esa llena de muñecas que siempre te asusta en 11 y paseo",
+  },
+  {
+    palabra: "Deepzeek",
+    significado: "Todas nuestras dudas las resuelve además de hacernos Quiz de pareja",
+  },
+  {
     palabra: "nacional",
     significado: "Donde empezó algo que espero que nunca termine",
   },
@@ -1399,6 +1735,10 @@ const palabrasSecretas = [
   {
     palabra: "trompin",
     significado: "Después de ese reel del elefante más nunca se llamó Pinga",
+  },
+  {
+    palabra: "Mochila mochila",
+    significado: "Cuando te da complejo de mochila y no te safas de mi espalda",
   },
   {
     palabra: "totin",
@@ -1601,7 +1941,7 @@ const palabrasSecretas = [
       "Obviamente todo no iba a er bueno y hay que acabar de solucionar todas esas peleas innecesarias que desgastan la relación",
   },
   {
-    palabra: "Balcón de casa de mi tia May",
+    palabra: "Balcón de casa de mi tía May",
     significado:
       "No voy a decir que pasó por si nuestos hijos leen esto pero te demostré que borracho si se puede jaja",
   },
@@ -1692,7 +2032,7 @@ const palabrasSecretas = [
   },
   {
     palabra: "sueños",
-    significado: "creo que es lo que más tenemo, nos quedan muchos por cumplir",
+    significado: "creo que es lo que más tenemos, nos quedan muchos por cumplir",
   },
   {
     palabra: "oscar",
@@ -1700,7 +2040,7 @@ const palabrasSecretas = [
   },
   { palabra: "paletica", significado: "Las paleticas del MioSid " },
   {
-    palabra: "sangria",
+    palabra: "sangría",
     significado:
       "Probablemente la bebida que más has pedido en nuestras salidas",
   },
@@ -1971,7 +2311,7 @@ const palabrasSecretas = [
       "Antes de tallar cuando hablábamos x orgullosos estuvimos 15 días sin hablar, después de eso no hemos estado más de 1 dia sin hablar",
   },
   {
-    palabra: "sandro como es adrian en una relacion",
+    palabra: "Sandro como es Adrián en una relación",
     significado:
       "Imposible olvidar cuando pensaste que sandro no me iba a decir lo que le dijeras jajaja",
   },
@@ -1981,16 +2321,44 @@ const palabrasSecretas = [
       "No se como pasó pero un día te convertiste en mi chat diario sin darme cuenta hasta el día de hoy",
   },
   {
+    palabra: "Condones rotos",
+    significado: "Como olvidar cuando se nos rompieron 3 condones en una noche y una mañana",
+  },
+  {
+    palabra: "Pastilla del día después",
+    significado: "Cuando casi somos padres",
+  },
+  {
     palabra: "promesa de dormir encueros",
     significado:
-      "[COMPLETAR: significado especial de 'promesa de dormir encueros']",
+      "La mejor promesa que pudimos hacer",
   },
+  {
+    palabra: "Colcha morada",
+    significado: "Un día se convirtió en tu colcha preferida",
+  },
+  {
+    palabra: "gordo",
+    significado: "Un poco despectivo pero tu manera de llamarme con amor",
+  },
+
+  {
+    palabra: "Cómplice",
+    significado: "Perfume con olor a jabón destinado a ambientar el cuarto tras gases expulsados por la pareja",
+  },
+  
   {
     palabra: "lilo y stich en persona",
     significado: "Una vez la vimos en la sala de mi ksa",
   },
+
   {
-    palabra: "el laberinto 1,2,3",
+    palabra: "Los juegos del hambre",
+    significado: "Otra de las sagas que vimos una y tuvimos que copiar todas las partes",
+  },
+
+  {
+    palabra: "Maze Runner 1,2,3",
     significado:
       "Como siempre yo eligiendo buenas películas que hasta que tuvimos que copiar las otras partes de lo buena que estaba",
   },
@@ -2004,6 +2372,11 @@ const palabrasSecretas = [
     significado:
       "Esta palabra resume que lo que cojas tu lo cojo yo, con esto me refiero a que tus problemas siempre van a ser los míos también",
   },
+  {
+    palabra: "dormirte viendo una película",
+    significado: "No se la cantidad de película que hemos empezado a ver y a los 10min estás dormida",
+  },
+  
   { palabra: "quivican", significado: "Cuando conocí a toda tu familia" },
   {
     palabra: "alicia sal de ese cuerpo",
@@ -2014,6 +2387,12 @@ const palabrasSecretas = [
     significado:
       "Esa nariz tuya se parece bastante, a veces la confundo con el tunel",
   },
+  {
+    palabra: "Cafetera",
+    significado:
+      "Tu eres una cafeteraaa...calientas pero no quemasss!!!(Tú sabes por qué)",
+  },
+
   {
     palabra: "Cafetera",
     significado:
@@ -2056,3 +2435,5 @@ window.datosConfig = {
 };
 
 console.log("📊 Datos.js cargado correctamente (VERSIÓN MULTIFOTO)");
+
+

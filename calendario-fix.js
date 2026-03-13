@@ -909,6 +909,82 @@ function mostrarPopupContenido(contenidoHTML, tieneFoto = false, fotosArray = []
         }
     }, 100);
 }
+
+function mostrarPopupPersonalizado(contenidoHTML, claseAdicional = '') {
+
+      // Guardar posición del scroll
+    const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+    document.body.setAttribute('data-scroll-pos', scrollPosition);
+    
+    // Bloquear scroll de manera efectiva
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${scrollPosition}px`;
+    document.body.style.width = '100%';
+    document.body.style.overflow = 'hidden';
+    // Cerrar popup anterior si existe
+    const popupAnterior = document.getElementById('popup-personalizado');
+    if (popupAnterior) popupAnterior.remove();
+
+    const popup = document.createElement('div');
+    popup.id = 'popup-personalizado';
+    popup.className = claseAdicional;
+    popup.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.95);
+        z-index: 10000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        overflow: auto;
+    `;
+
+    const contenedor = document.createElement('div');
+    contenedor.style.cssText = `
+        background: white;
+        border-radius: 20px;
+        width: 95%;
+        max-width: 1400px;
+        height: 95vh;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+    `;
+    contenedor.innerHTML = contenidoHTML;
+
+    popup.appendChild(contenedor);
+    document.body.appendChild(popup);
+    document.body.style.overflow = 'hidden';
+}
+
+function cerrarPopupPersonalizado() {
+    const popup = document.getElementById('popup-personalizado');
+    if (popup) {
+        popup.style.animation = 'fadeOut 0.3s ease forwards';
+        setTimeout(() => {
+            if (popup.parentNode) popup.parentNode.removeChild(popup);
+            
+            // Restaurar estilos del body
+            document.body.style.position = '';
+            document.body.style.top = '';
+            document.body.style.width = '';
+            document.body.style.overflow = '';
+            
+            // Restaurar scroll
+            const savedPosition = parseInt(document.body.getAttribute('data-scroll-pos') || '0');
+            window.scrollTo(0, savedPosition);
+            document.body.removeAttribute('data-scroll-pos');
+            
+            // Eliminar cualquier popup residual (por si acaso)
+            const popupSimple = document.getElementById('popup-simple');
+            if (popupSimple) popupSimple.remove();
+        }, 300);
+    }
+}
 // ==================== CONFIGURAR CAROUSEL HORIZONTAL - VERSIÓN CORREGIDA ====================
 function configurarCarouselHorizontal(contenedorCarousel, multimediaArray) {
     if (!contenedorCarousel || !multimediaArray.length) return;
@@ -1575,6 +1651,20 @@ function configurarBotonesBasicosAjustados() {
         if (textoRazones) textoRazones.style.cursor = 'pointer';
         if (contadorRazones) contadorRazones.style.cursor = 'pointer';
     }
+
+// Configurar estadística de rompecabezas como clickeable
+const estadisticaRompecabezas = document.querySelector('.estadistica-item:nth-child(4)');
+if (estadisticaRompecabezas) {
+    estadisticaRompecabezas.style.cursor = 'pointer';
+    estadisticaRompecabezas.title = "Haz clic para jugar rompecabezas";
+    
+    estadisticaRompecabezas.addEventListener('click', function() {
+         mostrarPuzzlePantallaCompleta();
+    });
+    
+    // Actualizar contador inicial
+    actualizarContadorRompecabezas();
+}
 }
 
 // ==================== FUNCIÓN PARA MOSTRAR RAZÓN ALEATORIA ====================
@@ -2115,7 +2205,7 @@ function actualizarEstadisticasAjustadas() {
         console.log(`📚 Contador de palabras secretas: ${window.datosConfig.palabrasSecretas.length}`);
         contadorPalabras.style.color = '#3752ca'
     }
-    
+    actualizarContadorRompecabezas();
     console.log(`📊 Estadísticas actualizadas: ${diasTranscurridos}/${totalDias} días, ${diasFavoritos.length} favoritos`);
 }
 // ==================== SISTEMA DE FAVORITOS ====================
@@ -2678,6 +2768,2119 @@ window.addEventListener('resize', function() {
     }
 });
 
+// ==================== SISTEMA DE ROMPECABEZAS CORREGIDO ====================
+let puzzleGame = {
+    activo: false,
+    fotoSeleccionada: null,
+    dificultad: 3,
+    piezas: [],
+    piezasCorrectas: 0,
+    timer: null,
+    segundos: 0,
+    piezaSeleccionada: null,
+    historial: JSON.parse(localStorage.getItem('rompecabezasCompletados')) || []
+};
+
+// ==================== FUNCIÓN PARA MOSTRAR ROMPECABEZAS ====================
+function mostrarRompecabezas() {
+    console.log("🧩 Abriendo rompecabezas...");
+    
+    const fotosDisponibles = obtenerFotosParaPuzzle();
+    const fotosParaMostrar = seleccionar3FotosAleatorias(fotosDisponibles);
+    
+    // Guardar fotos en el objeto del juego
+    puzzleGame.fotosDisponibles = fotosParaMostrar;
+    puzzleGame.fotoSeleccionada = fotosParaMostrar[0];
+    
+    let contenidoHTML = `
+        <div class="puzzle-container">
+            <div class="puzzle-header">
+                <h2>🧩 Arma Nuestro Rompecabezas</h2>
+                <p>Elige una foto y completa el puzzle</p>
+            </div>
+            
+            <!-- PANTALLA DE SELECCIÓN -->
+            <div class="photo-selection-screen" id="photoSelectionScreen">
+                <!-- Selector de dificultad -->
+                <div class="difficulty-selector">
+                    <button class="difficulty-btn active" onclick="cambiarDificultadPuzzle(3)">Fácil (3x3)</button>
+                    <button class="difficulty-btn" onclick="cambiarDificultadPuzzle(4)">Medio (4x4)</button>
+                    <button class="difficulty-btn" onclick="cambiarDificultadPuzzle(5)">Difícil (5x5)</button>
+                </div>
+                
+                <!-- Selector de fotos -->
+                <div class="photo-selection-container">
+                    <div class="photo-selection-title">📸 Elige una foto para el puzzle:</div>
+                    <div class="photo-options" id="photoOptions">
+                        ${fotosParaMostrar.map((foto, index) => `
+                            <div class="photo-option ${index === 0 ? 'selected' : ''}" 
+                                 onclick="seleccionarFotoPuzzle(${index})" 
+                                 data-index="${index}">
+                                <img src="${foto.url}" alt="Foto ${index + 1}">
+                                <div class="checkmark">✓</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <button class="btn-puzzle nueva-foto" onclick="nuevasFotosPuzzle()">
+                        <i class="fas fa-sync"></i> Nuevas Fotos
+                    </button>
+                </div>
+                
+                <!-- Controles -->
+                <div class="puzzle-controls">
+                    <button class="btn-puzzle" id="btnIniciarPuzzle" onclick="iniciarPuzzle()">
+                        <i class="fas fa-play"></i> Iniciar Puzzle
+                    </button>
+                    <button class="btn-puzzle historial" onclick="mostrarHistorialPuzzles()">
+                        <i class="fas fa-trophy"></i> Historial
+                    </button>
+                </div>
+            </div>
+            
+            <!-- PANTALLA DEL TABLERO -->
+            <div class="puzzle-board-screen" id="puzzleBoardScreen">
+                <!-- Información -->
+                <div class="puzzle-info">
+                    <div class="puzzle-timer" id="puzzleTimer">00:00</div>
+                    <div class="puzzle-progress" id="puzzleProgress">Piezas: 0/9</div>
+                </div>
+                
+                <!-- Controles del tablero -->
+                <div class="puzzle-controls">
+                    <button class="btn-puzzle volver" onclick="volverASeleccion()">
+                        <i class="fas fa-arrow-left"></i> Volver
+                    </button>
+                    <button class="btn-puzzle pista" id="btnPista" onclick="mostrarPista()">
+                        <i class="fas fa-lightbulb"></i> Pista
+                    </button>
+                </div>
+                
+                <!-- Tablero + Panel de pista -->
+                <div class="puzzle-board-wrapper">
+                    <div class="puzzle-board" id="puzzleBoard"></div>
+                    
+                    <!-- Panel de pista lateral -->
+                    <div class="puzzle-hint-panel" id="hintPanel">
+                        <h4>📸 Vista Previa</h4>
+                        <img id="hintImage" src="" alt="Pista">
+                        <div class="puzzle-hint-timer" id="hintTimer"></div>
+                    </div>
+                </div>
+                
+                <!-- Mensaje de completado -->
+                <div id="puzzleComplete" class="puzzle-complete">
+                    <h3>🎉 ¡Completado!</h3>
+                    <p id="puzzleCompleteMessage"></p>
+                    <button class="btn-puzzle" onclick="volverASeleccion()">
+                        <i class="fas fa-redo"></i> Otro Puzzle
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Historial -->
+            <div id="puzzleHistory" class="puzzle-history">
+                <h3>🏆 Puzzles Completados</h3>
+                <div class="history-list" id="historyList"></div>
+                <button class="btn-puzzle" style="margin-top: 15px;" onclick="ocultarHistorial()">
+                    <i class="fas fa-arrow-left"></i> Volver
+                </button>
+            </div>
+        </div>
+    `;
+    
+    mostrarPopupContenido(contenidoHTML, false, [], null, false);
+}
+
+// ==================== OBTENER FOTOS PARA PUZZLE - VERSIÓN CORREGIDA ====================
+function obtenerFotosParaPuzzle() {
+    const fotos = [];
+    const diasEspeciales = window.datosConfig?.diasEspeciales || {};
+    
+    // Recorrer todos los días especiales
+    Object.values(diasEspeciales).forEach(dia => {
+        // Si el día tiene fotos
+        if (dia.fotos && Array.isArray(dia.fotos) && dia.fotos.length > 0) {
+            dia.fotos.forEach(foto => {
+                // Verificar que la foto tenga URL válida
+                if (foto && foto.url && typeof foto.url === 'string') {
+                    fotos.push({
+                        url: foto.url,
+                        texto: foto.texto || 'Nuestro recuerdo'
+                    });
+                }
+            });
+        }
+    });
+    
+    // Si no hay fotos suficientes, agregar fotos de respaldo
+    if (fotos.length < 10) {
+        console.warn("⚠️ Pocas fotos encontradas, usando respaldos");
+        for (let i = 0; i < 10; i++) {
+            fotos.push({
+                url: `fotos/respaldo/foto${i+1}.jpg`,
+                texto: `Foto especial ${i+1}`
+            });
+        }
+    }
+    
+    console.log(`📸 Fotos encontradas para puzzle: ${fotos.length}`);
+    return fotos;
+}
+
+// ==================== SELECCIONAR 3 FOTOS ALEATORIAS - VERSIÓN SEGURA ====================
+function seleccionar3FotosAleatorias(fotosDisponibles) {
+    // Verificar que tenemos un array válido
+    if (!fotosDisponibles || !Array.isArray(fotosDisponibles) || fotosDisponibles.length === 0) {
+        console.error("❌ No hay fotos disponibles para seleccionar");
+        // Devolver fotos de respaldo
+        return [
+            { url: 'fotos/respaldo/respaldo1.jpg', texto: 'Recuerdo 1' },
+            { url: 'fotos/respaldo/respaldo2.jpg', texto: 'Recuerdo 2' },
+            { url: 'fotos/respaldo/respaldo3.jpg', texto: 'Recuerdo 3' }
+        ];
+    }
+    
+    // Filtrar fotos que tienen URL válida
+    const fotosValidas = fotosDisponibles.filter(foto => {
+        return foto && 
+               foto.url && 
+               typeof foto.url === 'string' && 
+               foto.url.trim() !== '' &&
+               !foto.url.includes('undefined');
+    });
+    
+    console.log(`📸 Fotos válidas: ${fotosValidas.length} de ${fotosDisponibles.length}`);
+    
+    // Si no hay fotos válidas, crear respaldos en base64
+    if (fotosValidas.length === 0) {
+        console.warn("⚠️ No hay fotos válidas, creando respaldos");
+        return crearFotosRespaldo();
+    }
+    
+    // CASO CRÍTICO: Si hay menos de 3 fotos
+    if (fotosValidas.length < 3) {
+        console.warn(`⚠️ Solo hay ${fotosValidas.length} fotos, duplicando para tener 3`);
+        const resultado = [];
+        
+        // Duplicar las fotos hasta tener 3
+        for (let i = 0; i < 3; i++) {
+            const indice = i % fotosValidas.length;
+            // Crear copia para no modificar el original
+            resultado.push({
+                url: fotosValidas[indice].url,
+                texto: `${fotosValidas[indice].texto || 'Foto'} ${i+1}`
+            });
+        }
+        
+        return resultado;
+    }
+    
+    // CASO NORMAL: Hay suficientes fotos, seleccionar 3 aleatorias
+    const copiadas = [...fotosValidas];
+    const seleccionadas = [];
+    
+    // Mezclar array (Fisher-Yates)
+    for (let i = copiadas.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copiadas[i], copiadas[j]] = [copiadas[j], copiadas[i]];
+    }
+    
+    // Tomar las primeras 3
+    for (let i = 0; i < 3; i++) {
+        seleccionadas.push({
+            url: copiadas[i].url,
+            texto: copiadas[i].texto || `Foto ${i+1}`
+        });
+    }
+    
+    console.log("📸 Fotos seleccionadas:", seleccionadas.map(f => f.url));
+    return seleccionadas;
+}
+
+// ==================== CREAR FOTOS DE RESPALDO EN BASE64 ====================
+function crearFotosRespaldo() {
+    const colores = ['#9C27B0', '#7B1FA2', '#4A148C'];
+    const textos = ['Te amo 💘', 'Mi amor ❤️', 'Siempre juntos 💑'];
+    
+    return colores.map((color, index) => {
+        // Crear un canvas para generar imagen en base64
+        const canvas = document.createElement('canvas');
+        canvas.width = 400;
+        canvas.height = 400;
+        const ctx = canvas.getContext('2d');
+        
+        // Fondo con gradiente
+        const gradient = ctx.createLinearGradient(0, 0, 400, 400);
+        gradient.addColorStop(0, color);
+        gradient.addColorStop(1, '#4A148C');
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, 400, 400);
+        
+        // Texto
+        ctx.fillStyle = 'white';
+        ctx.font = 'bold 24px Poppins, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('🧩', 200, 180);
+        ctx.font = '18px Poppins, sans-serif';
+        ctx.fillText(textos[index], 200, 240);
+        
+        return {
+            url: canvas.toDataURL('image/jpeg'),
+            texto: textos[index]
+        };
+    });
+}
+// ==================== NUEVAS FOTOS PARA PUZZLE ====================
+function nuevasFotosPuzzle() {
+    const fotosDisponibles = obtenerFotosParaPuzzle();
+    const fotosParaMostrar = seleccionar3FotosAleatorias(fotosDisponibles);
+    
+    puzzleGame.fotosDisponibles = fotosParaMostrar;
+    puzzleGame.fotoSeleccionada = fotosParaMostrar[0];
+    
+    const photoOptions = document.getElementById('photoOptions');
+    if (photoOptions) {
+        photoOptions.innerHTML = fotosParaMostrar.map((foto, index) => `
+            <div class="photo-option ${index === 0 ? 'selected' : ''}" 
+                 onclick="seleccionarFotoPuzzle(${index})" 
+                 data-index="${index}">
+                <img src="${foto.url}" alt="Foto ${index + 1}">
+                <div class="checkmark">✓</div>
+            </div>
+        `).join('');
+    }
+}
+
+// ==================== SELECCIONAR FOTO ====================
+function seleccionarFotoPuzzle(index) {
+    const fotosParaMostrar = puzzleGame.fotosDisponibles;
+    
+    document.querySelectorAll('.photo-option').forEach((opt, i) => {
+        opt.classList.toggle('selected', i === index);
+    });
+    
+    // CORRECCIÓN: Guardar la foto seleccionada correctamente
+    puzzleGame.fotoSeleccionada = fotosParaMostrar[index];
+    
+    console.log(`🖼️ Foto seleccionada: ${puzzleGame.fotoSeleccionada.texto}`);
+    console.log(`🖼️ URL: ${puzzleGame.fotoSeleccionada.url}`);
+}
+
+// ==================== CAMBIAR DIFICULTAD ====================
+function cambiarDificultadPuzzle(nivel) {
+    puzzleGame.dificultad = nivel;
+    
+    document.querySelectorAll('.difficulty-btn').forEach((btn, index) => {
+        btn.classList.toggle('active', index + 3 === nivel);
+    });
+}
+
+// ==================== INICIAR PUZZLE ====================
+function iniciarPuzzle() {
+    if (!puzzleGame.fotoSeleccionada) {
+        mostrarNotificacion('Selecciona una foto primero', 'info');
+        return;
+    }
+    
+    console.log("🧩 Iniciando puzzle con foto:", puzzleGame.fotoSeleccionada);
+    
+    // Ocultar pantalla de selección, mostrar tablero
+    document.getElementById('photoSelectionScreen').classList.add('hidden');
+    document.getElementById('puzzleBoardScreen').classList.add('active');
+    
+    // Configurar tablero
+    const board = document.getElementById('puzzleBoard');
+    const dificultad = puzzleGame.dificultad;
+    const tamanoTablero = Math.min(350, dificultad * 70);
+    
+    board.style.gridTemplateColumns = `repeat(${dificultad}, 1fr)`;
+    board.style.width = `${tamanoTablero}px`;
+    board.style.height = `${tamanoTablero}px`;
+    
+    // Generar piezas con formas de puzzle
+    generarPiezasPuzzle();
+    
+    // Iniciar timer
+    iniciarTimerPuzzle();
+    
+    puzzleGame.activo = true;
+}
+
+// ==================== VOLVER A SELECCIÓN ====================
+function volverASeleccion() {
+    detenerTimerPuzzle();
+    ocultarPista();
+    
+    puzzleGame.activo = false;
+    puzzleGame.piezas = [];
+    puzzleGame.piezasCorrectas = 0;
+    puzzleGame.segundos = 0;
+    
+    document.getElementById('photoSelectionScreen').classList.remove('hidden');
+    document.getElementById('puzzleBoardScreen').classList.remove('active');
+    document.getElementById('puzzleComplete').classList.remove('active');
+    document.getElementById('puzzleHistory').classList.remove('active');
+}
+
+// ==================== GENERAR PIEZAS CON FORMAS DE PUZZLE ====================
+function generarPiezasPuzzle() {
+    const board = document.getElementById('puzzleBoard');
+    const dificultad = puzzleGame.dificultad;
+    const totalPiezas = dificultad * dificultad;
+    
+    board.innerHTML = '';
+    puzzleGame.piezas = [];
+    puzzleGame.piezasCorrectas = 0;
+    puzzleGame.piezaSeleccionada = null;
+    
+    // Crear array de posiciones correctas
+    const posiciones = [];
+    for (let i = 0; i < totalPiezas; i++) {
+        posiciones.push(i);
+    }
+    
+    // Mezclar posiciones (Fisher-Yates)
+    for (let i = posiciones.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [posiciones[i], posiciones[j]] = [posiciones[j], posiciones[i]];
+    }
+    
+    // Tamaño de cada pieza en px
+    const tamanoPieza = 350 / dificultad;
+    
+    // CORRECCIÓN: Usar la foto seleccionada correctamente
+    const fotoUrl = puzzleGame.fotoSeleccionada.url;
+    
+    console.log("🧩 Generando piezas con foto:", fotoUrl);
+    
+    // Crear piezas
+    posiciones.forEach((posCorrecta, index) => {
+        const pieza = document.createElement('div');
+        pieza.className = 'puzzle-piece';
+        pieza.style.width = `${tamanoPieza}px`;
+        pieza.style.height = `${tamanoPieza}px`;
+        pieza.dataset.posCorrecta = posCorrecta;
+        pieza.dataset.posActual = index;
+        
+        // Calcular posición del background para esta pieza
+        const filaCorrecta = Math.floor(posCorrecta / dificultad);
+        const colCorrecta = posCorrecta % dificultad;
+        
+        // CORRECCIÓN: Crear SVG con forma de puzzle y imagen correcta
+        const svg = crearFormaPiezaPuzzleSVG(
+            tamanoPieza, 
+            filaCorrecta, 
+            colCorrecta, 
+            dificultad,
+            fotoUrl,
+            posCorrecta,
+            dificultad
+        );
+        
+        pieza.innerHTML = svg;
+        pieza.onclick = () => seleccionarPieza(pieza);
+        
+        board.appendChild(pieza);
+        puzzleGame.piezas.push(pieza);
+    });
+    
+    actualizarProgresoPuzzle();
+}
+
+// ==================== CREAR FORMA DE PIEZA DE PUZZLE (SVG) ====================
+function crearFormaPiezaPuzzleSVG(tamano, fila, col, grid, imageUrl, posCorrecta, gridSize) {
+    const s = tamano;
+    const tab = s * 0.25; // tamaño del tab
+    
+    // Determinar qué lados tienen tabs (salientes/entrantes)
+    // Usar patrón consistente para que las piezas encajen
+    const tieneTabArriba = fila > 0 && ((fila + col) % 2 === 0);
+    const tieneTabAbajo = fila < grid - 1 && ((fila + col + 1) % 2 === 0);
+    const tieneTabIzq = col > 0 && ((fila + col) % 2 === 1);
+    const tieneTabDer = col < grid - 1 && ((fila + col + 1) % 2 === 1);
+    
+    // CORRECCIÓN: Calcular posición del background para que la imagen se alinee correctamente
+    const bgX = -((posCorrecta % grid) * s);
+    const bgY = -Math.floor(posCorrecta / grid) * s;
+    
+    // CORRECCIÓN: Crear path SVG con forma de puzzle real
+    let path = `M 0 ${tieneTabArriba ? tab : 0} `;
+    
+    // Lado superior
+    if (tieneTabArriba) {
+        path += `C ${s*0.2} ${tab*0.3}, ${s*0.3} ${-tab*0.5}, ${s*0.5} ${-tab} `;
+        path += `C ${s*0.7} ${-tab*0.5}, ${s*0.8} ${tab*0.3}, ${s} ${tieneTabDer ? tab : 0} `;
+    } else {
+        path += `L ${s} 0 `;
+    }
+    
+    // Lado derecho
+    if (tieneTabDer) {
+        path += `C ${s+tab*0.3} ${s*0.2}, ${s+tab*0.5} ${s*0.3}, ${s+tab} ${s*0.5} `;
+        path += `C ${s+tab*0.5} ${s*0.7}, ${s+tab*0.3} ${s*0.8}, ${s} ${s} `;
+    } else {
+        path += `L ${s} ${s} `;
+    }
+    
+    // Lado inferior
+    if (tieneTabAbajo) {
+        path += `C ${s*0.8} ${s+tab*0.3}, ${s*0.7} ${s+tab*0.5}, ${s*0.5} ${s+tab} `;
+        path += `C ${s*0.3} ${s+tab*0.5}, ${s*0.2} ${s+tab*0.3}, 0 ${s} `;
+    } else {
+        path += `L 0 ${s} `;
+    }
+    
+    // Lado izquierdo
+    if (tieneTabIzq) {
+        path += `C ${-tab*0.3} ${s*0.8}, ${-tab*0.5} ${s*0.7}, ${-tab} ${s*0.5} `;
+        path += `C ${-tab*0.5} ${s*0.3}, ${-tab*0.3} ${s*0.2}, 0 0 `;
+    } else {
+        path += `L 0 0 `;
+    }
+    
+    path += `Z`;
+    
+    // CORRECCIÓN: Crear patrón de imagen que cubra toda la pieza correctamente
+    const patronId = `piece-pattern-${posCorrecta}`;
+    
+    // CORRECCIÓN: El patrón debe tener el tamaño del tablero completo
+    const patronWidth = s * gridSize;
+    const patronHeight = s * gridSize;
+    
+    return `
+        <svg width="${s}" height="${s}" viewBox="0 0 ${s} ${s}" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <pattern id="${patronId}" x="${bgX}" y="${bgY}" width="${patronWidth}" height="${patronHeight}" patternUnits="userSpaceOnUse">
+                    <image href="${imageUrl}" x="0" y="0" width="${patronWidth}" height="${patronHeight}" preserveAspectRatio="xMidYMid slice"/>
+                </pattern>
+                <clipPath id="clip-${posCorrecta}">
+                    <path d="${path}"/>
+                </clipPath>
+            </defs>
+            <rect width="${s}" height="${s}" fill="url(#${patronId})" clip-path="url(#clip-${posCorrecta})"/>
+            <path d="${path}" fill="none" stroke="white" stroke-width="2"/>
+        </svg>
+    `;
+}
+
+// ==================== SELECCIONAR PIEZA ====================
+function seleccionarPieza(pieza) {
+    if (!puzzleGame.activo) return;
+    
+    if (puzzleGame.piezaSeleccionada === null) {
+        // Primera selección
+        puzzleGame.piezaSeleccionada = pieza;
+        pieza.classList.add('selected');
+    } else {
+        // Segunda selección - intercambiar
+        const primera = puzzleGame.piezas[puzzleGame.piezaSeleccionada.dataset.posActual];
+        
+        if (primera === pieza) {
+            // Deseleccionar
+            primera.classList.remove('selected');
+            puzzleGame.piezaSeleccionada = null;
+        } else {
+            // Intercambiar posiciones
+            intercambiarPiezas(primera, pieza);
+            primera.classList.remove('selected');
+            puzzleGame.piezaSeleccionada = null;
+        }
+    }
+}
+
+// ==================== INTERCAMBIAR PIEZAS ====================
+function intercambiarPiezas(pieza1, pieza2) {
+    const pos1 = parseInt(pieza1.dataset.posActual);
+    const pos2 = parseInt(pieza2.dataset.posActual);
+    
+    // Intercambiar en el array
+    [puzzleGame.piezas[pos1], puzzleGame.piezas[pos2]] = [puzzleGame.piezas[pos2], puzzleGame.piezas[pos1]];
+    
+    // Actualizar dataset
+    pieza1.dataset.posActual = pos2;
+    pieza2.dataset.posActual = pos1;
+    
+    // Reordenar en el DOM
+    const board = document.getElementById('puzzleBoard');
+    const temp = document.createElement('div');
+    board.insertBefore(temp, pieza1);
+    board.insertBefore(pieza1, pieza2);
+    board.insertBefore(pieza2, temp);
+    board.removeChild(temp);
+    
+    // Verificar si están correctas
+    verificarPieza(pieza1);
+    verificarPieza(pieza2);
+    
+    // Verificar victoria
+    verificarVictoriaPuzzle();
+    
+    actualizarProgresoPuzzle();
+}
+
+// ==================== VERIFICAR PIEZA ====================
+function verificarPieza(pieza) {
+    const posCorrecta = parseInt(pieza.dataset.posCorrecta);
+    const posActual = parseInt(pieza.dataset.posActual);
+    
+    if (posCorrecta === posActual) {
+        pieza.classList.add('correct');
+        puzzleGame.piezasCorrectas++;
+    } else {
+        pieza.classList.remove('correct');
+    }
+}
+
+// ==================== VERIFICAR VICTORIA ====================
+function verificarVictoriaPuzzle() {
+    const totalPiezas = puzzleGame.dificultad * puzzleGame.dificultad;
+    
+    if (puzzleGame.piezasCorrectas === totalPiezas) {
+        completarPuzzle();
+    }
+}
+
+// ==================== COMPLETAR PUZZLE ====================
+function completarPuzzle() {
+    detenerTimerPuzzle();
+    ocultarPista();
+    
+    const complete = document.getElementById('puzzleComplete');
+    const board = document.getElementById('puzzleBoard');
+    const mensaje = document.getElementById('puzzleCompleteMessage');
+    
+    board.style.display = 'none';
+    complete.classList.add('active');
+    
+    const mensajes = {
+        3: "¡Excelente! Eres un maestro del amor 💘",
+        4: "¡Increíble! Nuestro amor encaja perfecto 🧩",
+        5: "¡LEGENDARIO! Como nuestro amor, imposible de separar 💑"
+    };
+    
+    mensaje.innerHTML = `
+        <strong>Tiempo: ${formatoTimer(puzzleGame.segundos)}</strong><br>
+        ${mensajes[puzzleGame.dificultad]}<br>
+        <small>Rompecabezas completados: ${puzzleGame.historial.length + 1}</small>
+    `;
+    
+    // Guardar en localStorage
+    puzzleGame.historial.push({
+        fecha: new Date().toISOString(),
+        dificultad: puzzleGame.dificultad,
+        tiempo: puzzleGame.segundos,
+        foto: puzzleGame.fotoSeleccionada?.texto || 'Foto especial',
+        fotoUrl: puzzleGame.fotoSeleccionada?.url || ''
+    });
+    localStorage.setItem('rompecabezasCompletados', JSON.stringify(puzzleGame.historial));
+    
+    // Actualizar estadística
+    actualizarContadorRompecabezas();
+    
+    // Lanzar confeti
+    lanzarConfetiPuzzle();
+}
+
+// ==================== MOSTRAR PISTA (PANEL LATERAL) ====================
+function mostrarPista() {
+    if (!puzzleGame.fotoSeleccionada) return;
+    
+    const hintPanel = document.getElementById('hintPanel');
+    const hintImage = document.getElementById('hintImage');
+    const hintTimer = document.getElementById('hintTimer');
+    
+    if (!hintPanel || !hintImage) return;
+    
+    hintImage.src = puzzleGame.fotoSeleccionada.url;
+    hintPanel.classList.add('visible');
+    
+    let segundosRestantes = 3;
+    hintTimer.textContent = `${segundosRestantes}s`;
+    
+    const timer = setInterval(() => {
+        segundosRestantes--;
+        hintTimer.textContent = `${segundosRestantes}s`;
+        
+        if (segundosRestantes <= 0) {
+            clearInterval(timer);
+            ocultarPista();
+        }
+    }, 1000);
+}
+
+// ==================== OCULTAR PISTA ====================
+function ocultarPista() {
+    const hintPanel = document.getElementById('hintPanel');
+    if (hintPanel) {
+        hintPanel.classList.remove('visible');
+    }
+}
+
+// ==================== TIMER ====================
+function iniciarTimerPuzzle() {
+    detenerTimerPuzzle();
+    puzzleGame.segundos = 0;
+    actualizarTimerDisplay();
+    
+    puzzleGame.timer = setInterval(() => {
+        puzzleGame.segundos++;
+        actualizarTimerDisplay();
+    }, 1000);
+}
+
+function detenerTimerPuzzle() {
+    if (puzzleGame.timer) {
+        clearInterval(puzzleGame.timer);
+        puzzleGame.timer = null;
+    }
+}
+
+function actualizarTimerDisplay() {
+    const timer = document.getElementById('puzzleTimer');
+    if (timer) {
+        timer.textContent = formatoTimer(puzzleGame.segundos);
+    }
+}
+
+function formatoTimer(segundos) {
+    const mins = Math.floor(segundos / 60).toString().padStart(2, '0');
+    const secs = (segundos % 60).toString().padStart(2, '0');
+    return `${mins}:${secs}`;
+}
+
+// ==================== ACTUALIZAR PROGRESO ====================
+function actualizarProgresoPuzzle() {
+    const progress = document.getElementById('puzzleProgress');
+    const total = puzzleGame.dificultad * puzzleGame.dificultad;
+    if (progress) {
+        progress.textContent = `Piezas: ${puzzleGame.piezasCorrectas}/${total}`;
+    }
+}
+
+// ==================== MOSTRAR HISTORIAL ====================
+function mostrarHistorialPuzzles() {
+    document.getElementById('photoSelectionScreen').classList.add('hidden');
+    document.getElementById('puzzleHistory').classList.add('active');
+    
+    const historyList = document.getElementById('historyList');
+    
+    if (puzzleGame.historial.length === 0) {
+        historyList.innerHTML = `
+            <div class="no-history">
+                <i class="fas fa-trophy" style="font-size: 3rem; color: #ccc; margin-bottom: 10px;"></i>
+                <p>Aún no has completado ningún puzzle<br>¡Anímate a empezar!</p>
+            </div>
+        `;
+    } else {
+        const ordenados = [...puzzleGame.historial].reverse();
+        
+        historyList.innerHTML = ordenados.map((puzzle, index) => {
+            const fecha = new Date(puzzle.fecha);
+            const fechaFormateada = fecha.toLocaleDateString('es-ES', { 
+                day: 'numeric', 
+                month: 'short',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            
+            const dificultadTexto = {3: 'Fácil', 4: 'Medio', 5: 'Difícil'}[puzzle.dificultad];
+            
+            return `
+                <div class="history-item">
+                    <img src="${puzzle.fotoUrl || 'fotos/01-05/foto1.jpg'}" alt="Puzzle">
+                    <div class="history-item-info">
+                        <h4>Puzzle #${ordenados.length - index} - ${dificultadTexto}</h4>
+                        <p>${fechaFormateada} • ${formatoTimer(puzzle.tiempo)}</p>
+                    </div>
+                    <div class="history-item-badge">✓</div>
+                </div>
+            `;
+        }).join('');
+    }
+}
+
+// ==================== OCULTAR HISTORIAL ====================
+function ocultarHistorial() {
+    document.getElementById('puzzleHistory').classList.remove('active');
+    document.getElementById('photoSelectionScreen').classList.remove('hidden');
+}
+
+// ==================== CONFETI ====================
+function lanzarConfetiPuzzle() {
+    const colores = ['#9C27B0', '#E91E63', '#2196F3', '#4CAF50', '#FF9800'];
+    
+    for (let i = 0; i < 50; i++) {
+        setTimeout(() => {
+            const confeti = document.createElement('div');
+            confeti.style.cssText = `
+                position: fixed;
+                width: 10px;
+                height: 10px;
+                background: ${colores[Math.floor(Math.random() * colores.length)]};
+                border-radius: ${Math.random() > 0.5 ? '50%' : '0'};
+                pointer-events: none;
+                z-index: 9999;
+                top: -10px;
+                left: ${Math.random() * 100}vw;
+                animation: caerConfeti ${2 + Math.random() * 2}s linear forwards;
+            `;
+            
+            document.body.appendChild(confeti);
+            
+            setTimeout(() => {
+                if (confeti.parentNode) {
+                    confeti.parentNode.removeChild(confeti);
+                }
+            }, 3000);
+        }, i * 50);
+    }
+}
+
+// ==================== ACTUALIZAR CONTADOR ====================
+function actualizarContadorRompecabezas() {
+    const contador = document.getElementById('contador-rompecabezas');
+    if (contador) {
+        contador.textContent = puzzleGame.historial.length;
+    }
+}
+
+// ==================== INICIALIZAR ROMPECABEZAS ====================
+function inicializarRompecabezas() {
+
+        actualizarContadorRompecabezas();
+}
+
+// Hacer funciones disponibles globalmente
+window.mostrarRompecabezas = mostrarRompecabezas;
+window.cambiarDificultadPuzzle = cambiarDificultadPuzzle;
+window.seleccionarFotoPuzzle = seleccionarFotoPuzzle;
+window.nuevasFotosPuzzle = nuevasFotosPuzzle;
+window.iniciarPuzzle = iniciarPuzzle;
+window.volverASeleccion = volverASeleccion;
+window.mostrarPista = mostrarPista;
+window.mostrarHistorialPuzzles = mostrarHistorialPuzzles;
+window.ocultarHistorial = ocultarHistorial;
+
+
+/// ==================== ROMPECABEZAS CANVAS - VERSIÓN FINAL FUNCIONAL ====================
+let puzzleCanvas = {
+    activo: false,
+    canvas: null,
+    ctx: null,
+    img: null,
+    fotoUrl: null,
+    rows: 3,
+    cols: 3,
+    pieceWidth: 80,
+    pieceHeight: 80,
+    tabSize: 20,
+    pieces: [],
+    selectedPiece: null,
+    offsetX: 0,
+    offsetY: 0,
+    timer: null,
+    segundos: 0,
+    historial: JSON.parse(localStorage.getItem('rompecabezasCompletados')) || [],
+    completado: false,
+    fotosDisponibles: []
+};
+
+// ==================== MOSTRAR PUZZLE CANVAS - VERSIÓN MEJORADA ====================
+function mostrarPuzzleCanvas() {
+    console.log("🧩 === ABRIENDO PUZZLE CANVAS ===");
+    
+    const fotos = obtenerFotosParaPuzzle();
+    console.log("📸 Fotos disponibles (totales):", fotos.length);
+    
+    // CORRECCIÓN: Usar la función mejorada
+    const fotosParaMostrar = seleccionar3FotosAleatorias(fotos);
+    console.log("📸 Fotos seleccionadas (después de filtro):", fotosParaMostrar.length);
+
+    // Verificar que tenemos 3 fotos
+    if (!fotosParaMostrar || fotosParaMostrar.length === 0) {
+        console.error("❌ No se pudieron seleccionar fotos");
+        mostrarNotificacion('Error cargando fotos para el puzzle', 'error');
+        return;
+    }
+
+    puzzleCanvas.fotosDisponibles = fotosParaMostrar;
+    puzzleCanvas.rows = 3;
+    puzzleCanvas.cols = 3;
+    puzzleCanvas.completado = false;
+
+    let contenidoHTML = `
+        <div class="puzzle-canvas-wrapper">
+            <h3 class="puzzle-canvas-title">🧩 Arma Nuestro Rompecabezas</h3>
+            
+            <div class="puzzle-difficulty-selector">
+                <button class="difficulty-btn-canvas active" onclick="cambiarDificultadCanvas(3)">Fácil (3x3)</button>
+                <button class="difficulty-btn-canvas" onclick="cambiarDificultadCanvas(4)">Medio (4x4)</button>
+                <button class="difficulty-btn-canvas" onclick="cambiarDificultadCanvas(5)">Difícil (5x5)</button>
+            </div>
+            
+            <div class="puzzle-photo-selector" id="puzzlePhotoSelector">
+                ${fotosParaMostrar.map((foto, index) => `
+                    <div class="puzzle-photo-option ${index === 0 ? 'selected' : ''}" 
+                        onclick="seleccionarFotoYPuzzle('${foto.url}', ${index})">
+                        <img src="${foto.url}" alt="Foto ${index + 1}" 
+                            onerror="this.onerror=null; this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%239C27B0%22/><text x=%2250%22 y=%2255%22 font-size=%2214%22 text-anchor=%22middle%22 fill=%22white%22>Foto ${index+1}</text></svg>'">
+                        <div class="checkmark">✓</div>
+                    </div>
+                `).join('')}
+            </div>
+            
+            <button class="btn-puzzle-canvas nueva-foto" onclick="nuevasFotosPuzzleCanvas()">
+                <i class="fas fa-sync"></i> Nuevas Fotos
+            </button>
+            
+            <div class="puzzle-canvas-info">
+                <div class="puzzle-canvas-timer" id="puzzleCanvasTimer">00:00</div>
+                <div class="puzzle-canvas-progress" id="puzzleCanvasProgress">Piezas: 0/9</div>
+            </div>
+            
+            <div class="puzzle-canvas-container">
+                <canvas id="puzzleCanvas"></canvas>
+                
+                <div class="puzzle-hint-panel-always">
+                    <h4>📸 Referencia</h4>
+                    <img id="hintImageAlways" src="${fotosParaMostrar[0]?.url || ''}" alt="Referencia"
+                         onerror="this.onerror=null; this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%239C27B0%22/><text x=%2250%22 y=%2255%22 font-size=%2214%22 text-anchor=%22middle%22 fill=%22white%22>Referencia</text></svg>'">
+                    <span class="puzzle-hint-label">Vista completa</span>
+                </div>
+            </div>
+            
+            <div id="puzzleCanvasComplete" class="puzzle-canvas-complete" style="display: none;">
+                <h3>🎉 ¡Completado!</h3>
+                <p id="puzzleCanvasCompleteMessage"></p>
+                <button class="btn-puzzle-canvas" onclick="volverAlSelectorPuzzle()">
+                    <i class="fas fa-redo"></i> Otro Puzzle
+                </button>
+            </div>
+            
+            <div class="puzzle-canvas-history">
+                <h4>🏆 Puzzles Completados</h4>
+                <div class="history-list-canvas" id="historyListCanvas"></div>
+            </div>
+        </div>
+    `;
+
+    mostrarPopupContenido(contenidoHTML, false, [], null, false);
+
+    // Iniciar con la primera foto después de un pequeño delay
+    setTimeout(() => {
+        if (fotosParaMostrar[0]?.url) {
+            console.log("🔄 Iniciando con foto:", fotosParaMostrar[0].url);
+            seleccionarFotoYPuzzle(fotosParaMostrar[0].url, 0);
+        }
+    }, 200);
+}
+
+function mostrarPuzzlePantallaCompleta() {
+    console.log("🧩 === ABRIENDO PUZZLE PANTALLA COMPLETA ===");
+    
+    const fotos = obtenerFotosParaPuzzle();
+    const fotosParaMostrar = seleccionar3FotosAleatorias(fotos);
+
+    if (!fotosParaMostrar || fotosParaMostrar.length === 0) {
+        mostrarNotificacion('Error cargando fotos para el puzzle', 'error');
+        return;
+    }
+
+    puzzleCanvas.fotosDisponibles = fotosParaMostrar;
+    puzzleCanvas.rows = 3;
+    puzzleCanvas.cols = 3;
+    puzzleCanvas.completado = false;
+
+    // HTML del modal de pantalla completa
+    let contenidoHTML = `
+    <div class="puzzle-fullscreen">
+        <div class="puzzle-fullscreen-header">
+            <h2>🧩 Rompecabezas de Nuestros Recuerdos</h2>
+            <button class="btn-cerrar-fullscreen" onclick="cerrarPopupPersonalizado()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="puzzle-fullscreen-content">
+            <div class="puzzle-sidebar">
+                <div class="puzzle-difficulty-selector">
+                    <button class="difficulty-btn-canvas active" onclick="cambiarDificultadCanvasFull(3)">Fácil (3x3)</button>
+                    <button class="difficulty-btn-canvas" onclick="cambiarDificultadCanvasFull(4)">Medio (4x4)</button>
+                    <button class="difficulty-btn-canvas" onclick="cambiarDificultadCanvasFull(5)">Difícil (5x5)</button>
+                </div>
+                
+                <div class="puzzle-photo-selector" id="puzzlePhotoSelectorFull">
+                    ${fotosParaMostrar.map((foto, index) => `
+                        <div class="puzzle-photo-option ${index === 0 ? 'selected' : ''}" 
+                            onclick="seleccionarFotoYPuzzleFull('${foto.url}', ${index})">
+                            <img src="${foto.url}" alt="Foto ${index + 1}" 
+                                onerror="this.onerror=null; this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%239C27B0%22/><text x=%2250%22 y=%2255%22 font-size=%2214%22 text-anchor=%22middle%22 fill=%22white%22>Foto ${index+1}</text></svg>'">
+                            <div class="checkmark">✓</div>
+                        </div>
+                    `).join('')}
+                </div>
+                
+                <button class="btn-puzzle-canvas nueva-foto" onclick="nuevasFotosPuzzleCanvasFull()">
+                    <i class="fas fa-sync"></i> Nuevas Fotos
+                </button>
+                
+                <div class="puzzle-canvas-info">
+                    <div class="puzzle-canvas-timer" id="puzzleCanvasTimerFull">00:00</div>
+                    <div class="puzzle-canvas-progress" id="puzzleCanvasProgressFull">Piezas: 0/9</div>
+                </div>
+                
+                <div class="puzzle-history-preview" id="historyPreviewFull">
+                    <h4>🏆 Últimos completados</h4>
+                    <div class="history-list-canvas" id="historyListCanvasFull"></div>
+                </div>
+                
+                <!-- BOTÓN CERRAR ADICIONAL -->
+                <button class="btn-puzzle-canvas cerrar" onclick="cerrarPopupPersonalizado()" style="margin-top: 15px; width: 100%;">
+                    <i class="fas fa-times"></i> Cerrar
+                </button>
+            </div>
+            
+            <div class="puzzle-main-area">
+                <div class="puzzle-canvas-container-full">
+                    <canvas id="puzzleCanvasFull"></canvas>
+                    <div class="puzzle-hint-panel-always">
+                        <h4>📸 Referencia</h4>
+                        <img id="hintImageAlwaysFull" src="${fotosParaMostrar[0]?.url || ''}" alt="Referencia">
+                    </div>
+                </div>
+                
+                <div id="puzzleCanvasCompleteFull" class="puzzle-canvas-complete" style="display: none;">
+                    <h3>🎉 ¡Completado!</h3>
+                    <p id="puzzleCanvasCompleteMessageFull"></p>
+                    <button class="btn-puzzle-canvas" onclick="volverAlSelectorPuzzleFull()">
+                        <i class="fas fa-redo"></i> Otro Puzzle
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+`;
+
+    // Mostrar el popup con estilos de pantalla completa
+    mostrarPopupPersonalizado(contenidoHTML, 'puzzle-fullscreen-popup');
+
+    // Después de que el DOM esté listo, inicializar con la primera foto
+    setTimeout(() => {
+        if (fotosParaMostrar[0]?.url) {
+            seleccionarFotoYPuzzleFull(fotosParaMostrar[0].url, 0);
+        }
+        mostrarHistorialPuzzleCanvasFull();
+    }, 200);
+}
+
+function mostrarHistorialPuzzleCanvasFull() {
+    const historyList = document.getElementById('historyListCanvasFull');
+    if (!historyList) return;
+    
+    if (puzzleCanvas.historial.length === 0) {
+        historyList.innerHTML = `<div class="no-history-canvas">¡Completa tu primer puzzle!</div>`;
+        return;
+    }
+    
+    const ordenados = [...puzzleCanvas.historial].reverse().slice(0, 5);
+    
+    historyList.innerHTML = ordenados.map((puzzle, index) => {
+        const fecha = new Date(puzzle.fecha);
+        const fechaFormateada = fecha.toLocaleDateString('es-ES', { day: 'numeric', month: 'short' });
+        const dificultadTexto = {3: 'Fácil', 4: 'Medio', 5: 'Difícil'}[puzzle.dificultad];
+        
+        return `
+            <div class="history-item-canvas">
+                <img src="${puzzle.foto || 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect fill=%22%23f0f0f0%22 width=%22100%22 height=%22100%22/></svg>'}" alt="Puzzle">
+                <div class="history-item-canvas-info">
+                    <h5>${dificultadTexto} • ${formatoTimer(puzzle.tiempo)}</h5>
+                    <p>${fechaFormateada}</p>
+                </div>
+                <div class="history-item-canvas-badge">✓</div>
+            </div>
+        `;
+    }).join('');
+}
+
+// ==================== EVENTOS DE ARRASTRE PARA MODO FULL ====================
+
+function configurarEventosCanvasFull() {
+    const canvas = document.getElementById('puzzleCanvasFull');
+    if (!canvas) return;
+    
+    canvas.addEventListener('mousedown', handleCanvasMouseDownFull);
+    canvas.addEventListener('mousemove', handleCanvasMouseMoveFull);
+    canvas.addEventListener('mouseup', handleCanvasMouseUpFull);
+    canvas.addEventListener('mouseleave', handleCanvasMouseLeaveFull);
+    
+    canvas.addEventListener('touchstart', handleCanvasTouchStartFull, { passive: false });
+    canvas.addEventListener('touchmove', handleCanvasTouchMoveFull, { passive: false });
+    canvas.addEventListener('touchend', handleCanvasTouchEndFull);
+}
+
+// Manejadores (copia de los originales pero con puzzleCanvas como variable global)
+function handleCanvasMouseDownFull(e) {
+    if (puzzleCanvas.completado) return;
+    
+    const canvas = document.getElementById('puzzleCanvasFull');
+    const rect = canvas.getBoundingClientRect();
+    const scaleX = canvas.width / rect.width;   // Relación tamaño real / tamaño en pantalla
+    const scaleY = canvas.height / rect.height;
+    
+    const mouseX = (e.clientX - rect.left) * scaleX;
+    const mouseY = (e.clientY - rect.top) * scaleY;
+    
+    for (let i = puzzleCanvas.pieces.length - 1; i >= 0; i--) {
+        const piece = puzzleCanvas.pieces[i];
+        // Verificar si el click está dentro del área de la pieza (considerando pestañas)
+        if (mouseX >= piece.currentX - puzzleCanvas.tabSize && 
+            mouseX <= piece.currentX + puzzleCanvas.pieceWidth + puzzleCanvas.tabSize &&
+            mouseY >= piece.currentY - puzzleCanvas.tabSize && 
+            mouseY <= piece.currentY + puzzleCanvas.pieceHeight + puzzleCanvas.tabSize) {
+            
+            puzzleCanvas.selectedPiece = piece;
+            piece.isDragging = true;
+            puzzleCanvas.offsetX = mouseX - piece.currentX;
+            puzzleCanvas.offsetY = mouseY - piece.currentY;
+            
+            // Mover la pieza al frente (última en el array)
+            puzzleCanvas.pieces.splice(i, 1);
+            puzzleCanvas.pieces.push(piece);
+            break;
+        }
+    }
+    dibujarPuzzle();
+}
+
+function handleCanvasMouseMoveFull(e) {
+    if (!puzzleCanvas.selectedPiece) return;
+    
+    const canvas = document.getElementById('puzzleCanvasFull');
+    const rect = canvas.getBoundingClientRect();
+    const scaleX = canvas.width / rect.width;
+    const scaleY = canvas.height / rect.height;
+    
+    const mouseX = (e.clientX - rect.left) * scaleX;
+    const mouseY = (e.clientY - rect.top) * scaleY;
+    
+    puzzleCanvas.selectedPiece.currentX = mouseX - puzzleCanvas.offsetX;
+    puzzleCanvas.selectedPiece.currentY = mouseY - puzzleCanvas.offsetY;
+    
+    // Limitar dentro del canvas (opcional, para que no se salga)
+    puzzleCanvas.selectedPiece.currentX = Math.max(puzzleCanvas.tabSize, Math.min(puzzleCanvas.selectedPiece.currentX, canvas.width - puzzleCanvas.pieceWidth - puzzleCanvas.tabSize));
+    puzzleCanvas.selectedPiece.currentY = Math.max(puzzleCanvas.tabSize, Math.min(puzzleCanvas.selectedPiece.currentY, canvas.height - puzzleCanvas.pieceHeight - puzzleCanvas.tabSize));
+    
+    dibujarPuzzle();
+}
+
+function handleCanvasMouseUpFull() {
+    if (puzzleCanvas.selectedPiece) {
+        puzzleCanvas.selectedPiece.isDragging = false;
+        
+        // Snap a la posición correcta
+        const snapDistance = 30;
+        const piece = puzzleCanvas.selectedPiece;
+        
+        if (Math.abs(piece.currentX - piece.correctX) < snapDistance &&
+            Math.abs(piece.currentY - piece.correctY) < snapDistance) {
+            piece.currentX = piece.correctX;
+            piece.currentY = piece.correctY;
+            piece.isCorrect = true;
+        } else {
+            piece.isCorrect = false;
+        }
+        
+        puzzleCanvas.selectedPiece = null;
+        dibujarPuzzle();
+        verificarVictoriaCanvas(); // Verificar si se completó
+    }
+}
+
+function handleCanvasMouseLeaveFull() {
+    if (puzzleCanvas.selectedPiece) {
+        puzzleCanvas.selectedPiece.isDragging = false;
+        puzzleCanvas.selectedPiece = null;
+        dibujarPuzzle();
+    }
+}
+
+// Versiones táctiles
+function handleCanvasTouchStartFull(e) {
+    e.preventDefault();
+    const touch = e.touches[0];
+    handleCanvasMouseDownFull({ clientX: touch.clientX, clientY: touch.clientY });
+}
+
+function handleCanvasTouchMoveFull(e) {
+    e.preventDefault();
+    const touch = e.touches[0];
+    handleCanvasMouseMoveFull({ clientX: touch.clientX, clientY: touch.clientY });
+}
+
+function handleCanvasTouchEndFull(e) {
+    e.preventDefault();
+    handleCanvasMouseUpFull();
+}
+
+// ==================== CAMBIO DE DIFICULTAD Y NUEVAS FOTOS (MODO FULL) ====================
+
+function cambiarDificultadCanvasFull(nivel) {
+    if (puzzleCanvas.rows === nivel) return; // No hacer nada si es la misma dificultad
+    
+    puzzleCanvas.rows = nivel;
+    puzzleCanvas.cols = nivel;
+    puzzleCanvas.completado = false;
+    
+    // Actualizar botones activos
+    document.querySelectorAll('#popup-personalizado .difficulty-btn-canvas').forEach((btn, index) => {
+        btn.classList.toggle('active', index + 3 === nivel);
+    });
+    
+    // Si hay imagen cargada, reiniciar el puzzle
+    if (puzzleCanvas.img && puzzleCanvas.img.complete && puzzleCanvas.img.naturalWidth > 0) {
+        iniciarPuzzleCanvasFull();
+    }
+}
+function nuevasFotosPuzzleCanvasFull() {
+    const fotos = obtenerFotosParaPuzzle();
+    const nuevas = seleccionar3FotosAleatorias(fotos);
+    puzzleCanvas.fotosDisponibles = nuevas;
+    
+    const selector = document.getElementById('puzzlePhotoSelectorFull');
+    if (selector) {
+        selector.innerHTML = nuevas.map((foto, index) => `
+            <div class="puzzle-photo-option ${index === 0 ? 'selected' : ''}" 
+                 onclick="seleccionarFotoYPuzzleFull('${foto.url}', ${index})">
+                <img src="${foto.url}" alt="Foto ${index + 1}"
+                     onerror="this.onerror=null; this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%239C27B0%22/><text x=%2250%22 y=%2255%22 font-size=%2214%22 text-anchor=%22middle%22 fill=%22white%22>Foto ${index+1}</text></svg>'">
+                <div class="checkmark">✓</div>
+            </div>
+        `).join('');
+    }
+    
+    if (nuevas[0]?.url) {
+        seleccionarFotoYPuzzleFull(nuevas[0].url, 0);
+    }
+}
+
+// También necesitamos una función para volver al selector después de completar
+function volverAlSelectorPuzzleFull() {
+    detenerTimerPuzzleCanvas();
+    puzzleCanvas.activo = false;
+    puzzleCanvas.completado = false;
+    
+    const complete = document.getElementById('puzzleCanvasCompleteFull');
+    if (complete) complete.style.display = 'none';
+    
+    if (puzzleCanvas.fotoUrl && puzzleCanvas.img) {
+        iniciarPuzzleCanvasFull();
+    }
+}
+
+// ==================== TIMER Y PROGRESO PARA MODO FULL ====================
+
+function iniciarTimerPuzzleCanvasFull() {
+    detenerTimerPuzzleCanvas(); // Usamos la misma variable de timer global
+    puzzleCanvas.segundos = 0;
+    actualizarTimerDisplayCanvasFull();
+    
+    puzzleCanvas.timer = setInterval(() => {
+        puzzleCanvas.segundos++;
+        actualizarTimerDisplayCanvasFull();
+    }, 1000);
+}
+
+function actualizarTimerDisplayCanvasFull() {
+    const timer = document.getElementById('puzzleCanvasTimerFull');
+    if (timer) timer.textContent = formatoTimer(puzzleCanvas.segundos);
+}
+
+// Esta función se llamará dentro de dibujarPuzzle (modificaremos la original después)
+function actualizarProgresoPuzzleFull() {
+    const progress = document.getElementById('puzzleCanvasProgressFull');
+    if (progress && puzzleCanvas.pieces) {
+        const total = puzzleCanvas.rows * puzzleCanvas.cols;
+        const correctas = puzzleCanvas.pieces.filter(p => p.isCorrect).length;
+        progress.textContent = `Piezas: ${correctas}/${total}`;
+    }
+}
+// ==================== OBTENER FOTOS ====================
+function obtenerFotosParaPuzzle() {
+    const fotos = [];
+    const diasEspeciales = window.datosConfig?.diasEspeciales || {};
+    
+    Object.values(diasEspeciales).forEach(dia => {
+        if (dia.fotos && dia.fotos.length > 0) {
+            dia.fotos.forEach(foto => {
+                fotos.push({ url: foto.url, texto: foto.texto || 'Nuestro recuerdo' });
+            });
+        }
+    });
+    
+    if (fotos.length < 10) {
+        for (let i = 0; i < 10; i++) {
+            fotos.push({ url: `fotos/01-05/foto${i + 1}.jpg`, texto: `Foto especial ${i + 1}` });
+        }
+    }
+    
+    return fotos;
+}
+
+function seleccionar3FotosAleatorias(fotosDisponibles) {
+    const copiadas = [...fotosDisponibles];
+    const seleccionadas = [];
+    for (let i = 0; i < Math.min(3, copiadas.length); i++) {
+        const idx = Math.floor(Math.random() * copiadas.length);
+        seleccionadas.push(copiadas[idx]);
+        copiadas.splice(idx, 1);
+    }
+    return seleccionadas;
+}
+
+function nuevasFotosPuzzleCanvas() {
+mostrarHistorialPuzzleCanvasFull();
+    const fotos = obtenerFotosParaPuzzle();
+    const nuevas = seleccionar3FotosAleatorias(fotos);
+    puzzleCanvas.fotosDisponibles = nuevas;
+    
+    const selector = document.getElementById('puzzlePhotoSelector');
+    if (selector) {
+        selector.innerHTML = nuevas.map((foto, index) => `
+            <div class="puzzle-photo-option ${index === 0 ? 'selected' : ''}" 
+                 onclick="seleccionarFotoYPuzzle('${foto.url}', ${index})">
+                <img src="${foto.url}" alt="Foto ${index + 1}">
+                <div class="checkmark">✓</div>
+            </div>
+        `).join('');
+    }
+    
+    if (nuevas[0]?.url) {
+        seleccionarFotoYPuzzle(nuevas[0].url, 0);
+    }
+}
+
+// ==================== SELECCIONAR FOTO E INICIAR PUZZLE - CORREGIDA ===
+function seleccionarFotoYPuzzle(url, index) {
+    console.log("🖼️ === SELECCIONANDO FOTO ===");
+    console.log("🖼️ URL:", url);
+    console.log("🖼️ Índice:", index);
+    
+    // Marcar foto seleccionada
+    document.querySelectorAll('.puzzle-photo-option').forEach((opt, i) => {
+        opt.classList.toggle('selected', i === index);
+    });
+
+    puzzleCanvas.fotoUrl = url;
+
+    // Actualizar imagen de referencia
+    const hintImg = document.getElementById('hintImageAlways');
+    if (hintImg) {
+        hintImg.src = url;
+    }
+
+    // CREAR IMAGEN Y ESPERAR QUE CARGUE COMPLETAMENTE
+    puzzleCanvas.img = new Image();
+    
+    // Agregar timestamp para evitar cache
+    const urlConCache = url + (url.includes('?') ? '&' : '?') + 't=' + new Date().getTime();
+    
+    puzzleCanvas.img.onload = function() {
+        console.log("✅ === IMAGEN CARGADA ===");
+        console.log("✅ naturalWidth:", this.naturalWidth);
+        console.log("✅ naturalHeight:", this.naturalHeight);
+        console.log("✅ width:", this.width);
+        console.log("✅ height:", this.height);
+        console.log("✅ complete:", this.complete);
+        console.log("✅ src:", this.src);
+        
+        if (this.naturalWidth > 0 && this.naturalHeight > 0) {
+            console.log("✅ Imagen válida, iniciando puzzle en 200ms...");
+            setTimeout(() => {
+                iniciarPuzzleCanvas();
+            }, 200);
+        } else {
+            console.error("❌ Imagen sin dimensiones válidas");
+            crearImagenRespaldo(url);
+        }
+    };
+
+    puzzleCanvas.img.onerror = function(e) {
+        console.error("❌ === ERROR CARGANDO IMAGEN ===");
+        console.error("❌ URL:", url);
+        console.error("❌ Error:", e);
+        crearImagenRespaldo(url);
+    };
+
+    console.log("🔄 Cargando imagen:", urlConCache);
+    puzzleCanvas.img.src = urlConCache;
+}
+
+function seleccionarFotoYPuzzleFull(url, index) {
+    console.log("🖼️ Seleccionando foto para pantalla completa:", url);
+    mostrarHistorialPuzzleCanvasFull();
+    // Marcar foto seleccionada
+    document.querySelectorAll('#puzzlePhotoSelectorFull .puzzle-photo-option').forEach((opt, i) => {
+        opt.classList.toggle('selected', i === index);
+    });
+
+    puzzleCanvas.fotoUrl = url;
+
+    // Actualizar imagen de referencia
+    const hintImg = document.getElementById('hintImageAlwaysFull');
+    if (hintImg) hintImg.src = url;
+
+    // Cargar imagen
+    puzzleCanvas.img = new Image();
+    const urlConCache = url + (url.includes('?') ? '&' : '?') + 't=' + new Date().getTime();
+    
+    puzzleCanvas.img.onload = function() {
+        console.log("✅ Imagen cargada para puzzle full");
+        iniciarPuzzleCanvasFull();
+    };
+    
+    puzzleCanvas.img.onerror = function() {
+        console.error("❌ Error cargando imagen, usando fallback");
+        crearImagenRespaldoFull(url);
+    };
+    
+    puzzleCanvas.img.src = urlConCache;
+}
+
+function iniciarPuzzleCanvasFull() {
+    console.log("🧩 === INICIANDO PUZZLE CANVAS FULL ===");
+    
+    const canvas = document.getElementById('puzzleCanvasFull');
+    if (!canvas) { console.error("❌ Canvas no encontrado"); return; }
+    
+    if (!puzzleCanvas.img || !puzzleCanvas.img.complete || puzzleCanvas.img.naturalWidth === 0) {
+        console.error("❌ Imagen no válida");
+        return;
+    }
+
+    puzzleCanvas.canvas = canvas;
+    puzzleCanvas.ctx = canvas.getContext('2d');
+    puzzleCanvas.completado = false;
+
+    const complete = document.getElementById('puzzleCanvasCompleteFull');
+    if (complete) complete.style.display = 'none';
+
+    const rows = puzzleCanvas.rows;
+    const cols = puzzleCanvas.cols;
+    const imgW = puzzleCanvas.img.naturalWidth;
+    const imgH = puzzleCanvas.img.naturalHeight;
+    const aspectRatio = imgH / imgW;
+
+// Dentro de iniciarPuzzleCanvasFull, después de obtener rows, cols, etc.
+
+let baseWidth;
+if (window.innerWidth <= 480) {
+    baseWidth = 180;          // Móvil pequeño (antes 240)
+} else if (window.innerWidth <= 768) {
+    baseWidth = 280;          // Móvil grande / tablet (antes 350)
+} else {
+    baseWidth = 500;          // Escritorio
+}
+
+const baseHeight = baseWidth * aspectRatio;
+
+puzzleCanvas.pieceWidth = baseWidth / cols;
+puzzleCanvas.pieceHeight = baseHeight / rows;
+puzzleCanvas.tabSize = Math.min(16, puzzleCanvas.pieceWidth * 0.25); // Pestañas un poco más pequeñas
+
+const totalWidth = baseWidth + puzzleCanvas.tabSize * 2;
+const totalHeight = baseHeight + puzzleCanvas.tabSize * 2;
+
+canvas.width = totalWidth;
+canvas.height = totalHeight;
+canvas.style.width = '100%';
+canvas.style.height = 'auto';
+canvas.style.maxWidth = totalWidth + 'px';
+canvas.style.display = 'block';
+canvas.style.margin = '0 auto';
+    
+    // CSS responsive: que ocupe el ancho disponible pero sin deformarse
+    canvas.style.width = '100%';
+    canvas.style.height = 'auto';
+    canvas.style.maxWidth = totalWidth + 'px'; // no más grande que su tamaño real
+    canvas.style.display = 'block';
+    canvas.style.margin = '0 auto'; // centrado
+
+    console.log(`🧩 Canvas full: ${totalWidth}x${totalHeight}, pieza: ${puzzleCanvas.pieceWidth}x${puzzleCanvas.pieceHeight}`);
+
+    generarFormasPiezas();
+    crearPiezas();
+    dibujarPuzzle();
+    configurarEventosCanvasFull();
+    iniciarTimerPuzzleCanvasFull();
+
+    puzzleCanvas.activo = true;
+}
+// Función de respaldo para imágenes (similar a la original)
+function crearImagenRespaldoFull(urlOriginal) {
+    const canvas = document.createElement('canvas');
+    canvas.width = 400;
+    canvas.height = 400;
+    const ctx = canvas.getContext('2d');
+    
+    const gradient = ctx.createLinearGradient(0, 0, 400, 400);
+    gradient.addColorStop(0, '#9C27B0');
+    gradient.addColorStop(1, '#7B1FA2');
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, 400, 400);
+    
+    ctx.fillStyle = 'white';
+    ctx.font = 'bold 20px Poppins';
+    ctx.textAlign = 'center';
+    ctx.fillText('Imagen No Disponible', 200, 180);
+    ctx.font = '14px Poppins';
+    ctx.fillText(urlOriginal.split('/').pop() || 'Verifica la ruta', 200, 220);
+
+    const dataUrl = canvas.toDataURL('image/jpeg');
+    puzzleCanvas.fotoUrl = dataUrl;
+
+    puzzleCanvas.img = new Image();
+    puzzleCanvas.img.onload = function() {
+        console.log("✅ Respaldo cargado");
+        iniciarPuzzleCanvasFull();
+    };
+    puzzleCanvas.img.src = dataUrl;
+}
+// ==================== INICIAR PUZZLE CANVAS - CORREGIDA ===
+function iniciarPuzzleCanvas() {
+    console.log("🧩 === INICIANDO PUZZLE CANVAS ===");
+    
+    const canvas = document.getElementById('puzzleCanvas');
+    
+    if (!canvas) {
+        console.error("❌ Canvas no encontrado");
+        return;
+    }
+    
+    if (!puzzleCanvas.img) {
+        console.error(" puzzleCanvas.img no existe");
+        return;
+    }
+    
+    if (!puzzleCanvas.img.complete || puzzleCanvas.img.naturalWidth === 0) {
+        console.error("❌ Imagen no está lista");
+        return;
+    }
+
+    puzzleCanvas.canvas = canvas;
+    puzzleCanvas.ctx = canvas.getContext('2d');
+    puzzleCanvas.completado = false;
+
+    const complete = document.getElementById('puzzleCanvasComplete');
+    if (complete) complete.style.display = 'none';
+
+    const rows = puzzleCanvas.rows;
+    const cols = puzzleCanvas.cols;
+
+    // USAR naturalWidth y naturalHeight
+    const imgRatio = puzzleCanvas.img.naturalHeight / puzzleCanvas.img.naturalWidth;
+    const baseSize = 360;
+
+    puzzleCanvas.pieceWidth = baseSize / cols;
+    puzzleCanvas.pieceHeight = (baseSize * imgRatio) / rows;
+    puzzleCanvas.tabSize = Math.min(20, puzzleCanvas.pieceWidth * 0.25);
+
+    const canvasWidth = cols * puzzleCanvas.pieceWidth + puzzleCanvas.tabSize * 2;
+    const canvasHeight = rows * puzzleCanvas.pieceHeight + puzzleCanvas.tabSize * 2;
+
+    canvas.width = canvasWidth;
+    canvas.height = canvasHeight;
+    
+    const maxWidth = Math.min(canvasWidth, window.innerWidth - 100);
+    canvas.style.width = maxWidth + 'px';
+    canvas.style.height = (canvasHeight * (maxWidth / canvasWidth)) + 'px';
+
+    console.log("🧩 Canvas:", canvasWidth, "x", canvasHeight);
+    console.log("🧩 Pieza:", puzzleCanvas.pieceWidth, "x", puzzleCanvas.pieceHeight);
+    console.log("🧩 Imagen:", puzzleCanvas.img.naturalWidth, "x", puzzleCanvas.img.naturalHeight);
+    console.log("🧩 Filas:", rows, "Columnas:", cols);
+
+    generarFormasPiezas();
+    crearPiezas();
+    dibujarPuzzle();
+    configurarEventosCanvas();
+    iniciarTimerPuzzleCanvas();
+
+    puzzleCanvas.activo = true;
+    console.log("✅ === PUZZLE INICIADO ===");
+}
+
+function iniciarPuzzleCanvasFull() {
+    console.log("🧩 === INICIANDO PUZZLE CANVAS FULL ===");
+    
+    const canvas = document.getElementById('puzzleCanvasFull');
+    if (!canvas) { console.error("❌ Canvas no encontrado"); return; }
+    
+    if (!puzzleCanvas.img || !puzzleCanvas.img.complete || puzzleCanvas.img.naturalWidth === 0) {
+        console.error("❌ Imagen no válida");
+        return;
+    }
+
+    puzzleCanvas.canvas = canvas;
+    puzzleCanvas.ctx = canvas.getContext('2d');
+    puzzleCanvas.completado = false;
+
+    // Ocultar mensaje de completado si estaba visible
+    const complete = document.getElementById('puzzleCanvasCompleteFull');
+    if (complete) complete.style.display = 'none';
+
+    const rows = puzzleCanvas.rows;
+    const cols = puzzleCanvas.cols;
+    const imgW = puzzleCanvas.img.naturalWidth;
+    const imgH = puzzleCanvas.img.naturalHeight;
+    const aspectRatio = imgH / imgW;
+
+    // Tamaño deseado para el canvas (ancho máximo 800px, alto proporcional)
+    const maxWidth = 800;
+    const canvasWidth = maxWidth;
+    const canvasHeight = maxWidth * aspectRatio;
+
+    // Tamaño de cada pieza (incluyendo el espacio para las pestañas)
+    puzzleCanvas.pieceWidth = canvasWidth / cols;
+    puzzleCanvas.pieceHeight = canvasHeight / rows;
+    puzzleCanvas.tabSize = Math.min(20, puzzleCanvas.pieceWidth * 0.25);
+
+    // El canvas total necesita espacio extra para las pestañas
+    const totalWidth = canvasWidth + puzzleCanvas.tabSize * 2;
+    const totalHeight = canvasHeight + puzzleCanvas.tabSize * 2;
+
+    canvas.width = totalWidth;
+    canvas.height = totalHeight;
+    canvas.style.width = totalWidth + 'px';
+    canvas.style.height = totalHeight + 'px';
+
+    console.log(`🧩 Canvas full: ${totalWidth}x${totalHeight}, pieza: ${puzzleCanvas.pieceWidth}x${puzzleCanvas.pieceHeight}`);
+
+    generarFormasPiezas();
+    crearPiezas(); // Esta función debe usar las nuevas dimensiones
+    dibujarPuzzle(); // Esta función debe usar el contexto correcto
+    configurarEventosCanvasFull(); // Versión adaptada para este canvas
+    iniciarTimerPuzzleCanvasFull();
+
+    puzzleCanvas.activo = true;
+}
+// ==================== GENERAR FORMAS DE PIEZAS ====================
+function generarFormasPiezas() {
+    puzzleCanvas.pieceShapes = [];
+    
+    for (let r = 0; r < puzzleCanvas.rows; r++) {
+        puzzleCanvas.pieceShapes[r] = [];
+        for (let c = 0; c < puzzleCanvas.cols; c++) {
+            puzzleCanvas.pieceShapes[r][c] = { top: 0, right: 0, bottom: 0, left: 0 };
+        }
+    }
+
+    for (let r = 0; r < puzzleCanvas.rows; r++) {
+        for (let c = 0; c < puzzleCanvas.cols; c++) {
+            if (c < puzzleCanvas.cols - 1) {
+                const shape = Math.random() > 0.5 ? 1 : -1;
+                puzzleCanvas.pieceShapes[r][c].right = shape;
+                puzzleCanvas.pieceShapes[r][c + 1].left = -shape;
+            }
+            if (r < puzzleCanvas.rows - 1) {
+                const shape = Math.random() > 0.5 ? 1 : -1;
+                puzzleCanvas.pieceShapes[r][c].bottom = shape;
+                puzzleCanvas.pieceShapes[r + 1][c].top = -shape;
+            }
+        }
+    }
+}
+
+// ==================== CREAR PIEZAS ====================
+function crearPiezas() {
+    puzzleCanvas.pieces = [];
+    const rows = puzzleCanvas.rows;
+    const cols = puzzleCanvas.cols;
+    const canvas = puzzleCanvas.canvas;
+    const margin = puzzleCanvas.margin || 0;
+    
+    for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+            const correctX = margin + c * puzzleCanvas.pieceWidth;
+            const correctY = margin + r * puzzleCanvas.pieceHeight;
+
+
+            const minX = puzzleCanvas.tabSize;
+            const maxX = canvas.width - puzzleCanvas.pieceWidth - puzzleCanvas.tabSize;
+            const minY = puzzleCanvas.tabSize;
+            const maxY = canvas.height - puzzleCanvas.pieceHeight - puzzleCanvas.tabSize;
+
+            // Posición aleatoria inicial
+               let randomX, randomY;
+            do {
+                randomX = minX + Math.random() * (maxX - minX);
+                randomY = minY + Math.random() * (maxY - minY);
+            } while (Math.abs(randomX - correctX) < 50 && Math.abs(randomY - correctY) < 50); // evitar que aparezca muy cerca
+            
+            puzzleCanvas.pieces.push({
+                row: r,
+                col: c,
+                currentX: randomX,
+                currentY: randomY,
+                correctX: correctX,
+                correctY: correctY,
+                shape: puzzleCanvas.pieceShapes[r][c],
+                isDragging: false,
+                isCorrect: false
+            });
+        }
+    }
+}
+
+// ==================== DIBUJAR PUZZLE ====================
+function dibujarPuzzle() {
+    if (!puzzleCanvas.ctx || !puzzleCanvas.img) {
+        console.error("❌ ctx o img no disponibles para dibujar");
+        return;
+    }
+    
+    puzzleCanvas.ctx.clearRect(0, 0, puzzleCanvas.canvas.width, puzzleCanvas.canvas.height);
+    
+    // DIBUJAR CADA PIEZA CON SU FRAGMENTO DE IMAGEN
+    puzzleCanvas.pieces.forEach(piece => dibujarPieza(piece));
+    
+    verificarVictoriaCanvas();
+    if (document.getElementById('puzzleCanvasFull')) {
+        actualizarProgresoPuzzleFull();
+    }
+}
+
+// ==================== DIBUJAR PIEZA - CORREGIDA DEFINITIVAMENTE ===
+function dibujarPieza(piece) {
+    const ctx = puzzleCanvas.ctx;
+    const img = puzzleCanvas.img;
+    
+    if (!ctx) {
+        console.error("❌ Contexto no disponible");
+        return;
+    }
+    
+    if (!img || !img.complete || img.naturalWidth === 0 || img.naturalHeight === 0) {
+        console.warn("⚠️ Imagen no válida, dibujando fallback");
+        dibujarPiezaFallback(piece);
+        return;
+    }
+
+    const x = piece.currentX;
+    const y = piece.currentY;
+    const shape = piece.shape;
+    const pw = puzzleCanvas.pieceWidth;
+    const ph = puzzleCanvas.pieceHeight;
+    const tab = puzzleCanvas.tabSize; // <-- DEFINIR AQUÍ
+
+    ctx.save();
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+    dibujarBordePieza(ctx, x, y, x + pw, y, shape.top, tab);
+    dibujarBordePieza(ctx, x + pw, y, x + pw, y + ph, shape.right, tab);
+    dibujarBordePieza(ctx, x + pw, y + ph, x, y + ph, shape.bottom, tab);
+    dibujarBordePieza(ctx, x, y + ph, x, y, shape.left, tab);
+    ctx.closePath();
+    ctx.clip();
+
+    // === CALCULAR FRAGMENTO DE IMAGEN CON MARGEN PARA PESTAÑAS ===
+    const imgPieceWidth = img.naturalWidth / puzzleCanvas.cols;
+    const imgPieceHeight = img.naturalHeight / puzzleCanvas.rows;
+
+    // Factores de escala para convertir tamaño de pieza a tamaño de imagen
+    const scaleX = imgPieceWidth / pw;
+    const scaleY = imgPieceHeight / ph;
+
+    // Calcular el área de origen (imagen) que cubre la pieza más las pestañas
+    const sourceX = Math.max(0, piece.col * imgPieceWidth - tab * scaleX);
+    const sourceY = Math.max(0, piece.row * imgPieceHeight - tab * scaleY);
+    const sourceW = Math.min(img.naturalWidth - sourceX, imgPieceWidth + 2 * tab * scaleX);
+    const sourceH = Math.min(img.naturalHeight - sourceY, imgPieceHeight + 2 * tab * scaleY);
+
+    // Área de destino (canvas) que incluye el espacio para las pestañas
+    const destX = x - tab;
+    const destY = y - tab;
+    const destW = pw + 2 * tab;
+    const destH = ph + 2 * tab;
+
+    console.log("🎨 Pieza", piece.row, "x", piece.col);
+    console.log("   Fuente:", sourceX, sourceY, sourceW, sourceH);
+    console.log("   Destino:", destX, destY, destW, destH);
+
+    // === DIBUJAR FRAGMENTO DE IMAGEN ===
+    ctx.drawImage(
+        img,
+        sourceX, sourceY, sourceW, sourceH,
+        destX, destY, destW, destH
+    );
+
+    ctx.restore();
+
+    // === DIBUJAR CONTORNO ===
+    ctx.save();
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+    dibujarBordePieza(ctx, x, y, x + pw, y, shape.top, tab);
+    dibujarBordePieza(ctx, x + pw, y, x + pw, y + ph, shape.right, tab);
+    dibujarBordePieza(ctx, x + pw, y + ph, x, y + ph, shape.bottom, tab);
+    dibujarBordePieza(ctx, x, y + ph, x, y, shape.left, tab);
+    ctx.closePath();
+
+    ctx.strokeStyle = piece.isDragging ? '#e94560' : (piece.isCorrect ? '#4CAF50' : '#ffffff');
+    ctx.lineWidth = piece.isCorrect ? 3 : 2;
+    ctx.stroke();
+    ctx.restore();
+}
+
+// === FALLBACK SOLO SI LA IMAGEN NO CARGA ===
+function dibujarPiezaFallback(piece) {
+    const ctx = puzzleCanvas.ctx;
+    const x = piece.currentX;
+    const y = piece.currentY;
+    const shape = piece.shape;
+    const pw = puzzleCanvas.pieceWidth;
+    const ph = puzzleCanvas.pieceHeight;
+    const tab = puzzleCanvas.tabSize;
+
+    ctx.save();
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+    dibujarBordePieza(ctx, x, y, x + pw, y, shape.top, tab);
+    dibujarBordePieza(ctx, x + pw, y, x + pw, y + ph, shape.right, tab);
+    dibujarBordePieza(ctx, x + pw, y + ph, x, y + ph, shape.bottom, tab);
+    dibujarBordePieza(ctx, x, y + ph, x, y, shape.left, tab);
+    ctx.closePath();
+    
+    ctx.fillStyle = '#9C27B0';
+    ctx.fill();
+    ctx.strokeStyle = '#ffffff';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+    ctx.restore();
+}
+
+
+function dibujarBordePieza(ctx, x1, y1, x2, y2, shape, tabSize) {
+    if (shape === 0) {
+        ctx.lineTo(x2, y2);
+        return;
+    }
+
+    const dx = x2 - x1;
+    const dy = y2 - y1;
+    const distance = Math.sqrt(dx * dx + dy * dy);
+    
+    const perpX = -dy / distance;
+    const perpY = dx / distance;
+    const neckWidth = 0.35;
+    
+    const neck1X = x1 + dx * neckWidth;
+    const neck1Y = y1 + dy * neckWidth;
+    const neck2X = x1 + dx * (1 - neckWidth);
+    const neck2Y = y1 + dy * (1 - neckWidth);
+    const headCenterX = x1 + dx * 0.5;
+    const headCenterY = y1 + dy * 0.5;
+    const headTipX = headCenterX + perpX * tabSize * shape;
+    const headTipY = headCenterY + perpY * tabSize * shape;
+
+    ctx.lineTo(neck1X, neck1Y);
+    ctx.bezierCurveTo(
+        neck1X + perpX * (tabSize * 0.3 * shape),
+        neck1Y + perpY * (tabSize * 0.3 * shape),
+        headTipX - perpX * (tabSize * 0.2 * shape),
+        headTipY - perpY * (tabSize * 0.2 * shape),
+        headTipX, headTipY
+    );
+    ctx.bezierCurveTo(
+        headTipX + perpX * (tabSize * 0.2 * shape),
+        headTipY + perpY * (tabSize * 0.2 * shape),
+        neck2X + perpX * (tabSize * 0.3 * shape),
+        neck2Y + perpY * (tabSize * 0.3 * shape),
+        neck2X, neck2Y
+    );
+    ctx.lineTo(x2, y2);
+}
+
+// ==================== EVENTOS DE ARRASTRAR ====================
+function configurarEventosCanvas() {
+    const canvas = puzzleCanvas.canvas;
+    if (!canvas) return;
+    
+    canvas.addEventListener('mousedown', handleCanvasMouseDown);
+    canvas.addEventListener('mousemove', handleCanvasMouseMove);
+    canvas.addEventListener('mouseup', handleCanvasMouseUp);
+    canvas.addEventListener('mouseleave', handleCanvasMouseLeave);
+    
+    canvas.addEventListener('touchstart', handleCanvasTouchStart, { passive: false });
+    canvas.addEventListener('touchmove', handleCanvasTouchMove, { passive: false });
+    canvas.addEventListener('touchend', handleCanvasTouchEnd);
+}
+
+function handleCanvasMouseDown(e) {
+    if (puzzleCanvas.completado) return;
+    
+    const rect = puzzleCanvas.canvas.getBoundingClientRect();
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+    
+    for (let i = puzzleCanvas.pieces.length - 1; i >= 0; i--) {
+        const piece = puzzleCanvas.pieces[i];
+        if (mouseX >= piece.currentX - puzzleCanvas.tabSize && 
+            mouseX <= piece.currentX + puzzleCanvas.pieceWidth + puzzleCanvas.tabSize &&
+            mouseY >= piece.currentY - puzzleCanvas.tabSize && 
+            mouseY <= piece.currentY + puzzleCanvas.pieceHeight + puzzleCanvas.tabSize) {
+            
+            puzzleCanvas.selectedPiece = piece;
+            piece.isDragging = true;
+            puzzleCanvas.offsetX = mouseX - piece.currentX;
+            puzzleCanvas.offsetY = mouseY - piece.currentY;
+            
+            puzzleCanvas.pieces.splice(i, 1);
+            puzzleCanvas.pieces.push(piece);
+            break;
+        }
+    }
+    dibujarPuzzle();
+}
+
+function handleCanvasMouseMove(e) {
+    if (puzzleCanvas.selectedPiece) {
+        const rect = puzzleCanvas.canvas.getBoundingClientRect();
+        puzzleCanvas.selectedPiece.currentX = e.clientX - rect.left - puzzleCanvas.offsetX;
+        puzzleCanvas.selectedPiece.currentY = e.clientY - rect.top - puzzleCanvas.offsetY;
+        dibujarPuzzle();
+    }
+}
+
+function handleCanvasMouseUp() {
+    if (puzzleCanvas.selectedPiece) {
+        puzzleCanvas.selectedPiece.isDragging = false;
+        
+        const snapDistance = 25;
+        const piece = puzzleCanvas.selectedPiece;
+        
+        if (Math.abs(piece.currentX - piece.correctX) < snapDistance &&
+            Math.abs(piece.currentY - piece.correctY) < snapDistance) {
+            piece.currentX = piece.correctX;
+            piece.currentY = piece.correctY;
+            piece.isCorrect = true;
+        }
+        
+        puzzleCanvas.selectedPiece = null;
+        dibujarPuzzle();
+    }
+}
+
+function handleCanvasMouseLeave() {
+    if (puzzleCanvas.selectedPiece) {
+        puzzleCanvas.selectedPiece.isDragging = false;
+        puzzleCanvas.selectedPiece = null;
+        dibujarPuzzle();
+    }
+}
+
+function handleCanvasTouchStart(e) {
+    if (puzzleCanvas.completado) return;
+    e.preventDefault();
+    const touch = e.touches[0];
+    const rect = puzzleCanvas.canvas.getBoundingClientRect();
+    handleCanvasMouseDown({ clientX: touch.clientX, clientY: touch.clientY });
+}
+
+function handleCanvasTouchMove(e) {
+    e.preventDefault();
+    const touch = e.touches[0];
+    handleCanvasMouseMove({ clientX: touch.clientX, clientY: touch.clientY });
+}
+
+function handleCanvasTouchEnd() {
+    handleCanvasMouseUp();
+}
+
+// ==================== VERIFICAR VICTORIA ====================
+function verificarVictoriaCanvas() {
+    const total = puzzleCanvas.rows * puzzleCanvas.cols;
+    const correctas = puzzleCanvas.pieces.filter(p => p.isCorrect).length;
+    
+    // Actualizar progreso si estamos en modo full
+    if (document.getElementById('puzzleCanvasFull')) {
+        const progress = document.getElementById('puzzleCanvasProgressFull');
+        if (progress) progress.textContent = `Piezas: ${correctas}/${total}`;
+    }
+    
+    if (correctas === total && puzzleCanvas.activo && !puzzleCanvas.completado) {
+        if (document.getElementById('puzzleCanvasFull')) {
+            completarPuzzleCanvasFull();
+        } else {
+            completarPuzzleCanvas(); // la versión original (asumo que existe)
+        }
+    }
+}
+
+// ==================== COMPLETAR PUZZLE ====================
+function completarPuzzleCanvasFull() {
+    detenerTimerPuzzleCanvas();
+    puzzleCanvas.completado = true;
+    
+    const complete = document.getElementById('puzzleCanvasCompleteFull');
+    const mensaje = document.getElementById('puzzleCanvasCompleteMessageFull');
+    
+    if (complete) {
+        complete.style.display = 'block';
+    }
+    
+    const mensajes = {
+        3: "¡Excelente! Eres un maestro del amor 💘",
+        4: "¡Increíble! Nuestro amor encaja perfecto 🧩",
+        5: "¡LEGENDARIO! Como nuestro amor, imposible de separar 💑"
+    };
+    
+    if (mensaje) {
+        mensaje.innerHTML = `
+            <strong>Tiempo: ${formatoTimer(puzzleCanvas.segundos)}</strong><br>
+            ${mensajes[puzzleCanvas.rows]}<br>
+            <small>Rompecabezas completados: ${puzzleCanvas.historial.length + 1}</small>
+        `;
+    }
+    
+    // Guardar en historial
+    puzzleCanvas.historial.push({
+        fecha: new Date().toISOString(),
+        dificultad: puzzleCanvas.rows,
+        tiempo: puzzleCanvas.segundos,
+        foto: puzzleCanvas.fotoUrl || ''
+    });
+    localStorage.setItem('rompecabezasCompletados', JSON.stringify(puzzleCanvas.historial));
+    
+    actualizarContadorRompecabezas();
+    mostrarHistorialPuzzleCanvasFull();
+    lanzarConfetiPuzzle();
+}
+
+// ==================== TIMER ====================
+function iniciarTimerPuzzleCanvas() {
+    detenerTimerPuzzleCanvas();
+    puzzleCanvas.segundos = 0;
+    actualizarTimerDisplayCanvas();
+    
+    puzzleCanvas.timer = setInterval(() => {
+        puzzleCanvas.segundos++;
+        actualizarTimerDisplayCanvas();
+    }, 1000);
+}
+
+function detenerTimerPuzzleCanvas() {
+    if (puzzleCanvas.timer) {
+        clearInterval(puzzleCanvas.timer);
+        puzzleCanvas.timer = null;
+    }
+}
+
+function actualizarTimerDisplayCanvas() {
+    const timer = document.getElementById('puzzleCanvasTimer');
+    if (timer) {
+        timer.textContent = formatoTimer(puzzleCanvas.segundos);
+    }
+}
+
+function formatoTimer(segundos) {
+    const mins = Math.floor(segundos / 60).toString().padStart(2, '0');
+    const secs = (segundos % 60).toString().padStart(2, '0');
+    return `${mins}:${secs}`;
+}
+
+// ==================== HISTORIAL ====================
+function mostrarHistorialPuzzleCanvas() {
+    const historyList = document.getElementById('historyListCanvas');
+    if (!historyList) return;
+    
+    if (puzzleCanvas.historial.length === 0) {
+        historyList.innerHTML = `<div class="no-history-canvas">¡Completa tu primer puzzle para verlo aquí! 🧩</div>`;
+        return;
+    }
+    
+    const ordenados = [...puzzleCanvas.historial].reverse().slice(0, 5);
+    
+    historyList.innerHTML = ordenados.map((puzzle, index) => {
+        const fecha = new Date(puzzle.fecha);
+        const fechaFormateada = fecha.toLocaleDateString('es-ES', { day: 'numeric', month: 'short' });
+        const dificultadTexto = {3: 'Fácil', 4: 'Medio', 5: 'Difícil'}[puzzle.dificultad];
+        
+        return `
+            <div class="history-item-canvas">
+                <img src="${puzzle.foto || 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect fill=%22%23f0f0f0%22 width=%22100%22 height=%22100%22/></svg>'}" alt="Puzzle">
+                <div class="history-item-canvas-info">
+                    <h5>${dificultadTexto} • ${formatoTimer(puzzle.tiempo)}</h5>
+                    <p>${fechaFormateada}</p>
+                </div>
+                <div class="history-item-canvas-badge">✓</div>
+            </div>
+        `;
+    }).join('');
+}
+
+// ==================== VOLVER AL SELECTOR ====================
+function volverAlSelectorPuzzle() {
+    detenerTimerPuzzleCanvas();
+    puzzleCanvas.activo = false;
+    puzzleCanvas.completado = false;
+    
+    const complete = document.getElementById('puzzleCanvasComplete');
+    if (complete) complete.style.display = 'none';
+    
+    if (puzzleCanvas.fotoUrl && puzzleCanvas.img) {
+        iniciarPuzzleCanvas();
+    }
+}
+
+// ==================== CAMBIAR DIFICULTAD ====================
+function cambiarDificultadCanvas(nivel) {
+    puzzleCanvas.rows = nivel;
+    puzzleCanvas.cols = nivel;
+    puzzleCanvas.completado = false;
+    
+    document.querySelectorAll('.difficulty-btn-canvas').forEach((btn, index) => {
+        btn.classList.toggle('active', index + 3 === nivel);
+    });
+    
+    if (puzzleCanvas.img && puzzleCanvas.img.complete && puzzleCanvas.img.naturalWidth > 0) {
+        iniciarPuzzleCanvas();
+    }
+}
+
+// ==================== CONFETI ====================
+function lanzarConfetiPuzzle() {
+    const colores = ['#9C27B0', '#E91E63', '#2196F3', '#4CAF50', '#FF9800'];
+    for (let i = 0; i < 50; i++) {
+        setTimeout(() => {
+            const confeti = document.createElement('div');
+            confeti.style.cssText = `
+                position: fixed; width: 10px; height: 10px;
+                background: ${colores[Math.floor(Math.random() * colores.length)]};
+                border-radius: ${Math.random() > 0.5 ? '50%' : '0'};
+                pointer-events: none; z-index: 9999;
+                top: -10px; left: ${Math.random() * 100}vw;
+                animation: caerConfeti ${2 + Math.random() * 2}s linear forwards;
+            `;
+            document.body.appendChild(confeti);
+            setTimeout(() => { if (confeti.parentNode) confeti.parentNode.removeChild(confeti); }, 3000);
+        }, i * 50);
+    }
+}
+
+// ==================== ACTUALIZAR CONTADOR ====================
+function actualizarContadorRompecabezas() {
+    const contador = document.getElementById('contador-rompecabezas');
+    if (contador) {
+        contador.textContent = puzzleCanvas.historial.length;
+    }
+}
+
+// Hacer funciones disponibles globalmente
+window.mostrarPuzzleCanvas = mostrarPuzzleCanvas;
+window.cambiarDificultadCanvas = cambiarDificultadCanvas;
+window.seleccionarFotoYPuzzle = seleccionarFotoYPuzzle;
+window.nuevasFotosPuzzleCanvas = nuevasFotosPuzzleCanvas;
+window.volverAlSelectorPuzzle = volverAlSelectorPuzzle;
 // ============================================
 // EXPORTAR FUNCIONES GLOBALES
 // ============================================
@@ -2685,3 +4888,15 @@ window.mostrarRazonAleatoria = mostrarRazonAleatoria;
 window.mostrarPalabraSecreta = mostrarPalabraSecreta;
 window.actualizarEstadisticasAjustadas = actualizarEstadisticasAjustadas;
 window.configurarBotonesBasicosAjustados = configurarBotonesBasicosAjustados;
+
+function diagnosticarPuzzle() {
+    console.log("🔍 === DIAGNÓSTICO ===");
+    console.log("img:", puzzleCanvas.img);
+    console.log("img.complete:", puzzleCanvas.img?.complete);
+    console.log("img.naturalWidth:", puzzleCanvas.img?.naturalWidth);
+    console.log("img.naturalHeight:", puzzleCanvas.img?.naturalHeight);
+    console.log("img.src:", puzzleCanvas.img?.src);
+    console.log("ctx:", puzzleCanvas.ctx);
+    console.log("canvas:", puzzleCanvas.canvas);
+    console.log("pieces:", puzzleCanvas.pieces?.length);
+}
