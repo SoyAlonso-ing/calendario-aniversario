@@ -66,6 +66,172 @@ window.addEventListener('DOMContentLoaded', function() {
     setTimeout(() => {
         actualizarMarcadoresFavoritos();
     }, 500);
+        // Configurar triple clic en el emoji secreto
+    const emojiSecreto = document.querySelector('.emoji-secreto');
+    if (emojiSecreto) {
+        emojiSecreto.addEventListener('click', iniciarContadorClicks);
+        console.log("🎬 Emoji secreto configurado para triple clic");
+    }
+
+    // Secreto de Carla Sariego - POPUP ÚNICO
+const carlaSpan = document.querySelector('.secreto-carla');
+if (carlaSpan) {
+    carlaSpan.addEventListener('click', function() {
+        const contenidoUnico = `
+            <style>
+                @keyframes latido-carla {
+                    0% { transform: scale(1); }
+                    25% { transform: scale(1.1); }
+                    50% { transform: scale(1.15); }
+                    75% { transform: scale(1.1); }
+                    100% { transform: scale(1); }
+                }
+                .carta-carla {
+                    background: #fef9e7;
+                    background-image: linear-gradient(145deg, #fef9e7 0%, #fdf5e6 100%);
+                    border: 2px solid #d4b28c;
+                    border-radius: 20px 20px 20px 20px;
+                    box-shadow: 0 10px 30px rgba(0,0,0,0.2), inset 0 0 30px rgba(255,215,140,0.3);
+                    padding: 30px 25px;
+                    max-width: 500px;
+                    margin: 0 auto;
+                    position: relative;
+                    font-family: 'Dancing Script', cursive;
+                    text-align: center;
+                }
+                .carta-carla::before {
+                    content: '';
+                    position: absolute;
+                    top: 10px;
+                    left: 10px;
+                    right: 10px;
+                    bottom: 10px;
+                    border: 1px dashed #e6c9a8;
+                    border-radius: 15px;
+                    pointer-events: none;
+                }
+                .corazon-carla {
+                    font-size: 4rem;
+                    display: inline-block;
+                    animation: latido-carla 1.5s infinite ease-in-out;
+                    color: #e63946;
+                    text-shadow: 0 0 10px #ffb3b3;
+                    margin-bottom: 10px;
+                }
+                .titulo-carla {
+                    font-size: 2.2rem;
+                    color: #b76e2e;
+                    margin: 10px 0 5px;
+                    font-weight: 700;
+                    letter-spacing: 2px;
+                    text-transform: uppercase;
+                    text-shadow: 2px 2px 0 #f3d9b1;
+                }
+                .subtitulo-carla {
+                    font-size: 1.3rem;
+                    color: #a1571e;
+                    margin-bottom: 20px;
+                    border-bottom: 1px solid #e6c9a8;
+                    padding-bottom: 10px;
+                    display: inline-block;
+                }
+                .mensaje-carla {
+                    font-size: 1.3rem;
+                    line-height: 1.8;
+                    color: #5d3a1a;
+                    text-align: left;
+                    padding: 0 15px;
+                    margin: 20px 0;
+                    background: rgba(255, 235, 205, 0.5);
+                    border-radius: 15px;
+                    padding: 20px;
+                    box-shadow: inset 0 0 10px #e6ccb2;
+                }
+                .firma-carla {
+                    font-size: 1.8rem;
+                    color: #8b5a2b;
+                    margin-top: 20px;
+                    font-weight: bold;
+                    position: relative;
+                }
+                .firma-carla::after {
+                    content: '✧';
+                    font-size: 2rem;
+                    color: #c49a6c;
+                    margin-left: 10px;
+                    opacity: 0.7;
+                }
+                .detalle-carla {
+                    display: flex;
+                    justify-content: center;
+                    gap: 15px;
+                    margin: 15px 0 10px;
+                    font-size: 1rem;
+                    color: #b38b5d;
+                }
+                .detalle-carla span {
+                    background: #f5e1c0;
+                    padding: 5px 12px;
+                    border-radius: 30px;
+                    border: 1px solid #d4a373;
+                }
+                .btn-cerrar-carla {
+                    background: #b76e2e;
+                    border: none;
+                    color: white;
+                    padding: 12px 30px;
+                    border-radius: 40px;
+                    font-size: 1.2rem;
+                    font-family: 'Dancing Script', cursive;
+                    font-weight: bold;
+                    cursor: pointer;
+                    margin-top: 20px;
+                    box-shadow: 0 5px 15px rgba(183, 110, 46, 0.4);
+                    transition: all 0.3s;
+                    border: 1px solid #f5d5a0;
+                }
+                .btn-cerrar-carla:hover {
+                    background: #9d5f27;
+                    transform: translateY(-3px);
+                    box-shadow: 0 8px 20px rgba(183, 110, 46, 0.6);
+                }
+                @media (max-width: 480px) {
+                    .carta-carla { padding: 20px 15px; }
+                    .titulo-carla { font-size: 1.8rem; }
+                    .mensaje-carla { font-size: 1.1rem; }
+                }
+            </style>
+            <div class="carta-carla">
+                <div class="corazon-carla">💖</div>
+                <div class="titulo-carla">Carla Sariego</div>
+                <div class="subtitulo-carla">El nombre que lo cambió todo</div>
+                <div class="detalle-carla">
+                    <span>💘 5 abril</span>
+                    <span>💍 5 julio</span>
+                    <span>💫 Siempre</span>
+                </div>
+                <div class="mensaje-carla">
+                    "Carla Sariego" no es solo un nombre.<br>
+                    Es la razón de mis sonrisas,<br>
+                    el latido que acelera mi pecho,<br>
+                    el sueño que nunca quiero terminar.<br>
+                    Es el lugar donde encontré mi hogar.<br>
+                    <br>
+                    En este pequeño rincón del universo,<br>
+                    tu nombre resuena como la melodía más hermosa.<br>
+                    Y yo, afortunado, puedo susurrarlo cada día.<br>
+                    <br>
+                    <strong>Te amo, Carla. Con todo lo que soy.</strong>
+                </div>
+                <div class="firma-carla">Siempre tuyo,</div>
+                <div style="font-size: 1.6rem; color: #b76e2e; margin-top: 5px;">Adrián</div>
+                
+            </div>
+        `;
+        
+        mostrarPopupContenido(contenidoUnico, false, [], null, false);
+    });
+}
 });
 
 // ==================== CALENDARIO AJUSTADO ====================
@@ -423,16 +589,35 @@ function mostrarContenidoAjustado(numeroDia, fecha) {
                         "${textoContenido}"
                         ${dato.texto && dato.texto !== textoContenido ? `<p style="margin-top: 15px; font-size: 1rem; color: #666; font-style: normal;">${dato.texto}</p>` : ''}
                     </div>
+                    
                 `;
                 
                 lanzarEfectosEspeciales();
             }
+
+            
             
             // Si tiene fotos, crear galería
             if (tieneFotos && fotosArray.length > 0) {
                 contenidoHTML = crearHTMLGaleria(numeroDia, fecha, fotosArray, mensajesArray, videosArray, false);
                 lanzarEfectosEspeciales();
             }
+// ==================== CARTA SECRETA PARA EL 5 DE JULIO (DISCRETA) ====================
+if (fechaKey === "07-05" && dato.carta) {
+    const cartaHTML = `
+        <div style="position: absolute; top: 10px; right: 10px; z-index: 10;">
+            <span style="cursor: pointer; font-size: 1.3rem; opacity: 0.6; transition: opacity 0.2s, transform 0.2s; display: inline-block;" 
+                  onclick="mostrarCartaSecreta('${encodeURIComponent(JSON.stringify(dato.carta))}')"
+                  onmouseover="this.style.opacity='1'; this.style.transform='scale(1.1)'" 
+                  onmouseout="this.style.opacity='0.6'; this.style.transform='scale(1)'"
+                  title="📜 Carta secreta">
+                👁️
+            </span>
+        </div>
+    `;
+    // Envolvemos el contenido actual en un contenedor relativo para que el absolute funcione
+    contenidoHTML = `<div style="position: relative;">${contenidoHTML}${cartaHTML}</div>`;
+}
         }
     }
     
@@ -3691,18 +3876,18 @@ function mostrarPuzzlePantallaCompleta() {
     puzzleCanvas.cols = 3;
     puzzleCanvas.completado = false;
 
-    // HTML del modal de pantalla completa
     let contenidoHTML = `
     <div class="puzzle-fullscreen">
         <div class="puzzle-fullscreen-header">
-            <h2>🧩 Rompecabezas de Nuestros Recuerdos</h2>
+            <h2>🧩 Rompecabezas</h2>
             <button class="btn-cerrar-fullscreen" onclick="cerrarPopupPersonalizado()">
                 <i class="fas fa-times"></i>
             </button>
         </div>
         
         <div class="puzzle-fullscreen-content">
-            <div class="puzzle-sidebar">
+            <!-- Barra lateral (visible en escritorio, se oculta en móvil) -->
+            <div class="puzzle-sidebar desktop-only">
                 <div class="puzzle-difficulty-selector">
                     <button class="difficulty-btn-canvas active" onclick="cambiarDificultadCanvasFull(3)">Fácil (3x3)</button>
                     <button class="difficulty-btn-canvas" onclick="cambiarDificultadCanvasFull(4)">Medio (4x4)</button>
@@ -3740,7 +3925,35 @@ function mostrarPuzzlePantallaCompleta() {
                 </button>
             </div>
             
+            <!-- Área principal (siempre visible) -->
             <div class="puzzle-main-area">
+                <!-- Versión móvil: controles compactos (se muestran solo en móvil) -->
+                <div class="mobile-controls mobile-only">
+                    <div class="mobile-difficulty">
+                        <button class="difficulty-btn-canvas active" onclick="cambiarDificultadCanvasFull(3)">3x3</button>
+                        <button class="difficulty-btn-canvas" onclick="cambiarDificultadCanvasFull(4)">4x4</button>
+                        <button class="difficulty-btn-canvas" onclick="cambiarDificultadCanvasFull(5)">5x5</button>
+                    </div>
+        <div class="mobile-photos">
+                        <div class="puzzle-photo-selector" id="puzzlePhotoSelectorFullMobile">
+                            ${fotosParaMostrar.map((foto, index) => `
+                                <div class="puzzle-photo-option ${index === 0 ? 'selected' : ''}" 
+                                    onclick="seleccionarFotoYPuzzleFull('${foto.url}', ${index})">
+                                    <img src="${foto.url}" alt="Foto ${index + 1}">
+                                    <div class="checkmark">✓</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                        <button class="btn-puzzle-canvas nueva-foto mobile-btn" onclick="nuevasFotosPuzzleCanvasFull()">
+                            <i class="fas fa-sync"></i> Nuevas
+                        </button>
+                    </div>
+                    <div class="mobile-info">
+                        <span class="puzzle-canvas-timer" id="puzzleCanvasTimerFullMobile">00:00</span>
+                        <span class="puzzle-canvas-progress" id="puzzleCanvasProgressFullMobile">0/9</span>
+                    </div>
+                </div>
+                
                 <div class="puzzle-canvas-container-full">
                     <canvas id="puzzleCanvasFull"></canvas>
                     <div class="puzzle-hint-panel-always">
@@ -3756,51 +3969,47 @@ function mostrarPuzzlePantallaCompleta() {
                         <i class="fas fa-redo"></i> Otro Puzzle
                     </button>
                 </div>
+                
+              <!-- Historial y ayuda en móvil (juntos en la misma línea) -->
+<div class="mobile-history mobile-only">
+    <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; gap: 10px;">
+        <details style="flex: 1;">
+            <summary>🏆 Historial</summary>
+            <div class="history-list-canvas" id="historyListCanvasFullMobile"></div>
+        </details>
+        <button class="btn-puzzle-canvas ayuda-btn" onclick="mostrarAyudaMovil()" style="white-space: nowrap;">
+            <i class="fas fa-lightbulb"></i> Ver foto (5s)
+        </button>
+    </div>
+</div>
+<!-- Overlay para ayuda visual (foto completa) -->
+<div id="ayudaOverlayMovil" class="ayuda-overlay" onclick="ocultarAyudaMovil()">
+    <img id="ayudaImagenMovil" src="" alt="Foto completa">
+    <div class="ayuda-timer" id="ayudaTimerMovil">5s</div>
+</div>
             </div>
         </div>
     </div>
-`;
+    `;
 
-    // Mostrar el popup con estilos de pantalla completa
     mostrarPopupPersonalizado(contenidoHTML, 'puzzle-fullscreen-popup');
 
-    // Después de que el DOM esté listo, inicializar con la primera foto
     setTimeout(() => {
         if (fotosParaMostrar[0]?.url) {
             seleccionarFotoYPuzzleFull(fotosParaMostrar[0].url, 0);
         }
         mostrarHistorialPuzzleCanvasFull();
+        // También actualizar los elementos móviles
+        setTimeout(() => {
+            const timerMobile = document.getElementById('puzzleCanvasTimerFullMobile');
+            const progressMobile = document.getElementById('puzzleCanvasProgressFullMobile');
+            if (timerMobile) timerMobile.textContent = '00:00';
+            if (progressMobile) progressMobile.textContent = '0/9';
+        }, 100);
     }, 200);
 }
 
-function mostrarHistorialPuzzleCanvasFull() {
-    const historyList = document.getElementById('historyListCanvasFull');
-    if (!historyList) return;
-    
-    if (puzzleCanvas.historial.length === 0) {
-        historyList.innerHTML = `<div class="no-history-canvas">¡Completa tu primer puzzle!</div>`;
-        return;
-    }
-    
-    const ordenados = [...puzzleCanvas.historial].reverse().slice(0, 5);
-    
-    historyList.innerHTML = ordenados.map((puzzle, index) => {
-        const fecha = new Date(puzzle.fecha);
-        const fechaFormateada = fecha.toLocaleDateString('es-ES', { day: 'numeric', month: 'short' });
-        const dificultadTexto = {3: 'Fácil', 4: 'Medio', 5: 'Difícil'}[puzzle.dificultad];
-        
-        return `
-            <div class="history-item-canvas">
-                <img src="${puzzle.foto || 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect fill=%22%23f0f0f0%22 width=%22100%22 height=%22100%22/></svg>'}" alt="Puzzle">
-                <div class="history-item-canvas-info">
-                    <h5>${dificultadTexto} • ${formatoTimer(puzzle.tiempo)}</h5>
-                    <p>${fechaFormateada}</p>
-                </div>
-                <div class="history-item-canvas-badge">✓</div>
-            </div>
-        `;
-    }).join('');
-}
+
 
 // ==================== EVENTOS DE ARRASTRE PARA MODO FULL ====================
 
@@ -3946,17 +4155,20 @@ function nuevasFotosPuzzleCanvasFull() {
     const nuevas = seleccionar3FotosAleatorias(fotos);
     puzzleCanvas.fotosDisponibles = nuevas;
     
-    const selector = document.getElementById('puzzlePhotoSelectorFull');
-    if (selector) {
-        selector.innerHTML = nuevas.map((foto, index) => `
-            <div class="puzzle-photo-option ${index === 0 ? 'selected' : ''}" 
-                 onclick="seleccionarFotoYPuzzleFull('${foto.url}', ${index})">
-                <img src="${foto.url}" alt="Foto ${index + 1}"
-                     onerror="this.onerror=null; this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%239C27B0%22/><text x=%2250%22 y=%2255%22 font-size=%2214%22 text-anchor=%22middle%22 fill=%22white%22>Foto ${index+1}</text></svg>'">
-                <div class="checkmark">✓</div>
-            </div>
-        `).join('');
-    }
+    const selectorDesktop = document.getElementById('puzzlePhotoSelectorFull');
+    const selectorMobile = document.getElementById('puzzlePhotoSelectorFullMobile');
+    
+    const html = nuevas.map((foto, index) => `
+        <div class="puzzle-photo-option ${index === 0 ? 'selected' : ''}" 
+             onclick="seleccionarFotoYPuzzleFull('${foto.url}', ${index})">
+            <img src="${foto.url}" alt="Foto ${index + 1}"
+                 onerror="this.onerror=null; this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%239C27B0%22/><text x=%2250%22 y=%2255%22 font-size=%2214%22 text-anchor=%22middle%22 fill=%22white%22>Foto ${index+1}</text></svg>'">
+            <div class="checkmark">✓</div>
+        </div>
+    `).join('');
+    
+    if (selectorDesktop) selectorDesktop.innerHTML = html;
+    if (selectorMobile) selectorMobile.innerHTML = html;
     
     if (nuevas[0]?.url) {
         seleccionarFotoYPuzzleFull(nuevas[0].url, 0);
@@ -3972,15 +4184,40 @@ function volverAlSelectorPuzzleFull() {
     const complete = document.getElementById('puzzleCanvasCompleteFull');
     if (complete) complete.style.display = 'none';
     
-    if (puzzleCanvas.fotoUrl && puzzleCanvas.img) {
-        iniciarPuzzleCanvasFull();
+    // Si hay fotos disponibles, seleccionar una diferente aleatoria
+    if (puzzleCanvas.fotosDisponibles && puzzleCanvas.fotosDisponibles.length > 0) {
+        // Obtener índice actual (si hay una foto seleccionada)
+        let currentIndex = 0;
+        if (puzzleCanvas.fotoUrl) {
+            currentIndex = puzzleCanvas.fotosDisponibles.findIndex(f => f.url === puzzleCanvas.fotoUrl);
+            if (currentIndex === -1) currentIndex = 0;
+        }
+        
+        // Elegir un índice diferente aleatorio
+        let newIndex;
+        if (puzzleCanvas.fotosDisponibles.length === 1) {
+            newIndex = 0; // solo una foto, no hay opción
+        } else {
+            do {
+                newIndex = Math.floor(Math.random() * puzzleCanvas.fotosDisponibles.length);
+            } while (newIndex === currentIndex);
+        }
+        
+        // Seleccionar la nueva foto
+        const nuevaFoto = puzzleCanvas.fotosDisponibles[newIndex];
+        seleccionarFotoYPuzzleFull(nuevaFoto.url, newIndex);
+    } else {
+        // Si no hay fotos, reiniciar con la misma (fallback)
+        if (puzzleCanvas.fotoUrl && puzzleCanvas.img) {
+            iniciarPuzzleCanvasFull();
+        }
     }
 }
 
 // ==================== TIMER Y PROGRESO PARA MODO FULL ====================
 
 function iniciarTimerPuzzleCanvasFull() {
-    detenerTimerPuzzleCanvas(); // Usamos la misma variable de timer global
+    detenerTimerPuzzleCanvas();
     puzzleCanvas.segundos = 0;
     actualizarTimerDisplayCanvasFull();
     
@@ -3991,18 +4228,50 @@ function iniciarTimerPuzzleCanvasFull() {
 }
 
 function actualizarTimerDisplayCanvasFull() {
-    const timer = document.getElementById('puzzleCanvasTimerFull');
-    if (timer) timer.textContent = formatoTimer(puzzleCanvas.segundos);
+    const timerDesktop = document.getElementById('puzzleCanvasTimerFull');
+    const timerMobile = document.getElementById('puzzleCanvasTimerFullMobile');
+    const tiempo = formatoTimer(puzzleCanvas.segundos);
+    if (timerDesktop) timerDesktop.textContent = tiempo;
+    if (timerMobile) timerMobile.textContent = tiempo;
 }
 
-// Esta función se llamará dentro de dibujarPuzzle (modificaremos la original después)
 function actualizarProgresoPuzzleFull() {
-    const progress = document.getElementById('puzzleCanvasProgressFull');
-    if (progress && puzzleCanvas.pieces) {
+    const progressDesktop = document.getElementById('puzzleCanvasProgressFull');
+    const progressMobile = document.getElementById('puzzleCanvasProgressFullMobile');
+    if (puzzleCanvas.pieces) {
         const total = puzzleCanvas.rows * puzzleCanvas.cols;
         const correctas = puzzleCanvas.pieces.filter(p => p.isCorrect).length;
-        progress.textContent = `Piezas: ${correctas}/${total}`;
+        const texto = `Piezas: ${correctas}/${total}`;
+        if (progressDesktop) progressDesktop.textContent = texto;
+        if (progressMobile) progressMobile.textContent = `${correctas}/${total}`;
     }
+}
+
+function mostrarHistorialPuzzleCanvasFull() {
+    const historyDesktop = document.getElementById('historyListCanvasFull');
+    const historyMobile = document.getElementById('historyListCanvasFullMobile');
+    if (!historyDesktop && !historyMobile) return;
+    
+    const html = puzzleCanvas.historial.length === 0 
+        ? `<div class="no-history-canvas">¡Completa tu primer puzzle!</div>`
+        : [...puzzleCanvas.historial].reverse().slice(0, 5).map(puzzle => {
+            const fecha = new Date(puzzle.fecha);
+            const fechaFormateada = fecha.toLocaleDateString('es-ES', { day: 'numeric', month: 'short' });
+            const dificultadTexto = {3: 'Fácil', 4: 'Medio', 5: 'Difícil'}[puzzle.dificultad];
+            return `
+                <div class="history-item-canvas">
+                    <img src="${puzzle.foto || 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect fill=%22%23f0f0f0%22 width=%22100%22 height=%22100%22/></svg>'}" alt="Puzzle">
+                    <div class="history-item-canvas-info">
+                        <h5>${dificultadTexto} • ${formatoTimer(puzzle.tiempo)}</h5>
+                        <p>${fechaFormateada}</p>
+                    </div>
+                    <div class="history-item-canvas-badge">✓</div>
+                </div>
+            `;
+        }).join('');
+    
+    if (historyDesktop) historyDesktop.innerHTML = html;
+    if (historyMobile) historyMobile.innerHTML = html;
 }
 // ==================== OBTENER FOTOS ====================
 function obtenerFotosParaPuzzle() {
@@ -4122,6 +4391,10 @@ function seleccionarFotoYPuzzleFull(url, index) {
     document.querySelectorAll('#puzzlePhotoSelectorFull .puzzle-photo-option').forEach((opt, i) => {
         opt.classList.toggle('selected', i === index);
     });
+
+    document.querySelectorAll('#puzzlePhotoSelectorFullMobile .puzzle-photo-option').forEach((opt, i) => {
+    opt.classList.toggle('selected', i === index);
+});
 
     puzzleCanvas.fotoUrl = url;
 
@@ -4448,6 +4721,7 @@ function dibujarPuzzle() {
         actualizarProgresoPuzzleFull();
     }
 }
+
 
 // ==================== DIBUJAR PIEZA - CORREGIDA DEFINITIVAMENTE ===
 function dibujarPieza(piece) {
@@ -4873,6 +5147,137 @@ function actualizarContadorRompecabezas() {
     if (contador) {
         contador.textContent = puzzleCanvas.historial.length;
     }
+}
+function mostrarAyudaMovil() {
+    const overlay = document.getElementById('ayudaOverlayMovil');
+    const img = document.getElementById('ayudaImagenMovil');
+    if (!overlay || !img) return;
+    
+    const url = puzzleCanvas.fotoUrl;
+    if (!url) return;
+    
+    img.src = url;
+    overlay.classList.add('visible');
+    
+    let segundos = 5;
+    const timerSpan = document.getElementById('ayudaTimerMovil');
+    if (timerSpan) timerSpan.textContent = segundos + 's';
+    
+    const intervalo = setInterval(() => {
+        segundos--;
+        if (timerSpan) timerSpan.textContent = segundos + 's';
+        if (segundos <= 0) {
+            clearInterval(intervalo);
+            ocultarAyudaMovil();
+        }
+    }, 1000);
+    
+    overlay.dataset.intervalo = intervalo;
+}
+
+function ocultarAyudaMovil() {
+    const overlay = document.getElementById('ayudaOverlayMovil');
+    if (!overlay) return;
+    
+    if (overlay.dataset.intervalo) {
+        clearInterval(parseInt(overlay.dataset.intervalo));
+        delete overlay.dataset.intervalo;
+    }
+    
+    overlay.classList.remove('visible');
+}
+
+// ==================== VIDEO SECRETO POR TRIPLE CLIC ====================
+let contadorClicksTitulo = 0;
+let timerClicksTitulo;
+
+function iniciarContadorClicks() {
+    contadorClicksTitulo++;
+    
+    // Si es el primer clic, iniciamos temporizador de 2 segundos
+    if (contadorClicksTitulo === 1) {
+        timerClicksTitulo = setTimeout(() => {
+            contadorClicksTitulo = 0; // Reiniciamos si pasa demasiado tiempo
+        }, 2000);
+    }
+    
+    // Si llegamos a 3 clics
+    if (contadorClicksTitulo === 3) {
+        clearTimeout(timerClicksTitulo);
+        contadorClicksTitulo = 0;
+        mostrarVideoSecreto();
+    }
+}
+
+function mostrarVideoSecreto() {
+    // CAMBIA ESTA URL POR LA DEL VIDEO QUE QUIERAS
+    const videoUrl = 'fotos/video-secreto.mp4'; // Para video local
+    // const videoUrl = 'https://www.youtube.com/watch?v=VIDEO_ID'; // Para YouTube
+    
+    // Detectar si es YouTube
+    const esYouTube = videoUrl.includes('youtube.com') || videoUrl.includes('youtu.be');
+    
+    let contenidoHTML;
+    if (esYouTube) {
+        // Extraer ID del video de YouTube
+        let videoId = '';
+        if (videoUrl.includes('youtu.be')) {
+            videoId = videoUrl.split('/').pop().split('?')[0];
+        } else {
+            const match = videoUrl.match(/[?&]v=([^&]+)/);
+            videoId = match ? match[1] : '';
+        }
+        
+        if (videoId) {
+            contenidoHTML = `
+                <h3 style="color: #9C27B0; margin-bottom: 15px;">🎬 Video Secreto</h3>
+                <iframe width="100%" height="315" src="https://www.youtube.com/embed/${videoId}" 
+                    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            `;
+        } else {
+            contenidoHTML = `<p style="color:red;">Error: URL de YouTube no válida</p>`;
+        }
+    } else {
+        // Video local
+        contenidoHTML = `
+            <h3 style="color: #9C27B0; margin-bottom: 15px;">🎬 Video Secreto</h3>
+            <video src="${videoUrl}" controls autoplay style="max-width:100%; max-height:400px; border-radius:10px;"></video>
+        `;
+    }
+    
+    mostrarPopupContenido(contenidoHTML, false, [], null, false);
+}
+
+function mostrarCartaSecreta(cartaJSON) {
+  try {
+    const carta = JSON.parse(decodeURIComponent(cartaJSON));
+    let contenidoCarta = carta.contenido;
+    
+    // Si el contenido no tiene HTML, convertimos saltos de línea en párrafos
+    if (!contenidoCarta.startsWith('<')) {
+      contenidoCarta = contenidoCarta.split('\n').map(line => {
+        if (line.trim() === '') return '<br>';
+        return `<p style="margin: 0 0 10px 0;">${line}</p>`;
+      }).join('');
+    }
+    
+    const html = `
+      <div style="background: #fff9e6; border-radius: 15px; padding: 25px; max-width: 500px; margin: 0 auto; border: 2px solid #9C27B0; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+        <h3 style="color: #9C27B0; margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
+          <span style="font-size: 2rem;">💌</span> ${carta.titulo || 'Carta secreta'}
+        </h3>
+        <div style="font-family: 'Dancing Script', cursive; font-size: 1.2rem; line-height: 1.6; color: #333; text-align: left; max-height: 400px; overflow-y: auto; padding-right: 10px;">
+          ${contenidoCarta}
+        </div>
+      
+      </div>
+    `;
+    
+    mostrarPopupContenido(html, false, [], null, false);
+  } catch (e) {
+    console.error("Error al mostrar la carta:", e);
+    mostrarNotificacion("No se pudo cargar la carta", "error");
+  }
 }
 
 // Hacer funciones disponibles globalmente

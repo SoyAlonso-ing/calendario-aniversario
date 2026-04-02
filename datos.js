@@ -417,6 +417,12 @@ const diasEspeciales = {
       { url: "fotos/07-05/foto2.jpg", texto: "Sábado perfecto" },
     ],
     mensajes: ["2 días, 2 fotos, mucho amor"],
+
+    carta: {
+    titulo: "Para ti, en este 5 de julio",
+    contenido: "Hoy quiero recordarte lo especial que eres para mí. Desde aquel día en tu cama, cuando te pregunté para ser mi novia y te hiciste la graciosa diciendo que no... sabías que sí. Este día siempre será nuestro. Te amo.",
+    emoji: "💌"
+  }
   },
 
   "07-13": {

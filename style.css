@@ -5037,3 +5037,238 @@ body.zoom-activo {
         display: none;
     }
 }
+
+/* ==================== ROMPECABEZAS MÓVIL ==================== */
+.mobile-only {
+    display: none;
+}
+
+.desktop-only {
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .desktop-only {
+        display: none;
+    }
+    
+    .mobile-only {
+        display: block;
+    }
+    
+    .puzzle-fullscreen-content {
+        flex-direction: column;
+    }
+    
+    .mobile-controls {
+        background: white;
+        border-radius: 12px;
+        padding: 12px;
+        margin-bottom: 10px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    
+    .mobile-difficulty {
+        display: flex;
+        justify-content: space-around;
+        margin-bottom: 12px;
+    }
+    
+    .mobile-difficulty .difficulty-btn-canvas {
+        flex: 1;
+        margin: 0 3px;
+        padding: 6px 0;
+        font-size: 0.8rem;
+    }
+    
+    .mobile-photos {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 12px;
+    }
+    
+    .mobile-photos .puzzle-photo-selector {
+        flex: 3;
+        display: flex;
+        gap: 5px;
+        justify-content: center;
+        margin-bottom: 0;
+    }
+    
+    .mobile-photos .puzzle-photo-option {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .mobile-photos .btn-puzzle-canvas.mobile-btn {
+        flex: 1;
+        padding: 8px 0;
+        font-size: 0.8rem;
+        white-space: nowrap;
+    }
+    
+    .mobile-info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #f3e5f5;
+        padding: 8px 12px;
+        border-radius: 20px;
+    }
+    
+    .mobile-info .puzzle-canvas-timer {
+        font-size: 1.2rem;
+    }
+    
+    .mobile-info .puzzle-canvas-progress {
+        font-size: 0.9rem;
+    }
+    
+    .mobile-history {
+        margin-top: 15px;
+        background: white;
+        border-radius: 12px;
+        padding: 10px;
+    }
+    
+    .mobile-history summary {
+        font-weight: 600;
+        color: #9C27B0;
+        cursor: pointer;
+        padding: 5px;
+    }
+    
+    .mobile-history .history-list-canvas {
+        max-height: 150px;
+        overflow-y: auto;
+        margin-top: 10px;
+    }
+    
+    /* Ajustar canvas */
+    .puzzle-canvas-container-full {
+        padding: 5px;
+    }
+    
+    #puzzleCanvasFull {
+        max-width: 100%;
+        margin-top: 5px;
+    }
+    
+    /* Ocultar panel de referencia en móvil si es necesario */
+    .puzzle-hint-panel-always {
+        max-width: 150px;
+    }
+}
+
+@media (max-width: 480px) {
+    .mobile-photos .puzzle-photo-option {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .mobile-photos .btn-puzzle-canvas.mobile-btn {
+        font-size: 0.7rem;
+        padding: 6px 0;
+    }
+    
+    .mobile-info .puzzle-canvas-timer {
+        font-size: 1rem;
+    }
+    
+    .puzzle-hint-panel-always {
+        max-width: 120px;
+    }
+}
+
+/* ==================== ESTADÍSTICA DE ROMPECABEZAS (VERDE) ==================== */
+.estadistica-item:nth-child(4) {
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.estadistica-item:nth-child(4) i {
+    color: #4CAF50; /* Verde principal */
+    transition: color 0.3s ease;
+}
+
+.estadistica-item:nth-child(4) span {
+    color: #2E7D32; /* Verde oscuro para el número */
+    transition: color 0.3s ease;
+}
+
+.estadistica-item:nth-child(4):hover {
+    background: linear-gradient(135deg, #e8f5e9, #c8e6c9) !important; /* Fondo verde claro */
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 10px 25px rgba(76, 175, 80, 0.3) !important;
+    border-color: #4CAF50 !important;
+}
+
+.estadistica-item:nth-child(4):hover i {
+    animation: rotarPieza 2s infinite;
+    color: #2E7D32; /* Verde más oscuro al hover */
+}
+
+.estadistica-item:nth-child(4):hover span {
+    color: #1B5E20; /* Verde aún más oscuro para el número */
+}
+
+/* Animación de rotación para la pieza */
+@keyframes rotarPieza {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-10deg); }
+    75% { transform: rotate(10deg); }
+}
+
+/* Ayuda visual en móvil */
+.mobile-help {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.ayuda-btn {
+    background: linear-gradient(135deg, #FF9800, #F57C00) !important;
+    margin: 0 auto;
+    width: auto;
+    padding: 8px 15px;
+    font-size: 0.85rem;
+}
+
+.ayuda-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.9);
+    z-index: 10001;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s;
+}
+
+.ayuda-overlay.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.ayuda-overlay img {
+    max-width: 90%;
+    max-height: 80%;
+    border-radius: 10px;
+    border: 5px solid white;
+    box-shadow: 0 0 30px rgba(0,0,0,0.5);
+}
+
+.ayuda-timer {
+    margin-top: 20px;
+    font-size: 2rem;
+    color: white;
+    font-weight: bold;
+    text-shadow: 0 0 10px rgba(255,255,255,0.5);
+}
