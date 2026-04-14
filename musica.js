@@ -7,6 +7,8 @@ console.log("🎵 Inicializando reproductor estático (CORREGIDO)...");
 
 // Lista de canciones - RUTAS CORREGIDAS
 const canciones = [
+    "audio/vestidoAzul.mp3",
+    "audio/maleconRecuerdos.mp3",
     "audio/teAmo.mp3",
     "audio/labiosCompartidos.mp3", 
     "audio/barbacoa.mp3",
@@ -16,11 +18,13 @@ const canciones = [
 
 // Nombres para mostrar de las canciones
 const nombresCanciones = [
+    "Vestido Azul🔷",
+    "Malecón de Recuerdos💭",
     "Te Amo (Pochi)💘",
     "Tus Labios (Mine)👄",
     "Barbacoa (las #1)🍟",
-    "Tu artista (Melendi)🌸",
-    "Que buena estás (HOT!)🥭"
+    "Tu Artista (Melendi)🌸",
+    "Que Buena Estás (HOT!)🥭"
 ];
 
 let cancionActual = 0;
