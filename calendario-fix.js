@@ -202,31 +202,35 @@ if (carlaSpan) {
                 }
             </style>
             <div class="carta-carla">
-                <div class="corazon-carla">💖</div>
-                <div class="titulo-carla">Carla Sariego</div>
-                <div class="subtitulo-carla">El nombre que lo cambió todo</div>
-                <div class="detalle-carla">
-                    <span>💘 5 abril</span>
-                    <span>💍 5 julio</span>
-                    <span>💫 Siempre</span>
-                </div>
-                <div class="mensaje-carla">
-                    "Carla Sariego" no es solo un nombre.<br>
-                    Es la razón de mis sonrisas,<br>
-                    el latido que acelera mi pecho,<br>
-                    el sueño que nunca quiero terminar.<br>
-                    Es el lugar donde encontré mi hogar.<br>
-                    <br>
-                    En este pequeño rincón del universo,<br>
-                    tu nombre resuena como la melodía más hermosa.<br>
-                    Y yo, afortunado, puedo susurrarlo cada día.<br>
-                    <br>
-                    <strong>Te amo, Carla. Con todo lo que soy.</strong>
-                </div>
-                <div class="firma-carla">Siempre tuyo,</div>
-                <div style="font-size: 1.6rem; color: #b76e2e; margin-top: 5px;">Adrián</div>
-                
-            </div>
+    <div class="corazon-carla">💖</div>
+    <div class="titulo-carla">Carla Sariego</div>
+    <div class="subtitulo-carla">El nombre que lo cambió todo</div>
+    <div class="detalle-carla">
+        <span>🎭 Habachela</span>
+        <span>💍 5 de julio</span>
+        <span>💫 Nacional</span>
+    </div>
+    <div class="mensaje-carla">
+        "Carla Sariego" no es solo un nombre.<br>
+        Es la chica del vestido azul en el Don Cangrejo.<br>
+        La que me escribió por Instagram lo del proyecto Habachela.<br>
+        La que me recostó la cabeza en el hombro aquella noche.<br>
+        La que respondió "No lo mires mucho, que eso es mío".<br>
+        La del primer beso en el Nacional.<br>
+        La que se tiró un peo cuando le pedí ser su novio.<br>
+        La Tosquina del billar.<br>
+        La que me roba los pullovers.<br>
+        La que duerme calva a mi lado.<br>
+        La que hizo un teatro de recuerdos el 14 de febrero.<br>
+        La que me ayudó a cambiar el cuarto.<br>
+        La que come dumplings y papitas de barbacoa.<br>
+        <br>
+        <strong>La que es mi Pochi. Te amo.</strong>
+    </div>
+    <div class="firma-carla">Siempre tuyo,</div>
+    <div style="font-size: 1.6rem; color: #b76e2e; margin-top: 5px;">El del beso en el Nacional</div>
+    
+</div>
         `;
         
         mostrarPopupContenido(contenidoUnico, false, [], null, false);
@@ -289,28 +293,33 @@ function generarCalendarioAjustado() {
             // También crear clave con año para fechas específicas
             const fechaKeyConAnio = `${año}-${mesStr}-${diaStr}`;
             
-            // Verificar si es día especial
-            if (window.datosConfig && window.datosConfig.diasEspeciales) {
-                // Primero buscar con año completo (fecha específica)
-                if (window.datosConfig.diasEspeciales[fechaKeyConAnio]) {
-                    elementoDia.classList.add('tiene-contenido');
-                    elementoDia.title = window.datosConfig.diasEspeciales[fechaKeyConAnio].texto || 'Día especial';
-                    momentosDesbloqueados++;
-                } 
-                // Luego buscar sin año (fecha anual)
-                else if (window.datosConfig.diasEspeciales[fechaKey]) {
-                    elementoDia.classList.add('tiene-contenido');
-                    elementoDia.title = window.datosConfig.diasEspeciales[fechaKey].texto || 'Día especial';
-                    momentosDesbloqueados++;
-                }
-            }
+           // Verificar si es día especial
+if (window.datosConfig && window.datosConfig.diasEspeciales) {
+    // Primero buscar con año completo (fecha específica)
+    if (window.datosConfig.diasEspeciales[fechaKeyConAnio]) {
+        elementoDia.classList.add('tiene-contenido');
+        const importancia = window.datosConfig.diasEspeciales[fechaKeyConAnio].importancia;
+        elementoDia.classList.add(`importancia-${importancia || 'media'}`);
+        elementoDia.title = window.datosConfig.diasEspeciales[fechaKeyConAnio].texto || 'Día especial';
+        momentosDesbloqueados++;
+    } 
+    // Luego buscar sin año (fecha anual) - ¡AQUÍ FALTA AGREGAR LA CLASE DE IMPORTANCIA!
+    else if (window.datosConfig.diasEspeciales[fechaKey]) {
+        elementoDia.classList.add('tiene-contenido');
+        // 👇 AÑADE ESTAS 2 LÍNEAS 👇
+        const importancia = window.datosConfig.diasEspeciales[fechaKey].importancia;
+        elementoDia.classList.add(`importancia-${importancia || 'baja'}`);
+        // 👆 HASTA AQUÍ 👆
+        elementoDia.title = window.datosConfig.diasEspeciales[fechaKey].texto || 'Día especial';
+        momentosDesbloqueados++;
+    }
+}
             
             // Marcar días importantes
             
             // Día de inicio (5 abril 2025)
             if (dia === 5 && mes === 3 && año === 2025) {
-                elementoDia.classList.add('dia-especial');
-                elementoDia.style.background = 'linear-gradient(45deg, #FF9800, #FF5722)';
+                elementoDia.classList.add('dia-especial', 'inicio-especial');
                 elementoDia.innerHTML = `<span class="numero-dia">${dia}</span><span class="estrella">🎉</span>`;
 
                 
@@ -326,9 +335,7 @@ function generarCalendarioAjustado() {
             
             // Día de aniversario (5 abril 2026) - ¡ESTO ES LO QUE FALTABA!
             if (dia === 5 && mes === 3 && año === 2026) {
-                elementoDia.classList.add('dia-especial');
-                elementoDia.style.background = 'linear-gradient(45deg, #ff0000, #420205)';
-                elementoDia.style.color = 'white';
+                elementoDia.classList.add('dia-especial', 'aniversario-especial');
                 elementoDia.innerHTML = `<span class="numero-dia">${dia}</span><span class="estrella">🌟</span>`;
                 elementoDia.title = "¡FELIZ PRIMER ANIVERSARIO!";
                 tieneAniversario = true;
@@ -452,15 +459,22 @@ function mostrarContenidoAjustado(numeroDia, fecha) {
     let mensajesArray = [];
     let videosArray = [];
     
-    // ==================== 1. PRIMERO VERIFICAR SI ES EL ANIVERSARIO (2026-04-05) ====================
+    // Determinar la importancia del día para el estilo del popup
+    let claseImportancia = '';
+    let esInicio = false;
+    let esAniversario = false;
+    
+    // ==================== 1. VERIFICAR SI ES EL ANIVERSARIO (2026-04-05) ====================
     if (dia === 5 && mes === 3 && año === 2026) {
+        esAniversario = true;
+        claseImportancia = 'popup-aniversario-especial';
+        
         // Buscar contenido específico para el aniversario
         let datoAniversario = null;
         if (window.datosConfig && window.datosConfig.diasEspeciales) {
             datoAniversario = window.datosConfig.diasEspeciales[fechaKeyConAnio] || 
                              window.datosConfig.diasEspeciales[fechaKey];
         }
-        
         
         // Configurar para galería
         if (datoAniversario && datoAniversario.tipo === "galeria") {
@@ -469,7 +483,6 @@ function mostrarContenidoAjustado(numeroDia, fecha) {
             mensajesArray = datoAniversario.mensajes || [];
             videosArray = datoAniversario.videos || [];
         } else if (datoAniversario && datoAniversario.tipo === "foto") {
-            // Compatibilidad con datos antiguos
             tieneFotos = true;
             fotosArray = [{
                 url: datoAniversario.contenido,
@@ -480,7 +493,7 @@ function mostrarContenidoAjustado(numeroDia, fecha) {
         
         // HTML especial para aniversario
         if (tieneFotos && fotosArray.length > 0) {
-            contenidoHTML = crearHTMLGaleria(numeroDia, fecha, fotosArray, mensajesArray,videosArray, true);
+            contenidoHTML = crearHTMLGaleria(numeroDia, fecha, fotosArray, mensajesArray, videosArray, true);
         } else {
             contenidoHTML = `
                 <h2 style="color: #9C27B0; margin-bottom: 15px; font-family: 'Poppins', sans-serif; font-size: 1.6rem; text-align: center; font-weight: 700;">
@@ -508,13 +521,15 @@ function mostrarContenidoAjustado(numeroDia, fecha) {
     } 
     // ==================== 2. VERIFICAR SI ES DÍA DE INICIO (2025-04-05) ====================
     else if (dia === 5 && mes === 3 && año === 2025) {
+        esInicio = true;
+        claseImportancia = 'popup-inicio-especial';
+        
         let datoInicio = null;
-         let videosArray = [];
+        let videosArray = [];
         if (window.datosConfig && window.datosConfig.diasEspeciales) {
             datoInicio = window.datosConfig.diasEspeciales[fechaKeyConAnio] || 
                         window.datosConfig.diasEspeciales[fechaKey];
         }
-        
         
         // Configurar para galería
         if (datoInicio && datoInicio.tipo === "galeria") {
@@ -523,7 +538,6 @@ function mostrarContenidoAjustado(numeroDia, fecha) {
             mensajesArray = datoInicio.mensajes || [];
             videosArray = datoInicio.videos || [];
         } else if (datoInicio && datoInicio.tipo === "foto") {
-            // Compatibilidad con datos antiguos
             tieneFotos = true;
             fotosArray = [{
                 url: datoInicio.contenido,
@@ -561,13 +575,32 @@ function mostrarContenidoAjustado(numeroDia, fecha) {
                     window.datosConfig.diasEspeciales[fechaKey];
         
         if (dato) {
+            // Asignar clase de importancia según el dato
+            if (dato.importancia) {
+                switch(dato.importancia) {
+                    case 'baja':
+                        claseImportancia = 'popup-importancia-baja';
+                        break;
+                    case 'media':
+                        claseImportancia = 'popup-importancia-media';
+                        break;
+                    case 'alta':
+                        claseImportancia = 'popup-importancia-alta';
+                        break;
+                    default:
+                        claseImportancia = 'popup-importancia-baja';
+                }
+            } else {
+                claseImportancia = 'popup-importancia-baja';
+            }
+            
             let videosArray = [];
             // Configurar para galería
             if (dato.tipo === "galeria") {
                 tieneFotos = true;
                 fotosArray = dato.fotos || [];
                 mensajesArray = dato.mensajes || [];
-              videosArray = dato.videos || [];
+                videosArray = dato.videos || [];
             } else if (dato.tipo === "foto") {
                 // Compatibilidad con datos antiguos
                 tieneFotos = true;
@@ -594,35 +627,38 @@ function mostrarContenidoAjustado(numeroDia, fecha) {
                 
                 lanzarEfectosEspeciales();
             }
-
-            
             
             // Si tiene fotos, crear galería
             if (tieneFotos && fotosArray.length > 0) {
                 contenidoHTML = crearHTMLGaleria(numeroDia, fecha, fotosArray, mensajesArray, videosArray, false);
                 lanzarEfectosEspeciales();
             }
-// ==================== CARTA SECRETA PARA EL 5 DE JULIO (DISCRETA) ====================
-if (fechaKey === "07-05" && dato.carta) {
-    const cartaHTML = `
-        <div style="position: absolute; top: 10px; right: 10px; z-index: 10;">
-            <span style="cursor: pointer; font-size: 1.3rem; opacity: 0.6; transition: opacity 0.2s, transform 0.2s; display: inline-block;" 
-                  onclick="mostrarCartaSecreta('${encodeURIComponent(JSON.stringify(dato.carta))}')"
-                  onmouseover="this.style.opacity='1'; this.style.transform='scale(1.1)'" 
-                  onmouseout="this.style.opacity='0.6'; this.style.transform='scale(1)'"
-                  title="📜 Carta secreta">
-                👁️
-            </span>
-        </div>
-    `;
-    // Envolvemos el contenido actual en un contenedor relativo para que el absolute funcione
-    contenidoHTML = `<div style="position: relative;">${contenidoHTML}${cartaHTML}</div>`;
-}
+            
+            // CARTA SECRETA PARA EL 5 DE JULIO
+            if (fechaKey === "07-05" && dato.cartaTexto) {
+                const textoEscapado = dato.cartaTexto.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+                const cartaHTML = `
+                    <div style="position: absolute; top: 10px; right: 10px; z-index: 10;">
+                        <span style="cursor: pointer; font-size: 1.3rem; opacity: 0.6; transition: opacity 0.2s, transform 0.2s; display: inline-block;" 
+                              onclick="mostrarCartaSecretaDirecta('${textoEscapado}')"
+                              onmouseover="this.style.opacity='1'; this.style.transform='scale(1.1)'" 
+                              onmouseout="this.style.opacity='0.6'; this.style.transform='scale(1)'"
+                              title="📜 Carta secreta">
+                            👁️
+                        </span>
+                    </div>
+                `;
+                contenidoHTML = `<div style="position: relative;">${contenidoHTML}${cartaHTML}</div>`;
+            }
+        } else {
+            // No es día especial, asignar clase baja por defecto
+            claseImportancia = 'popup-importancia-baja';
         }
     }
     
     // ==================== 4. SI NO ES ESPECIAL, MOSTRAR FRASE GENÉRICA ====================
     if (!contenidoHTML) {
+        claseImportancia = 'popup-importancia-baja';
         const titulo = `Día ${numeroDia} - ${dia} de ${MESES[mes]} ${año}`;
         const frases = window.datosConfig?.frasesGenericas || [
             "Un día más a tu lado es un regalo",
@@ -645,23 +681,20 @@ if (fechaKey === "07-05" && dato.carta) {
             </div>
         `;
         
-        // ¡IMPORTANTE! Agregar esto para que tenga contenido válido:
         tieneFotos = false;
         fotosArray = [];
     }
 
     // ==================== 5. MOSTRAR EL CONTENIDO ====================
-    // Verificar que el contenidoHTML no esté vacío
     if (contenidoHTML && contenidoHTML.trim() !== '') {
         if (numeroDia) {
-    sessionStorage.removeItem('volverAFavoritos');
-}
-         const botonFavorito = agregarBotonFavoritoPopup(numeroDia, fecha);
-          contenidoHTML += botonFavorito;
-        mostrarPopupContenido(contenidoHTML, tieneFotos, fotosArray, fecha, false);
+            sessionStorage.removeItem('volverAFavoritos');
+        }
+        const botonFavorito = agregarBotonFavoritoPopup(numeroDia, fecha);
+        contenidoHTML += botonFavorito;
+        mostrarPopupContenido(contenidoHTML, tieneFotos, fotosArray, fecha, false, claseImportancia);
     } else {
         console.error("❌ Error: contenidoHTML está vacío o indefinido");
-        // Mostrar un mensaje de error o contenido por defecto
         const tituloError = `Día ${numeroDia} - ${dia} de ${MESES[mes]} ${año}`;
         const contenidoError = `
             <h2 style="color: #FF5722; margin-bottom: 15px; font-family: 'Poppins', sans-serif; font-size: 1.6rem; text-align: center; font-weight: 700;">
@@ -675,7 +708,7 @@ if (fechaKey === "07-05" && dato.carta) {
                 </p>
             </div>
         `;
-        mostrarPopupContenido(contenidoError, false, [], fecha);
+        mostrarPopupContenido(contenidoError, false, [], fecha, false, 'popup-importancia-baja');
     }
 }
 
@@ -971,7 +1004,7 @@ function descargarVideo(urlVideo, nombreArchivo = 'video-especial.mp4') {
 }
 
 // ==================== FUNCIÓN PARA MOSTRAR POPUP - VERSIÓN RESPONSIVE ====================
-function mostrarPopupContenido(contenidoHTML, tieneFoto = false, fotosArray = [], fecha = null, esFavoritos = false) {
+function mostrarPopupContenido(contenidoHTML, tieneFoto = false, fotosArray = [], fecha = null, esFavoritos = false, claseImportancia = '') {
     // Guardar posición del scroll
     scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
     isPopupOpen = true;
@@ -1012,6 +1045,12 @@ function mostrarPopupContenido(contenidoHTML, tieneFoto = false, fotosArray = []
     // Crear popup con estructura responsive
     const popup = document.createElement('div');
     popup.id = 'popup-simple';
+    
+    // Agregar clase de importancia si existe
+    if (claseImportancia) {
+        popup.classList.add(claseImportancia);
+    }
+    
     popup.style.cssText = `
         position: fixed;
         top: 0; left: 0;
@@ -1170,7 +1209,7 @@ function cerrarPopupPersonalizado() {
         }, 300);
     }
 }
-// ==================== CONFIGURAR CAROUSEL HORIZONTAL - VERSIÓN CORREGIDA ====================
+// ==================== CONFIGURAR CAROUSEL HORIZONTAL - SIN SWIPE, SOLO FLECHAS ====================
 function configurarCarouselHorizontal(contenedorCarousel, multimediaArray) {
     if (!contenedorCarousel || !multimediaArray.length) return;
     
@@ -1182,7 +1221,7 @@ function configurarCarouselHorizontal(contenedorCarousel, multimediaArray) {
     const btnAnterior = contenedorCarousel.querySelector('.btn-anterior-horizontal');
     const btnSiguiente = contenedorCarousel.querySelector('.btn-siguiente-horizontal');
     const currentSlideElement = contenedorCarousel.querySelector('.current-slide');
-  const popup = document.getElementById('popup-simple');
+    const popup = document.getElementById('popup-simple');
     const btnDescargaIndividual = popup ? popup.querySelector('.btn-descarga-individual') : null;
     
     const contenedorGaleria = contenedorCarousel.closest('.contenedor-galeria');
@@ -1195,10 +1234,9 @@ function configurarCarouselHorizontal(contenedorCarousel, multimediaArray) {
         return contenedorCarousel.offsetWidth;
     }
 
-    // Función para actualizar la posición del carrusel - CORREGIDA
+    // Función para actualizar la posición del carrusel
     function actualizarPosicion() {
         const containerWidth = getContainerWidth();
-        // Cada slide ocupa 100% del contenedor, así que el desplazamiento es simple
         const desplazamiento = slideActual * containerWidth;
         track.style.transform = `translateX(-${desplazamiento}px)`;
         
@@ -1251,41 +1289,39 @@ function configurarCarouselHorizontal(contenedorCarousel, multimediaArray) {
         actualizarBotonDescarga();
     }
 
-// ==================== FUNCIÓN PARA ACTUALIZAR BOTÓN DE DESCARGA ====================
-function actualizarBotonDescarga() {
-    if (!btnDescargaIndividual) return;
-    
-    const elementoActual = multimediaArray[slideActual];
-    const fechaAttr = contenedorGaleria?.getAttribute('data-fecha');
-    const fecha = fechaAttr ? new Date(fechaAttr) : new Date();
-    
-    // Mostrar botón tanto para imágenes como para videos
-    btnDescargaIndividual.style.display = 'flex';
-    
-    // Configurar clic según el tipo de multimedia
-    btnDescargaIndividual.onclick = function() {
-        const nombreArchivo = generarNombreDescarga(fecha, elementoActual.texto || '', elementoActual.tipo);
-        if (elementoActual.tipo === 'imagen') {
-            descargarFoto(elementoActual.url, nombreArchivo);
-        } else {
-            descargarVideo(elementoActual.url, nombreArchivo);
-        }
-    };
-    
-    const textoBtn = btnDescargaIndividual.querySelector('.btn-descarga-texto');
-    if (textoBtn) {
-        // CAMBIO: Texto diferente para foto vs video + contador correcto
-        if (elementoActual.tipo === 'imagen') {
-            textoBtn.textContent = `Descargar esta foto (${slideActual + 1}/${totalSlides})`;
-        } else {
-            textoBtn.textContent = `Descargar este video (${slideActual + 1}/${totalSlides})`;
+    // Función para actualizar el botón de descarga
+    function actualizarBotonDescarga() {
+        if (!btnDescargaIndividual) return;
+        
+        const elementoActual = multimediaArray[slideActual];
+        const fechaAttr = contenedorGaleria?.getAttribute('data-fecha');
+        const fecha = fechaAttr ? new Date(fechaAttr) : new Date();
+        
+        btnDescargaIndividual.style.display = 'flex';
+        
+        btnDescargaIndividual.onclick = function() {
+            const nombreArchivo = generarNombreDescarga(fecha, elementoActual.texto || '', elementoActual.tipo);
+            if (elementoActual.tipo === 'imagen') {
+                descargarFoto(elementoActual.url, nombreArchivo);
+            } else {
+                descargarVideo(elementoActual.url, nombreArchivo);
+            }
+        };
+        
+        const textoBtn = btnDescargaIndividual.querySelector('.btn-descarga-texto');
+        if (textoBtn) {
+            if (elementoActual.tipo === 'imagen') {
+                textoBtn.textContent = `Descargar esta foto (${slideActual + 1}/${totalSlides})`;
+            } else {
+                textoBtn.textContent = `Descargar este video (${slideActual + 1}/${totalSlides})`;
+            }
         }
     }
-}
 
-    // Configurar eventos de navegación
+    // Configurar eventos de navegación con FLECHAS
     if (btnAnterior) {
-        btnAnterior.onclick = function() {
+        btnAnterior.onclick = function(e) {
+            e.stopPropagation();
             if (slideActual > 0) {
                 slideActual--;
                 actualizarPosicion();
@@ -1294,7 +1330,8 @@ function actualizarBotonDescarga() {
     }
 
     if (btnSiguiente) {
-        btnSiguiente.onclick = function() {
+        btnSiguiente.onclick = function(e) {
+            e.stopPropagation();
             if (slideActual < totalSlides - 1) {
                 slideActual++;
                 actualizarPosicion();
@@ -1302,70 +1339,65 @@ function actualizarBotonDescarga() {
         };
     }
 
-       actualizarBotonDescarga();
-
-    // Configurar clic en slides para navegar
-    slides.forEach((slide, index) => {
-        slide.onclick = function(e) {
-            // Ignorar clicks en videos (para que puedan hacer play/pause)
-            if (e.target.closest('video')) return;
-            
-            if (index !== slideActual) {
-                slideActual = index;
-                actualizarPosicion();
-            }
-        };
-    });
-
-    // Configurar swipe para móviles
-    let touchStartX = 0;
-    let touchEndX = 0;
-
-    contenedorCarousel.addEventListener('touchstart', function(e) {
-        touchStartX = e.changedTouches[0].screenX;
-    }, { passive: true });
-
-    contenedorCarousel.addEventListener('touchend', function(e) {
-        touchEndX = e.changedTouches[0].screenX;
-        handleSwipe();
-    }, { passive: true });
-
-    function handleSwipe() {
-        const swipeThreshold = 50;
-        const diff = touchStartX - touchEndX;
+    // ========== IMPORTANTE: DESHABILITAR COMPLETAMENTE EL SWIPE ==========
+    // Eliminar cualquier evento táctil previo clonando y reemplazando el contenedor
+    // Esto elimina los event listeners anteriores que pudieran existir
+    
+    // Deshabilitar eventos táctiles en el carrusel y en el track
+    const bloqueadorTouch = function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+    };
+    
+    // Prevenir eventos táctiles en todo el carrusel
+    contenedorCarousel.addEventListener('touchstart', bloqueadorTouch, { passive: false });
+    contenedorCarousel.addEventListener('touchmove', bloqueadorTouch, { passive: false });
+    contenedorCarousel.addEventListener('touchend', bloqueadorTouch, { passive: false });
+    
+    // También prevenir en el track
+    if (track) {
+        track.addEventListener('touchstart', bloqueadorTouch, { passive: false });
+        track.addEventListener('touchmove', bloqueadorTouch, { passive: false });
+        track.addEventListener('touchend', bloqueadorTouch, { passive: false });
+    }
+    
+    // Prevenir eventos de ratón tipo arrastre que podrían simular swipe
+    contenedorCarousel.addEventListener('dragstart', bloqueadorTouch);
+    contenedorCarousel.addEventListener('drag', bloqueadorTouch);
+    contenedorCarousel.addEventListener('dragend', bloqueadorTouch);
+    
+    // Configurar teclado (solo flechas)
+    const keydownHandler = function(e) {
+        if (!document.getElementById('popup-simple')) return;
+        // Verificar que el popup actual contenga este carrusel
+        if (!document.getElementById('popup-simple').contains(contenedorCarousel)) return;
         
-        if (Math.abs(diff) > swipeThreshold) {
-            if (diff > 0 && slideActual < totalSlides - 1) {
-                // Swipe izquierda - siguiente
-                slideActual++;
-                actualizarPosicion();
-            } else if (diff < 0 && slideActual > 0) {
-                // Swipe derecha - anterior
+        if (e.key === 'ArrowLeft') {
+            e.preventDefault();
+            if (slideActual > 0) {
                 slideActual--;
                 actualizarPosicion();
             }
+        } else if (e.key === 'ArrowRight') {
+            e.preventDefault();
+            if (slideActual < totalSlides - 1) {
+                slideActual++;
+                actualizarPosicion();
+            }
         }
-    }
-
-    // Configurar teclado
-    document.addEventListener('keydown', function(e) {
-        if (!document.getElementById('popup-simple')) return;
-        
-        if (e.key === 'ArrowLeft' && slideActual > 0) {
-            slideActual--;
-            actualizarPosicion();
-        } else if (e.key === 'ArrowRight' && slideActual < totalSlides - 1) {
-            slideActual++;
-            actualizarPosicion();
-        }
-    });
-
+    };
+    
+    // Remover listener anterior si existe y agregar nuevo
+    document.removeEventListener('keydown', keydownHandler);
+    document.addEventListener('keydown', keydownHandler);
+    
     // Agregar listener para redimensionamiento de ventana
     window.addEventListener('resize', function() {
         actualizarPosicion();
     });
 
-    // Configurar zoom en imágenes
+    // Configurar zoom en imágenes (esto está bien, no afecta al swipe)
     slides.forEach((slide, index) => {
         const img = slide.querySelector('.slide-image');
         if (img) {
@@ -1379,7 +1411,7 @@ function actualizarBotonDescarga() {
     // Inicializar posición
     actualizarPosicion();
 
-    console.log("✅ Carrusel horizontal configurado correctamente");
+    console.log("✅ Carrusel horizontal configurado correctamente (swipe deshabilitado)");
 }
 
 // ==================== FUNCIÓN PARA ZOOM DE IMÁGENES ====================
@@ -2345,30 +2377,36 @@ function cerrarPopupPalabraSecreta() {
 function actualizarEstadisticasAjustadas() {
     console.log("📊 Actualizando estadísticas ajustadas...");
     
-    // Calcular días totales
-    const totalDias = Math.floor((FECHA_FIN - FECHA_INICIO) / (1000 * 60 * 60 * 24));
+    // Calcular días totales del primer año (366 días)
+    const totalDiasPrimerAnio = Math.floor((FECHA_FIN - FECHA_INICIO) / (1000 * 60 * 60 * 24));
     
-    // Calcular días transcurridos
+    // Calcular días desde el inicio hasta hoy (sin límite)
     const hoy = new Date();
-    let diasTranscurridos = 0;
+    let diasTotales = 0;
     
     if (hoy >= FECHA_INICIO) {
-        if (hoy >= FECHA_FIN) {
-            diasTranscurridos = totalDias;
-        } else {
-            diasTranscurridos = Math.floor((hoy - FECHA_INICIO) / (1000 * 60 * 60 * 24));
-        }
+        // Calcular días transcurridos desde el inicio (5/4/2025)
+        const inicioPuro = new Date(2025, 3, 5); // 5 abril 2025
+        const hoyPuro = new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate());
+        const diffMs = hoyPuro - inicioPuro;
+        diasTotales = Math.floor(diffMs / (1000 * 60 * 60 * 24)) + 1; // +1 porque el día 1 es el inicio
     }
     
-    // Actualizar contador de días juntos
+    // Asegurar que no sea negativo
+    if (diasTotales < 0) diasTotales = 0;
+    
+    // Actualizar contador de días juntos (SIN LÍMITE, sigue contando)
     const diasJuntosElement = document.getElementById('dias-juntos');
     if (diasJuntosElement) {
-        if (diasTranscurridos > totalDias) {
-            diasJuntosElement.textContent = totalDias;
-            diasJuntosElement.style.color = '#9C27B0';
-            diasJuntosElement.title = "¡Ya cumplimos nuestro primer año!";
+        diasJuntosElement.textContent = diasTotales;
+        
+        // Cambiar color si ya pasó el aniversario (opcional)
+        if (diasTotales > totalDiasPrimerAnio) {
+            diasJuntosElement.style.color = '#9C27B0'; // Color naranja para días extra
+            diasJuntosElement.title = `¡${diasTotales - totalDiasPrimerAnio} días más allá del primer aniversario! 💪💘`;
         } else {
-            diasJuntosElement.textContent = diasTranscurridos > 0 ? diasTranscurridos : 0;
+            diasJuntosElement.style.color = '#9C27B0';
+            diasJuntosElement.title = "Contando cada día desde que empezó todo";
         }
     }
     
@@ -2383,15 +2421,16 @@ function actualizarEstadisticasAjustadas() {
         }
     }
     
-     // Contador de palabras secretas
+    // Contador de palabras secretas
     const contadorPalabras = document.getElementById('contador-fotos');
     if (window.datosConfig && window.datosConfig.palabrasSecretas && contadorPalabras) {
         contadorPalabras.textContent = window.datosConfig.palabrasSecretas.length;
         console.log(`📚 Contador de palabras secretas: ${window.datosConfig.palabrasSecretas.length}`);
-        contadorPalabras.style.color = '#3752ca'
+        contadorPalabras.style.color = '#3752ca';
     }
+    
     actualizarContadorRompecabezas();
-    console.log(`📊 Estadísticas actualizadas: ${diasTranscurridos}/${totalDias} días, ${diasFavoritos.length} favoritos`);
+    console.log(`📊 Estadísticas actualizadas: ${diasTotales} días totales (primer año: ${totalDiasPrimerAnio} días)`);
 }
 // ==================== SISTEMA DE FAVORITOS ====================
 
@@ -5248,36 +5287,93 @@ function mostrarVideoSecreto() {
     mostrarPopupContenido(contenidoHTML, false, [], null, false);
 }
 
-function mostrarCartaSecreta(cartaJSON) {
-  try {
-    const carta = JSON.parse(decodeURIComponent(cartaJSON));
-    let contenidoCarta = carta.contenido;
+function mostrarCartaSecretaDirecta(texto) {
+    // Limpiar el texto
+    const textoLimpio = texto.replace(/&quot;/g, '"');
     
-    // Si el contenido no tiene HTML, convertimos saltos de línea en párrafos
-    if (!contenidoCarta.startsWith('<')) {
-      contenidoCarta = contenidoCarta.split('\n').map(line => {
-        if (line.trim() === '') return '<br>';
-        return `<p style="margin: 0 0 10px 0;">${line}</p>`;
-      }).join('');
+    // Dividir el texto en párrafos por puntos seguidos de mayúscula o saltos de línea
+    let partes = textoLimpio.split(/(?<=[.!?])\s+(?=[A-ZÁÉÍÓÚ"“])/);
+    
+    // Separar el contenido de la firma
+    let contenidoPrincipal = textoLimpio;
+    let firma = "";
+    
+    // Buscar "Att:" para separar la firma
+    if (textoLimpio.includes("Att:")) {
+        const indiceAtt = textoLimpio.indexOf("Att:");
+        contenidoPrincipal = textoLimpio.substring(0, indiceAtt).trim();
+        firma = textoLimpio.substring(indiceAtt).trim();
+    }
+    
+    // Construir los párrafos del contenido principal
+    let htmlContenido = '';
+    
+    // Dividir por puntos y saltos de línea
+    let parrafosBrutos = contenidoPrincipal.split(/\n\s*\n/);
+    
+    for (let i = 0; i < parrafosBrutos.length; i++) {
+        let bloque = parrafosBrutos[i].trim();
+        if (bloque.length === 0) continue;
+        
+        // Si el bloque tiene puntos, dividirlo en oraciones
+        if (bloque.includes('.') && bloque.length > 100) {
+            let oraciones = bloque.split(/\.\s+(?=[A-ZÁÉÍÓÚ])/);
+            let parrafoActual = '';
+            
+            for (let j = 0; j < oraciones.length; j++) {
+                let oracion = oraciones[j].trim();
+                if (oracion.length === 0) continue;
+                if (!oracion.endsWith('.') && !oracion.endsWith('?') && !oracion.endsWith('!')) {
+                    oracion += '.';
+                }
+                if (parrafoActual.length + oracion.length < 300) {
+                    parrafoActual += (parrafoActual ? ' ' : '') + oracion;
+                } else {
+                    if (parrafoActual) {
+                        htmlContenido += `<p style="margin: 0 0 15px 0; line-height: 1.65; text-align: justify;">${parrafoActual}</p>`;
+                    }
+                    parrafoActual = oracion;
+                }
+            }
+            if (parrafoActual) {
+                htmlContenido += `<p style="margin: 0 0 15px 0; line-height: 1.65; text-align: justify;">${parrafoActual}</p>`;
+            }
+        } else {
+            // Asegurar que termine con punto
+            if (!bloque.endsWith('.') && !bloque.endsWith('?') && !bloque.endsWith('!')) {
+                bloque += '.';
+            }
+            htmlContenido += `<p style="margin: 0 0 15px 0; line-height: 1.65; text-align: justify;">${bloque}</p>`;
+        }
+    }
+    
+    // Procesar la firma (TODO lo que viene después de Att:)
+    let firmaHTML = '';
+    if (firma) {
+        // Limpiar y dar formato a la firma
+        firmaHTML = `
+            <div style="margin-top: 25px; padding-top: 15px; text-align: right; border-top: 2px solid #e6c9a8;">
+                <p style="margin: 0; font-family: 'Dancing Script', cursive; font-size: 1.3rem; font-weight: 600; color: #5d3a1a; font-style: italic;">
+                    ${firma}
+                </p>
+            </div>
+        `;
     }
     
     const html = `
-      <div style="background: #fff9e6; border-radius: 15px; padding: 25px; max-width: 500px; margin: 0 auto; border: 2px solid #9C27B0; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
-        <h3 style="color: #9C27B0; margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
-          <span style="font-size: 2rem;">💌</span> ${carta.titulo || 'Carta secreta'}
-        </h3>
-        <div style="font-family: 'Dancing Script', cursive; font-size: 1.2rem; line-height: 1.6; color: #333; text-align: left; max-height: 400px; overflow-y: auto; padding-right: 10px;">
-          ${contenidoCarta}
+        <div style="background: #fff9e6; border-radius: 20px; padding: 30px; max-width: 580px; margin: 0 auto; border: 3px solid #9C27B0; box-shadow: 0 20px 40px rgba(0,0,0,0.25);">
+            <h3 style="color: #9C27B0; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; font-family: 'Poppins', sans-serif; font-size: 1.5rem; border-bottom: 2px solid #f0e0c0; padding-bottom: 15px;">
+                <span style="font-size: 2rem;">💌</span> Para ti, en este 5 de julio
+            </h3>
+            
+            <div style="background: white; border-radius: 15px; padding: 25px; max-height: 500px; overflow-y: auto; font-family: 'Poppins', sans-serif; font-size: 1rem; line-height: 1.6; color: #3a2a1f; text-align: left; box-shadow: inset 0 0 10px rgba(0,0,0,0.03);">
+                ${htmlContenido}
+                ${firmaHTML}
+            </div>
         </div>
-      
-      </div>
     `;
     
     mostrarPopupContenido(html, false, [], null, false);
-  } catch (e) {
-    console.error("Error al mostrar la carta:", e);
-    mostrarNotificacion("No se pudo cargar la carta", "error");
-  }
 }
 
 // Hacer funciones disponibles globalmente

@@ -5272,3 +5272,687 @@ body.zoom-activo {
     font-weight: bold;
     text-shadow: 0 0 10px rgba(255,255,255,0.5);
 }
+
+/* Eliminar scroll morado horizontal de los popups */
+#contenedor-popup {
+    overflow-x: hidden !important;
+}
+
+#contenedor-popup::-webkit-scrollbar-horizontal {
+    display: none !important;
+    height: 0 !important;
+    width: 0 !important;
+}
+
+.foto-principal-container-horizontal,
+.carousel-track,
+.carousel-slide {
+    overflow-x: visible !important;
+}
+
+/* Asegurar que nada se desborde */
+.dia-contenido,
+.mensajes-dia,
+.mensaje-item {
+    max-width: 100%;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+
+/* ==================== DÍAS CON CONTENIDO POR IMPORTANCIA ==================== */
+
+/* BAJA IMPORTANCIA - MORADO (estándar) */
+.dia.importancia-baja {
+    background: linear-gradient(135deg, #9C27B0, #7B1FA2);
+    border: 1px solid rgba(156, 39, 176, 0.5);
+    transition: all 0.3s ease;
+}
+
+.dia.importancia-baja:hover {
+    background: linear-gradient(135deg, #BA68C8, #9C27B0);
+    box-shadow: 0 0 15px rgba(156, 39, 176, 0.5);
+}
+
+/* MEDIA IMPORTANCIA - AZUL ELÉCTRICO / VIBRANTE (más poderoso que morado) */
+.dia.importancia-media {
+    background: linear-gradient(135deg, #00B4D8, #0077B6);
+    border: 1px solid #00E5FF;
+    box-shadow: 0 0 8px rgba(0, 180, 216, 0.4);
+    animation: brilloAzul 2s infinite;
+}
+
+.dia.importancia-media:hover {
+    background: linear-gradient(135deg, #48CAE4, #0096C7);
+    box-shadow: 0 0 20px rgba(0, 229, 255, 0.7);
+    transform: scale(1.03);
+}
+
+@keyframes brilloAzul {
+    0%, 100% { box-shadow: 0 0 5px rgba(0, 180, 216, 0.3); }
+    50% { box-shadow: 0 0 15px rgba(0, 229, 255, 0.7); }
+}
+
+/* ALTA IMPORTANCIA - OBSIDIANA (negro con destellos púrpura/azul) - MUY LLAMATIVO */
+.dia.importancia-alta {
+    background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+    border: 1px solid #9C27B0;
+    box-shadow: 0 0 10px rgba(156, 39, 176, 0.5);
+    animation: obsidianaBrillo 1.5s infinite;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Efecto de brillo deslizante (como obsidiana pulida) */
+.dia.importancia-alta::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -60%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        115deg,
+        transparent 30%,
+        rgba(156, 39, 176, 0.3) 45%,
+        rgba(0, 229, 255, 0.2) 50%,
+        rgba(156, 39, 176, 0.3) 55%,
+        transparent 70%
+    );
+    transform: rotate(25deg);
+    animation: destelloObsidiana 3s infinite;
+    pointer-events: none;
+}
+
+@keyframes destelloObsidiana {
+    0% { transform: translateX(-100%) rotate(25deg); }
+    100% { transform: translateX(100%) rotate(25deg); }
+}
+
+@keyframes obsidianaBrillo {
+    0%, 100% { 
+        box-shadow: 0 0 10px rgba(156, 39, 176, 0.5), inset 0 0 5px rgba(0, 229, 255, 0.2);
+    }
+    50% { 
+        box-shadow: 0 0 25px rgba(0, 229, 255, 0.5), inset 0 0 10px rgba(156, 39, 176, 0.4);
+    }
+}
+
+/* Efecto de chispas en la obsidiana */
+.dia.importancia-alta::after {
+    content: '✨';
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    font-size: 8px;
+    opacity: 0.8;
+    animation: chispear 1.5s infinite;
+    pointer-events: none;
+}
+
+@keyframes chispear {
+    0%, 100% { opacity: 0.3; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.2); }
+}
+
+/* Día normal con contenido (morado estándar - fallback) */
+.dia.tiene-contenido:not(.importancia-baja):not(.importancia-media):not(.importancia-alta) {
+    background: linear-gradient(135deg, #9C27B0, #7B1FA2);
+}
+
+/* ======================================================
+   DÍA DE INICIO - ÉPICO (5 de abril 2025)
+   Color: Amanecer Dorado/Naranja con partículas mágicas
+   ====================================================== */
+.dia.dia-especial[style*="FF9800"],
+.dia.inicio-especial {
+    background: linear-gradient(135deg, #FF6B00, #FF3D00, #FF6B00);
+    background-size: 200% 200%;
+    animation: inicioPulsante 2s ease infinite, gradienteMovil 3s ease infinite;
+    border: 2px solid #FFD700;
+    box-shadow: 0 0 20px rgba(255, 107, 0, 0.8), inset 0 0 15px rgba(255, 215, 0, 0.5);
+    position: relative;
+    overflow: hidden;
+    z-index: 2;
+}
+
+/* Gradiente móvil para efecto dinámico */
+@keyframes gradienteMovil {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Pulso del día de inicio */
+@keyframes inicioPulsante {
+    0%, 100% { transform: scale(1); box-shadow: 0 0 15px rgba(255, 107, 0, 0.8); }
+    50% { transform: scale(1.05); box-shadow: 0 0 35px rgba(255, 193, 7, 1); }
+}
+
+/* Partículas de fuego alrededor */
+.dia.inicio-especial::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    background: radial-gradient(circle, rgba(255,107,0,0.3) 0%, transparent 70%);
+    border-radius: 15px;
+    animation: fuegoExterior 1.5s infinite;
+    pointer-events: none;
+    z-index: -1;
+}
+
+@keyframes fuegoExterior {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 0.8; transform: scale(1.1); }
+}
+
+/* Chispas doradas cayendo */
+.dia.inicio-especial::after {
+    content: '⚡✨🔥⚡';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    font-size: 12px;
+    text-align: center;
+    line-height: 1;
+    color: #FFD700;
+    opacity: 0.6;
+    animation: chispasDoradas 2s linear infinite;
+    pointer-events: none;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+@keyframes chispasDoradas {
+    0% { transform: translateY(-100%) rotate(0deg); opacity: 0; }
+    10% { opacity: 0.8; }
+    90% { opacity: 0.8; }
+    100% { transform: translateY(100%) rotate(360deg); opacity: 0; }
+}
+
+/* Estrellas centelleantes */
+.dia.inicio-especial .numero-dia {
+    animation: textoBrillante 1s infinite;
+    text-shadow: 0 0 10px #FFD700, 0 0 20px #FF6B00;
+    font-weight: bold;
+    color: white;
+    font-size: 1.1rem;
+}
+
+@keyframes textoBrillante {
+    0%, 100% { text-shadow: 0 0 5px #FFD700; }
+    50% { text-shadow: 0 0 20px #FFD700, 0 0 30px #FF6B00; }
+}
+
+/* ======================================================
+   DÍA DEL ANIVERSARIO - DIOS DE LOS COLORES (5 de abril 2026)
+   Color: Corona Real / Arcoíris Épico con brillo absoluto
+   ====================================================== */
+.dia.dia-especial[style*="ff0000"],
+.dia.dia-especial[style*="9C27B0"],
+.dia.aniversario-especial {
+    background: linear-gradient(135deg, 
+        #FF0000, #FF7700, #FFD700, 
+        #00FF00, #0077FF, #8B00FF, 
+        #FF00FF, #FF0000);
+    background-size: 400% 400%;
+    animation: arcoirisGigante 4s ease infinite, superBrillo 2s ease infinite;
+    border: 3px solid #FFFFFF;
+    box-shadow: 
+        0 0 30px rgba(255,0,0,0.8),
+        0 0 60px rgba(255,215,0,0.5),
+        inset 0 0 20px rgba(255,255,255,0.5);
+    position: relative;
+    overflow: hidden;
+    z-index: 10;
+}
+
+/* Animación del arcoíris gigante */
+@keyframes arcoirisGigante {
+    0% { background-position: 0% 50%; }
+    25% { background-position: 50% 50%; }
+    50% { background-position: 100% 50%; }
+    75% { background-position: 50% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Super brillo pulsante */
+@keyframes superBrillo {
+    0%, 100% { 
+        box-shadow: 0 0 20px rgba(255,0,0,0.8), inset 0 0 10px rgba(255,255,255,0.3);
+        transform: scale(1);
+    }
+    25% { 
+        box-shadow: 0 0 50px rgba(255,215,0,1), inset 0 0 25px rgba(255,255,255,0.8);
+        transform: scale(1.08);
+    }
+    50% { 
+        box-shadow: 0 0 80px rgba(255,0,255,0.9), inset 0 0 35px rgba(255,255,255,1);
+        transform: scale(1.12);
+    }
+    75% { 
+        box-shadow: 0 0 50px rgba(0,255,255,1), inset 0 0 25px rgba(255,255,255,0.8);
+        transform: scale(1.08);
+    }
+}
+
+/* Corona de estrellas alrededor */
+.dia.aniversario-especial::before {
+    content: '⭐🌟✨💫⭐🌟✨💫';
+    position: absolute;
+    top: -15px;
+    left: -15px;
+    right: -15px;
+    bottom: -15px;
+    font-size: 14px;
+    text-align: center;
+    color: #FFD700;
+    animation: coronaEstrellas 3s linear infinite;
+    pointer-events: none;
+    white-space: nowrap;
+    overflow: hidden;
+    opacity: 0.9;
+    z-index: -1;
+}
+
+@keyframes coronaEstrellas {
+    0% { transform: rotate(0deg) scale(1); opacity: 0.7; }
+    50% { transform: rotate(180deg) scale(1.2); opacity: 1; }
+    100% { transform: rotate(360deg) scale(1); opacity: 0.7; }
+}
+
+/* Confeti mágico constante */
+.dia.aniversario-especial::after {
+    content: '🎉🎊🎉🎊🎉🎊';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    font-size: 12px;
+    text-align: center;
+    line-height: 1.2;
+    animation: confetiLluvia 1.5s linear infinite;
+    pointer-events: none;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+@keyframes confetiLluvia {
+    0% { transform: translateY(-100%) rotate(0deg); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateY(100%) rotate(360deg); opacity: 0; }
+}
+
+/* Número del día con efecto diamante */
+.dia.aniversario-especial .numero-dia {
+    animation: textoDiamante 1s infinite;
+    font-weight: 900;
+    font-size: 1.2rem;
+    text-shadow: 
+        0 0 5px #FF0000,
+        0 0 10px #FFD700,
+        0 0 15px #FFFFFF,
+        0 0 20px #FF00FF;
+    color: white;
+    z-index: 5;
+    position: relative;
+}
+
+@keyframes textoDiamante {
+    0%, 100% { 
+        text-shadow: 0 0 5px #FF0000, 0 0 10px #FFD700;
+        transform: scale(1);
+    }
+    25% { 
+        text-shadow: 0 0 10px #00FF00, 0 0 20px #FFFFFF;
+        transform: scale(1.1);
+    }
+    50% { 
+        text-shadow: 0 0 15px #0077FF, 0 0 30px #FFD700, 0 0 45px #FFFFFF;
+        transform: scale(1.15);
+    }
+    75% { 
+        text-shadow: 0 0 10px #FF00FF, 0 0 20px #FFD700;
+        transform: scale(1.1);
+    }
+}
+
+/* Rayos de luz que se expanden */
+.dia.aniversario-especial .estrella {
+    animation: rayoLuz 1s infinite;
+    font-size: 14px;
+}
+
+@keyframes rayoLuz {
+    0%, 100% { 
+        opacity: 0.5;
+        transform: scale(1) rotate(0deg);
+    }
+    50% { 
+        opacity: 1;
+        transform: scale(1.5) rotate(180deg);
+    }
+}
+
+/* ======================================================
+   POPUPS SEGÚN IMPORTANCIA DEL DÍA
+   ====================================================== */
+
+/* Contenedor base del popup - se modifica dinámicamente */
+#popup-simple .popup-contenido-dia {
+    transition: all 0.5s ease;
+}
+
+/* ===== IMPORTANCIA BAJA - MORADO (estándar) ===== */
+.popup-importancia-baja #contenedor-popup {
+    background: linear-gradient(135deg, #ffffff, #f3e5f5);
+    border-left: 5px solid #9C27B0;
+    border-right: 5px solid #9C27B0;
+}
+
+.popup-importancia-baja h2 {
+    color: #9C27B0 !important;
+    text-shadow: 0 2px 5px rgba(156, 39, 176, 0.2);
+}
+
+/* ===== IMPORTANCIA MEDIA - AZUL ELÉCTRICO ===== */
+.popup-importancia-media #contenedor-popup {
+    background: linear-gradient(135deg, #ffffff, #e0f7fa);
+    border-left: 5px solid #00B4D8;
+    border-right: 5px solid #00B4D8;
+    box-shadow: 0 10px 40px rgba(0, 180, 216, 0.4);
+    animation: popupAzulPulse 2s infinite;
+}
+
+.popup-importancia-media h2 {
+    color: #0077B6 !important;
+    text-shadow: 0 0 10px rgba(0, 180, 216, 0.5);
+    animation: textoAzulBrillo 1.5s infinite;
+}
+
+.popup-importancia-media .mensajes-dia {
+    background: linear-gradient(135deg, #e0f7fa, #b2ebf2);
+    border-left: 4px solid #00B4D8;
+}
+
+.popup-importancia-media .mensaje-item i {
+    color: #00B4D8;
+    animation: iconoAzulLatido 1s infinite;
+}
+
+@keyframes popupAzulPulse {
+    0%, 100% { box-shadow: 0 10px 30px rgba(0, 180, 216, 0.3); }
+    50% { box-shadow: 0 15px 50px rgba(0, 180, 216, 0.6); }
+}
+
+@keyframes textoAzulBrillo {
+    0%, 100% { text-shadow: 0 0 5px rgba(0, 180, 216, 0.3); }
+    50% { text-shadow: 0 0 15px rgba(0, 180, 216, 0.7); }
+}
+
+@keyframes iconoAzulLatido {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+}
+
+/* ===== IMPORTANCIA ALTA - OBSIDIANA (Negro con destellos) - TEXTO BLANCO LEGIBLE ===== */
+#popup-simple.popup-importancia-alta #contenedor-popup {
+    background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+    border: 2px solid #9C27B0;
+    box-shadow: 0 0 40px rgba(156, 39, 176, 0.6), inset 0 0 20px rgba(0, 229, 255, 0.2);
+    animation: obsidianaPopupBrillo 2s infinite;
+    position: relative;
+}
+
+/* Texto de los mensajes en blanco */
+#popup-simple.popup-importancia-alta .mensajes-dia {
+    background: rgba(0, 0, 0, 0.6);
+    border-left: 4px solid #9C27B0;
+    backdrop-filter: blur(8px);
+    border-radius: 12px;
+}
+
+#popup-simple.popup-importancia-alta .mensaje-item {
+    color: #ffffff !important;
+}
+
+#popup-simple.popup-importancia-alta .mensaje-item p {
+    color: #ffffff !important;
+    font-weight: 500;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+#popup-simple.popup-importancia-alta .mensaje-item i {
+    color: #00E5FF;
+    animation: iconoObsidiana 2s infinite;
+}
+
+#popup-simple.popup-importancia-alta h2 {
+    color: #e1bee7 !important;
+    text-shadow: 0 0 15px #9C27B0, 0 0 30px #00E5FF;
+    animation: textoObsidiana 1.5s infinite;
+}
+
+@keyframes textoObsidiana {
+    0%, 100% { text-shadow: 0 0 10px #9C27B0; }
+    50% { text-shadow: 0 0 25px #00E5FF, 0 0 15px #9C27B0; }
+}
+
+@keyframes iconoObsidiana {
+    0%, 100% { transform: scale(1); opacity: 0.7; }
+    50% { transform: scale(1.2); opacity: 1; color: #FFD700; }
+}
+
+@keyframes obsidianaPopupBrillo {
+    0%, 100% { box-shadow: 0 0 20px rgba(156, 39, 176, 0.5); }
+    50% { box-shadow: 0 0 50px rgba(0, 229, 255, 0.4), 0 0 30px rgba(156, 39, 176, 0.7); }
+}
+
+/* ===== DÍA DE INICIO - ÉPICO ===== */
+#popup-simple.popup-inicio-especial #contenedor-popup {
+    background: linear-gradient(135deg, #FFF3E0, #FFE0B2, #FFCC80);
+    border: 3px solid #FF6B00;
+    box-shadow: 0 0 30px rgba(255, 107, 0, 0.8), inset 0 0 30px rgba(255, 215, 0, 0.3);
+    animation: popupInicioPulse 1.5s infinite;
+    position: relative;
+}
+
+/* EFECTO SUTIL - solo un brillo interno, nada que se mueva */
+#popup-simple.popup-inicio-especial #contenedor-popup::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 50% 50%, rgba(255, 215, 0, 0.1), transparent 70%);
+    pointer-events: none;
+    border-radius: 15px;
+}
+
+#popup-simple.popup-inicio-especial h2 {
+    color: #FF6B00 !important;
+    text-shadow: 0 0 10px #FFD700, 0 0 20px #FF6B00;
+    animation: textoInicio 1s infinite;
+}
+
+#popup-simple.popup-inicio-especial .mensajes-dia {
+    background: linear-gradient(135deg, #FFF8E1, #FFECB3);
+    border-left: 4px solid #FF6B00;
+    box-shadow: 0 0 15px rgba(255, 107, 0, 0.3);
+}
+
+#popup-simple.popup-inicio-especial .mensaje-item i {
+    color: #FF6B00;
+    animation: iconoInicio 1s infinite;
+}
+
+@keyframes textoInicio {
+    0%, 100% { text-shadow: 0 0 5px #FFD700; }
+    50% { text-shadow: 0 0 20px #FF6B00, 0 0 15px #FFD700; }
+}
+
+@keyframes iconoInicio {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); color: #FFD700; }
+}
+
+@keyframes popupInicioPulse {
+    0%, 100% { box-shadow: 0 0 20px rgba(255, 107, 0, 0.6); transform: scale(1); }
+    50% { box-shadow: 0 0 50px rgba(255, 193, 7, 0.9); transform: scale(1.01); }
+}
+
+/* ===== DÍA DEL ANIVERSARIO - VERSIÓN ELEGANTE (sin diamante giratorio ni título saltarín) ===== */
+#popup-simple.popup-aniversario-especial #contenedor-popup {
+    background: linear-gradient(135deg, 
+        #FF0000, #FF3300, #FF6600, 
+        #FF9900, #FFCC00, #FFFF00,
+        #CCFF00, #99FF00, #66FF00,
+        #00FF66, #00FFCC, #00CCFF,
+        #0066FF, #3300FF, #6600FF,
+        #9900FF, #CC00FF, #FF00CC,
+        #FF0099, #FF0066, #FF0000);
+    background-size: 400% 400%;
+    animation: popupArcoiris 4s ease infinite, popupSuperBrillo 1.5s ease infinite;
+    border: 4px solid #FFFFFF;
+    border-radius: 20px;
+    box-shadow: 
+        0 0 50px rgba(255,0,0,0.8),
+        0 0 80px rgba(255,215,0,0.6),
+        0 0 120px rgba(255,0,255,0.4),
+        inset 0 0 40px rgba(255,255,255,0.5);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Contenedor de mensajes del aniversario - ESTILO PREMIUM */
+#popup-simple.popup-aniversario-especial .mensajes-dia {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.7), rgba(156, 39, 176, 0.5));
+    backdrop-filter: blur(15px);
+    border-left: 5px solid #FFD700;
+    border-right: 1px solid rgba(255, 215, 0, 0.3);
+    border-radius: 16px;
+    padding: 20px !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+/* Cada mensaje individual - con efecto cristal */
+#popup-simple.popup-aniversario-especial .mensaje-item {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 12px 15px;
+    margin-bottom: 12px;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+#popup-simple.popup-aniversario-especial .mensaje-item:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateX(5px);
+    border-color: rgba(255, 215, 0, 0.5);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+#popup-simple.popup-aniversario-especial .mensaje-item i {
+    color: #FFD700;
+    font-size: 1.3rem;
+    animation: iconoAniversario 0.8s infinite;
+    text-shadow: 0 0 10px #FFD700;
+}
+
+#popup-simple.popup-aniversario-especial .mensaje-item p {
+    color: #ffffff !important;
+    font-weight: 600;
+    font-size: 1rem;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+    letter-spacing: 0.3px;
+}
+
+/* Título del aniversario - ESTILO ELEGANTE (sin saltos) */
+#popup-simple.popup-aniversario-especial h2 {
+    font-weight: 900 !important;
+    font-size: 1.8rem !important;
+    background: linear-gradient(135deg, #0066FF, #00E5FF, #0077B6, #0066FF);
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    color: transparent !important;
+    text-shadow: none !important;
+    letter-spacing: 2px;
+    margin-bottom: 20px !important;
+    animation: brilloTexto 2s infinite;
+}
+
+/* Brillo suave en el texto (sin saltos) */
+@keyframes brilloTexto {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.85; }
+}
+
+/* Subtítulo o texto del día */
+#popup-simple.popup-aniversario-especial h3,
+#popup-simple.popup-aniversario-especial .dia-texto {
+    color: #1976D2 !important;
+    text-shadow: 0 0 15px #00FFCC, 0 0 30px #0077FF;
+}
+
+@keyframes iconoAniversario {
+    0%, 100% { transform: scale(1); color: #FFD700; text-shadow: 0 0 5px #FFD700; }
+    50% { transform: scale(1.2); color: #FF00FF; text-shadow: 0 0 15px #FFFFFF, 0 0 8px #FF00FF; }
+}
+
+@keyframes popupArcoiris {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
+}
+
+@keyframes popupSuperBrillo {
+    0%, 100% { 
+        box-shadow: 0 0 30px rgba(255,0,0,0.8), inset 0 0 15px rgba(255,255,255,0.3);
+        transform: scale(1);
+    }
+    25% { 
+        box-shadow: 0 0 60px rgba(255,215,0,1), inset 0 0 25px rgba(255,255,255,0.6);
+        transform: scale(1.01);
+    }
+    50% { 
+        box-shadow: 0 0 90px rgba(255,0,255,0.9), inset 0 0 35px rgba(255,255,255,0.8);
+        transform: scale(1.02);
+    }
+    75% { 
+        box-shadow: 0 0 60px rgba(0,255,255,1), inset 0 0 25px rgba(255,255,255,0.6);
+        transform: scale(1.01);
+    }
+}
+
+/* Estilo adicional para los textos dentro del contenedor de mensajes */
+#popup-simple.popup-aniversario-especial .mensajes-dia p {
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* Si hay títulos dentro de los mensajes */
+#popup-simple.popup-aniversario-especial .mensajes-dia strong,
+#popup-simple.popup-aniversario-especial .mensajes-dia b {
+    color: #FFD700;
+    font-weight: 700;
+}
+
+/* Efecto de partículas doradas sutiles (sin romper el layout) */
+#popup-simple.popup-aniversario-especial #contenedor-popup::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: radial-gradient(circle at 20% 40%, rgba(255, 215, 0, 0.1) 1px, transparent 1px);
+    background-size: 30px 30px;
+    pointer-events: none;
+    border-radius: 20px;
+}

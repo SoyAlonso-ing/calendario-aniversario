@@ -23,105 +23,109 @@ const diasEspeciales = {
   // Enero
   "01-02": {
     tipo: "galeria",
-    fotos: [{ url: "fotos/01-02/foto1.jpg", texto: "¡Nuestro segundo día del año!" }],
+    fotos: [{ url: "fotos/01-02/foto1.jpg", texto: "Ese abdomen perfecto" }],
     mensajes: ["Empezando el año a tu lado ❤️"],
   },
 
   "01-05": {
     tipo: "galeria",
+    importancia: "alta",
     fotos: [
-      { url: "fotos/01-05/foto1.jpg", texto: "Día 5 de enero contigo" },
-      { url: "fotos/01-05/foto2.jpg", texto: "Sonrisas que iluminan" },
-      { url: "fotos/01-05/foto3.jpg", texto: "Momentos especiales" },
-      { url: "fotos/01-05/foto4.jpg", texto: "Recuerdos inolvidables" },
-      { url: "fotos/01-05/foto5.jpg", texto: "Juntos siempre" },
+      { url: "fotos/01-05/foto1.jpg", texto: "❤️" },
+      { url: "fotos/01-05/foto3.jpg", texto: "❤️" },
+      { url: "fotos/01-05/foto4.jpg", texto: "❤️" },
+      { url: "fotos/01-05/foto5.jpg", texto: "❤️" },
     ],
-    mensajes: ["5 días, 5 fotos, infinitos recuerdos"],
+    mensajes: ["Mesiversario a 5ta y A",
+    "Las mejores hamburguezas de la habana",
+    ],
   },
 
   "01-06": {
     tipo: "galeria",
     fotos: [
-      { url: "fotos/01-06/foto1.jpg", texto: "6 de enero mágico" },
-      { url: "fotos/01-06/foto2.jpg", texto: "Risas compartidas" },
-      { url: "fotos/01-06/foto3.jpg", texto: "El mejor regalo eres tú" },
-    ],
-    mensajes: ["Día de Reyes contigo, el mejor regalo ❤️"],
+      { url: "fotos/01-06/foto1.jpg", texto: "❤️" },
+      { url: "fotos/01-06/foto2.jpg", texto: "❤️" },
+        ],
+    mensajes: ["Que lindos te quedan mis pullovers "],
   },
 
   "01-11": {
     tipo: "galeria",
-    fotos: [{ url: "fotos/01-11/foto1.jpg", texto: "11 de enero especial" }],
-    mensajes: ["Cada día a tu lado es único"],
+    importancia: "media",
+    fotos: [{ url: "fotos/01-11/foto1.jpg", texto: "Tú joven y tú vieja" }],
+    mensajes: ["Sacando a pasear a la abuela"],
   },
 
   "01-12": {
     tipo: "galeria",
+    importancia: "media",
     fotos: [
-      { url: "fotos/01-12/foto1.jpg", texto: "Domingo perfecto" },
-      { url: "fotos/01-12/foto2.jpg", texto: "Momentos de complicidad" },
-      { url: "fotos/01-12/foto3.jpg", texto: "Sonrisas eternas" },
-      { url: "fotos/01-12/foto4.jpg", texto: "Juntos en cada instante" },
-      { url: "fotos/01-12/foto5.jpg", texto: "Miradas que dicen todo" },
-      { url: "fotos/01-12/foto6.jpg", texto: "Abrazos que curan" },
-      { url: "fotos/01-12/foto7.jpg", texto: "Ternura infinita" },
-      { url: "fotos/01-12/foto8.jpg", texto: "Compartiendo sueños" },
-      { url: "fotos/01-12/foto9.jpg", texto: "Amor en cada detalle" },
+      { url: "fotos/01-12/foto1.jpg", texto: "❤️" },
+      { url: "fotos/01-12/foto2.jpg", texto: "❤️" },
+      { url: "fotos/01-12/foto3.jpg", texto: "❤️" },
+      { url: "fotos/01-12/foto4.jpg", texto: "❤️" },
+      { url: "fotos/01-12/foto5.jpg", texto: "❤️" },
+      { url: "fotos/01-12/foto6.jpg", texto: "❤️" },
+      { url: "fotos/01-12/foto7.jpg", texto: "❤️" },
+      { url: "fotos/01-12/foto8.jpg", texto: "❤️" },
+      { url: "fotos/01-12/foto9.jpg", texto: "❤️" },
     ],
-    mensajes: ["9 fotos, 9 razones para amarte más ❤️"],
+    mensajes: ["Buenas vistas se veían del faro, no tanto como las que tengo en mi cama"],
   },
 
   "01-13": {
     tipo: "galeria",
-    fotos: [{ url: "fotos/01-13/foto1.jpg", texto: "13 de enero feliz" }],
-    mensajes: ["La suerte de tenerte a mi lado"],
+    fotos: [{ url: "fotos/01-13/foto1.jpg", texto: "Tan bella en mi espejo" }],
   },
 
   "01-24": {
     tipo: "galeria",
+    importancia: "media",
     fotos: [
-      { url: "fotos/01-24/foto1.jpg", texto: "24 de enero inolvidable" },
-      { url: "fotos/01-24/foto2.jpg", texto: "Risas contagiosas" },
-      { url: "fotos/01-24/foto3.jpg", texto: "Complicidad única" },
-      { url: "fotos/01-24/foto4.jpg", texto: "Momentos mágicos" },
-      { url: "fotos/01-24/foto5.jpg", texto: "Sonrisas que iluminan" },
-      { url: "fotos/01-24/foto6.jpg", texto: "Abrazos eternos" },
-      { url: "fotos/01-24/foto7.jpg", texto: "Amor en cada instante" },
+      { url: "fotos/01-24/foto1.jpg", texto: "Más acabados de levantar imposible" },
+      { url: "fotos/01-24/foto2.jpg", texto: "Que linda saliste ahí" },
+      { url: "fotos/01-24/foto3.jpg", texto: "❤️" },
+      { url: "fotos/01-24/foto4.jpg", texto: "❤️" },
+      { url: "fotos/01-24/foto5.jpg", texto: "Tremendo wapetón" },
+      { url: "fotos/01-24/foto6.jpg", texto: "En verdad wapa estaba fresco" },
+      { url: "fotos/01-24/foto7.jpg", texto: "❤️" },
     ],
-    mensajes: ["7 días de enero, 7 fotos de felicidad"],
   },
 
   "01-25": {
     tipo: "galeria",
+    importancia: "media",
     fotos: [
-      { url: "fotos/01-25/foto1.jpg", texto: "25 de enero especial" },
-      { url: "fotos/01-25/foto2.jpg", texto: "Juntos en la aventura" },
-      { url: "fotos/01-25/foto3.jpg", texto: "Miradas de amor" },
-      { url: "fotos/01-25/foto4.jpg", texto: "Risas compartidas" },
-      { url: "fotos/01-25/foto5.jpg", texto: "Momentos únicos" },
-      { url: "fotos/01-25/foto6.jpg", texto: "Complicidad total" },
+      { url: "fotos/01-25/foto1.jpg", texto: "❤️" },
+      { url: "fotos/01-25/foto2.jpg", texto: "❤️" },
+      { url: "fotos/01-25/foto3.jpg", texto: "❤️" },
+      { url: "fotos/01-25/foto4.jpg", texto: "❤️" },
+      { url: "fotos/01-25/foto5.jpg", texto: "❤️" },
+      { url: "fotos/01-25/foto6.jpg", texto: "❤️" },
     ],
-    mensajes: ["Mediados de enero, mediados de felicidad"],
+    mensajes: ["Primera vez que fuiste al Latino"],
   },
 
   "01-29": {
     tipo: "galeria",
+    importancia: "media",
     fotos: [
-      { url: "fotos/01-29/foto1.jpg", texto: "25 de enero especial" },
-      { url: "fotos/01-29/foto2.jpg", texto: "Juntos en la aventura" },
+      { url: "fotos/01-29/foto1.jpg", texto: "Estaba bueno" },
+      { url: "fotos/01-29/foto2.jpg", texto: "y difícil" },
     ],
-    mensajes: ["Mediados de enero, mediados de felicidad"],
+    mensajes: ["1er rompecabezas juntos"],
   },
 
   "01-31": {
     tipo: "galeria",
     fotos: [
-      { url: "fotos/01-31/foto1.jpg", texto: "25 de enero especial" },
-      { url: "fotos/01-31/foto2.jpg", texto: "Juntos en la aventura" },
-      { url: "fotos/01-31/foto3.jpg", texto: "Miradas de amor" },
-      { url: "fotos/01-31/foto4.jpg", texto: "Risas compartidas" },
+      { url: "fotos/01-31/foto1.jpg", texto: "❤️" },
+      { url: "fotos/01-31/foto2.jpg", texto: "❤️" },
+      { url: "fotos/01-31/foto3.jpg", texto: "❤️" },
+      { url: "fotos/01-31/foto4.jpg", texto: "❤️" },
          ],
-    mensajes: ["Mediados de enero, mediados de felicidad"],
+    mensajes: ["Una mini pochi"],
   },
 
 
@@ -130,19 +134,20 @@ const diasEspeciales = {
     fotos: [
       { url: "fotos/02-01/foto1.jpg", texto: "Una therian?" },
     ],
-    mensajes: ["Un día especial en febrero"],
+    mensajes: ["Que lindas esas pestañas"],
   },
 
   "02-02": { // 2 de febrero - 7 fotos
     tipo: "galeria",
+    importancia: "media",
     fotos: [
-      { url: "fotos/02-02/foto1.jpg", texto: "Mochila Mochila" },
-      { url: "fotos/02-02/foto2.jpg", texto: "Momento especial 2" },
-      { url: "fotos/02-02/foto3.jpg", texto: "Momento especial 3" },
-      { url: "fotos/02-02/foto4.jpg", texto: "Momento especial 4" },
-      { url: "fotos/02-02/foto5.jpg", texto: "Momento especial 5" },
-      { url: "fotos/02-02/foto6.jpg", texto: "Momento especial 6" },
-      { url: "fotos/02-02/foto7.jpg", texto: "Momento especial 7" },
+      { url: "fotos/02-02/foto1.jpg", texto: "❤️" },
+      { url: "fotos/02-02/foto2.jpg", texto: "❤️" },
+      { url: "fotos/02-02/foto3.jpg", texto: "❤️" },
+      { url: "fotos/02-02/foto4.jpg", texto: "❤️" },
+      { url: "fotos/02-02/foto5.jpg", texto: "❤️" },
+      { url: "fotos/02-02/foto6.jpg", texto: "❤️" },
+      { url: "fotos/02-02/foto7.jpg", texto: "❤️" },
     ],
     mensajes: ["Mochila Mochila"],
   },
@@ -152,503 +157,542 @@ const diasEspeciales = {
     fotos: [
       { url: "fotos/02-03/foto1.jpg", texto: "Que linda mi mulata" },
     ],
-    mensajes: ["Amor en cada detalle"],
   },
 
   "02-05": { // 5 de febrero - 5 fotos
     tipo: "galeria",
+    importancia: "alta",
     fotos: [
-      { url: "fotos/02-05/foto1.jpg", texto: "Esa enguatada te queda mejor que a mí" },
-      { url: "fotos/02-05/foto2.jpg", texto: "Momento especial 2" },
-      { url: "fotos/02-05/foto3.jpg", texto: "Momento especial 3" },
-      { url: "fotos/02-05/foto4.jpg", texto: "Momento especial 4" },
-      { url: "fotos/02-05/foto5.jpg", texto: "Momento especial 5" },
+      { url: "fotos/02-05/foto1.jpg", texto: "❤️" },
+      { url: "fotos/02-05/foto2.jpg", texto: "❤️" },
+      { url: "fotos/02-05/foto3.jpg", texto: "❤️" },
+      { url: "fotos/02-05/foto4.jpg", texto: "❤️" },
+      { url: "fotos/02-05/foto5.jpg", texto: "❤️" },
     ],
-    mensajes: ["Esa enguatada te queda mejor que a mí"],
+    mensajes: ["Otro mesiversario juntos",
+    "Esa enguatada te queda mejor que a mí",
+    ],
   },
 
-  "02-06": { // 6 de febrero - 6 fotos
+  
+"02-06": {
     tipo: "galeria",
+    importancia: "media",
     fotos: [
-      { url: "fotos/02-06/foto1.jpg", texto: "Otro latino juntos" },
-      { url: "fotos/02-06/foto2.jpg", texto: "Momento especial 2" },
-      { url: "fotos/02-06/foto3.jpg", texto: "Momento especial 3" },
-      { url: "fotos/02-06/foto4.jpg", texto: "Momento especial 4" },
-      { url: "fotos/02-06/foto5.jpg", texto: "Momento especial 5" },
-      { url: "fotos/02-06/foto6.jpg", texto: "Momento especial 6" },
+      { url: "fotos/02-06/foto1.jpg", texto: "❤️" },
+      { url: "fotos/02-06/foto2.jpg", texto: "❤️" },
+      { url: "fotos/02-06/foto3.jpg", texto: "❤️" },
+      { url: "fotos/02-06/foto4.jpg", texto: "❤️" },
+      { url: "fotos/02-06/foto5.jpg", texto: "❤️" },
+      { url: "fotos/02-06/foto6.jpg", texto: "❤️" },
     ],
     mensajes: ["Otro latino juntos"],
   },
 
-  "02-07": { // 7 de febrero - 7 fotos
+  "02-07": {
     tipo: "galeria",
+    importancia: "media",
     fotos: [
-      { url: "fotos/02-07/foto1.jpg", texto: "Que bellos somos" },
-      { url: "fotos/02-07/foto2.jpg", texto: "Vampirito" },
-      { url: "fotos/02-07/foto3.jpg", texto: "y ese beso?" },
-      { url: "fotos/02-07/foto4.jpg", texto: "Al fin lo terminamos" },
-      { url: "fotos/02-07/foto5.jpg", texto: "Momento especial 5" },
-      { url: "fotos/02-07/foto6.jpg", texto: "Momento especial 6" },
-      { url: "fotos/02-07/foto7.jpg", texto: "Momento especial 7" },
+      { url: "fotos/02-07/foto1.jpg", texto: "❤️" },
+      { url: "fotos/02-07/foto2.jpg", texto: "❤️" },
+      { url: "fotos/02-07/foto3.jpg", texto: "❤️" },
+      { url: "fotos/02-07/foto4.jpg", texto: "❤️" },
+      { url: "fotos/02-07/foto5.jpg", texto: "❤️" },
+      { url: "fotos/02-07/foto6.jpg", texto: "❤️" },
+      { url: "fotos/02-07/foto7.jpg", texto: "❤️" },
     ],
     mensajes: ["Recuerdos de febrero"],
   },
 
-  "02-08": { // 8 de febrero - 2 fotos
+  "02-08": {
     tipo: "galeria",
+    importancia: "media",
     fotos: [
-      { url: "fotos/02-08/foto1.jpg", texto: "Acabados de despertar" },
-      { url: "fotos/02-08/foto2.jpg", texto: "Acabados de despertar" },
+      { url: "fotos/02-08/foto1.jpg", texto: "❤️" },
+      { url: "fotos/02-08/foto2.jpg", texto: "❤️" },
     ],
     mensajes: ["Acabados de despertar"],
   },
 
-  "02-09": { // 9 de febrero - 1 foto
+  "02-09": {
     tipo: "galeria",
     fotos: [
-      { url: "fotos/02-09/foto1.jpg", texto: "y ese culón?" },
+      { url: "fotos/02-09/foto1.jpg", texto: "❤️" },
     ],
     mensajes: ["Un día contigo es especial"],
   },
 
-  "02-13": { // 13 de febrero - 6 fotos
+  "02-13": {
     tipo: "galeria",
+    importancia: "alta",
     fotos: [
-      { url: "fotos/02-13/foto1.jpg", texto: "Los desesperados, ni al 14 pudimos esperar" },
-      { url: "fotos/02-13/foto2.jpg", texto: "Momento especial 2" },
-      { url: "fotos/02-13/foto3.jpg", texto: "Momento especial 3" },
-      { url: "fotos/02-13/foto4.jpg", texto: "Momento especial 4" },
-      { url: "fotos/02-13/foto5.jpg", texto: "Momento especial 5" },
-      { url: "fotos/02-13/foto6.jpg", texto: "Momento especial 6" },
+      { url: "fotos/02-13/foto1.jpg", texto: "❤️" },
+      { url: "fotos/02-13/foto2.jpg", texto: "❤️" },
+      { url: "fotos/02-13/foto3.jpg", texto: "❤️" },
+      { url: "fotos/02-13/foto4.jpg", texto: "❤️" },
+      { url: "fotos/02-13/foto5.jpg", texto: "❤️" },
+      { url: "fotos/02-13/foto6.jpg", texto: "❤️" },
     ],
-    mensajes: ["Los desesperados, ni al 14 pudimos esperar"],
+    mensajes: ["Los desesperados, ni al 14 pudimos esperar",
+    "En verdad nos botamos",
+    "Como nostros nadie",
+    ],
   },
 
-  "02-14": { // 14 de febrero - 17 fotos
+  "02-14": {
     tipo: "galeria",
+    importancia: "alta",
     fotos: [
-      { url: "fotos/02-14/foto1.jpg", texto: "Nuestro 1er 14 de febrero juntos" },
-      { url: "fotos/02-14/foto2.jpg", texto: "Momento especial 2" },
-      { url: "fotos/02-14/foto3.jpg", texto: "Momento especial 3" },
-      { url: "fotos/02-14/foto4.jpg", texto: "Momento especial 4" },
-      { url: "fotos/02-14/foto5.jpg", texto: "Momento especial 5" },
-      { url: "fotos/02-14/foto6.jpg", texto: "Momento especial 6" },
-      { url: "fotos/02-14/foto7.jpg", texto: "Momento especial 7" },
-      { url: "fotos/02-14/foto8.jpg", texto: "Momento especial 8" },
-      { url: "fotos/02-14/foto9.jpg", texto: "Momento especial 9" },
-      { url: "fotos/02-14/foto10.jpg", texto: "Momento especial 10" },
-      { url: "fotos/02-14/foto11.jpg", texto: "Momento especial 11" },
-      { url: "fotos/02-14/foto12.jpg", texto: "Momento especial 12" },
-      { url: "fotos/02-14/foto13.jpg", texto: "Momento especial 13" },
-      { url: "fotos/02-14/foto14.jpg", texto: "Momento especial 14" },
-      { url: "fotos/02-14/foto15.jpg", texto: "Momento especial 15" },
-      { url: "fotos/02-14/foto16.jpg", texto: "Momento especial 16" },
-      { url: "fotos/02-14/foto17.jpg", texto: "Momento especial 17" },
+      { url: "fotos/02-14/foto1.jpg", texto: "❤️" },
+      { url: "fotos/02-14/foto2.jpg", texto: "❤️" },
+      { url: "fotos/02-14/foto3.jpg", texto: "❤️" },
+      { url: "fotos/02-14/foto4.jpg", texto: "❤️" },
+      { url: "fotos/02-14/foto5.jpg", texto: "❤️" },
+      { url: "fotos/02-14/foto6.jpg", texto: "❤️" },
+      { url: "fotos/02-14/foto7.jpg", texto: "❤️" },
+      { url: "fotos/02-14/foto8.jpg", texto: "❤️" },
+      { url: "fotos/02-14/foto9.jpg", texto: "❤️" },
+      { url: "fotos/02-14/foto10.jpg", texto: "❤️" },
+      { url: "fotos/02-14/foto11.jpg", texto: "❤️" },
+      { url: "fotos/02-14/foto12.jpg", texto: "❤️" },
+      { url: "fotos/02-14/foto13.jpg", texto: "❤️" },
+      { url: "fotos/02-14/foto14.jpg", texto: "❤️" },
+      { url: "fotos/02-14/foto15.jpg", texto: "❤️" },
+      { url: "fotos/02-14/foto16.jpg", texto: "❤️" },
+      { url: "fotos/02-14/foto17.jpg", texto: "❤️" },
     ],
-    mensajes: ["Nuestro 1er 14 de febrero juntos"],
+    mensajes: ["Nuestro 1er 14 de febrero juntos",
+    "Fangio",
+    "A pesar de no ser la gran cosa y estar caro desayunaos bien",
+    ],
   },
 
-  "02-17": { // 17 de febrero - 1 foto
+  "02-17": {
     tipo: "galeria",
     fotos: [
-      { url: "fotos/02-17/foto1.jpg", texto: "y esas cejas tan lindas?" },
+      { url: "fotos/02-17/foto1.jpg", texto: "❤️" },
     ],
     mensajes: ["Cada día a tu lado es único"],
   },
 
-  "02-20": { // 20 de febrero - 3 fotos
+  "02-20": {
     tipo: "galeria",
+    importancia: "media",
     fotos: [
-      { url: "fotos/02-20/foto1.jpg", texto: "20 de febrero especial" },
-      { url: "fotos/02-20/foto2.jpg", texto: "Risas compartidas" },
-      { url: "fotos/02-20/foto3.jpg", texto: "Momentos únicos" },
+      { url: "fotos/02-20/foto1.jpg", texto: "❤️" },
+      { url: "fotos/02-20/foto2.jpg", texto: "❤️" },
+      { url: "fotos/02-20/foto3.jpg", texto: "❤️" },
     ],
     mensajes: ["3 fotos para un jueves perfecto"],
   },
 
-  "02-21": { // 21 de febrero - 5 fotos
+  "02-21": {
     tipo: "galeria",
+    importancia: "media",
     fotos: [
-      { url: "fotos/02-21/foto1.jpg", texto: "21 de febrero inolvidable" },
-      { url: "fotos/02-21/foto2.jpg", texto: "Viernes perfecto" },
-      { url: "fotos/02-21/foto3.jpg", texto: "Sonrisas eternas" },
-      { url: "fotos/02-21/foto4.jpg", texto: "Complicidad única" },
-      { url: "fotos/02-21/foto5.jpg", texto: "Amor en cada instante" },
+      { url: "fotos/02-21/foto1.jpg", texto: "❤️" },
+      { url: "fotos/02-21/foto2.jpg", texto: "❤️" },
+      { url: "fotos/02-21/foto3.jpg", texto: "❤️" },
+      { url: "fotos/02-21/foto4.jpg", texto: "❤️" },
+      { url: "fotos/02-21/foto5.jpg", texto: "❤️" },
     ],
-    mensajes: ["5 fotos para un viernes perfecto"],
+    mensajes: ["De la Crem",
+    "La sugar me invitó a tomar helado",
+    ],
   },
 
-  "02-22": { // 22 de febrero - 16 fotos
+  "02-22": {
     tipo: "galeria",
+    importancia: "media",
     fotos: [
-      { url: "fotos/02-22/foto1.jpg", texto: "22 de febrero mágico" },
-      { url: "fotos/02-22/foto2.jpg", texto: "Sábado perfecto" },
-      { url: "fotos/02-22/foto3.jpg", texto: "Sonrisas eternas" },
-      { url: "fotos/02-22/foto4.jpg", texto: "Risas compartidas" },
-      { url: "fotos/02-22/foto5.jpg", texto: "Abrazos que curan" },
-      { url: "fotos/02-22/foto6.jpg", texto: "Miradas cómplices" },
-      { url: "fotos/02-22/foto7.jpg", texto: "Momentos únicos" },
-      { url: "fotos/02-22/foto8.jpg", texto: "Complicidad total" },
-      { url: "fotos/02-22/foto9.jpg", texto: "Amor en cada instante" },
-      { url: "fotos/02-22/foto10.jpg", texto: "Recuerdos eternos" },
-      { url: "fotos/02-22/foto11.jpg", texto: "Felicidad plena" },
-      { url: "fotos/02-22/foto12.jpg", texto: "Aventuras juntos" },
-      { url: "fotos/02-22/foto13.jpg", texto: "Miradas que enamoran" },
-      { url: "fotos/02-22/foto14.jpg", texto: "Juntos para siempre" },
-      { url: "fotos/02-22/foto15.jpg", texto: "Sonrisas contagiosas" },
-      { url: "fotos/02-22/foto16.jpg", texto: "Amor infinito" },
+      { url: "fotos/02-22/foto1.jpg", texto: "❤️" },
+      { url: "fotos/02-22/foto2.jpg", texto: "❤️" },
+      { url: "fotos/02-22/foto3.jpg", texto: "❤️" },
+      { url: "fotos/02-22/foto4.jpg", texto: "❤️" },
+      { url: "fotos/02-22/foto5.jpg", texto: "❤️" },
+      { url: "fotos/02-22/foto6.jpg", texto: "❤️" },
+      { url: "fotos/02-22/foto7.jpg", texto: "❤️" },
+      { url: "fotos/02-22/foto8.jpg", texto: "❤️" },
+      { url: "fotos/02-22/foto9.jpg", texto: "❤️" },
+      { url: "fotos/02-22/foto10.jpg", texto: "❤️" },
+      { url: "fotos/02-22/foto11.jpg", texto: "❤️" },
+      { url: "fotos/02-22/foto12.jpg", texto: "❤️" },
+      { url: "fotos/02-22/foto13.jpg", texto: "❤️" },
+      { url: "fotos/02-22/foto14.jpg", texto: "❤️" },
+      { url: "fotos/02-22/foto15.jpg", texto: "❤️" },
+      { url: "fotos/02-22/foto16.jpg", texto: "❤️" },
     ],
     mensajes: ["¡16 fotos para un sábado espectacular!"],
   },
 
-  "02-23": { // 23 de febrero - 2 fotos
+  "02-23": {
     tipo: "galeria",
+    importancia: "media",
     fotos: [
-      { url: "fotos/02-23/foto1.jpg", texto: "23 de febrero especial" },
-      { url: "fotos/02-23/foto2.jpg", texto: "Domingo perfecto" },
+      { url: "fotos/02-23/foto1.jpg", texto: "❤️" },
+      { url: "fotos/02-23/foto2.jpg", texto: "❤️" },
     ],
     mensajes: ["2 fotos para un domingo perfecto"],
   },
 
-  "02-24": { // 24 de febrero - 3 fotos
+  "02-24": {
     tipo: "galeria",
+    importancia: "media",
     fotos: [
-      { url: "fotos/02-24/foto1.jpg", texto: "24 de febrero inolvidable" },
-      { url: "fotos/02-24/foto2.jpg", texto: "Lunes perfecto" },
-      { url: "fotos/02-24/foto3.jpg", texto: "Complicidad única" },
+      { url: "fotos/02-24/foto1.jpg", texto: "❤️" },
+      { url: "fotos/02-24/foto2.jpg", texto: "❤️" },
+      { url: "fotos/02-24/foto3.jpg", texto: "❤️" },
     ],
-    mensajes: ["3 fotos para un lunes perfecto"],
+    mensajes: ["Mis galletas quedaron mejores dicho x tu mamá"],
   },
 
-  "02-26": { // 26 de febrero - 1 foto
+  "02-26": {
     tipo: "galeria",
     fotos: [
-      { url: "fotos/02-26/foto1.jpg", texto: "26 de febrero mágico" },
+      { url: "fotos/02-26/foto1.jpg", texto: "❤️" },
     ],
     mensajes: ["Martes de amor"],
   },
 
-  "02-28": { // 28 de febrero - 1 foto
+  "02-28": {
     tipo: "galeria",
+    importancia: "media",
     fotos: [
-      { url: "fotos/02-28/foto1.jpg", texto: "28 de febrero especial" },
+      { url: "fotos/02-28/foto1.jpg", texto: "❤️" },
     ],
     mensajes: ["Despidiendo febrero con amor"],
   },
 
-  //MARZO
-
   "03-01": {
     tipo: "galeria",
+    importancia: "media",
     fotos: [
-      { url: "fotos/03-01/foto1.jpg"},
-      { url: "fotos/03-01/foto2.jpg"},
-      { url: "fotos/03-01/foto3.jpg"},
-      { url: "fotos/03-01/foto4.jpg"},
-      { url: "fotos/03-01/foto5.jpg"},
-      { url: "fotos/03-01/foto6.jpg"},
-      { url: "fotos/03-01/foto7.jpg"},
-      { url: "fotos/03-01/foto8.jpg"},
+      { url: "fotos/03-01/foto1.jpg", texto: "❤️" },
+      { url: "fotos/03-01/foto2.jpg", texto: "❤️" },
+      { url: "fotos/03-01/foto3.jpg", texto: "❤️" },
+      { url: "fotos/03-01/foto4.jpg", texto: "❤️" },
+      { url: "fotos/03-01/foto5.jpg", texto: "❤️" },
+      { url: "fotos/03-01/foto6.jpg", texto: "❤️" },
+      { url: "fotos/03-01/foto7.jpg", texto: "❤️" },
+      { url: "fotos/03-01/foto8.jpg", texto: "❤️" },
     ],
     mensajes: ["Recordando viejos tiempos en el nacional"],
   },
 
-  "03-04": { // 4 de marzo - 1 foto
+  "03-04": {
     tipo: "galeria",
     fotos: [
-      { url: "fotos/03-04/foto1.jpg", texto: "4 de marzo inolvidable" },
+      { url: "fotos/03-04/foto1.jpg", texto: "❤️" },
     ],
     mensajes: ["Un día especial en marzo"],
   },
 
-  "03-05": { // 5 de marzo - 2 fotos
+  "03-05": {
     tipo: "galeria",
+    importancia: "media",
     fotos: [
-      { url: "fotos/03-05/foto1.jpg", texto: "5 de marzo especial" },
-      { url: "fotos/03-05/foto2.jpg", texto: "Risas compartidas" },
+      { url: "fotos/03-05/foto1.jpg", texto: "❤️" },
+      { url: "fotos/03-05/foto2.jpg", texto: "❤️" },
     ],
     mensajes: ["2 fotos para un día perfecto"],
   },
 
-  "03-06": { // 6 de marzo - 1 foto
+  "03-06": {
     tipo: "galeria",
+    importancia: "media",
     fotos: [
-      { url: "fotos/03-06/foto1.jpg", texto: "6 de marzo mágico" },
+      { url: "fotos/03-06/foto1.jpg", texto: "❤️" },
     ],
     mensajes: ["Miércoles de amor"],
   },
 
-  "03-07": { // 7 de marzo - 3 fotos
+  "03-07": {
     tipo: "galeria",
+    importancia: "media",
     fotos: [
-      { url: "fotos/03-07/foto1.jpg", texto: "7 de marzo inolvidable" },
-      { url: "fotos/03-07/foto2.jpg", texto: "Jueves perfecto" },
-      { url: "fotos/03-07/foto3.jpg", texto: "Complicidad única" },
+      { url: "fotos/03-07/foto1.jpg", texto: "❤️" },
+      { url: "fotos/03-07/foto2.jpg", texto: "❤️" },
+      { url: "fotos/03-07/foto3.jpg", texto: "❤️" },
     ],
     mensajes: ["3 fotos para un jueves perfecto"],
   },
 
-  "03-08": { // 8 de marzo - 6 fotos
+  "03-08": {
     tipo: "galeria",
+    importancia: "media",
     fotos: [
-      { url: "fotos/03-08/foto1.jpg", texto: "8 de marzo especial" },
-      { url: "fotos/03-08/foto2.jpg", texto: "Viernes perfecto" },
-      { url: "fotos/03-08/foto3.jpg", texto: "Sonrisas eternas" },
-      { url: "fotos/03-08/foto4.jpg", texto: "Risas compartidas" },
-      { url: "fotos/03-08/foto5.jpg", texto: "Abrazos que curan" },
-      { url: "fotos/03-08/foto6.jpg", texto: "Momentos únicos" },
+      { url: "fotos/03-08/foto1.jpg", texto: "❤️" },
+      { url: "fotos/03-08/foto2.jpg", texto: "❤️" },
+      { url: "fotos/03-08/foto3.jpg", texto: "❤️" },
+      { url: "fotos/03-08/foto4.jpg", texto: "❤️" },
+      { url: "fotos/03-08/foto5.jpg", texto: "❤️" },
+      { url: "fotos/03-08/foto6.jpg", texto: "❤️" },
     ],
     mensajes: ["6 fotos para un viernes perfecto"],
   },
 
-  "03-09": { // 9 de marzo - 1 foto
+  "03-09": {
     tipo: "galeria",
     fotos: [
-      { url: "fotos/03-09/foto1.jpg", texto: "9 de marzo mágico" },
+      { url: "fotos/03-09/foto1.jpg", texto: "❤️" },
     ],
     mensajes: ["Sábado de amor"],
   },
 
-  "03-11": { // 11 de marzo - 5 fotos
+  "03-11": {
     tipo: "galeria",
     fotos: [
-      { url: "fotos/03-11/foto1.jpg", texto: "11 de marzo inolvidable" },
-      { url: "fotos/03-11/foto2.jpg", texto: "Lunes perfecto" },
-      { url: "fotos/03-11/foto3.jpg", texto: "Sonrisas eternas" },
-      { url: "fotos/03-11/foto4.jpg", texto: "Risas compartidas" },
-      { url: "fotos/03-11/foto5.jpg", texto: "Amor en cada instante" },
+      { url: "fotos/03-11/foto1.jpg", texto: "❤️" },
+      { url: "fotos/03-11/foto2.jpg", texto: "❤️" },
+      { url: "fotos/03-11/foto3.jpg", texto: "❤️" },
+      { url: "fotos/03-11/foto4.jpg", texto: "❤️" },
+      { url: "fotos/03-11/foto5.jpg", texto: "❤️" },
     ],
     mensajes: ["5 fotos para un lunes perfecto"],
   },
 
-  "03-13": { // 13 de marzo - 1 foto
+  "03-13": {
     tipo: "galeria",
     fotos: [
-      { url: "fotos/03-13/foto1.jpg", texto: "13 de marzo especial" },
+      { url: "fotos/03-13/foto1.jpg", texto: "❤️" },
     ],
     mensajes: ["Miércoles de amor"],
   },
 
-  "03-14": { // 14 de marzo - 7 fotos
+  "03-14": {
     tipo: "galeria",
+    importancia: "media",
     fotos: [
-      { url: "fotos/03-14/foto1.jpg", texto: "14 de marzo mágico" },
-      { url: "fotos/03-14/foto2.jpg", texto: "Jueves perfecto" },
-      { url: "fotos/03-14/foto3.jpg", texto: "Sonrisas eternas" },
-      { url: "fotos/03-14/foto4.jpg", texto: "Risas compartidas" },
-      { url: "fotos/03-14/foto5.jpg", texto: "Abrazos que curan" },
-      { url: "fotos/03-14/foto6.jpg", texto: "Miradas cómplices" },
-      { url: "fotos/03-14/foto7.jpg", texto: "Momentos únicos" },
+      { url: "fotos/03-14/foto1.jpg", texto: "❤️" },
+      { url: "fotos/03-14/foto2.jpg", texto: "❤️" },
+      { url: "fotos/03-14/foto3.jpg", texto: "❤️" },
+      { url: "fotos/03-14/foto4.jpg", texto: "❤️" },
+      { url: "fotos/03-14/foto5.jpg", texto: "❤️" },
+      { url: "fotos/03-14/foto6.jpg", texto: "❤️" },
+      { url: "fotos/03-14/foto7.jpg", texto: "❤️" },
     ],
-    mensajes: ["7 fotos para un jueves perfecto"],
+    mensajes: ["Donde nació el Frecho"],
   },
 
-  "03-15": { // 15 de marzo - 3 fotos
+  "03-15": {
     tipo: "galeria",
+    importancia: "media",
     fotos: [
-      { url: "fotos/03-15/foto1.jpg", texto: "15 de marzo inolvidable" },
-      { url: "fotos/03-15/foto2.jpg", texto: "Viernes perfecto" },
-      { url: "fotos/03-15/foto3.jpg", texto: "Complicidad única" },
+      { url: "fotos/03-15/foto1.jpg", texto: "❤️" },
+      { url: "fotos/03-15/foto2.jpg", texto: "❤️" },
+      { url: "fotos/03-15/foto3.jpg", texto: "❤️" },
     ],
     mensajes: ["3 fotos para un viernes perfecto"],
   },
 
-  "03-17": { // 17 de marzo - 2 fotos
+  "03-17": {
     tipo: "galeria",
     fotos: [
-      { url: "fotos/03-17/foto1.jpg", texto: "17 de marzo especial" },
-      { url: "fotos/03-17/foto2.jpg", texto: "Domingo perfecto" },
+      { url: "fotos/03-17/foto1.jpg", texto: "❤️" },
+      { url: "fotos/03-17/foto2.jpg", texto: "❤️" },
     ],
     mensajes: ["2 fotos para un domingo perfecto"],
   },
 
-  "03-18": { // 18 de marzo - 1 foto
+  "03-18": {
     tipo: "galeria",
+    importancia: "media",
     fotos: [
-      { url: "fotos/03-18/foto1.jpg", texto: "18 de marzo mágico" },
+      { url: "fotos/03-18/foto1.jpg", texto: "❤️" },
     ],
-    mensajes: ["Lunes de amor"],
+    mensajes: ["Cumple de Ricardo"],
   },
 
-  "03-19": { // 19 de marzo - 1 foto
+  "03-19": {
     tipo: "galeria",
     fotos: [
-      { url: "fotos/03-19/foto1.jpg", texto: "19 de marzo inolvidable" },
+      { url: "fotos/03-19/foto1.jpg", texto: "❤️" },
     ],
     mensajes: ["Martes de amor"],
   },
 
-  "03-21": { // 21 de marzo - 5 fotos
+  "03-21": {
     tipo: "galeria",
+    importancia: "media",
     fotos: [
-      { url: "fotos/03-21/foto1.jpg", texto: "21 de marzo especial" },
-      { url: "fotos/03-21/foto2.jpg", texto: "Jueves perfecto" },
-      { url: "fotos/03-21/foto3.jpg", texto: "Sonrisas eternas" },
-      { url: "fotos/03-21/foto4.jpg", texto: "Risas compartidas" },
-      { url: "fotos/03-21/foto5.jpg", texto: "Amor en cada instante" },
+      { url: "fotos/03-21/foto1.jpg", texto: "❤️" },
+      { url: "fotos/03-21/foto2.jpg", texto: "❤️" },
+      { url: "fotos/03-21/foto3.jpg", texto: "❤️" },
+      { url: "fotos/03-21/foto4.jpg", texto: "❤️" },
+      { url: "fotos/03-21/foto5.jpg", texto: "❤️" },
     ],
-    mensajes: ["5 fotos para un jueves perfecto"],
+    mensajes: ["Massage time"],
   },
 
-  "03-22": { // 22 de marzo - 6 fotos
+  "03-22": {
     tipo: "galeria",
+    importancia: "alta",
     fotos: [
-      { url: "fotos/03-22/foto1.jpg", texto: "22 de marzo mágico" },
-      { url: "fotos/03-22/foto2.jpg", texto: "Viernes perfecto" },
-      { url: "fotos/03-22/foto3.jpg", texto: "Sonrisas eternas" },
-      { url: "fotos/03-22/foto4.jpg", texto: "Risas compartidas" },
-      { url: "fotos/03-22/foto5.jpg", texto: "Abrazos que curan" },
-      { url: "fotos/03-22/foto6.jpg", texto: "Momentos únicos" },
+      { url: "fotos/03-22/foto1.jpg", texto: "❤️" },
+      { url: "fotos/03-22/foto2.jpg", texto: "❤️" },
+      { url: "fotos/03-22/foto3.jpg", texto: "❤️" },
+      { url: "fotos/03-22/foto4.jpg", texto: "❤️" },
+      { url: "fotos/03-22/foto5.jpg", texto: "❤️" },
+      { url: "fotos/03-22/foto6.jpg", texto: "❤️" },
     ],
-    mensajes: ["6 fotos para un viernes perfecto"],
+    mensajes: ["Empezamos con la remodelación del cuarto"],
   },
 
-  "03-24": { // 24 de marzo - 1 foto
+  "03-24": {
     tipo: "galeria",
     fotos: [
-      { url: "fotos/03-24/foto1.jpg", texto: "24 de marzo inolvidable" },
+      { url: "fotos/03-24/foto1.jpg", texto: "❤️" },
     ],
     mensajes: ["Domingo de amor"],
   },
 
-  "03-25": { // 25 de marzo - 5 fotos
+  "03-25": {
     tipo: "galeria",
     fotos: [
-      { url: "fotos/03-25/foto1.jpg", texto: "25 de marzo especial" },
-      { url: "fotos/03-25/foto2.jpg", texto: "Lunes perfecto" },
-      { url: "fotos/03-25/foto3.jpg", texto: "Sonrisas eternas" },
-      { url: "fotos/03-25/foto4.jpg", texto: "Risas compartidas" },
-      { url: "fotos/03-25/foto5.jpg", texto: "Amor en cada instante" },
+      { url: "fotos/03-25/foto1.jpg", texto: "❤️" },
+      { url: "fotos/03-25/foto2.jpg", texto: "❤️" },
+      { url: "fotos/03-25/foto3.jpg", texto: "❤️" },
+      { url: "fotos/03-25/foto4.jpg", texto: "❤️" },
+      { url: "fotos/03-25/foto5.jpg", texto: "❤️" },
     ],
     mensajes: ["5 fotos para un lunes perfecto"],
   },
 
-  "03-26": { // 26 de marzo - 2 fotos
+  "03-26": {
     tipo: "galeria",
     fotos: [
-      { url: "fotos/03-26/foto1.jpg", texto: "26 de marzo mágico" },
-      { url: "fotos/03-26/foto2.jpg", texto: "Martes perfecto" },
+      { url: "fotos/03-26/foto1.jpg", texto: "❤️" },
+      { url: "fotos/03-26/foto2.jpg", texto: "❤️" },
     ],
     mensajes: ["2 fotos para un martes perfecto"],
   },
 
-  "03-27": { // 27 de marzo - 12 fotos
+  "03-27": {
     tipo: "galeria",
+    importancia: "media",
     fotos: [
-      { url: "fotos/03-27/foto1.jpg", texto: "27 de marzo inolvidable" },
-      { url: "fotos/03-27/foto2.jpg", texto: "Miércoles perfecto" },
-      { url: "fotos/03-27/foto3.jpg", texto: "Sonrisas eternas" },
-      { url: "fotos/03-27/foto4.jpg", texto: "Risas compartidas" },
-      { url: "fotos/03-27/foto5.jpg", texto: "Abrazos que curan" },
-      { url: "fotos/03-27/foto6.jpg", texto: "Miradas cómplices" },
-      { url: "fotos/03-27/foto7.jpg", texto: "Momentos únicos" },
-      { url: "fotos/03-27/foto8.jpg", texto: "Complicidad total" },
-      { url: "fotos/03-27/foto9.jpg", texto: "Amor en cada instante" },
-      { url: "fotos/03-27/foto10.jpg", texto: "Recuerdos eternos" },
-      { url: "fotos/03-27/foto11.jpg", texto: "Felicidad plena" },
-      { url: "fotos/03-27/foto12.jpg", texto: "Aventuras juntos" },
+      { url: "fotos/03-27/foto1.jpg", texto: "❤️" },
+      { url: "fotos/03-27/foto2.jpg", texto: "❤️" },
+      { url: "fotos/03-27/foto3.jpg", texto: "❤️" },
+      { url: "fotos/03-27/foto4.jpg", texto: "❤️" },
+      { url: "fotos/03-27/foto5.jpg", texto: "❤️" },
+      { url: "fotos/03-27/foto6.jpg", texto: "❤️" },
+      { url: "fotos/03-27/foto7.jpg", texto: "❤️" },
+      { url: "fotos/03-27/foto8.jpg", texto: "❤️" },
+      { url: "fotos/03-27/foto9.jpg", texto: "❤️" },
+      { url: "fotos/03-27/foto10.jpg", texto: "❤️" },
+      { url: "fotos/03-27/foto11.jpg", texto: "❤️" },
+      { url: "fotos/03-27/foto12.jpg", texto: "❤️" },
     ],
-    mensajes: ["¡12 fotos para un miércoles espectacular!"],
+    mensajes: ["¡Estrés!"],
   },
 
-  "03-28": { // 28 de marzo - 5 fotos
+  "03-28": {
     tipo: "galeria",
+    importancia: "alta",
     fotos: [
-      { url: "fotos/03-28/foto1.jpg", texto: "28 de marzo especial" },
-      { url: "fotos/03-28/foto2.jpg", texto: "Jueves perfecto" },
-      { url: "fotos/03-28/foto3.jpg", texto: "Sonrisas eternas" },
-      { url: "fotos/03-28/foto4.jpg", texto: "Risas compartidas" },
-      { url: "fotos/03-28/foto5.jpg", texto: "Amor en cada instante" },
+      { url: "fotos/03-28/foto1.jpg", texto: "❤️" },
+      { url: "fotos/03-28/foto2.jpg", texto: "❤️" },
+      { url: "fotos/03-28/foto3.jpg", texto: "❤️" },
+      { url: "fotos/03-28/foto4.jpg", texto: "❤️" },
+      { url: "fotos/03-28/foto5.jpg", texto: "❤️" },
     ],
-    mensajes: ["5 fotos para un jueves perfecto"],
+    mensajes: ["Cuarto oficialmente terminado",
+    "Sacado de un hotel,"],
   },
 
-  "03-29": { // 29 de marzo - 5 fotos
+  "03-29": {
     tipo: "galeria",
+    importancia: "media",
     fotos: [
-      { url: "fotos/03-29/foto1.jpg", texto: "29 de marzo mágico" },
-      { url: "fotos/03-29/foto2.jpg", texto: "Viernes perfecto" },
-      { url: "fotos/03-29/foto3.jpg", texto: "Sonrisas eternas" },
-      { url: "fotos/03-29/foto4.jpg", texto: "Risas compartidas" },
-      { url: "fotos/03-29/foto5.jpg", texto: "Amor en cada instante" },
+      { url: "fotos/03-29/foto1.jpg", texto: "❤️" },
+      { url: "fotos/03-29/foto2.jpg", texto: "❤️" },
+      { url: "fotos/03-29/foto3.jpg", texto: "❤️" },
+      { url: "fotos/03-29/foto4.jpg", texto: "❤️" },
+      { url: "fotos/03-29/foto5.jpg", texto: "❤️" },
     ],
-    mensajes: ["5 fotos para un viernes perfecto"],
+    mensajes: ["El día de las empanadas",
+    "Las mejores las de fresa y las de guayaba",
+    "En verdad nos botamos, hay que hacer de nuevo",
+    ],
   },
 
-  "03-30": { // 30 de marzo - 11 fotos
+  "03-30": {
     tipo: "galeria",
+    importancia: "media",
     fotos: [
-      { url: "fotos/03-30/foto1.jpg", texto: "30 de marzo inolvidable" },
-      { url: "fotos/03-30/foto2.jpg", texto: "Sábado perfecto" },
-      { url: "fotos/03-30/foto3.jpg", texto: "Sonrisas eternas" },
-      { url: "fotos/03-30/foto4.jpg", texto: "Risas compartidas" },
-      { url: "fotos/03-30/foto5.jpg", texto: "Abrazos que curan" },
-      { url: "fotos/03-30/foto6.jpg", texto: "Miradas cómplices" },
-      { url: "fotos/03-30/foto7.jpg", texto: "Momentos únicos" },
-      { url: "fotos/03-30/foto8.jpg", texto: "Complicidad total" },
-      { url: "fotos/03-30/foto9.jpg", texto: "Amor en cada instante" },
-      { url: "fotos/03-30/foto10.jpg", texto: "Recuerdos eternos" },
-      { url: "fotos/03-30/foto11.jpg", texto: "Felicidad plena" },
+      { url: "fotos/03-30/foto1.jpg", texto: "❤️" },
+      { url: "fotos/03-30/foto2.jpg", texto: "❤️" },
+      { url: "fotos/03-30/foto3.jpg", texto: "❤️" },
+      { url: "fotos/03-30/foto4.jpg", texto: "❤️" },
+      { url: "fotos/03-30/foto5.jpg", texto: "❤️" },
+      { url: "fotos/03-30/foto6.jpg", texto: "❤️" },
+      { url: "fotos/03-30/foto7.jpg", texto: "❤️" },
+      { url: "fotos/03-30/foto8.jpg", texto: "❤️" },
+      { url: "fotos/03-30/foto9.jpg", texto: "❤️" },
+      { url: "fotos/03-30/foto10.jpg", texto: "❤️" },
+      { url: "fotos/03-30/foto11.jpg", texto: "❤️" },
     ],
-    mensajes: ["¡11 fotos para un sábado espectacular!"],
+    mensajes: ["¡Café Kore!"],
   },
 
-  "03-31": { // 31 de marzo - 4 fotos
+  "03-31": {
     tipo: "galeria",
     fotos: [
-      { url: "fotos/03-31/foto1.jpg", texto: "31 de marzo especial" },
-      { url: "fotos/03-31/foto2.jpg", texto: "Domingo perfecto" },
-      { url: "fotos/03-31/foto3.jpg", texto: "Sonrisas eternas" },
-      { url: "fotos/03-31/foto4.jpg", texto: "Risas compartidas" },
+      { url: "fotos/03-31/foto1.jpg", texto: "❤️" },
+      { url: "fotos/03-31/foto2.jpg", texto: "❤️" },
+      { url: "fotos/03-31/foto3.jpg", texto: "❤️" },
+      { url: "fotos/03-31/foto4.jpg", texto: "❤️" },
     ],
     mensajes: ["4 fotos para despedir marzo"],
   },
 
-  // Abril
-
-  "04-01": { // 1 de abril - 6 fotos
+  "04-01": {
     tipo: "galeria",
+    importancia: "media",
     fotos: [
-      { url: "fotos/04-01/foto1.jpg", texto: "¡Comienza abril!" },
-      { url: "fotos/04-01/foto2.jpg", texto: "Lunes perfecto" },
-      { url: "fotos/04-01/foto3.jpg", texto: "Sonrisas eternas" },
-      { url: "fotos/04-01/foto4.jpg", texto: "Risas compartidas" },
-      { url: "fotos/04-01/foto5.jpg", texto: "Abrazos que curan" },
-      { url: "fotos/04-01/foto6.jpg", texto: "Momentos únicos" },
+      { url: "fotos/04-01/foto1.jpg", texto: "❤️" },
+      { url: "fotos/04-01/foto2.jpg", texto: "❤️" },
+      { url: "fotos/04-01/foto3.jpg", texto: "❤️" },
+      { url: "fotos/04-01/foto4.jpg", texto: "❤️" },
+      { url: "fotos/04-01/foto5.jpg", texto: "❤️" },
+      { url: "fotos/04-01/foto6.jpg", texto: "❤️" },
     ],
     mensajes: ["6 fotos para empezar abril con amor"],
   },
 
-  "04-02": { // 2 de abril - 1 foto
+  "04-02": {
     tipo: "galeria",
+    importancia: "media",
     fotos: [
-      { url: "fotos/04-02/foto1.jpg", texto: "2 de abril inolvidable" },
+      { url: "fotos/04-02/foto1.jpg", texto: "❤️" },
     ],
     mensajes: ["Martes de amor"],
   },
 
-  "04-03": { // 3 de abril - 1 foto
+  "04-03": {
     tipo: "galeria",
     fotos: [
-      { url: "fotos/04-03/foto1.jpg", texto: "3 de abril especial" },
+      { url: "fotos/04-03/foto1.jpg", texto: "❤️" },
     ],
     mensajes: ["Miércoles de amor"],
   },
 
   "04-14": {
     tipo: "galeria",
+    importancia: "alta",
     fotos: [
-      { url: "fotos/04-14/foto1.jpg", texto: "Combinados hasta sin querer" },
-      { url: "fotos/04-14/foto2.jpg", texto: "Mirar a la cámara nunca ha sido lo mío" },
-      { url: "fotos/04-14/foto3.jpg", texto: "Linda noche" },
-      { url: "fotos/04-14/foto4.jpg", texto: "La pizza de helado" },
-      { url: "fotos/04-14/foto5.jpg", texto: "Nunca voy a olvidar ese olor" },
+      { url: "fotos/04-14/foto1.jpg", texto: "❤️" },
+      { url: "fotos/04-14/foto2.jpg", texto: "❤️" },
+      { url: "fotos/04-14/foto3.jpg", texto: "❤️" },
+      { url: "fotos/04-14/foto4.jpg", texto: "❤️" },
+      { url: "fotos/04-14/foto5.jpg", texto: "❤️" },
     ],
     videos: [
       {
       url: "fotos/04-14/video1.MP4",
       miniatura: "fotos/04-14/foto1.jpg",
-      texto: "fotos/04-14/foto1.jpg"
+      texto: "❤️"
       },
     ],
     mensajes: [
@@ -661,307 +705,346 @@ const diasEspeciales = {
 
   "04-20": {
     tipo: "galeria",
+    importancia: "media",
     fotos: [
-      { url: "fotos/04-20/foto1.jpg", texto: "Mándame la ubi y te llego" },
-      { url: "fotos/04-20/foto2.jpg", texto: "Es aquí?" },
-      { url: "fotos/04-20/foto3.jpg", texto: "Y esos muslones?" },
-      { url: "fotos/04-20/foto4.jpg", texto: "Se nota que la tiró mi móvil" },
-      { url: "fotos/04-20/foto5.jpg", texto: "Que bellos" },
-      { url: "fotos/04-20/foto6.jpg", texto: "Mira esa carita" },
-      { url: "fotos/04-20/foto7.jpg", texto: "Tenía un poco de coriza" },
+      { url: "fotos/04-20/foto1.jpg", texto: "❤️" },
+      { url: "fotos/04-20/foto2.jpg", texto: "❤️" },
+      { url: "fotos/04-20/foto3.jpg", texto: "❤️" },
+      { url: "fotos/04-20/foto4.jpg", texto: "❤️" },
+      { url: "fotos/04-20/foto5.jpg", texto: "❤️" },
+      { url: "fotos/04-20/foto6.jpg", texto: "❤️" },
+      { url: "fotos/04-20/foto7.jpg", texto: "❤️" },
     ],
     mensajes: ["Mi primera vez en tu casa"],
   },
 
   "04-24": {
     tipo: "galeria",
-    fotos: [{ url: "fotos/04-24/foto1.jpg", texto: "En las escaleras..." }],
+    importancia: "media",
+    importancia: "baja",
+    fotos: [{ url: "fotos/04-24/foto1.jpg", texto: "❤️" }],
     mensajes: ["Cuando iba a verte a la UH"],
   },
 
   "04-30": {
     tipo: "galeria",
     fotos: [
-      { url: "fotos/04-30/foto1.jpg", texto: "Cuando empecé a darte las mieles" },
-      { url: "fotos/04-30/foto2.jpg", texto: "No ganamos un play" },
+      { url: "fotos/04-30/foto1.jpg", texto: "❤️" },
+      { url: "fotos/04-30/foto2.jpg", texto: "❤️" },
     ],
     mensajes: ["Domineta en la casa FEU"],
   },
 
-  // Mayo
   "05-05": {
     tipo: "galeria",
-    fotos: [{ url: "fotos/05-05/foto1.jpg", texto: "Las mejores" }],
+    fotos: [{ url: "fotos/05-05/foto1.jpg", texto: "❤️" }],
     mensajes: ["Las BBQ siempre serán las mejores"],
   },
 
   "05-06": {
     tipo: "galeria",
-    fotos: [{ url: "fotos/05-06/foto1.jpg", texto: "Que lindo el buki" }],
-    mensajes: ["Cuando empezaste a venir  mi casa"],
+    fotos: [{ url: "fotos/05-06/foto1.jpg", texto: "❤️" }],
+    mensajes: ["Cuando empezaste a venir mi casa"],
   },
 
   "05-07": {
     tipo: "galeria",
-    fotos: [{ url: "fotos/05-07/foto1.jpg", texto: "ups nos cogieron" }],
+    fotos: [{ url: "fotos/05-07/foto1.jpg", texto: "❤️" }],
     mensajes: ["Cuando ibas a verme a la CUJAE"],
   },
 
   "05-16": {
     tipo: "galeria",
+    importancia: "media",
     fotos: [
-      { url: "fotos/05-16/foto1.jpg", texto: "Lindo atardecer" },
-      { url: "fotos/05-16/foto2.jpg", texto: "El más risueño" },
-      { url: "fotos/05-16/foto3.jpg", texto: "MUAKKK" },
+      { url: "fotos/05-16/foto1.jpg", texto: "❤️" },
+      { url: "fotos/05-16/foto2.jpg", texto: "❤️" },
+      { url: "fotos/05-16/foto3.jpg", texto: "❤️" },
     ],
     mensajes: [
       "Cuando empezamos algo que sería costumbre",
       "Nuestro primer beso captado en cámaras",
-
     ],
   },
 
   "05-17": {
     tipo: "galeria",
-    fotos: [{ url: "fotos/05-17/foto1.jpg", texto: "Pruebas de que tení razón" }],
+    fotos: [{ url: "fotos/05-17/foto1.jpg", texto: "❤️" }],
     mensajes: ["Tú como siempre porfiándome todo"],
   },
 
   "05-18": {
     tipo: "galeria",
+    importancia:"media",
     fotos: [
-      { url: "fotos/05-18/foto1.jpg", texto: "Siempre parece que me violas" },
-      { url: "fotos/05-18/foto2.jpg", texto: "Mi cara dice más que 1000 palabras" },
-      { url: "fotos/05-18/foto3.jpg", texto: "Que lindos" },
-      { url: "fotos/05-18/foto4.jpg", texto: "Que parejita se estaba formando" },
-      { url: "fotos/05-18/foto5.jpg", texto: "Malecón" },
-      { url: "fotos/05-18/foto6.jpg", texto: "¡Deja de agarrarme la cara!" },
-      { url: "fotos/05-18/foto7.jpg", texto: "Ni tan bueno estaba" },
-      { url: "fotos/05-18/foto8.jpg", texto: "Bellos" },
+      { url: "fotos/05-18/foto1.jpg", texto: "❤️" },
+      { url: "fotos/05-18/foto2.jpg", texto: "❤️" },
+      { url: "fotos/05-18/foto3.jpg", texto: "❤️" },
+      { url: "fotos/05-18/foto4.jpg", texto: "❤️" },
+      { url: "fotos/05-18/foto5.jpg", texto: "❤️" },
+      { url: "fotos/05-18/foto6.jpg", texto: "❤️" },
+      { url: "fotos/05-18/foto7.jpg", texto: "❤️" },
+      { url: "fotos/05-18/foto8.jpg", texto: "❤️" },
     ],
-    mensajes: ["Kanda"],
+    mensajes: [
+      "Kanda",
+      "El día que ya nos fuimos al berro",
+      "El día que subimos por primera vez una foto dándonos un beso",
+    ],
   },
 
   "05-19": {
     tipo: "galeria",
-    fotos: [{ url: "fotos/05-19/foto1.jpg", texto: "La 1ra de muchas" }],
+    fotos: [{ url: "fotos/05-19/foto1.jpg", texto: "❤️" }],
     mensajes: ["Esos vendedores del malecónnnn"],
   },
 
   "05-22": {
     tipo: "galeria",
     fotos: [
-      { url: "fotos/05-22/foto1.jpg", texto: "Porfiando" },
-      { url: "fotos/05-22/foto2.jpg", texto: "La jeringuilla" },
+      { url: "fotos/05-22/foto1.jpg", texto: "❤️" },
+      { url: "fotos/05-22/foto2.jpg", texto: "❤️" },
     ],
     mensajes: ["Llevándome la contraria como siempre"],
   },
 
   "05-23": {
     tipo: "galeria",
+    importancia: "media",
     fotos: [
-      { url: "fotos/05-23/foto1.jpg", texto: "Gin&Sangría" },
-      { url: "fotos/05-23/foto2.jpg", texto: "Que fotazas tira mi novia" },
-      { url: "fotos/05-23/foto3.jpg", texto: "Fresa&Chocolate" },
-      { url: "fotos/05-23/foto4.jpg", texto: "Carla&Adrián" },
+      { url: "fotos/05-23/foto1.jpg", texto: "❤️" },
+      { url: "fotos/05-23/foto2.jpg", texto: "❤️" },
+      { url: "fotos/05-23/foto3.jpg", texto: "❤️" },
+      { url: "fotos/05-23/foto4.jpg", texto: "❤️" },
     ],
     mensajes: ["Salidita pija"],
   },
 
   "05-24": {
     tipo: "galeria",
+    importancia: "media",
     fotos: [
-      { url: "fotos/05-24/foto1.jpg", texto: "1ra y 70" },
-      { url: "fotos/05-24/foto2.jpg", texto: "Food Truck" },
-      { url: "fotos/05-24/foto3.jpg", texto: "Estaban buenas las bolitas" },
-      { url: "fotos/05-24/foto4.jpg", texto: "rico rico" },
+      { url: "fotos/05-24/foto1.jpg", texto: "❤️" },
+      { url: "fotos/05-24/foto2.jpg", texto: "❤️" },
+      { url: "fotos/05-24/foto3.jpg", texto: "❤️" },
+      { url: "fotos/05-24/foto4.jpg", texto: "❤️" },
     ],
     mensajes: ["Pelegrín"],
   },
 
   "05-27": {
     tipo: "galeria",
-    fotos: [{ url: "fotos/05-27/foto1.jpg", texto: "Se supone que ese era yo" }],
+    fotos: [{ url: "fotos/05-27/foto1.jpg", texto: "❤️" }],
     mensajes: ["Ya estabas Fritiqui"],
   },
 
   "05-30": {
     tipo: "galeria",
-    fotos: [{ url: "fotos/05-30/foto1.jpg", texto: "Cuando te llevaste mi vicio" }],
+    fotos: [{ url: "fotos/05-30/foto1.jpg", texto: "❤️" }],
     mensajes: ["Mi vicio antes de que fueras tú"],
   },
 
   "05-31": {
     tipo: "galeria",
     fotos: [
-      { url: "fotos/05-31/foto1.jpg", texto: "Fotaza" },
-      { url: "fotos/05-31/foto2.jpg", texto: "Que rica estaba la comida" },
-      { url: "fotos/05-31/foto3.jpg", texto: "Un titii" },
-      { url: "fotos/05-31/foto4.jpg", texto: "tacoss" },
-      { url: "fotos/05-31/foto5.jpg", texto: "Que linda mi pochi" },
-      { url: "fotos/05-31/foto6.jpg", texto: "Ya aquí tiraba buenas fotos" },
+      { url: "fotos/05-31/foto1.jpg", texto: "❤️" },
+      { url: "fotos/05-31/foto2.jpg", texto: "❤️" },
+      { url: "fotos/05-31/foto3.jpg", texto: "❤️" },
+      { url: "fotos/05-31/foto4.jpg", texto: "❤️" },
+      { url: "fotos/05-31/foto5.jpg", texto: "❤️" },
+      { url: "fotos/05-31/foto6.jpg", texto: "❤️" },
     ],
     mensajes: ["El fortuna",
       "La Habana",
     ],
   },
 
-  // Junio
   "06-04": {
     tipo: "galeria",
+    importancia: "alta",
     fotos: [
-      { url: "fotos/06-04/foto1.jpg", texto: "4 de junio especial" },
-      { url: "fotos/06-04/foto2.jpg", texto: "Miércoles perfecto" },
-      { url: "fotos/06-04/foto3.jpg", texto: "Sonrisas eternas" },
-      { url: "fotos/06-04/foto4.jpg", texto: "Risas compartidas" },
-      { url: "fotos/06-04/foto5.jpg", texto: "Complicidad única" },
+      { url: "fotos/06-04/foto1.jpg", texto: "❤️" },
+      { url: "fotos/06-04/foto2.jpg", texto: "❤️" },
+      { url: "fotos/06-04/foto3.jpg", texto: "❤️" },
+      { url: "fotos/06-04/foto4.jpg", texto: "❤️" },
+      { url: "fotos/06-04/foto5.jpg", texto: "❤️" },
     ],
-    mensajes: ["5 días de junio, 5 fotos de felicidad"],
+    mensajes: [
+      "Mi cumple",
+      "Primera vez que te quedaste a dormir conmigo",
+      "Los primeros regalos que me diste",
+      "Primeras veces que me tocaste a trompin disimuladamente",
+
+    ],
   },
 
   "06-07": {
     tipo: "galeria",
+    importancia: "media",
     fotos: [
-      { url: "fotos/06-07/foto1.jpg", texto: "7 de junio inolvidable" },
-      { url: "fotos/06-07/foto2.jpg", texto: "Sábado perfecto" },
-      { url: "fotos/06-07/foto3.jpg", texto: "Risas contagiosas" },
-      { url: "fotos/06-07/foto4.jpg", texto: "Momentos mágicos" },
-      { url: "fotos/06-07/foto5.jpg", texto: "Amor en cada instante" },
+      { url: "fotos/06-07/foto1.jpg", texto: "❤️" },
+      { url: "fotos/06-07/foto2.jpg", texto: "❤️" },
+      { url: "fotos/06-07/foto3.jpg", texto: "❤️" },
+      { url: "fotos/06-07/foto4.jpg", texto: "❤️" },
+      { url: "fotos/06-07/foto5.jpg", texto: "❤️" },
     ],
     mensajes: ["Un sábado perfecto con 5 fotos de recuerdo"],
   },
 
   "06-11": {
     tipo: "galeria",
-    fotos: [{ url: "fotos/06-11/foto1.jpg", texto: "11 de junio especial" }],
+    fotos: [{ url: "fotos/06-11/foto1.jpg", texto: "❤️" }],
     mensajes: ["Martes de amor"],
   },
 
   "06-13": {
     tipo: "galeria",
-    fotos: [{ url: "fotos/06-13/foto1.jpg", texto: "13 de junio mágico" }],
+    fotos: [{ url: "fotos/06-13/foto1.jpg", texto: "❤️" }],
     mensajes: ["Viernes 13 de suerte"],
   },
 
   "06-19": {
     tipo: "galeria",
+    importancia: "alta",
     fotos: [
-      { url: "fotos/06-19/foto1.jpg", texto: "19 de junio inolvidable" },
-      { url: "fotos/06-19/foto2.jpg", texto: "Miércoles especial" },
-      { url: "fotos/06-19/foto3.jpg", texto: "Sonrisas eternas" },
-      { url: "fotos/06-19/foto4.jpg", texto: "Complicidad total" },
+      { url: "fotos/06-19/foto1.jpg", texto: "❤️" },
+      { url: "fotos/06-19/foto2.jpg", texto: "❤️" },
+      { url: "fotos/06-19/foto3.jpg", texto: "❤️" },
+      { url: "fotos/06-19/foto4.jpg", texto: "❤️" },
     ],
-    mensajes: ["4 días de junio, 4 fotos de amor"],
+    mensajes: [
+      "Tu cumple",
+      "Aunque no estuve fue un lindo día para ti",
+      "Primero y último en el que no estoy",
+
+    ],
   },
 
   "06-21": {
     tipo: "galeria",
+importancia: "alta",
     fotos: [
-      { url: "fotos/06-21/foto1.jpg", texto: "21 de junio, primer día de verano" },
-      { url: "fotos/06-21/foto2.jpg", texto: "Sol y amor" },
-      { url: "fotos/06-21/foto3.jpg", texto: "Risas veraniegas" },
-      { url: "fotos/06-21/foto4.jpg", texto: "Momentos dorados" },
-      { url: "fotos/06-21/foto5.jpg", texto: "Abrazos eternos" },
-      { url: "fotos/06-21/foto6.jpg", texto: "Verano contigo" },
+      { url: "fotos/06-21/foto1.jpg", texto: "❤️" },
+      { url: "fotos/06-21/foto2.jpg", texto: "❤️" },
+      { url: "fotos/06-21/foto3.jpg", texto: "❤️" },
+      { url: "fotos/06-21/foto4.jpg", texto: "❤️" },
+      { url: "fotos/06-21/foto5.jpg", texto: "❤️" },
+      { url: "fotos/06-21/foto6.jpg", texto: "❤️" },
     ],
-    mensajes: ["¡Empieza el verano con 6 fotos de felicidad!"],
+    mensajes: ["Para mi este día fue tu cumple",
+      "Lo pude celebrar contigo",
+      "Que linda estabas ese día",
+      "Ya parecíamos una pareja y ni habíamos empezado",
+      "Ahí dije:-esta tiene que ser mi novia si o si",
+    ],
   },
 
   "06-22": {
     tipo: "galeria",
+    importancia: "alta",
     fotos: [
-      { url: "fotos/06-22/foto1.jpg", texto: "22 de junio especial" },
-      { url: "fotos/06-22/foto2.jpg", texto: "Domingo perfecto" },
-      { url: "fotos/06-22/foto3.jpg", texto: "Sonrisas eternas" },
-      { url: "fotos/06-22/foto4.jpg", texto: "Risas compartidas" },
-      { url: "fotos/06-22/foto5.jpg", texto: "Abrazos que curan" },
-      { url: "fotos/06-22/foto6.jpg", texto: "Miradas cómplices" },
-      { url: "fotos/06-22/foto7.jpg", texto: "Momentos únicos" },
-      { url: "fotos/06-22/foto8.jpg", texto: "Complicidad total" },
-      { url: "fotos/06-22/foto9.jpg", texto: "Amor en cada instante" },
+      { url: "fotos/06-22/foto1.jpg", texto: "❤️" },
+      { url: "fotos/06-22/foto2.jpg", texto: "❤️" },
+      { url: "fotos/06-22/foto3.jpg", texto: "❤️" },
+      { url: "fotos/06-22/foto4.jpg", texto: "❤️" },
+      { url: "fotos/06-22/foto5.jpg", texto: "❤️" },
+      { url: "fotos/06-22/foto6.jpg", texto: "❤️" },
+      { url: "fotos/06-22/foto7.jpg", texto: "❤️" },
+      { url: "fotos/06-22/foto8.jpg", texto: "❤️" },
+      { url: "fotos/06-22/foto9.jpg", texto: "❤️" },
     ],
     mensajes: ["9 fotos para un domingo perfecto"],
   },
 
   "06-28": {
     tipo: "galeria",
-    fotos: [{ url: "fotos/06-28/foto1.jpg", texto: "28 de junio inolvidable" }],
+    fotos: [{ url: "fotos/06-28/foto1.jpg", texto: "❤️" }],
     mensajes: ["Sábado de amor"],
   },
 
   "06-29": {
     tipo: "galeria",
     fotos: [
-      { url: "fotos/06-29/foto1.jpg", texto: "29 de junio especial" },
-      { url: "fotos/06-29/foto2.jpg", texto: "Domingo perfecto" },
-      { url: "fotos/06-29/foto3.jpg", texto: "Sonrisas eternas" },
-      { url: "fotos/06-29/foto4.jpg", texto: "Risas compartidas" },
-      { url: "fotos/06-29/foto5.jpg", texto: "Abrazos que curan" },
-      { url: "fotos/06-29/foto6.jpg", texto: "Miradas cómplices" },
-      { url: "fotos/06-29/foto7.jpg", texto: "Momentos únicos" },
+      { url: "fotos/06-29/foto1.jpg", texto: "❤️" },
+      { url: "fotos/06-29/foto2.jpg", texto: "❤️" },
+      { url: "fotos/06-29/foto3.jpg", texto: "❤️" },
+      { url: "fotos/06-29/foto4.jpg", texto: "❤️" },
+      { url: "fotos/06-29/foto5.jpg", texto: "❤️" },
+      { url: "fotos/06-29/foto6.jpg", texto: "❤️" },
+      { url: "fotos/06-29/foto7.jpg", texto: "❤️" },
     ],
     mensajes: ["7 fotos para despedir junio"],
   },
 
-  // Julio
   "07-01": {
     tipo: "galeria",
-    fotos: [{ url: "fotos/07-01/foto1.jpg", texto: "¡Comienza julio!" }],
+    importancia: "media",
+    fotos: [{ url: "fotos/07-01/foto1.jpg", texto: "❤️" }],
     mensajes: ["Nuevo mes, nuevas aventuras juntos"],
   },
 
   "07-04": {
     tipo: "galeria",
+    importancia: "alta",
     fotos: [
-      { url: "fotos/07-04/foto1.jpg", texto: "4 de julio especial" },
-      { url: "fotos/07-04/foto2.jpg", texto: "Día de verano" },
-      { url: "fotos/07-04/foto3.jpg", texto: "Risas contagiosas" },
-      { url: "fotos/07-04/foto4.jpg", texto: "Momentos mágicos" },
-      { url: "fotos/07-04/foto5.jpg", texto: "Amor en cada instante" },
+      { url: "fotos/07-04/foto1.jpg", texto: "❤️" },
+      { url: "fotos/07-04/foto2.jpg", texto: "❤️" },
+      { url: "fotos/07-04/foto3.jpg", texto: "❤️" },
+      { url: "fotos/07-04/foto4.jpg", texto: "❤️" },
+      { url: "fotos/07-04/foto5.jpg", texto: "❤️" },
     ],
-    mensajes: ["5 días de julio, 5 fotos de felicidad"],
+    mensajes: ["Salida al nacional sin saber que sería nuestro lugar",
+      "Ya ese día veniía preparado para pasar al siguiente nivel contigo",
+      "24h después serías mi novia para siempre"
+    ],
   },
 
-  "07-05": {
+ "07-05": {
     tipo: "galeria",
+    importancia: "alta",
     fotos: [
-      { url: "fotos/07-05/foto1.jpg", texto: "5 de julio inolvidable" },
-      { url: "fotos/07-05/foto2.jpg", texto: "Sábado perfecto" },
+      { url: "fotos/07-05/foto1.jpg", texto: "❤️" },
+      { url: "fotos/07-05/foto2.jpg", texto: "❤️" },
     ],
-    mensajes: ["2 días, 2 fotos, mucho amor"],
+    mensajes: ["Uno de los días más importantes de mi vida",
+      "Que nervios, se suponía que el mismo 4 te preguntaría",
+      "Este día empezó legalmente nuestra historia y el número 5 sería el nuestro para siempre",
+      "Sorprendentemente de este día no tenemos ni fotos pero si recuerdos",
 
-    carta: {
-    titulo: "Para ti, en este 5 de julio",
-    contenido: "Hoy quiero recordarte lo especial que eres para mí. Desde aquel día en tu cama, cuando te pregunté para ser mi novia y te hiciste la graciosa diciendo que no... sabías que sí. Este día siempre será nuestro. Te amo.",
-    emoji: "💌"
-  }
-  },
+    ],
+    cartaTexto: "Aqui quiero decirte todo lo que no te dije ese día que te pedí ser mi novia. Este es el Adrián de ese tiempo, no el de ahora. Hoy 5 de julio quiero decirte que te has vuelto alguien muy especial, que en tan poco tiempo has logrado meterte en mi corazón y en mi mente de una manera que no esperaba. LLevamos alrededor de 3 meses conociéndonos y saliendo, aunque parece que nos conociéramos hace años y me he dado cuenta que eres literalmente lo que buscaba para tener a mi lado, tienes todas las cualidades que me gustan de una mujer, tienes todo lo que necesito para ser feliz. Me he dado cuenta en estos 3 meses que ya no quiero que seamos solo una talla, xq me he dado cuenta que te quiero para mi na ma y quiero que todos lo vean y sepan que eres mine mine mine, y xq creo que vamos a hacer una linda pareja, xq a pesar de nuestras diferencias y pensar distinto tenemos muchas otras cosas en común y creo que puedo enamorarme de ti de una forma que nunca me ha pasado. Por todo esto y más te quiero preguntar:  ¿Quieres ser mi novia?. Att: Tu pochi pa' rato (;"
+},
 
   "07-13": {
     tipo: "galeria",
+    importancia: "media",
     fotos: [
-      { url: "fotos/07-13/foto1.jpg", texto: "13 de julio mágico" },
-      { url: "fotos/07-13/foto2.jpg", texto: "Domingo perfecto" },
-      { url: "fotos/07-13/foto3.jpg", texto: "Sonrisas eternas" },
-      { url: "fotos/07-13/foto4.jpg", texto: "Risas compartidas" },
-      { url: "fotos/07-13/foto5.jpg", texto: "Abrazos que curan" },
-      { url: "fotos/07-13/foto6.jpg", texto: "Miradas cómplices" },
-      { url: "fotos/07-13/foto7.jpg", texto: "Momentos únicos" },
-      { url: "fotos/07-13/foto8.jpg", texto: "Complicidad total" },
-      { url: "fotos/07-13/foto9.jpg", texto: "Amor en cada instante" },
+      { url: "fotos/07-13/foto1.jpg", texto: "❤️" },
+      { url: "fotos/07-13/foto2.jpg", texto: "❤️" },
+      { url: "fotos/07-13/foto3.jpg", texto: "❤️" },
+      { url: "fotos/07-13/foto4.jpg", texto: "❤️" },
+      { url: "fotos/07-13/foto5.jpg", texto: "❤️" },
+      { url: "fotos/07-13/foto6.jpg", texto: "❤️" },
+      { url: "fotos/07-13/foto7.jpg", texto: "❤️" },
+      { url: "fotos/07-13/foto8.jpg", texto: "❤️" },
+      { url: "fotos/07-13/foto9.jpg", texto: "❤️" },
     ],
-    mensajes: ["9 fotos para un domingo perfecto"],
+    mensajes: ["1ra piscina siendo jevis",
+      "1ra salida siendo jevis",
+      "Oficialmente novios ya publicamente",
+    ],
   },
 
   "07-18": {
     tipo: "galeria",
+importancia: "media",
     fotos: [
-      { url: "fotos/07-18/foto1.jpg", texto: "18 de julio especial" },
-      { url: "fotos/07-18/foto2.jpg", texto: "Viernes perfecto" },
-      { url: "fotos/07-18/foto3.jpg", texto: "Sonrisas eternas" },
-      { url: "fotos/07-18/foto4.jpg", texto: "Risas compartidas" },
-      { url: "fotos/07-18/foto5.jpg", texto: "Abrazos que curan" },
-      { url: "fotos/07-18/foto6.jpg", texto: "Momentos únicos" },
+      { url: "fotos/07-18/foto1.jpg", texto: "❤️" },
+      { url: "fotos/07-18/foto2.jpg", texto: "❤️" },
+      { url: "fotos/07-18/foto3.jpg", texto: "❤️" },
+      { url: "fotos/07-18/foto4.jpg", texto: "❤️" },
+      { url: "fotos/07-18/foto5.jpg", texto: "❤️" },
+      { url: "fotos/07-18/foto6.jpg", texto: "❤️" },
     ],
     mensajes: ["6 fotos para un viernes perfecto"],
   },
@@ -969,307 +1052,344 @@ const diasEspeciales = {
   "07-19": {
     tipo: "galeria",
     fotos: [
-      { url: "fotos/07-19/foto1.jpg", texto: "19 de julio inolvidable" },
-      { url: "fotos/07-19/foto2.jpg", texto: "Sábado perfecto" },
-      { url: "fotos/07-19/foto3.jpg", texto: "Complicidad única" },
+      { url: "fotos/07-19/foto1.jpg", texto: "❤️" },
+      { url: "fotos/07-19/foto2.jpg", texto: "❤️" },
+      { url: "fotos/07-19/foto3.jpg", texto: "❤️" },
     ],
     mensajes: ["3 sábados, 3 fotos de felicidad"],
   },
 
   "07-20": {
     tipo: "galeria",
-    fotos: [{ url: "fotos/07-20/foto1.jpg", texto: "20 de julio mágico" }],
+importancia: "media",
+    fotos: [{ url: "fotos/07-20/foto1.jpg", texto: "❤️" }],
     mensajes: ["Domingo de amor"],
   },
 
   "07-21": {
     tipo: "galeria",
-    fotos: [{ url: "fotos/07-21/foto1.jpg", texto: "21 de julio especial" }],
+    fotos: [{ url: "fotos/07-21/foto1.jpg", texto: "❤️" }],
     mensajes: ["Lunes perfecto"],
   },
 
   "07-23": {
     tipo: "galeria",
-    fotos: [{ url: "fotos/07-23/foto1.jpg", texto: "23 de julio inolvidable" }],
+    fotos: [{ url: "fotos/07-23/foto1.jpg", texto: "❤️" }],
     mensajes: ["Miércoles de amor"],
   },
 
   "07-24": {
     tipo: "galeria",
+    importancia: "media",
     fotos: [
-      { url: "fotos/07-24/foto1.jpg", texto: "24 de julio especial" },
-      { url: "fotos/07-24/foto2.jpg", texto: "Jueves perfecto" },
-      { url: "fotos/07-24/foto3.jpg", texto: "Sonrisas eternas" },
-      { url: "fotos/07-24/foto4.jpg", texto: "Risas compartidas" },
-      { url: "fotos/07-24/foto5.jpg", texto: "Abrazos que curan" },
-      { url: "fotos/07-24/foto6.jpg", texto: "Miradas cómplices" },
-      { url: "fotos/07-24/foto7.jpg", texto: "Momentos únicos" },
-      { url: "fotos/07-24/foto8.jpg", texto: "Complicidad total" },
-      { url: "fotos/07-24/foto9.jpg", texto: "Amor en cada instante" },
+      { url: "fotos/07-24/foto1.jpg", texto: "❤️" },
+      { url: "fotos/07-24/foto2.jpg", texto: "❤️" },
+      { url: "fotos/07-24/foto3.jpg", texto: "❤️" },
+      { url: "fotos/07-24/foto4.jpg", texto: "❤️" },
+      { url: "fotos/07-24/foto5.jpg", texto: "❤️" },
+      { url: "fotos/07-24/foto6.jpg", texto: "❤️" },
+      { url: "fotos/07-24/foto7.jpg", texto: "❤️" },
+      { url: "fotos/07-24/foto8.jpg", texto: "❤️" },
+      { url: "fotos/07-24/foto9.jpg", texto: "❤️" },
     ],
-    mensajes: ["9 fotos para un jueves perfecto"],
+    mensajes: ["Cohiba"],
   },
 
   "07-25": {
     tipo: "galeria",
-    fotos: [{ url: "fotos/07-25/foto1.jpg", texto: "25 de julio mágico" }],
+    fotos: [{ url: "fotos/07-25/foto1.jpg", texto: "❤️" }],
     mensajes: ["Viernes de amor"],
   },
 
   "07-26": {
     tipo: "galeria",
+    importancia: "media",
     fotos: [
-      { url: "fotos/07-26/foto1.jpg", texto: "26 de julio inolvidable" },
-      { url: "fotos/07-26/foto2.jpg", texto: "Sábado perfecto" },
-      { url: "fotos/07-26/foto3.jpg", texto: "Sonrisas eternas" },
-      { url: "fotos/07-26/foto4.jpg", texto: "Risas compartidas" },
-      { url: "fotos/07-26/foto5.jpg", texto: "Momentos únicos" },
+      { url: "fotos/07-26/foto1.jpg", texto: "❤️" },
+      { url: "fotos/07-26/foto2.jpg", texto: "❤️" },
+      { url: "fotos/07-26/foto3.jpg", texto: "❤️" },
+      { url: "fotos/07-26/foto4.jpg", texto: "❤️" },
+      { url: "fotos/07-26/foto5.jpg", texto: "❤️" },
     ],
     mensajes: ["5 fotos para un sábado perfecto"],
   },
 
   "07-27": {
     tipo: "galeria",
+    importancia: "media",
     fotos: [
-      { url: "fotos/07-27/foto1.jpg", texto: "27 de julio especial" },
-      { url: "fotos/07-27/foto2.jpg", texto: "Domingo perfecto" },
-      { url: "fotos/07-27/foto3.jpg", texto: "Sonrisas eternas" },
-      { url: "fotos/07-27/foto4.jpg", texto: "Risas compartidas" },
-      { url: "fotos/07-27/foto5.jpg", texto: "Momentos únicos" },
+      { url: "fotos/07-27/foto1.jpg", texto: "❤️" },
+      { url: "fotos/07-27/foto2.jpg", texto: "❤️" },
+      { url: "fotos/07-27/foto3.jpg", texto: "❤️" },
+      { url: "fotos/07-27/foto4.jpg", texto: "❤️" },
+      { url: "fotos/07-27/foto5.jpg", texto: "❤️" },
     ],
     mensajes: ["5 fotos para un domingo perfecto"],
   },
 
   "07-28": {
     tipo: "galeria",
+    importancia: "media",
     fotos: [
-      { url: "fotos/07-28/foto1.jpg", texto: "28 de julio mágico" },
-      { url: "fotos/07-28/foto2.jpg", texto: "Lunes perfecto" },
-      { url: "fotos/07-28/foto3.jpg", texto: "Sonrisas eternas" },
-      { url: "fotos/07-28/foto4.jpg", texto: "Risas compartidas" },
-      { url: "fotos/07-28/foto5.jpg", texto: "Abrazos que curan" },
-      { url: "fotos/07-28/foto6.jpg", texto: "Miradas cómplices" },
-      { url: "fotos/07-28/foto7.jpg", texto: "Momentos únicos" },
+      { url: "fotos/07-28/foto1.jpg", texto: "❤️" },
+      { url: "fotos/07-28/foto2.jpg", texto: "❤️" },
+      { url: "fotos/07-28/foto3.jpg", texto: "❤️" },
+      { url: "fotos/07-28/foto4.jpg", texto: "❤️" },
+      { url: "fotos/07-28/foto5.jpg", texto: "❤️" },
+      { url: "fotos/07-28/foto6.jpg", texto: "❤️" },
+      { url: "fotos/07-28/foto7.jpg", texto: "❤️" },
     ],
-    mensajes: ["7 fotos para un lunes perfecto"],
+    mensajes: ["El dia de las famosas fotas en la azotea(La placa)"],
   },
 
   "07-29": {
     tipo: "galeria",
-    fotos: [{ url: "fotos/07-29/foto1.jpg", texto: "29 de julio especial" }],
+    fotos: [{ url: "fotos/07-29/foto1.jpg", texto: "❤️" }],
     mensajes: ["Martes de amor"],
   },
 
-  // Agosto
+   "08-05": {
+    tipo: "galeria",
+    importancia: "alta",
+    fotos: [
+      { url: "fotos/08-06/foto1.jpg", texto: "❤️" },
+      { url: "fotos/08-06/foto2.jpg", texto: "❤️" },
+      { url: "fotos/08-06/foto3.jpg", texto: "❤️" },
+    ],
+    mensajes: ["1er mesiversario",
+      "Donde surgieron las noticas cuando las pusiste en las papas Barbacoas",
+      "Desde ese día las noticas nunca pararon hasta llenarme el closet",
+    ],
+  },
+
   "08-06": {
     tipo: "galeria",
+    importancia: "media",
     fotos: [
-      { url: "fotos/08-06/foto1.jpg", texto: "6 de agosto inolvidable" },
-      { url: "fotos/08-06/foto2.jpg", texto: "Martes perfecto" },
-      { url: "fotos/08-06/foto3.jpg", texto: "Sonrisas eternas" },
-      { url: "fotos/08-06/foto4.jpg", texto: "Risas compartidas" },
-      { url: "fotos/08-06/foto5.jpg", texto: "Abrazos que curan" },
-      { url: "fotos/08-06/foto6.jpg", texto: "Miradas cómplices" },
-      { url: "fotos/08-06/foto7.jpg", texto: "Momentos únicos" },
-      { url: "fotos/08-06/foto8.jpg", texto: "Complicidad total" },
+      { url: "fotos/08-06/foto1.jpg", texto: "❤️" },
+      { url: "fotos/08-06/foto2.jpg", texto: "❤️" },
+      { url: "fotos/08-06/foto3.jpg", texto: "❤️" },
+      { url: "fotos/08-06/foto4.jpg", texto: "❤️" },
+      { url: "fotos/08-06/foto5.jpg", texto: "❤️" },
     ],
     mensajes: ["8 fotos para un martes perfecto"],
   },
 
   "08-07": {
     tipo: "galeria",
+    importancia: "media",
     fotos: [
-      { url: "fotos/08-07/foto1.jpg", texto: "7 de agosto especial" },
-      { url: "fotos/08-07/foto2.jpg", texto: "Miércoles perfecto" },
-      { url: "fotos/08-07/foto3.jpg", texto: "Sonrisas eternas" },
-      { url: "fotos/08-07/foto4.jpg", texto: "Risas compartidas" },
-      { url: "fotos/08-07/foto5.jpg", texto: "Abrazos que curan" },
-      { url: "fotos/08-07/foto6.jpg", texto: "Miradas cómplices" },
-      { url: "fotos/08-07/foto7.jpg", texto: "Momentos únicos" },
-      { url: "fotos/08-07/foto8.jpg", texto: "Complicidad total" },
-      { url: "fotos/08-07/foto9.jpg", texto: "Amor en cada instante" },
+      { url: "fotos/08-07/foto1.jpg", texto: "❤️" },
+      { url: "fotos/08-07/foto2.jpg", texto: "❤️" },
+      { url: "fotos/08-07/foto3.jpg", texto: "❤️" },
+      { url: "fotos/08-07/foto4.jpg", texto: "❤️" },
+      { url: "fotos/08-07/foto5.jpg", texto: "❤️" },
+      { url: "fotos/08-07/foto6.jpg", texto: "❤️" },
+      { url: "fotos/08-07/foto7.jpg", texto: "❤️" },
+      { url: "fotos/08-07/foto8.jpg", texto: "❤️" },
+      { url: "fotos/08-07/foto9.jpg", texto: "❤️" },
     ],
     mensajes: ["9 fotos para un miércoles perfecto"],
   },
 
   "08-09": {
     tipo: "galeria",
+    importancia: "media",
     fotos: [
-      { url: "fotos/08-09/foto1.jpg", texto: "9 de agosto mágico" },
-      { url: "fotos/08-09/foto2.jpg", texto: "Sábado perfecto" },
-      { url: "fotos/08-09/foto3.jpg", texto: "Sonrisas eternas" },
-      { url: "fotos/08-09/foto4.jpg", texto: "Complicidad única" },
+      { url: "fotos/08-09/foto1.jpg", texto: "❤️" },
+      { url: "fotos/08-09/foto2.jpg", texto: "❤️" },
+      { url: "fotos/08-09/foto3.jpg", texto: "❤️" },
+      { url: "fotos/08-09/foto4.jpg", texto: "❤️" },
     ],
     mensajes: ["4 fotos para un sábado perfecto"],
   },
 
   "08-10": {
     tipo: "galeria",
+    importancia: "media",
     fotos: [
-      { url: "fotos/08-10/foto1.jpg", texto: "10 de agosto inolvidable" },
-      { url: "fotos/08-10/foto2.jpg", texto: "Domingo perfecto" },
-      { url: "fotos/08-10/foto3.jpg", texto: "Sonrisas eternas" },
-      { url: "fotos/08-10/foto4.jpg", texto: "Risas compartidas" },
-      { url: "fotos/08-10/foto5.jpg", texto: "Abrazos que curan" },
-      { url: "fotos/08-10/foto6.jpg", texto: "Miradas cómplices" },
-      { url: "fotos/08-10/foto7.jpg", texto: "Momentos únicos" },
+      { url: "fotos/08-10/foto1.jpg", texto: "❤️" },
+      { url: "fotos/08-10/foto2.jpg", texto: "❤️" },
+      { url: "fotos/08-10/foto3.jpg", texto: "❤️" },
+      { url: "fotos/08-10/foto4.jpg", texto: "❤️" },
+      { url: "fotos/08-10/foto5.jpg", texto: "❤️" },
+      { url: "fotos/08-10/foto6.jpg", texto: "❤️" },
+      { url: "fotos/08-10/foto7.jpg", texto: "❤️" },
     ],
     mensajes: ["7 fotos para un domingo perfecto"],
   },
 
   "08-11": {
     tipo: "galeria",
-    fotos: [{ url: "fotos/08-11/foto1.jpg", texto: "11 de agosto especial" }],
+    fotos: [{ url: "fotos/08-11/foto1.jpg", texto: "❤️" }],
     mensajes: ["Lunes de amor"],
   },
 
   "08-16": {
     tipo: "galeria",
+    importancia: "media",
     fotos: [
-      { url: "fotos/08-16/foto1.jpg", texto: "16 de agosto mágico" },
-      { url: "fotos/08-16/foto2.jpg", texto: "Sábado perfecto" },
-      { url: "fotos/08-16/foto3.jpg", texto: "Sonrisas eternas" },
-      { url: "fotos/08-16/foto4.jpg", texto: "Risas compartidas" },
-      { url: "fotos/08-16/foto5.jpg", texto: "Abrazos que curan" },
-      { url: "fotos/08-16/foto6.jpg", texto: "Miradas cómplices" },
-      { url: "fotos/08-16/foto7.jpg", texto: "Momentos únicos" },
-      { url: "fotos/08-16/foto8.jpg", texto: "Complicidad total" },
-      { url: "fotos/08-16/foto9.jpg", texto: "Amor en cada instante" },
+      { url: "fotos/08-16/foto1.jpg", texto: "❤️" },
+      { url: "fotos/08-16/foto2.jpg", texto: "❤️" },
+      { url: "fotos/08-16/foto3.jpg", texto: "❤️" },
+      { url: "fotos/08-16/foto4.jpg", texto: "❤️" },
+      { url: "fotos/08-16/foto5.jpg", texto: "❤️" },
+      { url: "fotos/08-16/foto6.jpg", texto: "❤️" },
+      { url: "fotos/08-16/foto7.jpg", texto: "❤️" },
+      { url: "fotos/08-16/foto8.jpg", texto: "❤️" },
+      { url: "fotos/08-16/foto9.jpg", texto: "❤️" },
     ],
     mensajes: ["9 fotos para un sábado perfecto"],
   },
 
   "08-17": {
     tipo: "galeria",
+    importancia: "alta",
     fotos: [
-      { url: "fotos/08-17/foto1.jpg", texto: "17 de agosto inolvidable" },
-      { url: "fotos/08-17/foto2.jpg", texto: "Domingo perfecto" },
-      { url: "fotos/08-17/foto3.jpg", texto: "Sonrisas eternas" },
-      { url: "fotos/08-17/foto4.jpg", texto: "Risas compartidas" },
-      { url: "fotos/08-17/foto5.jpg", texto: "Abrazos que curan" },
-      { url: "fotos/08-17/foto6.jpg", texto: "Miradas cómplices" },
-      { url: "fotos/08-17/foto7.jpg", texto: "Momentos únicos" },
-      { url: "fotos/08-17/foto8.jpg", texto: "Complicidad total" },
-      { url: "fotos/08-17/foto9.jpg", texto: "Amor en cada instante" },
-      { url: "fotos/08-17/foto10.jpg", texto: "Recuerdos eternos" },
-      { url: "fotos/08-17/foto11.jpg", texto: "Felicidad plena" },
-      { url: "fotos/08-17/foto12.jpg", texto: "Aventuras juntos" },
-      { url: "fotos/08-17/foto13.jpg", texto: "Miradas que enamoran" },
-      { url: "fotos/08-17/foto14.jpg", texto: "Juntos para siempre" },
+      { url: "fotos/08-17/foto1.jpg", texto: "❤️" },
+      { url: "fotos/08-17/foto2.jpg", texto: "❤️" },
+      { url: "fotos/08-17/foto3.jpg", texto: "❤️" },
+      { url: "fotos/08-17/foto4.jpg", texto: "❤️" },
+      { url: "fotos/08-17/foto5.jpg", texto: "❤️" },
+      { url: "fotos/08-17/foto6.jpg", texto: "❤️" },
+      { url: "fotos/08-17/foto7.jpg", texto: "❤️" },
+      { url: "fotos/08-17/foto8.jpg", texto: "❤️" },
+      { url: "fotos/08-17/foto9.jpg", texto: "❤️" },
+      { url: "fotos/08-17/foto10.jpg", texto: "❤️" },
+      { url: "fotos/08-17/foto11.jpg", texto: "❤️" },
+      { url: "fotos/08-17/foto12.jpg", texto: "❤️" },
+      { url: "fotos/08-17/foto13.jpg", texto: "❤️" },
+      { url: "fotos/08-17/foto14.jpg", texto: "❤️" },
     ],
-    mensajes: ["¡14 fotos para un domingo espectacular!"],
+    mensajes: [
+      "¡Viñales!",
+      "1ra excursión juntos",
+      "Uno de los mejores días de nuestra relación",
+      "Creo que este día fue un antes y un después en nosotros como pareja",
+      "Después de este día salimos como una relacíon más consolidada",
+      "Definitivamente es de los días más importantes de nosotros",
+    ],
   },
 
   "08-20": {
     tipo: "galeria",
+    importancia: "media",
     fotos: [
-      { url: "fotos/08-20/foto1.jpg", texto: "20 de agosto especial" },
-      { url: "fotos/08-20/foto2.jpg", texto: "Jueves perfecto" },
-      { url: "fotos/08-20/foto3.jpg", texto: "Sonrisas eternas" },
-      { url: "fotos/08-20/foto4.jpg", texto: "Risas compartidas" },
-      { url: "fotos/08-20/foto5.jpg", texto: "Momentos únicos" },
+      { url: "fotos/08-20/foto1.jpg", texto: "❤️" },
+      { url: "fotos/08-20/foto2.jpg", texto: "❤️" },
+      { url: "fotos/08-20/foto3.jpg", texto: "❤️" },
+      { url: "fotos/08-20/foto4.jpg", texto: "❤️" },
+      { url: "fotos/08-20/foto5.jpg", texto: "❤️" },
     ],
     mensajes: ["5 fotos para un jueves perfecto"],
   },
 
   "08-22": {
     tipo: "galeria",
+    importancia: "media",
     fotos: [
-      { url: "fotos/08-22/foto1.jpg", texto: "22 de agosto mágico" },
-      { url: "fotos/08-22/foto2.jpg", texto: "Viernes perfecto" },
-      { url: "fotos/08-22/foto3.jpg", texto: "Complicidad única" },
+      { url: "fotos/08-22/foto1.jpg", texto: "❤️" },
+      { url: "fotos/08-22/foto2.jpg", texto: "❤️" },
+      { url: "fotos/08-22/foto3.jpg", texto: "❤️" },
     ],
     mensajes: ["3 fotos para un viernes perfecto"],
   },
 
   "08-30": {
     tipo: "galeria",
+    importancia: "media",
     fotos: [
-      { url: "fotos/08-30/foto1.jpg", texto: "30 de agosto inolvidable" },
-      { url: "fotos/08-30/foto2.jpg", texto: "Sábado perfecto" },
-      { url: "fotos/08-30/foto3.jpg", texto: "Sonrisas eternas" },
-      { url: "fotos/08-30/foto4.jpg", texto: "Risas compartidas" },
-      { url: "fotos/08-30/foto5.jpg", texto: "Abrazos que curan" },
-      { url: "fotos/08-30/foto6.jpg", texto: "Momentos únicos" },
+      { url: "fotos/08-30/foto1.jpg", texto: "❤️" },
+      { url: "fotos/08-30/foto2.jpg", texto: "❤️" },
+      { url: "fotos/08-30/foto3.jpg", texto: "❤️" },
+      { url: "fotos/08-30/foto4.jpg", texto: "❤️" },
+      { url: "fotos/08-30/foto5.jpg", texto: "❤️" },
+      { url: "fotos/08-30/foto6.jpg", texto: "❤️" },
     ],
     mensajes: ["6 fotos para despedir agosto"],
   },
 
-  // Septiembre
   "09-01": {
     tipo: "galeria",
+    importancia: "media",
     fotos: [
-      { url: "fotos/09-01/foto1.jpg", texto: "¡Comienza septiembre!" },
-      { url: "fotos/09-01/foto2.jpg", texto: "Lunes perfecto" },
-      { url: "fotos/09-01/foto3.jpg", texto: "Sonrisas eternas" },
-      { url: "fotos/09-01/foto4.jpg", texto: "Complicidad única" },
+      { url: "fotos/09-01/foto1.jpg", texto: "❤️" },
+      { url: "fotos/09-01/foto2.jpg", texto: "❤️" },
+      { url: "fotos/09-01/foto3.jpg", texto: "❤️" },
+      { url: "fotos/09-01/foto4.jpg", texto: "❤️" },
     ],
     mensajes: ["Nuevo mes con 4 fotos de amor"],
   },
 
   "09-05": {
     tipo: "galeria",
+    importancia: "alta",
     fotos: [
-      { url: "fotos/09-05/foto1.jpg", texto: "5 de septiembre especial" },
-      { url: "fotos/09-05/foto2.jpg", texto: "Jueves perfecto" },
-      { url: "fotos/09-05/foto3.jpg", texto: "Sonrisas eternas" },
-      { url: "fotos/09-05/foto4.jpg", texto: "Risas compartidas" },
-      { url: "fotos/09-05/foto5.jpg", texto: "Abrazos que curan" },
-      { url: "fotos/09-05/foto6.jpg", texto: "Miradas cómplices" },
-      { url: "fotos/09-05/foto7.jpg", texto: "Momentos únicos" },
-      { url: "fotos/09-05/foto8.jpg", texto: "Complicidad total" },
-      { url: "fotos/09-05/foto9.jpg", texto: "Amor en cada instante" },
-      { url: "fotos/09-05/foto10.jpg", texto: "Recuerdos eternos" },
-      { url: "fotos/09-05/foto11.jpg", texto: "Felicidad plena" },
+      { url: "fotos/09-05/foto1.jpg", texto: "❤️" },
+      { url: "fotos/09-05/foto2.jpg", texto: "❤️" },
+      { url: "fotos/09-05/foto3.jpg", texto: "❤️" },
+      { url: "fotos/09-05/foto4.jpg", texto: "❤️" },
+      { url: "fotos/09-05/foto5.jpg", texto: "❤️" },
+      { url: "fotos/09-05/foto6.jpg", texto: "❤️" },
+      { url: "fotos/09-05/foto7.jpg", texto: "❤️" },
+      { url: "fotos/09-05/foto8.jpg", texto: "❤️" },
+      { url: "fotos/09-05/foto9.jpg", texto: "❤️" },
+      { url: "fotos/09-05/foto10.jpg", texto: "❤️" },
+      { url: "fotos/09-05/foto11.jpg", texto: "❤️" },
     ],
-    mensajes: ["¡11 fotos para un día espectacular!"],
+    mensajes: ["El día donde empezó la costumbre de todos los 5 ir al Nacional",
+      "Y donde empezó tu vicio con los Dumplings",
+    ],
   },
 
   "09-06": {
     tipo: "galeria",
+    importancia: "media",
     fotos: [
-      { url: "fotos/09-06/foto1.jpg", texto: "6 de septiembre mágico" },
-      { url: "fotos/09-06/foto2.jpg", texto: "Sábado perfecto" },
-      { url: "fotos/09-06/foto3.jpg", texto: "Sonrisas eternas" },
-      { url: "fotos/09-06/foto4.jpg", texto: "Risas compartidas" },
-      { url: "fotos/09-06/foto5.jpg", texto: "Abrazos que curan" },
-      { url: "fotos/09-06/foto6.jpg", texto: "Miradas cómplices" },
-      { url: "fotos/09-06/foto7.jpg", texto: "Momentos únicos" },
+      { url: "fotos/09-06/foto1.jpg", texto: "❤️" },
+      { url: "fotos/09-06/foto2.jpg", texto: "❤️" },
+      { url: "fotos/09-06/foto3.jpg", texto: "❤️" },
+      { url: "fotos/09-06/foto4.jpg", texto: "❤️" },
+      { url: "fotos/09-06/foto5.jpg", texto: "❤️" },
+      { url: "fotos/09-06/foto6.jpg", texto: "❤️" },
+      { url: "fotos/09-06/foto7.jpg", texto: "❤️" },
     ],
     mensajes: ["7 fotos para un sábado perfecto"],
   },
 
   "09-07": {
     tipo: "galeria",
+    importancia: "media",
     fotos: [
-      { url: "fotos/09-07/foto1.jpg", texto: "7 de septiembre inolvidable" },
-      { url: "fotos/09-07/foto2.jpg", texto: "Domingo perfecto" },
-      { url: "fotos/09-07/foto3.jpg", texto: "Sonrisas eternas" },
-      { url: "fotos/09-07/foto4.jpg", texto: "Risas compartidas" },
-      { url: "fotos/09-07/foto5.jpg", texto: "Abrazos que curan" },
-      { url: "fotos/09-07/foto6.jpg", texto: "Miradas cómplices" },
-      { url: "fotos/09-07/foto7.jpg", texto: "Momentos únicos" },
-      { url: "fotos/09-07/foto8.jpg", texto: "Complicidad total" },
+      { url: "fotos/09-07/foto1.jpg", texto: "❤️" },
+      { url: "fotos/09-07/foto2.jpg", texto: "❤️" },
+      { url: "fotos/09-07/foto3.jpg", texto: "❤️" },
+      { url: "fotos/09-07/foto4.jpg", texto: "❤️" },
+      { url: "fotos/09-07/foto5.jpg", texto: "❤️" },
+      { url: "fotos/09-07/foto6.jpg", texto: "❤️" },
+      { url: "fotos/09-07/foto7.jpg", texto: "❤️" },
+      { url: "fotos/09-07/foto8.jpg", texto: "❤️" },
     ],
     mensajes: ["8 fotos para un domingo perfecto"],
   },
 
   "09-09": {
     tipo: "galeria",
-    fotos: [{ url: "fotos/09-09/foto1.jpg", texto: "9 de septiembre especial" }],
+    fotos: [{ url: "fotos/09-09/foto1.jpg", texto: "❤️" }],
     mensajes: ["Martes de amor"],
   },
 
   "09-11": {
     tipo: "galeria",
+    importancia: "media",
     fotos: [
-      { url: "fotos/09-11/foto1.jpg", texto: "11 de septiembre mágico" },
-      { url: "fotos/09-11/foto2.jpg", texto: "Miércoles perfecto" },
-      { url: "fotos/09-11/foto3.jpg", texto: "Sonrisas eternas" },
-      { url: "fotos/09-11/foto4.jpg", texto: "Risas compartidas" },
-      { url: "fotos/09-11/foto5.jpg", texto: "Abrazos que curan" },
-      { url: "fotos/09-11/foto6.jpg", texto: "Miradas cómplices" },
-      { url: "fotos/09-11/foto7.jpg", texto: "Momentos únicos" },
+      { url: "fotos/09-11/foto1.jpg", texto: "❤️" },
+      { url: "fotos/09-11/foto2.jpg", texto: "❤️" },
+      { url: "fotos/09-11/foto3.jpg", texto: "❤️" },
+      { url: "fotos/09-11/foto4.jpg", texto: "❤️" },
+      { url: "fotos/09-11/foto5.jpg", texto: "❤️" },
+      { url: "fotos/09-11/foto6.jpg", texto: "❤️" },
+      { url: "fotos/09-11/foto7.jpg", texto: "❤️" },
     ],
     mensajes: ["7 fotos para un miércoles perfecto"],
   },
@@ -1277,265 +1397,284 @@ const diasEspeciales = {
   "09-13": {
     tipo: "galeria",
     fotos: [
-      { url: "fotos/09-13/foto1.jpg", texto: "13 de septiembre inolvidable" },
-      { url: "fotos/09-13/foto2.jpg", texto: "Sábado perfecto" },
-      { url: "fotos/09-13/foto3.jpg", texto: "Sonrisas eternas" },
-      { url: "fotos/09-13/foto4.jpg", texto: "Complicidad única" },
+      { url: "fotos/09-13/foto1.jpg", texto: "❤️" },
+      { url: "fotos/09-13/foto2.jpg", texto: "❤️" },
+      { url: "fotos/09-13/foto3.jpg", texto: "❤️" },
+      { url: "fotos/09-13/foto4.jpg", texto: "❤️" },
     ],
     mensajes: ["4 fotos para un sábado perfecto"],
   },
 
   "09-18": {
     tipo: "galeria",
+    importancia: "alta",
     fotos: [
-      { url: "fotos/09-18/foto1.jpg", texto: "18 de septiembre especial" },
-      { url: "fotos/09-18/foto2.jpg", texto: "Miércoles perfecto" },
-      { url: "fotos/09-18/foto3.jpg", texto: "Sonrisas eternas" },
-      { url: "fotos/09-18/foto4.jpg", texto: "Risas compartidas" },
-      { url: "fotos/09-18/foto5.jpg", texto: "Abrazos que curan" },
-      { url: "fotos/09-18/foto6.jpg", texto: "Miradas cómplices" },
-      { url: "fotos/09-18/foto7.jpg", texto: "Momentos únicos" },
-      { url: "fotos/09-18/foto8.jpg", texto: "Complicidad total" },
-      { url: "fotos/09-18/foto9.jpg", texto: "Amor en cada instante" },
+      { url: "fotos/09-18/foto1.jpg", texto: "❤️" },
+      { url: "fotos/09-18/foto2.jpg", texto: "❤️" },
+      { url: "fotos/09-18/foto3.jpg", texto: "❤️" },
+      { url: "fotos/09-18/foto4.jpg", texto: "❤️" },
+      { url: "fotos/09-18/foto5.jpg", texto: "❤️" },
+      { url: "fotos/09-18/foto6.jpg", texto: "❤️" },
+      { url: "fotos/09-18/foto7.jpg", texto: "❤️" },
+      { url: "fotos/09-18/foto8.jpg", texto: "❤️" },
+      { url: "fotos/09-18/foto9.jpg", texto: "❤️" },
     ],
     mensajes: ["9 fotos para un miércoles perfecto"],
   },
 
   "09-19": {
     tipo: "galeria",
+    importancia: "alta",
     fotos: [
-      { url: "fotos/09-19/foto1.jpg", texto: "19 de septiembre mágico" },
-      { url: "fotos/09-19/foto2.jpg", texto: "Jueves perfecto" },
-      { url: "fotos/09-19/foto3.jpg", texto: "Sonrisas eternas" },
-      { url: "fotos/09-19/foto4.jpg", texto: "Risas compartidas" },
-      { url: "fotos/09-19/foto5.jpg", texto: "Abrazos que curan" },
-      { url: "fotos/09-19/foto6.jpg", texto: "Miradas cómplices" },
-      { url: "fotos/09-19/foto7.jpg", texto: "Momentos únicos" },
-      { url: "fotos/09-19/foto8.jpg", texto: "Complicidad total" },
-      { url: "fotos/09-19/foto9.jpg", texto: "Amor en cada instante" },
-      { url: "fotos/09-19/foto10.jpg", texto: "Recuerdos eternos" },
-      { url: "fotos/09-19/foto11.jpg", texto: "Felicidad plena" },
-      { url: "fotos/09-19/foto12.jpg", texto: "Aventuras juntos" },
-      { url: "fotos/09-19/foto13.jpg", texto: "Miradas que enamoran" },
-      { url: "fotos/09-19/foto14.jpg", texto: "Juntos para siempre" },
-      { url: "fotos/09-19/foto15.jpg", texto: "Sonrisas contagiosas" },
-      { url: "fotos/09-19/foto16.jpg", texto: "Abrazos eternos" },
-      { url: "fotos/09-19/foto17.jpg", texto: "Complicidad perfecta" },
-      { url: "fotos/09-19/foto18.jpg", texto: "Momentos dorados" },
-      { url: "fotos/09-19/foto19.jpg", texto: "Risas inolvidables" },
-      { url: "fotos/09-19/foto20.jpg", texto: "Amor infinito" },
-      { url: "fotos/09-19/foto21.jpg", texto: "Para siempre juntos" },
+      { url: "fotos/09-19/foto1.jpg", texto: "❤️" },
+      { url: "fotos/09-19/foto2.jpg", texto: "❤️" },
+      { url: "fotos/09-19/foto3.jpg", texto: "❤️" },
+      { url: "fotos/09-19/foto4.jpg", texto: "❤️" },
+      { url: "fotos/09-19/foto5.jpg", texto: "❤️" },
+      { url: "fotos/09-19/foto6.jpg", texto: "❤️" },
+      { url: "fotos/09-19/foto7.jpg", texto: "❤️" },
+      { url: "fotos/09-19/foto8.jpg", texto: "❤️" },
+      { url: "fotos/09-19/foto9.jpg", texto: "❤️" },
+      { url: "fotos/09-19/foto10.jpg", texto: "❤️" },
+      { url: "fotos/09-19/foto11.jpg", texto: "❤️" },
+      { url: "fotos/09-19/foto12.jpg", texto: "❤️" },
+      { url: "fotos/09-19/foto13.jpg", texto: "❤️" },
+      { url: "fotos/09-19/foto14.jpg", texto: "❤️" },
+      { url: "fotos/09-19/foto15.jpg", texto: "❤️" },
+      { url: "fotos/09-19/foto16.jpg", texto: "❤️" },
+      { url: "fotos/09-19/foto17.jpg", texto: "❤️" },
+      { url: "fotos/09-19/foto18.jpg", texto: "❤️" },
+      { url: "fotos/09-19/foto19.jpg", texto: "❤️" },
+      { url: "fotos/09-19/foto20.jpg", texto: "❤️" },
+      { url: "fotos/09-19/foto21.jpg", texto: "❤️" },
     ],
     mensajes: ["¡21 fotos para un día increíble!"],
   },
 
   "09-20": {
     tipo: "galeria",
+    importancia: "alta",
     fotos: [
-      { url: "fotos/09-20/foto1.jpg", texto: "20 de septiembre inolvidable" },
-      { url: "fotos/09-20/foto2.jpg", texto: "Sábado perfecto" },
-      { url: "fotos/09-20/foto3.jpg", texto: "Sonrisas eternas" },
-      { url: "fotos/09-20/foto4.jpg", texto: "Risas compartidas" },
-      { url: "fotos/09-20/foto5.jpg", texto: "Abrazos que curan" },
-      { url: "fotos/09-20/foto6.jpg", texto: "Miradas cómplices" },
-      { url: "fotos/09-20/foto7.jpg", texto: "Momentos únicos" },
-      { url: "fotos/09-20/foto8.jpg", texto: "Complicidad total" },
-      { url: "fotos/09-20/foto9.jpg", texto: "Amor en cada instante" },
+      { url: "fotos/09-20/foto1.jpg", texto: "❤️" },
+      { url: "fotos/09-20/foto2.jpg", texto: "❤️" },
+      { url: "fotos/09-20/foto3.jpg", texto: "❤️" },
+      { url: "fotos/09-20/foto4.jpg", texto: "❤️" },
+      { url: "fotos/09-20/foto5.jpg", texto: "❤️" },
+      { url: "fotos/09-20/foto6.jpg", texto: "❤️" },
+      { url: "fotos/09-20/foto7.jpg", texto: "❤️" },
+      { url: "fotos/09-20/foto8.jpg", texto: "❤️" },
+      { url: "fotos/09-20/foto9.jpg", texto: "❤️" },
     ],
     mensajes: ["9 fotos para un sábado perfecto"],
   },
 
   "09-21": {
     tipo: "galeria",
+    importancia: "alta",
     fotos: [
-      { url: "fotos/09-21/foto1.jpg", texto: "21 de septiembre especial" },
-      { url: "fotos/09-21/foto2.jpg", texto: "Domingo perfecto" },
-      { url: "fotos/09-21/foto3.jpg", texto: "Sonrisas eternas" },
-      { url: "fotos/09-21/foto4.jpg", texto: "Risas compartidas" },
-      { url: "fotos/09-21/foto5.jpg", texto: "Abrazos que curan" },
-      { url: "fotos/09-21/foto6.jpg", texto: "Momentos únicos" },
+      { url: "fotos/09-21/foto1.jpg", texto: "❤️" },
+      { url: "fotos/09-21/foto2.jpg", texto: "❤️" },
+      { url: "fotos/09-21/foto3.jpg", texto: "❤️" },
+      { url: "fotos/09-21/foto4.jpg", texto: "❤️" },
+      { url: "fotos/09-21/foto5.jpg", texto: "❤️" },
+      { url: "fotos/09-21/foto6.jpg", texto: "❤️" },
     ],
     mensajes: ["6 fotos para un domingo perfecto"],
   },
 
   "09-28": {
     tipo: "galeria",
+    importancia: "media",
     fotos: [
-      { url: "fotos/09-28/foto1.jpg", texto: "28 de septiembre mágico" },
-      { url: "fotos/09-28/foto2.jpg", texto: "Domingo perfecto" },
-      { url: "fotos/09-28/foto3.jpg", texto: "Sonrisas eternas" },
-      { url: "fotos/09-28/foto4.jpg", texto: "Risas compartidas" },
-      { url: "fotos/09-28/foto5.jpg", texto: "Abrazos que curan" },
-      { url: "fotos/09-28/foto6.jpg", texto: "Miradas cómplices" },
-      { url: "fotos/09-28/foto7.jpg", texto: "Momentos únicos" },
-      { url: "fotos/09-28/foto8.jpg", texto: "Complicidad total" },
+      { url: "fotos/09-28/foto1.jpg", texto: "❤️" },
+      { url: "fotos/09-28/foto2.jpg", texto: "❤️" },
+      { url: "fotos/09-28/foto3.jpg", texto: "❤️" },
+      { url: "fotos/09-28/foto4.jpg", texto: "❤️" },
+      { url: "fotos/09-28/foto5.jpg", texto: "❤️" },
+      { url: "fotos/09-28/foto6.jpg", texto: "❤️" },
+      { url: "fotos/09-28/foto7.jpg", texto: "❤️" },
+      { url: "fotos/09-28/foto8.jpg", texto: "❤️" },
     ],
     mensajes: ["8 fotos para un domingo perfecto"],
   },
 
-  // Octubre
   "10-02": {
     tipo: "galeria",
+    importancia: "media",
     fotos: [
-      { url: "fotos/10-02/foto1.jpg", texto: "2 de octubre inolvidable" },
-      { url: "fotos/10-02/foto2.jpg", texto: "Miércoles perfecto" },
-      { url: "fotos/10-02/foto3.jpg", texto: "Sonrisas eternas" },
-      { url: "fotos/10-02/foto4.jpg", texto: "Risas compartidas" },
-      { url: "fotos/10-02/foto5.jpg", texto: "Momentos únicos" },
+      { url: "fotos/10-02/foto1.jpg", texto: "❤️" },
+      { url: "fotos/10-02/foto2.jpg", texto: "❤️" },
+      { url: "fotos/10-02/foto3.jpg", texto: "❤️" },
+      { url: "fotos/10-02/foto4.jpg", texto: "❤️" },
+      { url: "fotos/10-02/foto5.jpg", texto: "❤️" },
     ],
-    mensajes: ["5 fotos para un miércoles perfecto"],
+    mensajes: ["1ra vez que sacaste a Buki"],
   },
 
   "10-04": {
     tipo: "galeria",
-    fotos: [{ url: "fotos/10-04/foto1.jpg", texto: "4 de octubre especial" }],
+    fotos: [{ url: "fotos/10-04/foto1.jpg", texto: "❤️" }],
     mensajes: ["Sábado de amor"],
   },
 
   "10-05": {
     tipo: "galeria",
+    importancia: "alta",
     fotos: [
-      { url: "fotos/10-05/foto1.jpg", texto: "5 de octubre mágico" },
-      { url: "fotos/10-05/foto2.jpg", texto: "Domingo perfecto" },
-      { url: "fotos/10-05/foto3.jpg", texto: "Sonrisas eternas" },
-      { url: "fotos/10-05/foto4.jpg", texto: "Risas compartidas" },
-      { url: "fotos/10-05/foto5.jpg", texto: "Abrazos que curan" },
-      { url: "fotos/10-05/foto6.jpg", texto: "Miradas cómplices" },
-      { url: "fotos/10-05/foto7.jpg", texto: "Momentos únicos" },
+      { url: "fotos/10-05/foto1.jpg", texto: "❤️" },
+      { url: "fotos/10-05/foto2.jpg", texto: "❤️" },
+      { url: "fotos/10-05/foto3.jpg", texto: "❤️" },
+      { url: "fotos/10-05/foto4.jpg", texto: "❤️" },
+      { url: "fotos/10-05/foto5.jpg", texto: "❤️" },
+      { url: "fotos/10-05/foto6.jpg", texto: "❤️" },
+      { url: "fotos/10-05/foto7.jpg", texto: "❤️" },
     ],
-    mensajes: ["7 fotos para un domingo perfecto"],
+    mensajes: ["Mesiversario y al Nacional"],
   },
 
   "10-08": {
     tipo: "galeria",
-    fotos: [{ url: "fotos/10-08/foto1.jpg", texto: "8 de octubre inolvidable" }],
+    fotos: [{ url: "fotos/10-08/foto1.jpg", texto: "❤️" }],
     mensajes: ["Martes de amor"],
   },
 
   "10-09": {
     tipo: "galeria",
-    fotos: [{ url: "fotos/10-09/foto1.jpg", texto: "9 de octubre especial" }],
+    fotos: [{ url: "fotos/10-09/foto1.jpg", texto: "❤️" }],
     mensajes: ["Miércoles de amor"],
   },
 
   "10-11": {
     tipo: "galeria",
+    importancia: "media",
     fotos: [
-      { url: "fotos/10-11/foto1.jpg", texto: "11 de octubre mágico" },
-      { url: "fotos/10-11/foto2.jpg", texto: "Sábado perfecto" },
-      { url: "fotos/10-11/foto3.jpg", texto: "Sonrisas eternas" },
-      { url: "fotos/10-11/foto4.jpg", texto: "Risas compartidas" },
-      { url: "fotos/10-11/foto5.jpg", texto: "Abrazos que curan" },
-      { url: "fotos/10-11/foto6.jpg", texto: "Miradas cómplices" },
-      { url: "fotos/10-11/foto7.jpg", texto: "Momentos únicos" },
-      { url: "fotos/10-11/foto8.jpg", texto: "Complicidad total" },
+      { url: "fotos/10-11/foto1.jpg", texto: "❤️" },
+      { url: "fotos/10-11/foto2.jpg", texto: "❤️" },
+      { url: "fotos/10-11/foto3.jpg", texto: "❤️" },
+      { url: "fotos/10-11/foto4.jpg", texto: "❤️" },
+      { url: "fotos/10-11/foto5.jpg", texto: "❤️" },
+      { url: "fotos/10-11/foto6.jpg", texto: "❤️" },
+      { url: "fotos/10-11/foto7.jpg", texto: "❤️" },
+      { url: "fotos/10-11/foto8.jpg", texto: "❤️" },
     ],
-    mensajes: ["8 fotos para un sábado perfecto"],
+    mensajes: ["SuperMarket Hod Dogs"],
   },
 
   "10-16": {
     tipo: "galeria",
+    importancia: "media",
     fotos: [
-      { url: "fotos/10-16/foto1.jpg", texto: "16 de octubre inolvidable" },
-      { url: "fotos/10-16/foto2.jpg", texto: "Miércoles perfecto" },
-      { url: "fotos/10-16/foto3.jpg", texto: "Sonrisas eternas" },
-      { url: "fotos/10-16/foto4.jpg", texto: "Complicidad única" },
+      { url: "fotos/10-16/foto1.jpg", texto: "❤️" },
+      { url: "fotos/10-16/foto2.jpg", texto: "❤️" },
+      { url: "fotos/10-16/foto3.jpg", texto: "❤️" },
+      { url: "fotos/10-16/foto4.jpg", texto: "❤️" },
     ],
     mensajes: ["4 fotos para un miércoles perfecto"],
   },
 
   "10-18": {
     tipo: "galeria",
-    fotos: [{ url: "fotos/10-18/foto1.jpg", texto: "18 de octubre especial" }],
+    fotos: [{ url: "fotos/10-18/foto1.jpg", texto: "❤️" }],
     mensajes: ["Sábado de amor"],
   },
 
   "10-26": {
     tipo: "galeria",
+    importancia: "media",
     fotos: [
-      { url: "fotos/10-26/foto1.jpg", texto: "26 de octubre mágico" },
-      { url: "fotos/10-26/foto2.jpg", texto: "Domingo perfecto" },
+      { url: "fotos/10-26/foto1.jpg", texto: "❤️" },
+      { url: "fotos/10-26/foto2.jpg", texto: "❤️" },
     ],
-    mensajes: ["2 fotos para un domingo perfecto"],
+    mensajes: ["Sapori"],
   },
 
   "10-31": {
     tipo: "galeria",
+    importancia: "alta",
     fotos: [
-      { url: "fotos/10-31/foto1.jpg", texto: "¡Halloween juntos!" },
-      { url: "fotos/10-31/foto2.jpg", texto: "Disfraces divertidos" },
-      { url: "fotos/10-31/foto3.jpg", texto: "Risas de miedo" },
-      { url: "fotos/10-31/foto4.jpg", texto: "Momento espeluznante" },
-      { url: "fotos/10-31/foto5.jpg", texto: "Abrazos que asustan" },
-      { url: "fotos/10-31/foto6.jpg", texto: "Miradas tenebrosas" },
-      { url: "fotos/10-31/foto7.jpg", texto: "Momentos de terror" },
-      { url: "fotos/10-31/foto8.jpg", texto: "Complicidad monstruosa" },
-      { url: "fotos/10-31/foto9.jpg", texto: "Dulce o truco" },
+      { url: "fotos/10-31/foto1.jpg", texto: "❤️" },
+      { url: "fotos/10-31/foto2.jpg", texto: "❤️" },
+      { url: "fotos/10-31/foto3.jpg", texto: "❤️" },
+      { url: "fotos/10-31/foto4.jpg", texto: "❤️" },
+      { url: "fotos/10-31/foto5.jpg", texto: "❤️" },
+      { url: "fotos/10-31/foto6.jpg", texto: "❤️" },
+      { url: "fotos/10-31/foto7.jpg", texto: "❤️" },
+      { url: "fotos/10-31/foto8.jpg", texto: "❤️" },
+      { url: "fotos/10-31/foto9.jpg", texto: "❤️" },
     ],
-    mensajes: ["¡9 fotos espeluznantes para Halloween!"],
+    mensajes: ["¡Men in Black!",
+      "1er Halloween juntos",
+      "La rompimos con esos disfraces",
+      "Otro día que marcó nuestra relación",
+    ],
   },
 
-  // Noviembre
   "11-01": {
     tipo: "galeria",
-    fotos: [{ url: "fotos/11-01/foto1.jpg", texto: "1 de noviembre inolvidable" }],
+    fotos: [{ url: "fotos/11-01/foto1.jpg", texto: "❤️" }],
     mensajes: ["Día de Todos los Santos contigo"],
   },
 
   "11-04": {
     tipo: "galeria",
-    fotos: [{ url: "fotos/11-04/foto1.jpg", texto: "4 de noviembre especial" }],
+    fotos: [{ url: "fotos/11-04/foto1.jpg", texto: "❤️" }],
     mensajes: ["Lunes de amor"],
   },
 
   "11-16": {
     tipo: "galeria",
+    importancia: "media",
     fotos: [
-      { url: "fotos/11-16/foto1.jpg", texto: "16 de noviembre mágico" },
-      { url: "fotos/11-16/foto2.jpg", texto: "Domingo perfecto" },
+      { url: "fotos/11-16/foto1.jpg", texto: "❤️" },
+      { url: "fotos/11-16/foto2.jpg", texto: "❤️" },
     ],
     mensajes: ["2 fotos para un domingo perfecto"],
   },
 
   "11-22": {
     tipo: "galeria",
+    importancia: "media",
     fotos: [
-      { url: "fotos/11-22/foto1.jpg", texto: "22 de noviembre inolvidable" },
-      { url: "fotos/11-22/foto2.jpg", texto: "Sábado perfecto" },
-      { url: "fotos/11-22/foto3.jpg", texto: "Complicidad única" },
+      { url: "fotos/11-22/foto1.jpg", texto: "❤️" },
+      { url: "fotos/11-22/foto2.jpg", texto: "❤️" },
+      { url: "fotos/11-22/foto3.jpg", texto: "❤️" },
     ],
-    mensajes: ["3 fotos para un sábado perfecto"],
+    mensajes: ["La vi llegar al Don Cangrejo",
+      "con ese vestido azul",
+      "que hasta el mar tenía envidia",
+    ],
   },
 
   "11-23": {
     tipo: "galeria",
+    importancia: "media",
     fotos: [
-      { url: "fotos/11-23/foto1.jpg", texto: "23 de noviembre especial" },
-      { url: "fotos/11-23/foto2.jpg", texto: "Domingo perfecto" },
-      { url: "fotos/11-23/foto3.jpg", texto: "Sonrisas eternas" },
-      { url: "fotos/11-23/foto4.jpg", texto: "Risas compartidas" },
-      { url: "fotos/11-23/foto5.jpg", texto: "Abrazos que curan" },
-      { url: "fotos/11-23/foto6.jpg", texto: "Momentos únicos" },
+      { url: "fotos/11-23/foto1.jpg", texto: "❤️" },
+      { url: "fotos/11-23/foto2.jpg", texto: "❤️" },
+      { url: "fotos/11-23/foto3.jpg", texto: "❤️" },
+      { url: "fotos/11-23/foto4.jpg", texto: "❤️" },
+      { url: "fotos/11-23/foto5.jpg", texto: "❤️" },
+      { url: "fotos/11-23/foto6.jpg", texto: "❤️" },
     ],
     mensajes: ["6 fotos para un domingo perfecto"],
   },
 
   "11-30": {
     tipo: "galeria",
+    importancia: "media",
     fotos: [
-      { url: "fotos/11-30/foto1.jpg", texto: "30 de noviembre mágico" },
-      { url: "fotos/11-30/foto2.jpg", texto: "Último día de noviembre" },
+      { url: "fotos/11-30/foto1.jpg", texto: "❤️" },
+      { url: "fotos/11-30/foto2.jpg", texto: "❤️" },
     ],
     mensajes: ["Despidiendo noviembre con 2 fotos"],
   },
 
-  // Diciembre
   "12-02": {
     tipo: "galeria",
     fotos: [
-      { url: "fotos/12-02/foto1.jpg", texto: "2 de diciembre inolvidable" },
-      { url: "fotos/12-02/foto2.jpg", texto: "Lunes perfecto" },
-      { url: "fotos/12-02/foto3.jpg", texto: "Complicidad única" },
+      { url: "fotos/12-02/foto1.jpg", texto: "❤️" },
+      { url: "fotos/12-02/foto2.jpg", texto: "❤️" },
+      { url: "fotos/12-02/foto3.jpg", texto: "❤️" },
     ],
     mensajes: ["3 fotos para un lunes perfecto"],
   },
@@ -1543,460 +1682,149 @@ const diasEspeciales = {
   "12-04": {
     tipo: "galeria",
     fotos: [
-      { url: "fotos/12-04/foto1.jpg", texto: "4 de diciembre especial" },
-      { url: "fotos/12-04/foto2.jpg", texto: "Miércoles perfecto" },
-      { url: "fotos/12-04/foto3.jpg", texto: "Sonrisas eternas" },
+      { url: "fotos/12-04/foto1.jpg", texto: "❤️" },
+      { url: "fotos/12-04/foto2.jpg", texto: "❤️" },
+      { url: "fotos/12-04/foto3.jpg", texto: "❤️" },
     ],
     mensajes: ["3 fotos para un miércoles perfecto"],
   },
 
   "12-06": {
     tipo: "galeria",
+    importancia: "media",
     fotos: [
-      { url: "fotos/12-06/foto1.jpg", texto: "6 de diciembre mágico" },
-      { url: "fotos/12-06/foto2.jpg", texto: "Sábado perfecto" },
-      { url: "fotos/12-06/foto3.jpg", texto: "Sonrisas eternas" },
-      { url: "fotos/12-06/foto4.jpg", texto: "Complicidad única" },
+      { url: "fotos/12-06/foto1.jpg", texto: "❤️" },
+      { url: "fotos/12-06/foto2.jpg", texto: "❤️" },
+      { url: "fotos/12-06/foto3.jpg", texto: "❤️" },
+      { url: "fotos/12-06/foto4.jpg", texto: "❤️" },
     ],
-    mensajes: ["4 fotos para un sábado perfecto"],
+    mensajes: ["Festival de cine"],
   },
 
   "12-10": {
     tipo: "galeria",
-    fotos: [{ url: "fotos/12-10/foto1.jpg", texto: "10 de diciembre inolvidable" }],
+    fotos: [{ url: "fotos/12-10/foto1.jpg", texto: "❤️" }],
     mensajes: ["Martes de amor"],
   },
 
   "12-11": {
     tipo: "galeria",
-    fotos: [{ url: "fotos/12-11/foto1.jpg", texto: "11 de diciembre especial" }],
+    fotos: [{ url: "fotos/12-11/foto1.jpg", texto: "❤️" }],
     mensajes: ["Miércoles de amor"],
   },
 
   "12-15": {
     tipo: "galeria",
+    importancia: "media",
     fotos: [
-      { url: "fotos/12-15/foto1.jpg", texto: "15 de diciembre mágico" },
-      { url: "fotos/12-15/foto2.jpg", texto: "Lunes perfecto" },
-      { url: "fotos/12-15/foto3.jpg", texto: "Sonrisas eternas" },
-      { url: "fotos/12-15/foto4.jpg", texto: "Risas compartidas" },
-      { url: "fotos/12-15/foto5.jpg", texto: "Abrazos que curan" },
-      { url: "fotos/12-15/foto6.jpg", texto: "Momentos únicos" },
+      { url: "fotos/12-15/foto1.jpg", texto: "❤️" },
+      { url: "fotos/12-15/foto2.jpg", texto: "❤️" },
+      { url: "fotos/12-15/foto3.jpg", texto: "❤️" },
+      { url: "fotos/12-15/foto4.jpg", texto: "❤️" },
+      { url: "fotos/12-15/foto5.jpg", texto: "❤️" },
+      { url: "fotos/12-15/foto6.jpg", texto: "❤️" },
     ],
-    mensajes: ["6 fotos para un lunes perfecto"],
+    mensajes: ["Al Forno"],
   },
 
   "12-19": {
     tipo: "galeria",
+    importancia: "media",
     fotos: [
-      { url: "fotos/12-19/foto1.jpg", texto: "19 de diciembre inolvidable" },
-      { url: "fotos/12-19/foto2.jpg", texto: "Viernes perfecto" },
-      { url: "fotos/12-19/foto3.jpg", texto: "Sonrisas eternas" },
-      { url: "fotos/12-19/foto4.jpg", texto: "Risas compartidas" },
-      { url: "fotos/12-19/foto5.jpg", texto: "Abrazos que curan" },
-      { url: "fotos/12-19/foto6.jpg", texto: "Miradas cómplices" },
-      { url: "fotos/12-19/foto7.jpg", texto: "Momentos únicos" },
-      { url: "fotos/12-19/foto8.jpg", texto: "Complicidad total" },
+      { url: "fotos/12-19/foto1.jpg", texto: "❤️" },
+      { url: "fotos/12-19/foto2.jpg", texto: "❤️" },
+      { url: "fotos/12-19/foto3.jpg", texto: "❤️" },
+      { url: "fotos/12-19/foto4.jpg", texto: "❤️" },
+      { url: "fotos/12-19/foto5.jpg", texto: "❤️" },
+      { url: "fotos/12-19/foto6.jpg", texto: "❤️" },
+      { url: "fotos/12-19/foto7.jpg", texto: "❤️" },
+      { url: "fotos/12-19/foto8.jpg", texto: "❤️" },
     ],
-    mensajes: ["8 fotos para un viernes perfecto"],
+    mensajes: ["Mixtura"],
   },
 
   "12-20": {
     tipo: "galeria",
+    importancia: "media",
     fotos: [
-      { url: "fotos/12-20/foto1.jpg", texto: "20 de diciembre especial" },
-      { url: "fotos/12-20/foto2.jpg", texto: "Sábado perfecto" },
-      { url: "fotos/12-20/foto3.jpg", texto: "Sonrisas eternas" },
-      { url: "fotos/12-20/foto4.jpg", texto: "Complicidad única" },
+      { url: "fotos/12-20/foto1.jpg", texto: "❤️" },
+      { url: "fotos/12-20/foto2.jpg", texto: "❤️" },
+      { url: "fotos/12-20/foto3.jpg", texto: "❤️" },
+      { url: "fotos/12-20/foto4.jpg", texto: "❤️" },
     ],
     mensajes: ["4 fotos para un sábado perfecto"],
   },
 
   "12-21": {
     tipo: "galeria",
+    importancia: "media",
     fotos: [
-      { url: "fotos/12-21/foto1.jpg", texto: "21 de diciembre mágico" },
-      { url: "fotos/12-21/foto2.jpg", texto: "Domingo perfecto" },
-      { url: "fotos/12-21/foto3.jpg", texto: "Sonrisas eternas" },
-      { url: "fotos/12-21/foto4.jpg", texto: "Risas compartidas" },
-      { url: "fotos/12-21/foto5.jpg", texto: "Abrazos que curan" },
-      { url: "fotos/12-21/foto6.jpg", texto: "Momentos únicos" },
+      { url: "fotos/12-21/foto1.jpg", texto: "❤️" },
+      { url: "fotos/12-21/foto2.jpg", texto: "❤️" },
+      { url: "fotos/12-21/foto3.jpg", texto: "❤️" },
+      { url: "fotos/12-21/foto4.jpg", texto: "❤️" },
+      { url: "fotos/12-21/foto5.jpg", texto: "❤️" },
+      { url: "fotos/12-21/foto6.jpg", texto: "❤️" },
     ],
     mensajes: ["6 fotos para un domingo perfecto"],
   },
 
   "12-28": {
     tipo: "galeria",
+    importancia: "media",
     fotos: [
-      { url: "fotos/12-28/foto1.jpg", texto: "28 de diciembre inolvidable" },
-      { url: "fotos/12-28/foto2.jpg", texto: "Domingo perfecto" },
-      { url: "fotos/12-28/foto3.jpg", texto: "Sonrisas eternas" },
-      { url: "fotos/12-28/foto4.jpg", texto: "Risas compartidas" },
-      { url: "fotos/12-28/foto5.jpg", texto: "Abrazos que curan" },
-      { url: "fotos/12-28/foto6.jpg", texto: "Miradas cómplices" },
-      { url: "fotos/12-28/foto7.jpg", texto: "Momentos únicos" },
+      { url: "fotos/12-28/foto1.jpg", texto: "❤️" },
+      { url: "fotos/12-28/foto2.jpg", texto: "❤️" },
+      { url: "fotos/12-28/foto3.jpg", texto: "❤️" },
+      { url: "fotos/12-28/foto4.jpg", texto: "❤️" },
+      { url: "fotos/12-28/foto5.jpg", texto: "❤️" },
+      { url: "fotos/12-28/foto6.jpg", texto: "❤️" },
+      { url: "fotos/12-28/foto7.jpg", texto: "❤️" },
     ],
-    mensajes: ["7 fotos para un domingo perfecto"],
+    mensajes: ["Mixtura x2",
+      "LLegamos fajados y nos arreglamos allá",
+      "Como podrás ver en el calendario antes de este día llevábamos 6 días sin vernos",
+      "Este día descubrí que pasados 3 días te vueleves loca literal",
+      "Y quieres fajarte por cualquier cosa",
+      "Pero quitando eso fue un buen día que terminño en sexo x suerte",
+    ],
   },
 
   "12-30": {
     tipo: "galeria",
+    importancia: "media",
     fotos: [
-      { url: "fotos/12-30/foto1.jpg", texto: "30 de diciembre especial" },
-      { url: "fotos/12-30/foto2.jpg", texto: "Martes perfecto" },
-      { url: "fotos/12-30/foto3.jpg", texto: "Sonrisas eternas" },
-      { url: "fotos/12-30/foto4.jpg", texto: "Risas compartidas" },
-      { url: "fotos/12-30/foto5.jpg", texto: "Abrazos que curan" },
-      { url: "fotos/12-30/foto6.jpg", texto: "Miradas cómplices" },
-      { url: "fotos/12-30/foto7.jpg", texto: "Momentos únicos" },
-      { url: "fotos/12-30/foto8.jpg", texto: "Complicidad total" },
+      { url: "fotos/12-30/foto1.jpg", texto: "❤️" },
+      { url: "fotos/12-30/foto2.jpg", texto: "❤️" },
+      { url: "fotos/12-30/foto3.jpg", texto: "❤️" },
+      { url: "fotos/12-30/foto4.jpg", texto: "❤️" },
+      { url: "fotos/12-30/foto5.jpg", texto: "❤️" },
+      { url: "fotos/12-30/foto6.jpg", texto: "❤️" },
+      { url: "fotos/12-30/foto7.jpg", texto: "❤️" },
+      { url: "fotos/12-30/foto8.jpg", texto: "❤️" },
     ],
-    mensajes: ["8 fotos para despedir el año"],
+    mensajes: ["Perú"],
   },
 
   "12-31": {
     tipo: "galeria",
+    importancia: "alta",
     fotos: [
-      { url: "fotos/12-31/foto1.jpg", texto: "¡Último día del año!" },
-      { url: "fotos/12-31/foto2.jpg", texto: "Celebrando juntos" },
-      { url: "fotos/12-31/foto3.jpg", texto: "Sonrisas de fin de año" },
-      { url: "fotos/12-31/foto4.jpg", texto: "Risas compartidas" },
-      { url: "fotos/12-31/foto5.jpg", texto: "Abrazos que curan" },
-      { url: "fotos/12-31/foto6.jpg", texto: "Miradas cómplices" },
-      { url: "fotos/12-31/foto7.jpg", texto: "Momentos únicos" },
-      { url: "fotos/12-31/foto8.jpg", texto: "Complicidad total" },
-      { url: "fotos/12-31/foto9.jpg", texto: "¡Feliz Año Nuevo!" },
+      { url: "fotos/12-31/foto1.jpg", texto: "❤️" },
+      { url: "fotos/12-31/foto2.jpg", texto: "❤️" },
+      { url: "fotos/12-31/foto3.jpg", texto: "❤️" },
+      { url: "fotos/12-31/foto4.jpg", texto: "❤️" },
+      { url: "fotos/12-31/foto5.jpg", texto: "❤️" },
+      { url: "fotos/12-31/foto6.jpg", texto: "❤️" },
+      { url: "fotos/12-31/foto7.jpg", texto: "❤️" },
+      { url: "fotos/12-31/foto8.jpg", texto: "❤️" },
+      { url: "fotos/12-31/foto9.jpg", texto: "❤️" },
     ],
-    mensajes: ["9 fotos para despedir el año con amor"],
-  },
-
-  "01-02": {
-    tipo: "galeria",
-    fotos: [
-      { url: "fotos/01-02/foto1.jpg", texto: "Ese abdomen perfecto" },
+    mensajes: ["1er fin de año juntos",
+      "El día con tu familia y la noche con la mía",
+      "Este día fue perfecto y creo que también marcó un antes y un después",
     ],
   },
-
-  "01-05": {
-    tipo: "galeria",
-    fotos: [
-      { url: "fotos/01-05/foto1.jpg" },
-      { url: "fotos/01-05/foto2.jpg" },
-      { url: "fotos/01-05/foto3.jpg" },
-      { url: "fotos/01-05/foto4.jpg" },
-      { url: "fotos/01-05/foto5.jpg" },
-    ],
-    mensajes: ["5ta y A"],
-  },
-
-    "01-06": {
-    tipo: "galeria",
-    fotos: [
-      { url: "fotos/01-06/foto1.jpg" },
-      { url: "fotos/01-06/foto2.jpg" },
- ],
-    mensajes: ["Mi pullover"],
-  },
-
-  "01-11": {
-    tipo: "galeria",
-    fotos: [
-      { url: "fotos/01-11/foto1.jpg" },
- ],
-    mensajes: ["Saliendo contigo jóven y contigo vieja "],
-  },
-
-  "01-12": {
-    tipo: "galeria",
-    fotos: [
-      { url: "fotos/01-12/foto1.jpg" },
-      { url: "fotos/01-12/foto2.jpg" },
-      { url: "fotos/01-12/foto3.jpg" },
-      { url: "fotos/01-12/foto4.jpg" },
-      { url: "fotos/01-12/foto5.jpg" },
-      { url: "fotos/01-12/foto6.jpg" },
-      { url: "fotos/01-12/foto7.jpg" },
-      { url: "fotos/01-12/foto8.jpg" },
-      { url: "fotos/01-12/foto9.jpg" },
-    ],
-    mensajes: ["El faro"],
-  },
-
-   "01-13": {
-    tipo: "galeria",
-    fotos: [
-      { url: "fotos/01-13/foto1.jpg" },
- ],
-    mensajes: ["Dejándome noticas "],
-  },
-
-  "01-24": {
-    tipo: "galeria",
-    fotos: [
-      { url: "fotos/01-24/foto1.jpg" },
-      { url: "fotos/01-24/foto2.jpg" },
-      { url: "fotos/01-24/foto3.jpg" },
-      { url: "fotos/01-24/foto4.jpg" },
-      { url: "fotos/01-24/foto5.jpg" },
-      { url: "fotos/01-24/foto6.jpg" },
-      { url: "fotos/01-24/foto7.jpg" },
-    ],
-    mensajes: ["Wapa estabas tú"],
-  },
-
-  "01-25": {
-    tipo: "galeria",
-    fotos: [
-      { url: "fotos/01-25/foto1.jpg" },
-      { url: "fotos/01-25/foto2.jpg" },
-      { url: "fotos/01-25/foto3.jpg" },
-      { url: "fotos/01-25/foto4.jpg" },
-      { url: "fotos/01-25/foto5.jpg" },
-      { url: "fotos/01-25/foto6.jpg" },
-    ],
-    mensajes: ["Tu primera vez en el latino"],
-  },
-
-  "01-29": {
-    tipo: "galeria",
-    fotos: [
-      { url: "fotos/01-29/foto1.jpg" },
-      { url: "fotos/01-29/foto2.jpg" },
-    ],
-    mensajes: ["Terminando nuestro 1er rompecabezas"],
-  },
-
-"01-31": {
-    tipo: "galeria",
-    fotos: [
-      { url: "fotos/01-31/foto1.jpg" },
-      { url: "fotos/01-31/foto2.jpg" },
-      { url: "fotos/01-31/foto3.jpg" },
-      { url: "fotos/01-31/foto4.jpg" },
-    ],
-    mensajes: ["Mini Pochi"],
-  },
-
-  "02-01": {
-    tipo: "galeria",
-    fotos: [
-      { url: "fotos/02-01/foto1.jpg", texto: "Una therian?" },
-    ],
-  },
-
-  "02-02": {
-    tipo: "galeria",
-    fotos: [
-      { url: "fotos/02-02/foto1.jpg" },
-      { url: "fotos/02-02/foto2.jpg" },
-      { url: "fotos/02-02/foto3.jpg" },
-      { url: "fotos/02-02/foto4.jpg" },
-      { url: "fotos/02-02/foto5.jpg" },
-      { url: "fotos/02-02/foto6.jpg" },
-      { url: "fotos/02-02/foto7.jpg" },
-    ],
-    mensajes: ["Mochila Mochila"],
-  },
-
-    "02-03": {
-    tipo: "galeria",
-    fotos: [
-      { url: "fotos/02-03/foto1.jpg", texto: "Que linda mi mulata" },
-    ],
-  },
-
-    "02-05": {
-    tipo: "galeria",
-    fotos: [
-      { url: "fotos/02-05/foto1.jpg" },
-      { url: "fotos/02-05/foto2.jpg" },
-      { url: "fotos/02-05/foto3.jpg" },
-      { url: "fotos/02-05/foto4.jpg" },
-    ],
-    mensajes: ["Esa enguatada te queda mejor que a mí"],
-  },
-
-    "02-06": {
-    tipo: "galeria",
-    fotos: [
-      { url: "fotos/02-06/foto1.jpg" },
-      { url: "fotos/02-06/foto2.jpg" },
-      { url: "fotos/02-06/foto3.jpg" },
-      { url: "fotos/02-06/foto4.jpg" },
-      { url: "fotos/02-06/foto5.jpg" },
-      { url: "fotos/02-06/foto6.jpg" },
-    ],
-    mensajes: ["Otro latino juntos"],
-  },
-
-   "02-07": {
-    tipo: "galeria",
-    fotos: [
-      { url: "fotos/02-07/foto1.jpg", texto: "Que bellos somos" },
-      { url: "fotos/02-07/foto2.jpg" },
-      { url: "fotos/02-07/foto3.jpg" },
-      { url: "fotos/02-07/foto4.jpg" },
-      { url: "fotos/02-07/foto5.jpg", texto: "Vampirito" },
-      { url: "fotos/02-07/foto6.jpg", texto: "y ese beso?" },
-      { url: "fotos/02-07/foto7.jpg", texto: "Al fin lo terminamos" },
-    ],
-  },
-
-   "02-08": {
-    tipo: "galeria",
-    fotos: [
-      { url: "fotos/02-08/foto1.jpg" },
-      { url: "fotos/02-08/foto2.jpg" },
-    ],
-    mensajes: ["Acabados de despertar"],
-  },
-
-      "02-09": {
-    tipo: "galeria",
-    fotos: [
-      { url: "fotos/02-09/foto1.jpg", texto: "y ese culón?" },
-    ],
-  },
-
-  "02-13": {
-    tipo: "galeria",
-    fotos: [
-      { url: "fotos/02-13/foto1.jpg" },
-      { url: "fotos/02-13/foto2.jpg" },
-      { url: "fotos/02-13/foto3.jpg" },
-      { url: "fotos/02-13/foto4.jpg" },
-      { url: "fotos/02-13/foto5.jpg" },
-      { url: "fotos/02-13/foto6.jpg" },
-    ],
-    mensajes: ["Los desesperados, ni al 14 pudimos esperar"],
-  },
-
-  "02-14": {
-    tipo: "galeria",
-    fotos: [
-      { url: "fotos/02-14/foto1.jpg" },
-      { url: "fotos/02-14/foto2.jpg" },
-      { url: "fotos/02-14/foto3.jpg" },
-      { url: "fotos/02-14/foto4.jpg" },
-      { url: "fotos/02-14/foto5.jpg" },
-      { url: "fotos/02-14/foto6.jpg" },
-      { url: "fotos/02-14/foto7.jpg" },
-      { url: "fotos/02-14/foto8.jpg" },
-      { url: "fotos/02-14/foto9.jpg" },
-      { url: "fotos/02-14/foto10.jpg" },
-      { url: "fotos/02-14/foto11.jpg" },
-      { url: "fotos/02-14/foto12.jpg" },
-      { url: "fotos/02-14/foto13.jpg" },
-      { url: "fotos/02-14/foto14.jpg" },
-      { url: "fotos/02-14/foto15.jpg" },
-      { url: "fotos/02-14/foto16.jpg" },
-      { url: "fotos/02-14/foto17.jpg" },
-    ],
-    mensajes: ["Nuestro 1er 14 de febrero juntos"],
-  },
-
-        "02-17": {
-    tipo: "galeria",
-    fotos: [
-      { url: "fotos/02-17/foto1.jpg", texto: "y esas cejas tan lindas?" },
-    ],
-  },
-
-"02-20": { // 20 de febrero - 3 fotos
-    tipo: "galeria",
-    fotos: [
-      { url: "fotos/02-20/foto1.jpg", texto: "20 de febrero especial" },
-      { url: "fotos/02-20/foto2.jpg", texto: "Risas compartidas" },
-      { url: "fotos/02-20/foto3.jpg", texto: "Momentos únicos" },
-    ],
-    mensajes: ["3 fotos para un jueves perfecto"],
-  },
-
-  "02-21": { // 21 de febrero - 5 fotos
-    tipo: "galeria",
-    fotos: [
-      { url: "fotos/02-21/foto1.jpg", texto: "21 de febrero inolvidable" },
-      { url: "fotos/02-21/foto2.jpg", texto: "Viernes perfecto" },
-      { url: "fotos/02-21/foto3.jpg", texto: "Sonrisas eternas" },
-      { url: "fotos/02-21/foto4.jpg", texto: "Complicidad única" },
-      { url: "fotos/02-21/foto5.jpg", texto: "Amor en cada instante" },
-    ],
-    mensajes: ["5 fotos para un viernes perfecto"],
-  },
-
-  "02-22": { // 22 de febrero - 16 fotos
-    tipo: "galeria",
-    fotos: [
-      { url: "fotos/02-22/foto1.jpg", texto: "22 de febrero mágico" },
-      { url: "fotos/02-22/foto2.jpg", texto: "Sábado perfecto" },
-      { url: "fotos/02-22/foto3.jpg", texto: "Sonrisas eternas" },
-      { url: "fotos/02-22/foto4.jpg", texto: "Risas compartidas" },
-      { url: "fotos/02-22/foto5.jpg", texto: "Abrazos que curan" },
-      { url: "fotos/02-22/foto6.jpg", texto: "Miradas cómplices" },
-      { url: "fotos/02-22/foto7.jpg", texto: "Momentos únicos" },
-      { url: "fotos/02-22/foto8.jpg", texto: "Complicidad total" },
-      { url: "fotos/02-22/foto9.jpg", texto: "Amor en cada instante" },
-      { url: "fotos/02-22/foto10.jpg", texto: "Recuerdos eternos" },
-      { url: "fotos/02-22/foto11.jpg", texto: "Felicidad plena" },
-      { url: "fotos/02-22/foto12.jpg", texto: "Aventuras juntos" },
-      { url: "fotos/02-22/foto13.jpg", texto: "Miradas que enamoran" },
-      { url: "fotos/02-22/foto14.jpg", texto: "Juntos para siempre" },
-      { url: "fotos/02-22/foto15.jpg", texto: "Sonrisas contagiosas" },
-      { url: "fotos/02-22/foto16.jpg", texto: "Amor infinito" },
-    ],
-    mensajes: ["¡16 fotos para un sábado espectacular!"],
-  },
-
-  "02-23": { // 23 de febrero - 2 fotos
-    tipo: "galeria",
-    fotos: [
-      { url: "fotos/02-23/foto1.jpg", texto: "23 de febrero especial" },
-      { url: "fotos/02-23/foto2.jpg", texto: "Domingo perfecto" },
-    ],
-    mensajes: ["2 fotos para un domingo perfecto"],
-  },
-
-  "02-24": { // 24 de febrero - 3 fotos
-    tipo: "galeria",
-    fotos: [
-      { url: "fotos/02-24/foto1.jpg", texto: "24 de febrero inolvidable" },
-      { url: "fotos/02-24/foto2.jpg", texto: "Lunes perfecto" },
-      { url: "fotos/02-24/foto3.jpg", texto: "Complicidad única" },
-    ],
-    mensajes: ["3 fotos para un lunes perfecto"],
-  },
-
-  "02-26": { // 25 de febrero - 1 foto
-    tipo: "galeria",
-    fotos: [
-      { url: "fotos/02-26/foto1.jpg", texto: "25 de febrero mágico" },
-    ],
-    mensajes: ["Martes de amor"],
-  },
-
-  "02-28": { // 28 de febrero - 1 foto
-    tipo: "galeria",
-    fotos: [
-      { url: "fotos/02-28/foto1.jpg", texto: "28 de febrero especial" },
-    ],
-    mensajes: ["Despidiendo febrero con amor"],
-  },
-
-  "03-01": { // 1 de marzo - 8 fotos
-    tipo: "galeria",
-    fotos: [
-      { url: "fotos/03-01/foto1.jpg", texto: "¡Comienza marzo!" },
-      { url: "fotos/03-01/foto2.jpg", texto: "Domingo perfecto" },
-      { url: "fotos/03-01/foto3.jpg", texto: "Sonrisas eternas" },
-      { url: "fotos/03-01/foto4.jpg", texto: "Risas compartidas" },
-      { url: "fotos/03-01/foto5.jpg", texto: "Abrazos que curan" },
-      { url: "fotos/03-01/foto6.jpg", texto: "Miradas cómplices" },
-      { url: "fotos/03-01/foto7.jpg", texto: "Momentos únicos" },
-      { url: "fotos/03-01/foto8.jpg", texto: "Complicidad total" },
-    ],
-    mensajes: ["¡Nuevo mes con 8 fotos de felicidad!"],
-  },
-
 
   // Día del aniversario (5 abril 2026)
   "2026-04-05": {

@@ -13,7 +13,8 @@ const canciones = [
     "audio/labiosCompartidos.mp3", 
     "audio/barbacoa.mp3",
     "audio/jardin.mp3",
-    "audio/rikaperry.mp3"
+    "audio/rikaperry.mp3",
+    "audio/comoPanas.mp3"
 ];
 
 // Nombres para mostrar de las canciones
@@ -24,7 +25,8 @@ const nombresCanciones = [
     "Tus Labios (Mine)👄",
     "Barbacoa (las #1)🍟",
     "Tu Artista (Melendi)🌸",
-    "Que Buena Estás (HOT!)🥭"
+    "Que Buena Estás (HOT!)🥭",
+    "Como Panas (BFF) 👩‍❤️‍👨"
 ];
 
 let cancionActual = 0;
