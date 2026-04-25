@@ -1209,7 +1209,6 @@ function cerrarPopupPersonalizado() {
         }, 300);
     }
 }
-// ==================== CONFIGURAR CAROUSEL HORIZONTAL - SIN SWIPE, SOLO FLECHAS ====================
 function configurarCarouselHorizontal(contenedorCarousel, multimediaArray) {
     if (!contenedorCarousel || !multimediaArray.length) return;
     
@@ -1320,7 +1319,11 @@ function configurarCarouselHorizontal(contenedorCarousel, multimediaArray) {
 
     // Configurar eventos de navegación con FLECHAS
     if (btnAnterior) {
-        btnAnterior.onclick = function(e) {
+        // Eliminar eventos anteriores
+        const nuevoBtnAnterior = btnAnterior.cloneNode(true);
+        btnAnterior.parentNode.replaceChild(nuevoBtnAnterior, btnAnterior);
+        
+        nuevoBtnAnterior.onclick = function(e) {
             e.stopPropagation();
             if (slideActual > 0) {
                 slideActual--;
@@ -1330,7 +1333,11 @@ function configurarCarouselHorizontal(contenedorCarousel, multimediaArray) {
     }
 
     if (btnSiguiente) {
-        btnSiguiente.onclick = function(e) {
+        // Eliminar eventos anteriores
+        const nuevoBtnSiguiente = btnSiguiente.cloneNode(true);
+        btnSiguiente.parentNode.replaceChild(nuevoBtnSiguiente, btnSiguiente);
+        
+        nuevoBtnSiguiente.onclick = function(e) {
             e.stopPropagation();
             if (slideActual < totalSlides - 1) {
                 slideActual++;
@@ -1339,38 +1346,94 @@ function configurarCarouselHorizontal(contenedorCarousel, multimediaArray) {
         };
     }
 
-    // ========== IMPORTANTE: DESHABILITAR COMPLETAMENTE EL SWIPE ==========
-    // Eliminar cualquier evento táctil previo clonando y reemplazando el contenedor
-    // Esto elimina los event listeners anteriores que pudieran existir
+    // ========== SOLO BLOQUEAR SWIPE, PERO PERMITIR CLIC EN IMÁGENES ==========
+    // Bloquear eventos táctiles SOLO para prevenir swipe, pero NO para los clics
     
-    // Deshabilitar eventos táctiles en el carrusel y en el track
-    const bloqueadorTouch = function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        return false;
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let touchMoved = false;
+    
+    const handleTouchStart = function(e) {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+        touchMoved = false;
     };
     
-    // Prevenir eventos táctiles en todo el carrusel
-    contenedorCarousel.addEventListener('touchstart', bloqueadorTouch, { passive: false });
-    contenedorCarousel.addEventListener('touchmove', bloqueadorTouch, { passive: false });
-    contenedorCarousel.addEventListener('touchend', bloqueadorTouch, { passive: false });
+    const handleTouchMove = function(e) {
+        const touchEndX = e.touches[0].clientX;
+        const touchEndY = e.touches[0].clientY;
+        const diffX = Math.abs(touchEndX - touchStartX);
+        const diffY = Math.abs(touchEndY - touchStartY);
+        
+        // Si el movimiento es principalmente horizontal (swipe)
+        if (diffX > diffY && diffX > 15) {
+            touchMoved = true;
+            e.preventDefault(); // Prevenir el swipe/arrastre
+            return false;
+        }
+    };
     
-    // También prevenir en el track
-    if (track) {
-        track.addEventListener('touchstart', bloqueadorTouch, { passive: false });
-        track.addEventListener('touchmove', bloqueadorTouch, { passive: false });
-        track.addEventListener('touchend', bloqueadorTouch, { passive: false });
-    }
+    const handleTouchEnd = function(e) {
+        // No hacemos nada aquí, solo reseteamos
+        touchStartX = 0;
+        touchStartY = 0;
+        // No prevenir el evento para que los clics funcionen
+    };
     
-    // Prevenir eventos de ratón tipo arrastre que podrían simular swipe
-    contenedorCarousel.addEventListener('dragstart', bloqueadorTouch);
-    contenedorCarousel.addEventListener('drag', bloqueadorTouch);
-    contenedorCarousel.addEventListener('dragend', bloqueadorTouch);
+    // IMPORTANTE: Agregar eventos SOLO para prevenir swipe, pero no bloquear clics
+    contenedorCarousel.addEventListener('touchstart', handleTouchStart, { passive: false });
+    contenedorCarousel.addEventListener('touchmove', handleTouchMove, { passive: false });
+    contenedorCarousel.addEventListener('touchend', handleTouchEnd);
     
+    // ========== CONFIGURAR ZOOM EN IMÁGENES (CORREGIDO PARA MÓVIL) ==========
+    slides.forEach((slide, index) => {
+        // Buscar imagen dentro del slide
+        const img = slide.querySelector('.slide-image');
+        if (img) {
+            // Limpiar eventos anteriores clonando
+            const nuevaImg = img.cloneNode(true);
+            img.parentNode.replaceChild(nuevaImg, img);
+            
+            // Agregar evento para clic (mouse y touch)
+            nuevaImg.addEventListener('click', function(e) {
+                e.stopPropagation();
+                e.preventDefault();
+                console.log("🔍 Abriendo zoom de imagen:", this.src);
+                abrirZoomImagen(this.src);
+            });
+            
+            // Para móviles, asegurar que el touch también funcione
+            nuevaImg.addEventListener('touchstart', function(e) {
+                // No prevenir para que el click funcione
+                e.stopPropagation();
+            });
+            
+            nuevaImg.addEventListener('touchend', function(e) {
+                e.stopPropagation();
+                e.preventDefault();
+                console.log("🔍 Touch end - abriendo zoom");
+                abrirZoomImagen(this.src);
+            });
+        }
+        
+        // Opcional: para videos, pantalla completa
+        const video = slide.querySelector('.slide-video');
+        if (video) {
+            const nuevoVideo = video.cloneNode(true);
+            video.parentNode.replaceChild(nuevoVideo, video);
+            
+            nuevoVideo.addEventListener('click', function(e) {
+                e.stopPropagation();
+                if (this.requestFullscreen) {
+                    this.requestFullscreen();
+                }
+            });
+        }
+    });
+
     // Configurar teclado (solo flechas)
     const keydownHandler = function(e) {
         if (!document.getElementById('popup-simple')) return;
-        // Verificar que el popup actual contenga este carrusel
         if (!document.getElementById('popup-simple').contains(contenedorCarousel)) return;
         
         if (e.key === 'ArrowLeft') {
@@ -1388,7 +1451,6 @@ function configurarCarouselHorizontal(contenedorCarousel, multimediaArray) {
         }
     };
     
-    // Remover listener anterior si existe y agregar nuevo
     document.removeEventListener('keydown', keydownHandler);
     document.addEventListener('keydown', keydownHandler);
     
@@ -1397,21 +1459,10 @@ function configurarCarouselHorizontal(contenedorCarousel, multimediaArray) {
         actualizarPosicion();
     });
 
-    // Configurar zoom en imágenes (esto está bien, no afecta al swipe)
-    slides.forEach((slide, index) => {
-        const img = slide.querySelector('.slide-image');
-        if (img) {
-            img.addEventListener('click', function(e) {
-                e.stopPropagation();
-                abrirZoomImagen(img.src);
-            });
-        }
-    });
-
     // Inicializar posición
     actualizarPosicion();
 
-    console.log("✅ Carrusel horizontal configurado correctamente (swipe deshabilitado)");
+    console.log("✅ Carrusel configurado: SOLO flechas para cambiar, ZOOM al tocar imagen");
 }
 
 // ==================== FUNCIÓN PARA ZOOM DE IMÁGENES ====================
