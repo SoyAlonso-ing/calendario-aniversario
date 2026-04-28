@@ -3,7 +3,6 @@
 // CONTIENE: Datos con múltiples fotos por día
 // ============================================
 
-// DATOS PARA CADA DÍA ESPECIAL DEL AÑO - CON TODAS LAS FOTOS
 const diasEspeciales = {
   // Día de inicio (5 abril 2025)
   "2025-04-05": {
@@ -21,6 +20,14 @@ const diasEspeciales = {
   },
 
   // Enero
+  "01-01": {
+    tipo: "galeria",
+    importancia: "media",
+    fotos: [{ url: "fotos/01-01/foto1.jpg", texto: "❤️" }],
+    videos: [{ url: "fotos/01-01/video1.mp4", miniatura: "fotos/01-01/foto1.jpg", texto: "❤️" }],
+    mensajes: ["❤️"],
+  },
+
   "01-02": {
     tipo: "galeria",
     fotos: [{ url: "fotos/01-02/foto1.jpg", texto: "Ese abdomen perfecto" }],
@@ -36,9 +43,8 @@ const diasEspeciales = {
       { url: "fotos/01-05/foto4.jpg", texto: "❤️" },
       { url: "fotos/01-05/foto5.jpg", texto: "❤️" },
     ],
-    mensajes: ["Mesiversario a 5ta y A",
-    "Las mejores hamburguezas de la habana",
-    ],
+    videos: [{ url: "fotos/01-05/video1.mp4", miniatura: "fotos/01-05/foto1.jpg", texto: "❤️" }],
+    mensajes: ["Mesiversario a 5ta y A", "Las mejores hamburguezas de la habana"],
   },
 
   "01-06": {
@@ -46,8 +52,17 @@ const diasEspeciales = {
     fotos: [
       { url: "fotos/01-06/foto1.jpg", texto: "❤️" },
       { url: "fotos/01-06/foto2.jpg", texto: "❤️" },
-        ],
+    ],
+    videos: [{ url: "fotos/01-06/video1.mp4", miniatura: "fotos/01-06/foto1.jpg", texto: "❤️" }],
     mensajes: ["Que lindos te quedan mis pullovers "],
+  },
+
+  "01-07": {
+    tipo: "galeria",
+    importancia: "media",
+    fotos: [{ url: "fotos/01-07/foto1.jpg", texto: "❤️" }],
+    videos: [{ url: "fotos/01-07/video1.mp4", miniatura: "fotos/01-07/foto1.jpg", texto: "❤️" }],
+    mensajes: ["❤️"],
   },
 
   "01-11": {
@@ -79,6 +94,20 @@ const diasEspeciales = {
     fotos: [{ url: "fotos/01-13/foto1.jpg", texto: "Tan bella en mi espejo" }],
   },
 
+  "01-17": {
+    tipo: "galeria",
+    importancia: "media",
+    fotos: [
+      { url: "fotos/01-17/foto1.jpg", texto: "❤️" },
+      { url: "fotos/01-17/foto2.jpg", texto: "❤️" },
+    ],
+    videos: [
+      { url: "fotos/01-17/video1.mp4", miniatura: "fotos/01-17/foto1.jpg", texto: "❤️" },
+      { url: "fotos/01-17/video2.mp4", miniatura: "fotos/01-17/foto2.jpg", texto: "❤️" },
+    ],
+    mensajes: ["❤️"],
+  },
+
   "01-24": {
     tipo: "galeria",
     importancia: "media",
@@ -91,6 +120,8 @@ const diasEspeciales = {
       { url: "fotos/01-24/foto6.jpg", texto: "En verdad wapa estaba fresco" },
       { url: "fotos/01-24/foto7.jpg", texto: "❤️" },
     ],
+    videos: [{ url: "fotos/01-24/video1.mp4", miniatura: "fotos/01-24/foto1.jpg", texto: "❤️" }],
+    mensajes: ["❤️"],
   },
 
   "01-25": {
@@ -124,20 +155,17 @@ const diasEspeciales = {
       { url: "fotos/01-31/foto2.jpg", texto: "❤️" },
       { url: "fotos/01-31/foto3.jpg", texto: "❤️" },
       { url: "fotos/01-31/foto4.jpg", texto: "❤️" },
-         ],
+    ],
     mensajes: ["Una mini pochi"],
   },
 
-
-    "02-01": { // 1 de febrero - 1 foto
+  "02-01": {
     tipo: "galeria",
-    fotos: [
-      { url: "fotos/02-01/foto1.jpg", texto: "Una therian?" },
-    ],
+    fotos: [{ url: "fotos/02-01/foto1.jpg", texto: "Una therian?" }],
     mensajes: ["Que lindas esas pestañas"],
   },
 
-  "02-02": { // 2 de febrero - 7 fotos
+  "02-02": {
     tipo: "galeria",
     importancia: "media",
     fotos: [
@@ -149,17 +177,16 @@ const diasEspeciales = {
       { url: "fotos/02-02/foto6.jpg", texto: "❤️" },
       { url: "fotos/02-02/foto7.jpg", texto: "❤️" },
     ],
+    videos: [{ url: "fotos/02-02/video1.mp4", miniatura: "fotos/02-02/foto1.jpg", texto: "❤️" }],
     mensajes: ["Mochila Mochila"],
   },
 
-  "02-03": { // 3 de febrero - 1 foto
+  "02-03": {
     tipo: "galeria",
-    fotos: [
-      { url: "fotos/02-03/foto1.jpg", texto: "Que linda mi mulata" },
-    ],
+    fotos: [{ url: "fotos/02-03/foto1.jpg", texto: "Que linda mi mulata" }],
   },
 
-  "02-05": { // 5 de febrero - 5 fotos
+  "02-05": {
     tipo: "galeria",
     importancia: "alta",
     fotos: [
@@ -169,13 +196,10 @@ const diasEspeciales = {
       { url: "fotos/02-05/foto4.jpg", texto: "❤️" },
       { url: "fotos/02-05/foto5.jpg", texto: "❤️" },
     ],
-    mensajes: ["Otro mesiversario juntos",
-    "Esa enguatada te queda mejor que a mí",
-    ],
+    mensajes: ["Otro mesiversario juntos", "Esa enguatada te queda mejor que a mí"],
   },
 
-  
-"02-06": {
+  "02-06": {
     tipo: "galeria",
     importancia: "media",
     fotos: [
@@ -201,6 +225,7 @@ const diasEspeciales = {
       { url: "fotos/02-07/foto6.jpg", texto: "❤️" },
       { url: "fotos/02-07/foto7.jpg", texto: "❤️" },
     ],
+    videos: [{ url: "fotos/02-07/video1.mp4", miniatura: "fotos/02-07/foto1.jpg", texto: "❤️" }],
     mensajes: ["Recuerdos de febrero"],
   },
 
@@ -216,9 +241,7 @@ const diasEspeciales = {
 
   "02-09": {
     tipo: "galeria",
-    fotos: [
-      { url: "fotos/02-09/foto1.jpg", texto: "❤️" },
-    ],
+    fotos: [{ url: "fotos/02-09/foto1.jpg", texto: "❤️" }],
     mensajes: ["Un día contigo es especial"],
   },
 
@@ -233,10 +256,11 @@ const diasEspeciales = {
       { url: "fotos/02-13/foto5.jpg", texto: "❤️" },
       { url: "fotos/02-13/foto6.jpg", texto: "❤️" },
     ],
-    mensajes: ["Los desesperados, ni al 14 pudimos esperar",
-    "En verdad nos botamos",
-    "Como nostros nadie",
+    videos: [
+      { url: "fotos/02-13/video1.mp4", miniatura: "fotos/02-13/foto1.jpg", texto: "❤️" },
+      { url: "fotos/02-13/video2.mp4", miniatura: "fotos/02-13/foto2.jpg", texto: "❤️" },
     ],
+    mensajes: ["Los desesperados, ni al 14 pudimos esperar", "En verdad nos botamos", "Como nostros nadie"],
   },
 
   "02-14": {
@@ -261,17 +285,12 @@ const diasEspeciales = {
       { url: "fotos/02-14/foto16.jpg", texto: "❤️" },
       { url: "fotos/02-14/foto17.jpg", texto: "❤️" },
     ],
-    mensajes: ["Nuestro 1er 14 de febrero juntos",
-    "Fangio",
-    "A pesar de no ser la gran cosa y estar caro desayunaos bien",
-    ],
+    mensajes: ["Nuestro 1er 14 de febrero juntos", "Fangio", "A pesar de no ser la gran cosa y estar caro desayunaos bien"],
   },
 
   "02-17": {
     tipo: "galeria",
-    fotos: [
-      { url: "fotos/02-17/foto1.jpg", texto: "❤️" },
-    ],
+    fotos: [{ url: "fotos/02-17/foto1.jpg", texto: "❤️" }],
     mensajes: ["Cada día a tu lado es único"],
   },
 
@@ -296,9 +315,11 @@ const diasEspeciales = {
       { url: "fotos/02-21/foto4.jpg", texto: "❤️" },
       { url: "fotos/02-21/foto5.jpg", texto: "❤️" },
     ],
-    mensajes: ["De la Crem",
-    "La sugar me invitó a tomar helado",
+    videos: [
+      { url: "fotos/02-21/video1.mp4", miniatura: "fotos/02-21/foto1.jpg", texto: "❤️" },
+      { url: "fotos/02-21/video2.mp4", miniatura: "fotos/02-21/foto2.jpg", texto: "❤️" },
     ],
+    mensajes: ["De la Crem", "La sugar me invitó a tomar helado"],
   },
 
   "02-22": {
@@ -322,6 +343,11 @@ const diasEspeciales = {
       { url: "fotos/02-22/foto15.jpg", texto: "❤️" },
       { url: "fotos/02-22/foto16.jpg", texto: "❤️" },
     ],
+    videos: [
+      { url: "fotos/02-22/video1.mp4", miniatura: "fotos/02-22/foto1.jpg", texto: "❤️" },
+      { url: "fotos/02-22/video2.mp4", miniatura: "fotos/02-22/foto2.jpg", texto: "❤️" },
+      { url: "fotos/02-22/video3.mp4", miniatura: "fotos/02-22/foto3.jpg", texto: "❤️" },
+    ],
     mensajes: ["¡16 fotos para un sábado espectacular!"],
   },
 
@@ -343,23 +369,20 @@ const diasEspeciales = {
       { url: "fotos/02-24/foto2.jpg", texto: "❤️" },
       { url: "fotos/02-24/foto3.jpg", texto: "❤️" },
     ],
+    videos: [{ url: "fotos/02-24/video1.mp4", miniatura: "fotos/02-24/foto1.jpg", texto: "❤️" }],
     mensajes: ["Mis galletas quedaron mejores dicho x tu mamá"],
   },
 
   "02-26": {
     tipo: "galeria",
-    fotos: [
-      { url: "fotos/02-26/foto1.jpg", texto: "❤️" },
-    ],
+    fotos: [{ url: "fotos/02-26/foto1.jpg", texto: "❤️" }],
     mensajes: ["Martes de amor"],
   },
 
   "02-28": {
     tipo: "galeria",
     importancia: "media",
-    fotos: [
-      { url: "fotos/02-28/foto1.jpg", texto: "❤️" },
-    ],
+    fotos: [{ url: "fotos/02-28/foto1.jpg", texto: "❤️" }],
     mensajes: ["Despidiendo febrero con amor"],
   },
 
@@ -376,14 +399,13 @@ const diasEspeciales = {
       { url: "fotos/03-01/foto7.jpg", texto: "❤️" },
       { url: "fotos/03-01/foto8.jpg", texto: "❤️" },
     ],
+    videos: [{ url: "fotos/03-01/video1.mp4", miniatura: "fotos/03-01/foto1.jpg", texto: "❤️" }],
     mensajes: ["Recordando viejos tiempos en el nacional"],
   },
 
   "03-04": {
     tipo: "galeria",
-    fotos: [
-      { url: "fotos/03-04/foto1.jpg", texto: "❤️" },
-    ],
+    fotos: [{ url: "fotos/03-04/foto1.jpg", texto: "❤️" }],
     mensajes: ["Un día especial en marzo"],
   },
 
@@ -400,9 +422,7 @@ const diasEspeciales = {
   "03-06": {
     tipo: "galeria",
     importancia: "media",
-    fotos: [
-      { url: "fotos/03-06/foto1.jpg", texto: "❤️" },
-    ],
+    fotos: [{ url: "fotos/03-06/foto1.jpg", texto: "❤️" }],
     mensajes: ["Miércoles de amor"],
   },
 
@@ -433,9 +453,7 @@ const diasEspeciales = {
 
   "03-09": {
     tipo: "galeria",
-    fotos: [
-      { url: "fotos/03-09/foto1.jpg", texto: "❤️" },
-    ],
+    fotos: [{ url: "fotos/03-09/foto1.jpg", texto: "❤️" }],
     mensajes: ["Sábado de amor"],
   },
 
@@ -453,9 +471,7 @@ const diasEspeciales = {
 
   "03-13": {
     tipo: "galeria",
-    fotos: [
-      { url: "fotos/03-13/foto1.jpg", texto: "❤️" },
-    ],
+    fotos: [{ url: "fotos/03-13/foto1.jpg", texto: "❤️" }],
     mensajes: ["Miércoles de amor"],
   },
 
@@ -471,6 +487,7 @@ const diasEspeciales = {
       { url: "fotos/03-14/foto6.jpg", texto: "❤️" },
       { url: "fotos/03-14/foto7.jpg", texto: "❤️" },
     ],
+    videos: [{ url: "fotos/03-14/video1.mp4", miniatura: "fotos/03-14/foto1.jpg", texto: "❤️" }],
     mensajes: ["Donde nació el Frecho"],
   },
 
@@ -497,17 +514,13 @@ const diasEspeciales = {
   "03-18": {
     tipo: "galeria",
     importancia: "media",
-    fotos: [
-      { url: "fotos/03-18/foto1.jpg", texto: "❤️" },
-    ],
+    fotos: [{ url: "fotos/03-18/foto1.jpg", texto: "❤️" }],
     mensajes: ["Cumple de Ricardo"],
   },
 
   "03-19": {
     tipo: "galeria",
-    fotos: [
-      { url: "fotos/03-19/foto1.jpg", texto: "❤️" },
-    ],
+    fotos: [{ url: "fotos/03-19/foto1.jpg", texto: "❤️" }],
     mensajes: ["Martes de amor"],
   },
 
@@ -520,6 +533,11 @@ const diasEspeciales = {
       { url: "fotos/03-21/foto3.jpg", texto: "❤️" },
       { url: "fotos/03-21/foto4.jpg", texto: "❤️" },
       { url: "fotos/03-21/foto5.jpg", texto: "❤️" },
+    ],
+    videos: [
+      { url: "fotos/03-21/video1.mp4", miniatura: "fotos/03-21/foto1.jpg", texto: "❤️" },
+      { url: "fotos/03-21/video2.mp4", miniatura: "fotos/03-21/foto2.jpg", texto: "❤️" },
+      { url: "fotos/03-21/video3.mp4", miniatura: "fotos/03-21/foto3.jpg", texto: "❤️" },
     ],
     mensajes: ["Massage time"],
   },
@@ -540,9 +558,7 @@ const diasEspeciales = {
 
   "03-24": {
     tipo: "galeria",
-    fotos: [
-      { url: "fotos/03-24/foto1.jpg", texto: "❤️" },
-    ],
+    fotos: [{ url: "fotos/03-24/foto1.jpg", texto: "❤️" }],
     mensajes: ["Domingo de amor"],
   },
 
@@ -584,6 +600,7 @@ const diasEspeciales = {
       { url: "fotos/03-27/foto11.jpg", texto: "❤️" },
       { url: "fotos/03-27/foto12.jpg", texto: "❤️" },
     ],
+    videos: [{ url: "fotos/03-27/video1.mp4", miniatura: "fotos/03-27/foto1.jpg", texto: "❤️" }],
     mensajes: ["¡Estrés!"],
   },
 
@@ -597,8 +614,11 @@ const diasEspeciales = {
       { url: "fotos/03-28/foto4.jpg", texto: "❤️" },
       { url: "fotos/03-28/foto5.jpg", texto: "❤️" },
     ],
-    mensajes: ["Cuarto oficialmente terminado",
-    "Sacado de un hotel,"],
+    videos: [
+      { url: "fotos/03-28/video1.mp4", miniatura: "fotos/03-28/foto1.jpg", texto: "❤️" },
+      { url: "fotos/03-28/video2.mp4", miniatura: "fotos/03-28/foto2.jpg", texto: "❤️" },
+    ],
+    mensajes: ["Cuarto oficialmente terminado", "Sacado de un hotel,"],
   },
 
   "03-29": {
@@ -611,10 +631,7 @@ const diasEspeciales = {
       { url: "fotos/03-29/foto4.jpg", texto: "❤️" },
       { url: "fotos/03-29/foto5.jpg", texto: "❤️" },
     ],
-    mensajes: ["El día de las empanadas",
-    "Las mejores las de fresa y las de guayaba",
-    "En verdad nos botamos, hay que hacer de nuevo",
-    ],
+    mensajes: ["El día de las empanadas", "Las mejores las de fresa y las de guayaba", "En verdad nos botamos, hay que hacer de nuevo"],
   },
 
   "03-30": {
@@ -633,6 +650,7 @@ const diasEspeciales = {
       { url: "fotos/03-30/foto10.jpg", texto: "❤️" },
       { url: "fotos/03-30/foto11.jpg", texto: "❤️" },
     ],
+    videos: [{ url: "fotos/03-30/video1.mp4", miniatura: "fotos/03-30/foto1.jpg", texto: "❤️" }],
     mensajes: ["¡Café Kore!"],
   },
 
@@ -658,23 +676,20 @@ const diasEspeciales = {
       { url: "fotos/04-01/foto5.jpg", texto: "❤️" },
       { url: "fotos/04-01/foto6.jpg", texto: "❤️" },
     ],
+    videos: [{ url: "fotos/04-01/video1.mp4", miniatura: "fotos/04-01/foto1.jpg", texto: "❤️" }],
     mensajes: ["6 fotos para empezar abril con amor"],
   },
 
   "04-02": {
     tipo: "galeria",
     importancia: "media",
-    fotos: [
-      { url: "fotos/04-02/foto1.jpg", texto: "❤️" },
-    ],
+    fotos: [{ url: "fotos/04-02/foto1.jpg", texto: "❤️" }],
     mensajes: ["Martes de amor"],
   },
 
   "04-03": {
     tipo: "galeria",
-    fotos: [
-      { url: "fotos/04-03/foto1.jpg", texto: "❤️" },
-    ],
+    fotos: [{ url: "fotos/04-03/foto1.jpg", texto: "❤️" }],
     mensajes: ["Miércoles de amor"],
   },
 
@@ -688,18 +703,11 @@ const diasEspeciales = {
       { url: "fotos/04-14/foto4.jpg", texto: "❤️" },
       { url: "fotos/04-14/foto5.jpg", texto: "❤️" },
     ],
-    videos: [
-      {
-      url: "fotos/04-14/video1.MP4",
-      miniatura: "fotos/04-14/foto1.jpg",
-      texto: "❤️"
-      },
-    ],
     mensajes: [
       "Nuestro primer beso",
       "Toda la noche para que pasara lo inevitable al final",
       "Nunca vamos a saber como nos despedimos ese día",
-      "Ese día bautizamos nuestro banco y nuestro lugar"
+      "Ese día bautizamos nuestro banco y nuestro lugar",
     ],
   },
 
@@ -721,8 +729,8 @@ const diasEspeciales = {
   "04-24": {
     tipo: "galeria",
     importancia: "media",
-    importancia: "baja",
     fotos: [{ url: "fotos/04-24/foto1.jpg", texto: "❤️" }],
+    videos: [{ url: "fotos/04-24/video1.mp4", miniatura: "fotos/04-24/foto1.jpg", texto: "❤️" }],
     mensajes: ["Cuando iba a verte a la UH"],
   },
 
@@ -744,6 +752,7 @@ const diasEspeciales = {
   "05-06": {
     tipo: "galeria",
     fotos: [{ url: "fotos/05-06/foto1.jpg", texto: "❤️" }],
+    videos: [{ url: "fotos/05-06/video1.mp4", miniatura: "fotos/05-06/foto1.jpg", texto: "❤️" }],
     mensajes: ["Cuando empezaste a venir mi casa"],
   },
 
@@ -761,10 +770,7 @@ const diasEspeciales = {
       { url: "fotos/05-16/foto2.jpg", texto: "❤️" },
       { url: "fotos/05-16/foto3.jpg", texto: "❤️" },
     ],
-    mensajes: [
-      "Cuando empezamos algo que sería costumbre",
-      "Nuestro primer beso captado en cámaras",
-    ],
+    mensajes: ["Cuando empezamos algo que sería costumbre", "Nuestro primer beso captado en cámaras"],
   },
 
   "05-17": {
@@ -775,7 +781,7 @@ const diasEspeciales = {
 
   "05-18": {
     tipo: "galeria",
-    importancia:"media",
+    importancia: "media",
     fotos: [
       { url: "fotos/05-18/foto1.jpg", texto: "❤️" },
       { url: "fotos/05-18/foto2.jpg", texto: "❤️" },
@@ -786,11 +792,7 @@ const diasEspeciales = {
       { url: "fotos/05-18/foto7.jpg", texto: "❤️" },
       { url: "fotos/05-18/foto8.jpg", texto: "❤️" },
     ],
-    mensajes: [
-      "Kanda",
-      "El día que ya nos fuimos al berro",
-      "El día que subimos por primera vez una foto dándonos un beso",
-    ],
+    mensajes: ["Kanda", "El día que ya nos fuimos al berro", "El día que subimos por primera vez una foto dándonos un beso"],
   },
 
   "05-19": {
@@ -854,9 +856,7 @@ const diasEspeciales = {
       { url: "fotos/05-31/foto5.jpg", texto: "❤️" },
       { url: "fotos/05-31/foto6.jpg", texto: "❤️" },
     ],
-    mensajes: ["El fortuna",
-      "La Habana",
-    ],
+    mensajes: ["El fortuna", "La Habana"],
   },
 
   "06-04": {
@@ -869,13 +869,7 @@ const diasEspeciales = {
       { url: "fotos/06-04/foto4.jpg", texto: "❤️" },
       { url: "fotos/06-04/foto5.jpg", texto: "❤️" },
     ],
-    mensajes: [
-      "Mi cumple",
-      "Primera vez que te quedaste a dormir conmigo",
-      "Los primeros regalos que me diste",
-      "Primeras veces que me tocaste a trompin disimuladamente",
-
-    ],
+    mensajes: ["Mi cumple", "Primera vez que te quedaste a dormir conmigo", "Los primeros regalos que me diste", "Primeras veces que me tocaste a trompin disimuladamente"],
   },
 
   "06-07": {
@@ -912,17 +906,12 @@ const diasEspeciales = {
       { url: "fotos/06-19/foto3.jpg", texto: "❤️" },
       { url: "fotos/06-19/foto4.jpg", texto: "❤️" },
     ],
-    mensajes: [
-      "Tu cumple",
-      "Aunque no estuve fue un lindo día para ti",
-      "Primero y último en el que no estoy",
-
-    ],
+    mensajes: ["Tu cumple", "Aunque no estuve fue un lindo día para ti", "Primero y último en el que no estoy"],
   },
 
   "06-21": {
     tipo: "galeria",
-importancia: "alta",
+    importancia: "alta",
     fotos: [
       { url: "fotos/06-21/foto1.jpg", texto: "❤️" },
       { url: "fotos/06-21/foto2.jpg", texto: "❤️" },
@@ -931,12 +920,7 @@ importancia: "alta",
       { url: "fotos/06-21/foto5.jpg", texto: "❤️" },
       { url: "fotos/06-21/foto6.jpg", texto: "❤️" },
     ],
-    mensajes: ["Para mi este día fue tu cumple",
-      "Lo pude celebrar contigo",
-      "Que linda estabas ese día",
-      "Ya parecíamos una pareja y ni habíamos empezado",
-      "Ahí dije:-esta tiene que ser mi novia si o si",
-    ],
+    mensajes: ["Para mi este día fue tu cumple", "Lo pude celebrar contigo", "Que linda estabas ese día", "Ya parecíamos una pareja y ni habíamos empezado", "Ahí dije:-esta tiene que ser mi novia si o si"],
   },
 
   "06-22": {
@@ -952,6 +936,10 @@ importancia: "alta",
       { url: "fotos/06-22/foto7.jpg", texto: "❤️" },
       { url: "fotos/06-22/foto8.jpg", texto: "❤️" },
       { url: "fotos/06-22/foto9.jpg", texto: "❤️" },
+    ],
+    videos: [
+      { url: "fotos/06-22/video1.mp4", miniatura: "fotos/06-22/foto1.jpg", texto: "❤️" },
+      { url: "fotos/06-22/video2.mp4", miniatura: "fotos/06-22/foto2.jpg", texto: "❤️" },
     ],
     mensajes: ["9 fotos para un domingo perfecto"],
   },
@@ -973,6 +961,7 @@ importancia: "alta",
       { url: "fotos/06-29/foto6.jpg", texto: "❤️" },
       { url: "fotos/06-29/foto7.jpg", texto: "❤️" },
     ],
+    videos: [{ url: "fotos/06-29/video1.mp4", miniatura: "fotos/06-29/foto1.jpg", texto: "❤️" }],
     mensajes: ["7 fotos para despedir junio"],
   },
 
@@ -993,27 +982,19 @@ importancia: "alta",
       { url: "fotos/07-04/foto4.jpg", texto: "❤️" },
       { url: "fotos/07-04/foto5.jpg", texto: "❤️" },
     ],
-    mensajes: ["Salida al nacional sin saber que sería nuestro lugar",
-      "Ya ese día veniía preparado para pasar al siguiente nivel contigo",
-      "24h después serías mi novia para siempre"
-    ],
+    mensajes: ["Salida al nacional sin saber que sería nuestro lugar", "Ya ese día veniía preparado para pasar al siguiente nivel contigo", "24h después serías mi novia para siempre"],
   },
 
- "07-05": {
+  "07-05": {
     tipo: "galeria",
     importancia: "alta",
     fotos: [
       { url: "fotos/07-05/foto1.jpg", texto: "❤️" },
       { url: "fotos/07-05/foto2.jpg", texto: "❤️" },
     ],
-    mensajes: ["Uno de los días más importantes de mi vida",
-      "Que nervios, se suponía que el mismo 4 te preguntaría",
-      "Este día empezó legalmente nuestra historia y el número 5 sería el nuestro para siempre",
-      "Sorprendentemente de este día no tenemos ni fotos pero si recuerdos",
-
-    ],
-    cartaTexto: "Aqui quiero decirte todo lo que no te dije ese día que te pedí ser mi novia. Este es el Adrián de ese tiempo, no el de ahora. Hoy 5 de julio quiero decirte que te has vuelto alguien muy especial, que en tan poco tiempo has logrado meterte en mi corazón y en mi mente de una manera que no esperaba. LLevamos alrededor de 3 meses conociéndonos y saliendo, aunque parece que nos conociéramos hace años y me he dado cuenta que eres literalmente lo que buscaba para tener a mi lado, tienes todas las cualidades que me gustan de una mujer, tienes todo lo que necesito para ser feliz. Me he dado cuenta en estos 3 meses que ya no quiero que seamos solo una talla, xq me he dado cuenta que te quiero para mi na ma y quiero que todos lo vean y sepan que eres mine mine mine, y xq creo que vamos a hacer una linda pareja, xq a pesar de nuestras diferencias y pensar distinto tenemos muchas otras cosas en común y creo que puedo enamorarme de ti de una forma que nunca me ha pasado. Por todo esto y más te quiero preguntar:  ¿Quieres ser mi novia?. Att: Tu pochi pa' rato (;"
-},
+    mensajes: ["Uno de los días más importantes de mi vida", "Que nervios, se suponía que el mismo 4 te preguntaría", "Este día empezó legalmente nuestra historia y el número 5 sería el nuestro para siempre", "Sorprendentemente de este día no tenemos ni fotos pero si recuerdos"],
+    cartaTexto: "Aqui quiero decirte todo lo que no te dije ese día que te pedí ser mi novia. Este es el Adrián de ese tiempo, no el de ahora. Hoy 5 de julio quiero decirte que te has vuelto alguien muy especial, que en tan poco tiempo has logrado meterte en mi corazón y en mi mente de una manera que no esperaba. LLevamos alrededor de 3 meses conociéndonos y saliendo, aunque parece que nos conociéramos hace años y me he dado cuenta que eres literalmente lo que buscaba para tener a mi lado, tienes todas las cualidades que me gustan de una mujer, tienes todo lo que necesito para ser feliz. Me he dado cuenta en estos 3 meses que ya no quiero que seamos solo una talla, xq me he dado cuenta que te quiero para mi na ma y quiero que todos lo vean y sepan que eres mine mine mine, y xq creo que vamos a hacer una linda pareja, xq a pesar de nuestras diferencias y pensar distinto tenemos muchas otras cosas en común y creo que puedo enamorarme de ti de una forma que nunca me ha pasado. Por todo esto y más te quiero preguntar:  ¿Quieres ser mi novia?. Att: Tu pochi pa' rato (;",
+  },
 
   "07-13": {
     tipo: "galeria",
@@ -1029,15 +1010,16 @@ importancia: "alta",
       { url: "fotos/07-13/foto8.jpg", texto: "❤️" },
       { url: "fotos/07-13/foto9.jpg", texto: "❤️" },
     ],
-    mensajes: ["1ra piscina siendo jevis",
-      "1ra salida siendo jevis",
-      "Oficialmente novios ya publicamente",
+    videos: [
+      { url: "fotos/07-13/video1.mp4", miniatura: "fotos/07-13/foto1.jpg", texto: "❤️" },
+      { url: "fotos/07-13/video2.mp4", miniatura: "fotos/07-13/foto2.jpg", texto: "❤️" },
     ],
+    mensajes: ["1ra piscina siendo jevis", "1ra salida siendo jevis", "Oficialmente novios ya publicamente"],
   },
 
   "07-18": {
     tipo: "galeria",
-importancia: "media",
+    importancia: "media",
     fotos: [
       { url: "fotos/07-18/foto1.jpg", texto: "❤️" },
       { url: "fotos/07-18/foto2.jpg", texto: "❤️" },
@@ -1061,7 +1043,7 @@ importancia: "media",
 
   "07-20": {
     tipo: "galeria",
-importancia: "media",
+    importancia: "media",
     fotos: [{ url: "fotos/07-20/foto1.jpg", texto: "❤️" }],
     mensajes: ["Domingo de amor"],
   },
@@ -1124,6 +1106,7 @@ importancia: "media",
       { url: "fotos/07-27/foto4.jpg", texto: "❤️" },
       { url: "fotos/07-27/foto5.jpg", texto: "❤️" },
     ],
+    videos: [{ url: "fotos/07-27/video1.mp4", miniatura: "fotos/07-27/foto1.jpg", texto: "❤️" }],
     mensajes: ["5 fotos para un domingo perfecto"],
   },
 
@@ -1148,18 +1131,15 @@ importancia: "media",
     mensajes: ["Martes de amor"],
   },
 
-   "08-05": {
+  "08-05": {
     tipo: "galeria",
     importancia: "alta",
     fotos: [
-      { url: "fotos/08-06/foto1.jpg", texto: "❤️" },
-      { url: "fotos/08-06/foto2.jpg", texto: "❤️" },
-      { url: "fotos/08-06/foto3.jpg", texto: "❤️" },
+      { url: "fotos/08-05/foto1.jpg", texto: "❤️" },
+      { url: "fotos/08-05/foto2.jpg", texto: "❤️" },
+      { url: "fotos/08-05/foto3.jpg", texto: "❤️" },
     ],
-    mensajes: ["1er mesiversario",
-      "Donde surgieron las noticas cuando las pusiste en las papas Barbacoas",
-      "Desde ese día las noticas nunca pararon hasta llenarme el closet",
-    ],
+    mensajes: ["1er mesiversario", "Donde surgieron las noticas cuando las pusiste en las papas Barbacoas", "Desde ese día las noticas nunca pararon hasta llenarme el closet"],
   },
 
   "08-06": {
@@ -1261,14 +1241,8 @@ importancia: "media",
       { url: "fotos/08-17/foto13.jpg", texto: "❤️" },
       { url: "fotos/08-17/foto14.jpg", texto: "❤️" },
     ],
-    mensajes: [
-      "¡Viñales!",
-      "1ra excursión juntos",
-      "Uno de los mejores días de nuestra relación",
-      "Creo que este día fue un antes y un después en nosotros como pareja",
-      "Después de este día salimos como una relacíon más consolidada",
-      "Definitivamente es de los días más importantes de nosotros",
-    ],
+    videos: [{ url: "fotos/08-17/video1.mp4", miniatura: "fotos/08-17/foto1.jpg", texto: "❤️" }],
+    mensajes: ["¡Viñales!", "1ra excursión juntos", "Uno de los mejores días de nuestra relación", "Creo que este día fue un antes y un después en nosotros como pareja", "Después de este día salimos como una relacíon más consolidada", "Definitivamente es de los días más importantes de nosotros"],
   },
 
   "08-20": {
@@ -1282,6 +1256,14 @@ importancia: "media",
       { url: "fotos/08-20/foto5.jpg", texto: "❤️" },
     ],
     mensajes: ["5 fotos para un jueves perfecto"],
+  },
+
+  "08-21": {
+    tipo: "galeria",
+    importancia: "media",
+    fotos: [{ url: "fotos/08-21/foto1.jpg", texto: "❤️" }],
+    videos: [{ url: "fotos/08-21/video1.mp4", miniatura: "fotos/08-21/foto1.jpg", texto: "❤️" }],
+    mensajes: ["❤️"],
   },
 
   "08-22": {
@@ -1318,6 +1300,7 @@ importancia: "media",
       { url: "fotos/09-01/foto3.jpg", texto: "❤️" },
       { url: "fotos/09-01/foto4.jpg", texto: "❤️" },
     ],
+    videos: [{ url: "fotos/09-01/video1.mp4", miniatura: "fotos/09-01/foto1.jpg", texto: "❤️" }],
     mensajes: ["Nuevo mes con 4 fotos de amor"],
   },
 
@@ -1337,9 +1320,12 @@ importancia: "media",
       { url: "fotos/09-05/foto10.jpg", texto: "❤️" },
       { url: "fotos/09-05/foto11.jpg", texto: "❤️" },
     ],
-    mensajes: ["El día donde empezó la costumbre de todos los 5 ir al Nacional",
-      "Y donde empezó tu vicio con los Dumplings",
+    videos: [
+      { url: "fotos/09-05/video1.mp4", miniatura: "fotos/09-05/foto1.jpg", texto: "❤️" },
+      { url: "fotos/09-05/video2.mp4", miniatura: "fotos/09-05/foto2.jpg", texto: "❤️" },
+      { url: "fotos/09-05/video3.mp4", miniatura: "fotos/09-05/foto3.jpg", texto: "❤️" },
     ],
+    mensajes: ["El día donde empezó la costumbre de todos los 5 ir al Nacional", "Y donde empezó tu vicio con los Dumplings"],
   },
 
   "09-06": {
@@ -1370,7 +1356,24 @@ importancia: "media",
       { url: "fotos/09-07/foto7.jpg", texto: "❤️" },
       { url: "fotos/09-07/foto8.jpg", texto: "❤️" },
     ],
+    videos: [{ url: "fotos/09-07/video1.mp4", miniatura: "fotos/09-07/foto1.jpg", texto: "❤️" }],
     mensajes: ["8 fotos para un domingo perfecto"],
+  },
+
+  "09-08": {
+    tipo: "galeria",
+    importancia: "media",
+    fotos: [
+      { url: "fotos/09-08/foto1.jpg", texto: "❤️" },
+      { url: "fotos/09-08/foto2.jpg", texto: "❤️" },
+      { url: "fotos/09-08/foto3.jpg", texto: "❤️" },
+    ],
+    videos: [
+      { url: "fotos/09-08/video1.mp4", miniatura: "fotos/09-08/foto1.jpg", texto: "❤️" },
+      { url: "fotos/09-08/video2.mp4", miniatura: "fotos/09-08/foto2.jpg", texto: "❤️" },
+      { url: "fotos/09-08/video3.mp4", miniatura: "fotos/09-08/foto3.jpg", texto: "❤️" },
+    ],
+    mensajes: ["❤️"],
   },
 
   "09-09": {
@@ -1390,6 +1393,11 @@ importancia: "media",
       { url: "fotos/09-11/foto5.jpg", texto: "❤️" },
       { url: "fotos/09-11/foto6.jpg", texto: "❤️" },
       { url: "fotos/09-11/foto7.jpg", texto: "❤️" },
+    ],
+    videos: [
+      { url: "fotos/09-11/video1.mp4", miniatura: "fotos/09-11/foto1.jpg", texto: "❤️" },
+      { url: "fotos/09-11/video2.mp4", miniatura: "fotos/09-11/foto2.jpg", texto: "❤️" },
+      { url: "fotos/09-11/video3.mp4", miniatura: "fotos/09-11/foto3.jpg", texto: "❤️" },
     ],
     mensajes: ["7 fotos para un miércoles perfecto"],
   },
@@ -1419,6 +1427,7 @@ importancia: "media",
       { url: "fotos/09-18/foto8.jpg", texto: "❤️" },
       { url: "fotos/09-18/foto9.jpg", texto: "❤️" },
     ],
+    videos: [{ url: "fotos/09-18/video1.mp4", miniatura: "fotos/09-18/foto1.jpg", texto: "❤️" }],
     mensajes: ["9 fotos para un miércoles perfecto"],
   },
 
@@ -1447,6 +1456,10 @@ importancia: "media",
       { url: "fotos/09-19/foto19.jpg", texto: "❤️" },
       { url: "fotos/09-19/foto20.jpg", texto: "❤️" },
       { url: "fotos/09-19/foto21.jpg", texto: "❤️" },
+    ],
+    videos: [
+      { url: "fotos/09-19/video1.mp4", miniatura: "fotos/09-19/foto1.jpg", texto: "❤️" },
+      { url: "fotos/09-19/video2.mp4", miniatura: "fotos/09-19/foto2.jpg", texto: "❤️" },
     ],
     mensajes: ["¡21 fotos para un día increíble!"],
   },
@@ -1479,6 +1492,10 @@ importancia: "media",
       { url: "fotos/09-21/foto5.jpg", texto: "❤️" },
       { url: "fotos/09-21/foto6.jpg", texto: "❤️" },
     ],
+    videos: [
+      { url: "fotos/09-21/video1.mp4", miniatura: "fotos/09-21/foto1.jpg", texto: "❤️" },
+      { url: "fotos/09-21/video2.mp4", miniatura: "fotos/09-21/foto2.jpg", texto: "❤️" },
+    ],
     mensajes: ["6 fotos para un domingo perfecto"],
   },
 
@@ -1507,6 +1524,11 @@ importancia: "media",
       { url: "fotos/10-02/foto3.jpg", texto: "❤️" },
       { url: "fotos/10-02/foto4.jpg", texto: "❤️" },
       { url: "fotos/10-02/foto5.jpg", texto: "❤️" },
+    ],
+    videos: [
+      { url: "fotos/10-02/video1.mp4", miniatura: "fotos/10-02/foto1.jpg", texto: "❤️" },
+      { url: "fotos/10-02/video2.mp4", miniatura: "fotos/10-02/foto2.jpg", texto: "❤️" },
+      { url: "fotos/10-02/video3.mp4", miniatura: "fotos/10-02/foto3.jpg", texto: "❤️" },
     ],
     mensajes: ["1ra vez que sacaste a Buki"],
   },
@@ -1557,6 +1579,10 @@ importancia: "media",
       { url: "fotos/10-11/foto7.jpg", texto: "❤️" },
       { url: "fotos/10-11/foto8.jpg", texto: "❤️" },
     ],
+    videos: [
+      { url: "fotos/10-11/video1.mp4", miniatura: "fotos/10-11/foto1.jpg", texto: "❤️" },
+      { url: "fotos/10-11/video2.mp4", miniatura: "fotos/10-11/foto2.jpg", texto: "❤️" },
+    ],
     mensajes: ["SuperMarket Hod Dogs"],
   },
 
@@ -1569,13 +1595,27 @@ importancia: "media",
       { url: "fotos/10-16/foto3.jpg", texto: "❤️" },
       { url: "fotos/10-16/foto4.jpg", texto: "❤️" },
     ],
+    videos: [
+      { url: "fotos/10-16/video1.mp4", miniatura: "fotos/10-16/foto1.jpg", texto: "❤️" },
+      { url: "fotos/10-16/video2.mp4", miniatura: "fotos/10-16/foto2.jpg", texto: "❤️" },
+      { url: "fotos/10-16/video3.mp4", miniatura: "fotos/10-16/foto3.jpg", texto: "❤️" },
+    ],
     mensajes: ["4 fotos para un miércoles perfecto"],
   },
 
   "10-18": {
     tipo: "galeria",
     fotos: [{ url: "fotos/10-18/foto1.jpg", texto: "❤️" }],
+    videos: [{ url: "fotos/10-18/video1.mp4", miniatura: "fotos/10-18/foto1.jpg", texto: "❤️" }],
     mensajes: ["Sábado de amor"],
+  },
+
+  "10-21": {
+    tipo: "galeria",
+    importancia: "media",
+    fotos: [{ url: "fotos/10-21/foto1.jpg", texto: "❤️" }],
+    videos: [{ url: "fotos/10-21/video1.mp4", miniatura: "fotos/10-21/foto1.jpg", texto: "❤️" }],
+    mensajes: ["❤️"],
   },
 
   "10-26": {
@@ -1602,11 +1642,7 @@ importancia: "media",
       { url: "fotos/10-31/foto8.jpg", texto: "❤️" },
       { url: "fotos/10-31/foto9.jpg", texto: "❤️" },
     ],
-    mensajes: ["¡Men in Black!",
-      "1er Halloween juntos",
-      "La rompimos con esos disfraces",
-      "Otro día que marcó nuestra relación",
-    ],
+    mensajes: ["¡Men in Black!", "1er Halloween juntos", "La rompimos con esos disfraces", "Otro día que marcó nuestra relación"],
   },
 
   "11-01": {
@@ -1619,6 +1655,14 @@ importancia: "media",
     tipo: "galeria",
     fotos: [{ url: "fotos/11-04/foto1.jpg", texto: "❤️" }],
     mensajes: ["Lunes de amor"],
+  },
+
+  "11-06": {
+    tipo: "galeria",
+    importancia: "media",
+    fotos: [{ url: "fotos/11-06/foto1.jpg", texto: "❤️" }],
+    videos: [{ url: "fotos/11-06/video1.mp4", miniatura: "fotos/11-06/foto1.jpg", texto: "❤️" }],
+    mensajes: ["❤️"],
   },
 
   "11-16": {
@@ -1639,10 +1683,7 @@ importancia: "media",
       { url: "fotos/11-22/foto2.jpg", texto: "❤️" },
       { url: "fotos/11-22/foto3.jpg", texto: "❤️" },
     ],
-    mensajes: ["La vi llegar al Don Cangrejo",
-      "con ese vestido azul",
-      "que hasta el mar tenía envidia",
-    ],
+    mensajes: ["La vi llegar al Don Cangrejo", "con ese vestido azul", "que hasta el mar tenía envidia"],
   },
 
   "11-23": {
@@ -1769,6 +1810,14 @@ importancia: "media",
     mensajes: ["6 fotos para un domingo perfecto"],
   },
 
+  "12-25": {
+    tipo: "galeria",
+    importancia: "media",
+    fotos: [{ url: "fotos/12-25/foto1.jpg", texto: "❤️" }],
+    videos: [{ url: "fotos/12-25/video1.mp4", miniatura: "fotos/12-25/foto1.jpg", texto: "❤️" }],
+    mensajes: ["❤️"],
+  },
+
   "12-28": {
     tipo: "galeria",
     importancia: "media",
@@ -1781,13 +1830,8 @@ importancia: "media",
       { url: "fotos/12-28/foto6.jpg", texto: "❤️" },
       { url: "fotos/12-28/foto7.jpg", texto: "❤️" },
     ],
-    mensajes: ["Mixtura x2",
-      "LLegamos fajados y nos arreglamos allá",
-      "Como podrás ver en el calendario antes de este día llevábamos 6 días sin vernos",
-      "Este día descubrí que pasados 3 días te vueleves loca literal",
-      "Y quieres fajarte por cualquier cosa",
-      "Pero quitando eso fue un buen día que terminño en sexo x suerte",
-    ],
+    videos: [{ url: "fotos/12-28/video1.mp4", miniatura: "fotos/12-28/foto1.jpg", texto: "❤️" }],
+    mensajes: ["Mixtura x2", "LLegamos fajados y nos arreglamos allá", "Como podrás ver en el calendario antes de este día llevábamos 6 días sin vernos", "Este día descubrí que pasados 3 días te vueleves loca literal", "Y quieres fajarte por cualquier cosa", "Pero quitando eso fue un buen día que terminño en sexo x suerte"],
   },
 
   "12-30": {
@@ -1820,45 +1864,52 @@ importancia: "media",
       { url: "fotos/12-31/foto8.jpg", texto: "❤️" },
       { url: "fotos/12-31/foto9.jpg", texto: "❤️" },
     ],
-    mensajes: ["1er fin de año juntos",
-      "El día con tu familia y la noche con la mía",
-      "Este día fue perfecto y creo que también marcó un antes y un después",
-    ],
+    videos: [{ url: "fotos/12-31/video1.mp4", miniatura: "fotos/12-31/foto1.jpg", texto: "❤️" }],
+    mensajes: ["1er fin de año juntos", "El día con tu familia y la noche con la mía", "Este día fue perfecto y creo que también marcó un antes y un después"],
   },
 
   // Día del aniversario (5 abril 2026)
   "2026-04-05": {
     tipo: "galeria",
+    importancia: "alta",
     fotos: [
       { url: "fotos/aniversario/foto1.jpg", texto: "¡365 días de amor! 🎉", descripcion: "Un año entero contigo" },
       { url: "fotos/aniversario/foto2.jpg", texto: "Celebrando cada momento", descripcion: "Las risas que compartimos" },
       { url: "fotos/aniversario/foto3.jpg", texto: "Más unidos que nunca", descripcion: "Nuestro amor crece cada día" },
       { url: "fotos/aniversario/foto4.jpg", texto: "Por muchos años más", descripcion: "El futuro nos espera" },
-       { url: "fotos/aniversario/foto5.jpg", texto: "¡365 días de amor! 🎉", descripcion: "Un año entero contigo" },
+      { url: "fotos/aniversario/foto5.jpg", texto: "¡365 días de amor! 🎉", descripcion: "Un año entero contigo" },
       { url: "fotos/aniversario/foto6.jpg", texto: "Celebrando cada momento", descripcion: "Las risas que compartimos" },
       { url: "fotos/aniversario/foto7.jpg", texto: "Más unidos que nunca", descripcion: "Nuestro amor crece cada día" },
       { url: "fotos/aniversario/foto8.jpg", texto: "Por muchos años más", descripcion: "El futuro nos espera" },
-       { url: "fotos/aniversario/foto9.jpg", texto: "¡365 días de amor! 🎉", descripcion: "Un año entero contigo" },
+      { url: "fotos/aniversario/foto9.jpg", texto: "¡365 días de amor! 🎉", descripcion: "Un año entero contigo" },
       { url: "fotos/aniversario/foto10.jpg", texto: "Celebrando cada momento", descripcion: "Las risas que compartimos" },
       { url: "fotos/aniversario/foto11.jpg", texto: "Más unidos que nunca", descripcion: "Nuestro amor crece cada día" },
       { url: "fotos/aniversario/foto12.jpg", texto: "Por muchos años más", descripcion: "El futuro nos espera" },
-       { url: "fotos/aniversario/foto13.jpg", texto: "¡365 días de amor! 🎉", descripcion: "Un año entero contigo" },
+      { url: "fotos/aniversario/foto13.jpg", texto: "¡365 días de amor! 🎉", descripcion: "Un año entero contigo" },
       { url: "fotos/aniversario/foto14.jpg", texto: "Celebrando cada momento", descripcion: "Las risas que compartimos" },
       { url: "fotos/aniversario/foto15.jpg", texto: "Más unidos que nunca", descripcion: "Nuestro amor crece cada día" },
       { url: "fotos/aniversario/foto16.jpg", texto: "Por muchos años más", descripcion: "El futuro nos espera" },
-       { url: "fotos/aniversario/foto17.jpg", texto: "¡365 días de amor! 🎉", descripcion: "Un año entero contigo" },
+      { url: "fotos/aniversario/foto17.jpg", texto: "¡365 días de amor! 🎉", descripcion: "Un año entero contigo" },
       { url: "fotos/aniversario/foto18.jpg", texto: "Celebrando cada momento", descripcion: "Las risas que compartimos" },
       { url: "fotos/aniversario/foto19.jpg", texto: "Más unidos que nunca", descripcion: "Nuestro amor crece cada día" },
       { url: "fotos/aniversario/foto20.jpg", texto: "Por muchos años más", descripcion: "El futuro nos espera" },
-       { url: "fotos/aniversario/foto21.jpg", texto: "¡365 días de amor! 🎉", descripcion: "Un año entero contigo" },
+      { url: "fotos/aniversario/foto21.jpg", texto: "¡365 días de amor! 🎉", descripcion: "Un año entero contigo" },
       { url: "fotos/aniversario/foto22.jpg", texto: "Celebrando cada momento", descripcion: "Las risas que compartimos" },
       { url: "fotos/aniversario/foto23.jpg", texto: "Más unidos que nunca", descripcion: "Nuestro amor crece cada día" },
       { url: "fotos/aniversario/foto24.jpg", texto: "Por muchos años más", descripcion: "El futuro nos espera" },
-       { url: "fotos/aniversario/foto25.jpg", texto: "¡365 días de amor! 🎉", descripcion: "Un año entero contigo" },
+      { url: "fotos/aniversario/foto25.jpg", texto: "¡365 días de amor! 🎉", descripcion: "Un año entero contigo" },
       { url: "fotos/aniversario/foto26.jpg", texto: "Celebrando cada momento", descripcion: "Las risas que compartimos" },
       { url: "fotos/aniversario/foto27.jpg", texto: "Más unidos que nunca", descripcion: "Nuestro amor crece cada día" },
       { url: "fotos/aniversario/foto28.jpg", texto: "Por muchos años más", descripcion: "El futuro nos espera" },
       { url: "fotos/aniversario/foto29.jpg", texto: "Por muchos años más", descripcion: "El futuro nos espera" },
+    ],
+    videos: [
+      { url: "fotos/aniversario/video1.mp4", miniatura: "fotos/aniversario/foto1.jpg", texto: "❤️" },
+      { url: "fotos/aniversario/video2.mp4", miniatura: "fotos/aniversario/foto2.jpg", texto: "❤️" },
+      { url: "fotos/aniversario/video3.mp4", miniatura: "fotos/aniversario/foto3.jpg", texto: "❤️" },
+      { url: "fotos/aniversario/video4.mp4", miniatura: "fotos/aniversario/foto4.jpg", texto: "❤️" },
+      { url: "fotos/aniversario/video5.mp4", miniatura: "fotos/aniversario/foto5.jpg", texto: "❤️" },
+      { url: "fotos/aniversario/video6.mp4", miniatura: "fotos/aniversario/foto6.jpg", texto: "❤️" },
     ],
     mensajes: [
       "¡FELIZ PRIMER ANIVERSARIO! 366 días de amor incondicional",
