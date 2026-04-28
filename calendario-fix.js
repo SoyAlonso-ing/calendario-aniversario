@@ -73,7 +73,7 @@ window.addEventListener('DOMContentLoaded', function() {
         console.log("🎬 Emoji secreto configurado para triple clic");
     }
 
-// Secreto de Carla Sariego - CARTA CON NUEVO ESTILO DE FUENTE
+// Secreto de Carla Sariego - CARTA CON ESTILOS RESPONSIVOS CORREGIDOS
 const carlaSpan = document.querySelector('.secreto-carla');
 if (carlaSpan) {
     carlaSpan.addEventListener('click', function() {
@@ -90,13 +90,12 @@ if (carlaSpan) {
                     background: #fef9e7;
                     background-image: linear-gradient(145deg, #fef9e7 0%, #fdf5e6 100%);
                     border: 2px solid #d4b28c;
-                    border-radius: 20px 20px 20px 20px;
+                    border-radius: 20px;
                     box-shadow: 0 10px 30px rgba(0,0,0,0.2), inset 0 0 30px rgba(255,215,140,0.3);
-                    padding: 30px 25px;
+                    padding: 25px 20px;
                     max-width: 500px;
                     margin: 0 auto;
                     position: relative;
-                    font-family: 'Georgia', 'Times New Roman', serif;
                     text-align: center;
                 }
                 .carta-carla::before {
@@ -111,7 +110,7 @@ if (carlaSpan) {
                     pointer-events: none;
                 }
                 .corazon-carla {
-                    font-size: 4rem;
+                    font-size: 3rem;
                     display: inline-block;
                     animation: latido-carla 1.5s infinite ease-in-out;
                     color: #e63946;
@@ -119,90 +118,128 @@ if (carlaSpan) {
                     margin-bottom: 10px;
                 }
                 .titulo-carla {
-                    font-size: 2.2rem;
+                    font-size: 1.6rem;
                     color: #b76e2e;
-                    margin: 10px 0 5px;
+                    margin: 8px 0 5px;
                     font-weight: 700;
                     letter-spacing: 2px;
                     text-transform: uppercase;
-                    text-shadow: 2px 2px 0 #f3d9b1;
-                    font-family: 'Poppins', 'Georgia', serif;
+                    text-shadow: 1px 1px 0 #f3d9b1;
+                    font-family: 'Poppins', sans-serif;
                 }
                 .subtitulo-carla {
-                    font-size: 1.3rem;
+                    font-size: 1rem;
                     color: #a1571e;
-                    margin-bottom: 20px;
+                    margin-bottom: 15px;
                     border-bottom: 1px solid #e6c9a8;
-                    padding-bottom: 10px;
+                    padding-bottom: 8px;
                     display: inline-block;
-                    font-family: 'Poppins', 'Georgia', serif;
+                    font-family: 'Poppins', sans-serif;
+                }
+                .detalle-carla {
+                    display: flex;
+                    justify-content: center;
+                    flex-wrap: wrap;
+                    gap: 10px;
+                    margin: 15px 0 10px;
+                    font-size: 0.8rem;
+                    color: #b38b5d;
+                }
+                .detalle-carla span {
+                    background: #f5e1c0;
+                    padding: 4px 10px;
+                    border-radius: 30px;
+                    border: 1px solid #d4a373;
+                    font-size: 0.75rem;
                 }
                 .mensaje-carla {
-                    font-size: 1rem;
-                    line-height: 1.7;
+                    font-size: 0.85rem;
+                    line-height: 1.55;
                     color: #5d3a1a;
                     text-align: left;
-                    padding: 0 15px;
-                    margin: 20px 0;
+                    margin: 15px 0;
                     background: rgba(255, 235, 205, 0.5);
-                    border-radius: 15px;
-                    padding: 20px;
+                    border-radius: 12px;
+                    padding: 15px;
                     box-shadow: inset 0 0 10px #e6ccb2;
                     font-family: 'Georgia', 'Times New Roman', serif;
                 }
+                .mensaje-carla br {
+                    display: block;
+                    margin: 5px 0;
+                }
                 .firma-carla {
-                    font-size: 1.8rem;
+                    font-size: 1.3rem;
                     color: #8b5a2b;
-                    margin-top: 20px;
+                    margin-top: 15px;
                     font-weight: bold;
                     position: relative;
                     font-family: 'Dancing Script', cursive;
                 }
                 .firma-carla::after {
                     content: '✧';
-                    font-size: 2rem;
+                    font-size: 1.5rem;
                     color: #c49a6c;
-                    margin-left: 10px;
+                    margin-left: 8px;
                     opacity: 0.7;
-                }
-                .detalle-carla {
-                    display: flex;
-                    justify-content: center;
-                    gap: 15px;
-                    margin: 15px 0 10px;
-                    font-size: 1rem;
-                    color: #b38b5d;
-                }
-                .detalle-carla span {
-                    background: #f5e1c0;
-                    padding: 5px 12px;
-                    border-radius: 30px;
-                    border: 1px solid #d4a373;
                 }
                 .btn-cerrar-carla {
                     background: #b76e2e;
                     border: none;
                     color: white;
-                    padding: 12px 30px;
+                    padding: 10px 25px;
                     border-radius: 40px;
-                    font-size: 1.2rem;
+                    font-size: 1rem;
                     font-family: 'Dancing Script', cursive;
                     font-weight: bold;
                     cursor: pointer;
-                    margin-top: 20px;
+                    margin-top: 15px;
                     box-shadow: 0 5px 15px rgba(183, 110, 46, 0.4);
                     transition: all 0.3s;
                     border: 1px solid #f5d5a0;
                 }
-                .btn-cerrar-carla:hover {
-                    background: #9d5f27;
-                    transform: translateY(-3px);
-                    box-shadow: 0 8px 20px rgba(183, 110, 46, 0.6);
+                /* Estilos específicos para móvil */
+                @media (max-width: 768px) {
+                    .carta-carla { 
+                        padding: 18px 15px; 
+                    }
+                    .titulo-carla { 
+                        font-size: 1.3rem; 
+                    }
+                    .subtitulo-carla {
+                        font-size: 0.9rem;
+                    }
+                    .mensaje-carla { 
+                        font-size: 0.8rem; 
+                        line-height: 1.5;
+                        padding: 12px;
+                    }
+                    .firma-carla {
+                        font-size: 1.1rem;
+                    }
+                    .detalle-carla span {
+                        font-size: 0.7rem;
+                        padding: 3px 8px;
+                    }
+                    .corazon-carla {
+                        font-size: 2.5rem;
+                    }
                 }
                 @media (max-width: 480px) {
-                    .carta-carla { padding: 20px 15px; }
-                    .titulo-carla { font-size: 1.8rem; }
-                    .mensaje-carla { font-size: 0.9rem; line-height: 1.6; }
+                    .carta-carla { 
+                        padding: 15px 12px; 
+                    }
+                    .titulo-carla { 
+                        font-size: 1.2rem; 
+                    }
+                    .mensaje-carla { 
+                        font-size: 0.75rem; 
+                        line-height: 1.45;
+                        padding: 10px;
+                    }
+                    .firma-carla {
+                        font-size: 1rem;
+                    }
                 }
             </style>
             <div class="carta-carla">
@@ -229,10 +266,10 @@ if (carlaSpan) {
                     .La que me ayudó a cambiar el cuarto.<br>
                     .La que come dumplings y papitas de barbacoa.<br>
                     <br>
-                    <strong>    La que es mi Pochi. Te amo.</strong>
+                    <strong>La que es mi Pochi. Te amo.</strong>
                 </div>
                 <div class="firma-carla">Siempre tuyo,</div>
-                <div style="font-size: 1.6rem; color: #b76e2e; margin-top: 5px; font-family: 'Dancing Script', cursive;">El del beso en el Nacional</div>
+                <div style="font-size: 1.2rem; color: #b76e2e; margin-top: 5px; font-family: 'Dancing Script', cursive;">El del beso en el Nacional</div>
             </div>
         `;
         
