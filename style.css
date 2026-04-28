@@ -6019,3 +6019,101 @@ body.zoom-activo {
     word-wrap: break-word !important;
     white-space: normal !important;
 }
+
+/* Carta secreta - tamaños de fuente responsivos */
+@media (max-width: 768px) {
+    /* Contenedor de la carta */
+    [id*="popup-simple"] div[style*="background: #fff9e6"] {
+        padding: 15px !important;
+    }
+    
+    /* Título de la carta */
+    [id*="popup-simple"] div[style*="background: #fff9e6"] h3 {
+        font-size: 1rem !important;
+        margin-bottom: 12px !important;
+    }
+    
+    [id*="popup-simple"] div[style*="background: #fff9e6"] h3 span:first-child {
+        font-size: 1.3rem !important;
+    }
+    
+    /* Contenido del texto de la carta */
+    [id*="popup-simple"] div[style*="background: #fff9e6"] div[style*="background: white"] {
+        font-size: 0.75rem !important;
+        padding: 12px !important;
+        line-height: 1.4 !important;
+    }
+    
+    /* Párrafos dentro de la carta */
+    [id*="popup-simple"] div[style*="background: #fff9e6"] p {
+        margin-bottom: 10px !important;
+        font-size: 0.75rem !important;
+    }
+    
+    /* Firma de la carta */
+    [id*="popup-simple"] div[style*="background: #fff9e6"] div[style*="text-align: right"] p {
+        font-size: 0.9rem !important;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Móviles muy pequeños */
+    [id*="popup-simple"] div[style*="background: #fff9e6"] div[style*="background: white"] {
+        font-size: 0.7rem !important;
+        padding: 10px !important;
+    }
+    
+    [id*="popup-simple"] div[style*="background: #fff9e6"] p {
+        font-size: 0.7rem !important;
+        margin-bottom: 8px !important;
+    }
+    
+    [id*="popup-simple"] div[style*="background: #fff9e6"] h3 {
+        font-size: 0.9rem !important;
+    }
+}
+
+/* ======================================================
+   FIRMA PRINCIPAL - Tu pochi pa' rato (estática al final)
+   ====================================================== */
+.firma-principal {
+    text-align: right;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(156, 39, 176, 0.2);
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 8px;
+    cursor: default;
+}
+
+.firma-texto {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #9C27B0;
+    letter-spacing: 1px;
+}
+
+.firma-corazon {
+    font-size: 1.3rem;
+    animation: latidoFirma 1.5s infinite ease-in-out;
+    display: inline-block;
+}
+
+@keyframes latidoFirma {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+}
+
+@media (max-width: 768px) {
+    .firma-texto {
+        font-size: 1rem;
+    }
+    
+    .firma-corazon {
+        font-size: 1.1rem;
+    }
+}

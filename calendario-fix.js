@@ -73,7 +73,7 @@ window.addEventListener('DOMContentLoaded', function() {
         console.log("🎬 Emoji secreto configurado para triple clic");
     }
 
-    // Secreto de Carla Sariego - POPUP ÚNICO
+// Secreto de Carla Sariego - CARTA CON NUEVO ESTILO DE FUENTE
 const carlaSpan = document.querySelector('.secreto-carla');
 if (carlaSpan) {
     carlaSpan.addEventListener('click', function() {
@@ -96,7 +96,7 @@ if (carlaSpan) {
                     max-width: 500px;
                     margin: 0 auto;
                     position: relative;
-                    font-family: 'Dancing Script', cursive;
+                    font-family: 'Georgia', 'Times New Roman', serif;
                     text-align: center;
                 }
                 .carta-carla::before {
@@ -126,6 +126,7 @@ if (carlaSpan) {
                     letter-spacing: 2px;
                     text-transform: uppercase;
                     text-shadow: 2px 2px 0 #f3d9b1;
+                    font-family: 'Poppins', 'Georgia', serif;
                 }
                 .subtitulo-carla {
                     font-size: 1.3rem;
@@ -134,10 +135,11 @@ if (carlaSpan) {
                     border-bottom: 1px solid #e6c9a8;
                     padding-bottom: 10px;
                     display: inline-block;
+                    font-family: 'Poppins', 'Georgia', serif;
                 }
                 .mensaje-carla {
-                    font-size: 1.3rem;
-                    line-height: 1.8;
+                    font-size: 1rem;
+                    line-height: 1.7;
                     color: #5d3a1a;
                     text-align: left;
                     padding: 0 15px;
@@ -146,6 +148,7 @@ if (carlaSpan) {
                     border-radius: 15px;
                     padding: 20px;
                     box-shadow: inset 0 0 10px #e6ccb2;
+                    font-family: 'Georgia', 'Times New Roman', serif;
                 }
                 .firma-carla {
                     font-size: 1.8rem;
@@ -153,6 +156,7 @@ if (carlaSpan) {
                     margin-top: 20px;
                     font-weight: bold;
                     position: relative;
+                    font-family: 'Dancing Script', cursive;
                 }
                 .firma-carla::after {
                     content: '✧';
@@ -198,39 +202,38 @@ if (carlaSpan) {
                 @media (max-width: 480px) {
                     .carta-carla { padding: 20px 15px; }
                     .titulo-carla { font-size: 1.8rem; }
-                    .mensaje-carla { font-size: 1.1rem; }
+                    .mensaje-carla { font-size: 0.9rem; line-height: 1.6; }
                 }
             </style>
             <div class="carta-carla">
-    <div class="corazon-carla">💖</div>
-    <div class="titulo-carla">Carla Sariego</div>
-    <div class="subtitulo-carla">El nombre que lo cambió todo</div>
-    <div class="detalle-carla">
-        <span>🎭 Habachela</span>
-        <span>💍 5 de julio</span>
-        <span>💫 Nacional</span>
-    </div>
-    <div class="mensaje-carla">
-        "Carla Sariego" no es solo un nombre.<br>
-        Es la chica del vestido azul en el Don Cangrejo.<br>
-        La que me escribió por Instagram lo del proyecto Habachela.<br>
-        La que me recostó la cabeza en el hombro aquella noche.<br>
-        La que respondió "No lo mires mucho, que eso es mío".<br>
-        La del primer beso en el Nacional.<br>
-        La que se tiró un peo cuando le pedí ser su novio.<br>
-        La Tosquina del billar.<br>
-        La que me roba los pullovers.<br>
-        La que duerme calva a mi lado.<br>
-        La que hizo un teatro de recuerdos el 14 de febrero.<br>
-        La que me ayudó a cambiar el cuarto.<br>
-        La que come dumplings y papitas de barbacoa.<br>
-        <br>
-        <strong>La que es mi Pochi. Te amo.</strong>
-    </div>
-    <div class="firma-carla">Siempre tuyo,</div>
-    <div style="font-size: 1.6rem; color: #b76e2e; margin-top: 5px;">El del beso en el Nacional</div>
-    
-</div>
+                <div class="corazon-carla">💖</div>
+                <div class="titulo-carla">Carla Sariego</div>
+                <div class="subtitulo-carla">El nombre que lo cambió todo</div>
+                <div class="detalle-carla">
+                    <span>🎭 Habachela</span>
+                    <span>💍 5 de julio</span>
+                    <span>💫 Nacional</span>
+                </div>
+                <div class="mensaje-carla">
+                    "Carla Sariego" no es solo un nombre.<br>
+                    .Es la chica del vestido azul en el Don Cangrejo.<br>
+                    .La que me escribió por Instagram lo del proyecto Habachela.<br>
+                    .La que me recostó la cabeza en el hombro aquella noche.<br>
+                    .La que respondió "No lo mires mucho, que eso es mío".<br>
+                    .La del primer beso en el Nacional.<br>
+                    .La que se tiró un peo cuando le pedí ser su novio.<br>
+                    .La Tosquina del billar.<br>
+                    .La que me roba los pullovers.<br>
+                    .La que duerme calva a mi lado.<br>
+                    .La que hizo un teatro de recuerdos el 14 de febrero.<br>
+                    .La que me ayudó a cambiar el cuarto.<br>
+                    .La que come dumplings y papitas de barbacoa.<br>
+                    <br>
+                    <strong>    La que es mi Pochi. Te amo.</strong>
+                </div>
+                <div class="firma-carla">Siempre tuyo,</div>
+                <div style="font-size: 1.6rem; color: #b76e2e; margin-top: 5px; font-family: 'Dancing Script', cursive;">El del beso en el Nacional</div>
+            </div>
         `;
         
         mostrarPopupContenido(contenidoUnico, false, [], null, false);
@@ -5420,18 +5423,18 @@ function mostrarCartaSecretaDirecta(texto) {
         `;
     }
     
-    const html = `
-        <div style="background: #fff9e6; border-radius: 20px; padding: 30px; max-width: 580px; margin: 0 auto; border: 3px solid #9C27B0; box-shadow: 0 20px 40px rgba(0,0,0,0.25);">
-            <h3 style="color: #9C27B0; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; font-family: 'Poppins', sans-serif; font-size: 1.5rem; border-bottom: 2px solid #f0e0c0; padding-bottom: 15px;">
-                <span style="font-size: 2rem;">💌</span> Para ti, en este 5 de julio
-            </h3>
-            
-            <div style="background: white; border-radius: 15px; padding: 25px; max-height: 500px; overflow-y: auto; font-family: 'Poppins', sans-serif; font-size: 1rem; line-height: 1.6; color: #3a2a1f; text-align: left; box-shadow: inset 0 0 10px rgba(0,0,0,0.03);">
-                ${htmlContenido}
-                ${firmaHTML}
-            </div>
+  const html = `
+    <div style="background: #fff9e6; border-radius: 20px; padding: 20px; max-width: 580px; margin: 0 auto; border: 3px solid #9C27B0; box-shadow: 0 20px 40px rgba(0,0,0,0.25);">
+        <h3 style="color: #9C27B0; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; font-family: 'Poppins', sans-serif; font-size: 1.2rem; border-bottom: 2px solid #f0e0c0; padding-bottom: 12px;">
+            <span style="font-size: 1.5rem;">💌</span> Para ti, en este 5 de julio
+        </h3>
+        
+        <div style="background: white; border-radius: 15px; padding: 18px; max-height: 500px; overflow-y: auto; font-family: 'Poppins', sans-serif; font-size: 0.85rem; line-height: 1.5; color: #3a2a1f; text-align: left; box-shadow: inset 0 0 10px rgba(0,0,0,0.03);">
+            ${htmlContenido}
+            ${firmaHTML}
         </div>
-    `;
+    </div>
+`;
     
     mostrarPopupContenido(html, false, [], null, false);
 }
