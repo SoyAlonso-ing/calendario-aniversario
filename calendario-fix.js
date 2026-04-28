@@ -634,22 +634,37 @@ function mostrarContenidoAjustado(numeroDia, fecha) {
                 lanzarEfectosEspeciales();
             }
             
-            // CARTA SECRETA PARA EL 5 DE JULIO
-            if (fechaKey === "07-05" && dato.cartaTexto) {
-                const textoEscapado = dato.cartaTexto.replace(/'/g, "\\'").replace(/"/g, '&quot;');
-                const cartaHTML = `
-                    <div style="position: absolute; top: 10px; right: 10px; z-index: 10;">
-                        <span style="cursor: pointer; font-size: 1.3rem; opacity: 0.6; transition: opacity 0.2s, transform 0.2s; display: inline-block;" 
-                              onclick="mostrarCartaSecretaDirecta('${textoEscapado}')"
-                              onmouseover="this.style.opacity='1'; this.style.transform='scale(1.1)'" 
-                              onmouseout="this.style.opacity='0.6'; this.style.transform='scale(1)'"
-                              title="📜 Carta secreta">
-                            👁️
-                        </span>
-                    </div>
-                `;
-                contenidoHTML = `<div style="position: relative;">${contenidoHTML}${cartaHTML}</div>`;
-            }
+// CARTA SECRETA PARA EL 5 DE JULIO - OJO PEQUEÑO PEGADO AL BORDE DERECHO
+if (fechaKey === "07-05" && dato.cartaTexto) {
+    const textoEscapado = dato.cartaTexto.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+    const cartaHTML = `
+        <div style="
+            text-align: right;
+            margin-right: -15px;
+            margin-top: -10px;
+            margin-bottom: 0px;
+            position: relative;
+        ">
+            <span style="
+                cursor: pointer; 
+                font-size: 1rem; 
+                opacity: 0.5; 
+                transition: opacity 0.2s, transform 0.2s; 
+                display: inline-block;
+                line-height: 1;
+                padding: 2px 5px;
+            " 
+                  onclick="mostrarCartaSecretaDirecta('${textoEscapado}')"
+                  onmouseover="this.style.opacity='0.8'; this.style.transform='scale(1.05)'" 
+                  onmouseout="this.style.opacity='0.5'; this.style.transform='scale(1)'"
+                  title="📜 Carta secreta">
+                👁️
+            </span>
+        </div>
+    `;
+    // Insertar la carta ANTES del contenido
+    contenidoHTML = cartaHTML + contenidoHTML;
+}
         } else {
             // No es día especial, asignar clase baja por defecto
             claseImportancia = 'popup-importancia-baja';
@@ -5339,72 +5354,66 @@ function mostrarVideoSecreto() {
 }
 
 function mostrarCartaSecretaDirecta(texto) {
-    // Limpiar el texto
-    const textoLimpio = texto.replace(/&quot;/g, '"');
+    // Limpiar el texto - eliminar espacios múltiples y saltos de línea excesivos
+    let textoLimpio = texto.replace(/\s+/g, ' ').trim();
+    // Restaurar puntos y mayúsculas
+    textoLimpio = textoLimpio.replace(/\.\s+/g, '. ').replace(/\s+\./g, '.');
     
-    // Dividir el texto en párrafos por puntos seguidos de mayúscula o saltos de línea
-    let partes = textoLimpio.split(/(?<=[.!?])\s+(?=[A-ZÁÉÍÓÚ"“])/);
-    
-    // Separar el contenido de la firma
+    // Separar contenido y firma
     let contenidoPrincipal = textoLimpio;
     let firma = "";
     
-    // Buscar "Att:" para separar la firma
-    if (textoLimpio.includes("Att:")) {
-        const indiceAtt = textoLimpio.indexOf("Att:");
-        contenidoPrincipal = textoLimpio.substring(0, indiceAtt).trim();
-        firma = textoLimpio.substring(indiceAtt).trim();
+    // Buscar "Att:" o "Att " para separar la firma
+    const attIndex = textoLimpio.search(/Att:|Att\s/);
+    if (attIndex !== -1) {
+        contenidoPrincipal = textoLimpio.substring(0, attIndex).trim();
+        firma = textoLimpio.substring(attIndex).trim();
+        // Limpiar la firma
+        firma = firma.replace(/Att:|Att\s/, '').trim();
     }
     
-    // Construir los párrafos del contenido principal
-    let htmlContenido = '';
+    // Dividir en frases por puntos, signos de exclamación o interrogación
+    // pero mantener los puntos dentro de números (ej: 3.5 no se separa)
+    const frases = contenidoPrincipal.split(/(?<=[.!?])\s+(?=[A-ZÁÉÍÓÚÜÑ])/);
     
-    // Dividir por puntos y saltos de línea
-    let parrafosBrutos = contenidoPrincipal.split(/\n\s*\n/);
+    // Construir los párrafos (cada 3-4 frases)
+    let parrafos = [];
+    let parrafoActual = "";
+    const frasesPorParrafo = 3;
     
-    for (let i = 0; i < parrafosBrutos.length; i++) {
-        let bloque = parrafosBrutos[i].trim();
-        if (bloque.length === 0) continue;
+    for (let i = 0; i < frases.length; i++) {
+        let frase = frases[i].trim();
+        if (!frase) continue;
         
-        // Si el bloque tiene puntos, dividirlo en oraciones
-        if (bloque.includes('.') && bloque.length > 100) {
-            let oraciones = bloque.split(/\.\s+(?=[A-ZÁÉÍÓÚ])/);
-            let parrafoActual = '';
-            
-            for (let j = 0; j < oraciones.length; j++) {
-                let oracion = oraciones[j].trim();
-                if (oracion.length === 0) continue;
-                if (!oracion.endsWith('.') && !oracion.endsWith('?') && !oracion.endsWith('!')) {
-                    oracion += '.';
-                }
-                if (parrafoActual.length + oracion.length < 300) {
-                    parrafoActual += (parrafoActual ? ' ' : '') + oracion;
-                } else {
-                    if (parrafoActual) {
-                        htmlContenido += `<p style="margin: 0 0 15px 0; line-height: 1.65; text-align: justify;">${parrafoActual}</p>`;
-                    }
-                    parrafoActual = oracion;
-                }
-            }
-            if (parrafoActual) {
-                htmlContenido += `<p style="margin: 0 0 15px 0; line-height: 1.65; text-align: justify;">${parrafoActual}</p>`;
-            }
+        // Asegurar que termine con punto si no tiene
+        if (!frase.match(/[.!?]$/)) {
+            frase += ".";
+        }
+        
+        if (parrafoActual.split(' ').length < 60 && parrafoActual.split('.').length < frasesPorParrafo) {
+            parrafoActual += (parrafoActual ? " " : "") + frase;
         } else {
-            // Asegurar que termine con punto
-            if (!bloque.endsWith('.') && !bloque.endsWith('?') && !bloque.endsWith('!')) {
-                bloque += '.';
-            }
-            htmlContenido += `<p style="margin: 0 0 15px 0; line-height: 1.65; text-align: justify;">${bloque}</p>`;
+            if (parrafoActual) parrafos.push(parrafoActual);
+            parrafoActual = frase;
         }
     }
+    if (parrafoActual) parrafos.push(parrafoActual);
     
-    // Procesar la firma (TODO lo que viene después de Att:)
+    // Construir HTML de los párrafos con espaciado normal
+    let htmlContenido = '';
+    for (let i = 0; i < parrafos.length; i++) {
+        let parrafo = parrafos[i];
+        // Eliminar espacios múltiples dentro del párrafo
+        parrafo = parrafo.replace(/\s{2,}/g, ' ');
+        htmlContenido += `<p style="margin: 0 0 15px 0; line-height: 1.65; text-align: left; word-spacing: normal; letter-spacing: normal;">${parrafo}</p>`;
+    }
+    
+    // Procesar la firma
     let firmaHTML = '';
     if (firma) {
-        // Limpiar y dar formato a la firma
         firmaHTML = `
             <div style="margin-top: 25px; padding-top: 15px; text-align: right; border-top: 2px solid #e6c9a8;">
-                <p style="margin: 0; font-family: 'Dancing Script', cursive; font-size: 1.3rem; font-weight: 600; color: #5d3a1a; font-style: italic;">
+                <p style="margin: 0; font-family: 'Dancing Script', cursive; font-size: 1.4rem; font-weight: 600; color: #5d3a1a; font-style: italic;">
                     ${firma}
                 </p>
             </div>

@@ -5956,3 +5956,66 @@ body.zoom-activo {
     pointer-events: none;
     border-radius: 20px;
 }
+
+/* Ajustes para el ícono de la carta en móvil */
+@media (max-width: 768px) {
+    /* Si usas la versión con texto "Leer carta" */
+    [onclick*="mostrarCartaSecretaDirecta"] {
+        margin-right: 5px !important;
+        margin-bottom: 5px !important;
+        padding: 5px 10px !important;
+    }
+    
+    [onclick*="mostrarCartaSecretaDirecta"] span:first-child {
+        font-size: 1.2rem !important;
+    }
+    
+    [onclick*="mostrarCartaSecretaDirecta"] span:last-child {
+        font-size: 0.75rem !important;
+    }
+}
+
+/* Para móviles muy pequeños */
+@media (max-width: 480px) {
+    [onclick*="mostrarCartaSecretaDirecta"] {
+        padding: 4px 8px !important;
+    }
+    
+    [onclick*="mostrarCartaSecretaDirecta"] span:first-child {
+        font-size: 1rem !important;
+    }
+    
+    [onclick*="mostrarCartaSecretaDirecta"] span:last-child {
+        font-size: 0.7rem !important;
+    }
+}
+/* Forzar texto de mensajes a la izquierda */
+.mensajes-dia,
+.mensajes-dia *,
+.mensaje-item,
+.mensaje-item p,
+#popup-simple .mensajes-dia,
+#popup-simple .mensaje-item,
+#popup-simple .mensaje-item p {
+    text-align: left !important;
+}
+
+/* Para que el icono del corazón quede a la izquierda también */
+.mensaje-item {
+    display: flex !important;
+    align-items: flex-start !important;
+    gap: 10px !important;
+}
+
+.mensaje-item i {
+    flex-shrink: 0 !important;
+    margin-top: 3px !important;
+}
+
+.mensaje-item p {
+    flex: 1 !important;
+    margin: 0 !important;
+    text-align: left !important;
+    word-wrap: break-word !important;
+    white-space: normal !important;
+}
