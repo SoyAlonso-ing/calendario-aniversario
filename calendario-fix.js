@@ -532,7 +532,7 @@ function mostrarContenidoAjustado(numeroDia, fecha) {
         }
         
         // HTML especial para aniversario
-        if (tieneFotos && fotosArray.length > 0) {
+        if ((tieneFotos && fotosArray.length > 0) || (videosArray && videosArray.length > 0)) {
             contenidoHTML = crearHTMLGaleria(numeroDia, fecha, fotosArray, mensajesArray, videosArray, true);
         } else {
             contenidoHTML = `
@@ -587,7 +587,7 @@ function mostrarContenidoAjustado(numeroDia, fecha) {
         }
         
         // HTML para día de inicio con galería
-        if (tieneFotos && fotosArray.length > 0) {
+       if ((tieneFotos && fotosArray.length > 0) || (videosArray && videosArray.length > 0)) {
             contenidoHTML = crearHTMLGaleria(numeroDia, fecha, fotosArray, mensajesArray, videosArray, false);
         } else {
             const titulo = `Día ${numeroDia} - ${dia} de ${MESES[mes]} ${año}`;
@@ -669,7 +669,7 @@ function mostrarContenidoAjustado(numeroDia, fecha) {
             }
             
             // Si tiene fotos, crear galería
-            if (tieneFotos && fotosArray.length > 0) {
+            if ((tieneFotos && fotosArray.length > 0) || (videosArray && videosArray.length > 0)) {
                 contenidoHTML = crearHTMLGaleria(numeroDia, fecha, fotosArray, mensajesArray, videosArray, false);
                 lanzarEfectosEspeciales();
             }
