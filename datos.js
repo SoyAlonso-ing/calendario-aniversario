@@ -2342,6 +2342,13 @@ const palabrasSecretas = [
     significado:
       "El emoji que desde el día que lo vimos en el malecón lo elegimos los dos y que x siempre estará reservado para ti",
   },
+
+  {
+    palabra: "Fritu",
+    significado:
+      "Tu nariz a veces parece una fritura de malanga jajaja",
+  },
+
   {
     palabra: "manualidades",
     significado: "Los mejores regalos son cuando los hace uno mismo",

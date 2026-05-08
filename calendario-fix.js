@@ -5356,7 +5356,7 @@ function iniciarContadorClicks() {
 
 function mostrarVideoSecreto() {
     // CAMBIA ESTA URL POR LA DEL VIDEO QUE QUIERAS
-    const videoUrl = 'fotos/video-secreto.mp4'; // Para video local
+    const videoUrl = 'fotos/videoSorpresa.mp4'; // Para video local
     // const videoUrl = 'https://www.youtube.com/watch?v=VIDEO_ID'; // Para YouTube
     
     // Detectar si es YouTube
